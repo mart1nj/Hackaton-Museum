@@ -5269,9 +5269,6 @@
       },
       "Core/1.0.0": {
         "type": "project",
-        "dependencies": {
-          "Aids": "1.0.0"
-        },
         "compile": {
           "bin/placeholder/Core.dll": {}
         },
@@ -5281,10 +5278,6 @@
       },
       "Data/1.0.0": {
         "type": "project",
-        "dependencies": {
-          "Aids": "1.0.0",
-          "Core": "1.0.0"
-        },
         "compile": {
           "bin/placeholder/Data.dll": {}
         },
@@ -5294,11 +5287,6 @@
       },
       "Domain/1.0.0": {
         "type": "project",
-        "dependencies": {
-          "Aids": "1.0.0",
-          "Core": "1.0.0",
-          "Data": "1.0.0"
-        },
         "compile": {
           "bin/placeholder/Domain.dll": {}
         },
@@ -5308,12 +5296,6 @@
       },
       "Facade/1.0.0": {
         "type": "project",
-        "dependencies": {
-          "Aids": "1.0.0",
-          "Core": "1.0.0",
-          "Data": "1.0.0",
-          "Domain": "1.0.0"
-        },
         "compile": {
           "bin/placeholder/Facade.dll": {}
         },
@@ -5411,11 +5393,10 @@
       ]
     },
     "Microsoft.AspNet.WebApi.Client/5.2.4": {
-      "sha512": "3ZUyFJevFGCOiBAv4zf41bADtofQ+waCuUIMregNdDpVFtH0BQxmMPdBDDuoLCEClxsXjxnel9USHBlnrRpthA==",
+      "sha512": "OdBVC2bQWkf9qDd7Mt07ev4SwIdu6VmLBMTWC0D5cOP/HWSXyv/77otwtXVrAo42duNjvXOjzjP5oOI9m1+DTQ==",
       "type": "package",
       "path": "microsoft.aspnet.webapi.client/5.2.4",
       "files": [
-        ".signature.p7s",
         "lib/net45/System.Net.Http.Formatting.dll",
         "lib/net45/System.Net.Http.Formatting.xml",
         "lib/netstandard2.0/System.Net.Http.Formatting.dll",
@@ -13670,23 +13651,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\birgi\\.nuget\\packages\\": {},
+    "C:\\Users\\Hydrasticus\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\birgi\\Documents\\Äriinfotehnoloogia\\infosüs -  andmebaas\\Open\\Open\\Infra\\Infra.csproj",
+      "projectUniqueName": "D:\\Documents\\Rider\\Projects\\SiilSonicBank\\Open\\Infra\\Infra.csproj",
       "projectName": "Open.Infra",
-      "projectPath": "C:\\Users\\birgi\\Documents\\Äriinfotehnoloogia\\infosüs -  andmebaas\\Open\\Open\\Infra\\Infra.csproj",
-      "packagesPath": "C:\\Users\\birgi\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\birgi\\Documents\\Äriinfotehnoloogia\\infosüs -  andmebaas\\Open\\Open\\Infra\\obj\\",
+      "projectPath": "D:\\Documents\\Rider\\Projects\\SiilSonicBank\\Open\\Infra\\Infra.csproj",
+      "packagesPath": "C:\\Users\\Hydrasticus\\.nuget\\packages\\",
+      "outputPath": "D:\\Documents\\Rider\\Projects\\SiilSonicBank\\Open\\Infra\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\birgi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Hydrasticus\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -13699,20 +13680,20 @@
       "frameworks": {
         "netcoreapp2.1": {
           "projectReferences": {
-            "C:\\Users\\birgi\\Documents\\Äriinfotehnoloogia\\infosüs -  andmebaas\\Open\\Open\\Aids\\Aids.csproj": {
-              "projectPath": "C:\\Users\\birgi\\Documents\\Äriinfotehnoloogia\\infosüs -  andmebaas\\Open\\Open\\Aids\\Aids.csproj"
+            "D:\\Documents\\Rider\\Projects\\SiilSonicBank\\Open\\Aids\\Aids.csproj": {
+              "projectPath": "D:\\Documents\\Rider\\Projects\\SiilSonicBank\\Open\\Aids\\Aids.csproj"
             },
-            "C:\\Users\\birgi\\Documents\\Äriinfotehnoloogia\\infosüs -  andmebaas\\Open\\Open\\Core\\Core.csproj": {
-              "projectPath": "C:\\Users\\birgi\\Documents\\Äriinfotehnoloogia\\infosüs -  andmebaas\\Open\\Open\\Core\\Core.csproj"
+            "D:\\Documents\\Rider\\Projects\\SiilSonicBank\\Open\\Core\\Core.csproj": {
+              "projectPath": "D:\\Documents\\Rider\\Projects\\SiilSonicBank\\Open\\Core\\Core.csproj"
             },
-            "C:\\Users\\birgi\\Documents\\Äriinfotehnoloogia\\infosüs -  andmebaas\\Open\\Open\\Data\\Data.csproj": {
-              "projectPath": "C:\\Users\\birgi\\Documents\\Äriinfotehnoloogia\\infosüs -  andmebaas\\Open\\Open\\Data\\Data.csproj"
+            "D:\\Documents\\Rider\\Projects\\SiilSonicBank\\Open\\Data\\Data.csproj": {
+              "projectPath": "D:\\Documents\\Rider\\Projects\\SiilSonicBank\\Open\\Data\\Data.csproj"
             },
-            "C:\\Users\\birgi\\Documents\\Äriinfotehnoloogia\\infosüs -  andmebaas\\Open\\Open\\Domain\\Domain.csproj": {
-              "projectPath": "C:\\Users\\birgi\\Documents\\Äriinfotehnoloogia\\infosüs -  andmebaas\\Open\\Open\\Domain\\Domain.csproj"
+            "D:\\Documents\\Rider\\Projects\\SiilSonicBank\\Open\\Domain\\Domain.csproj": {
+              "projectPath": "D:\\Documents\\Rider\\Projects\\SiilSonicBank\\Open\\Domain\\Domain.csproj"
             },
-            "C:\\Users\\birgi\\Documents\\Äriinfotehnoloogia\\infosüs -  andmebaas\\Open\\Open\\Facade\\Facade.csproj": {
-              "projectPath": "C:\\Users\\birgi\\Documents\\Äriinfotehnoloogia\\infosüs -  andmebaas\\Open\\Open\\Facade\\Facade.csproj"
+            "D:\\Documents\\Rider\\Projects\\SiilSonicBank\\Open\\Facade\\Facade.csproj": {
+              "projectPath": "D:\\Documents\\Rider\\Projects\\SiilSonicBank\\Open\\Facade\\Facade.csproj"
             }
           }
         }

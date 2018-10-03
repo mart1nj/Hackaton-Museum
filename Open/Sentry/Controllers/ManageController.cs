@@ -94,6 +94,7 @@ namespace Open.Sentry.Controllers {
 
         [HttpPost] 
         public async Task<IActionResult> SendVerificationEmail(IndexViewModel model) {
+            // ReSharper disable once Mvc.ViewNotResolved
             if (!ModelState.IsValid) { return View(model); }
 
             var user = await _userManager.GetUserAsync(User);
