@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bank\ClientData.cs" />
     <Compile Include="Common\NamedData.cs" />
     <Compile Include="Common\MetricsData.cs" />
     <Compile Include="Common\PeriodData.cs" />
