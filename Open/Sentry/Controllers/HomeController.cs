@@ -32,5 +32,11 @@ namespace Open.Sentry.Controllers {
 
             return View();
         }
+        public IActionResult Settings()
+        {
+            ViewData["Message"] = "Settings";
+
+            return View();
+        }
     }
 }
