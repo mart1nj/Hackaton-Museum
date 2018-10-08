@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
+using Open.Data.Bank;
 using Open.Data.Party;
 using Open.Data.Quantity;
+
 namespace Open.Infra {
     public class SentryDbContext : DbContext {
         public SentryDbContext(DbContextOptions<SentryDbContext> o) : base(o) { }
@@ -21,6 +23,8 @@ namespace Open.Infra {
         public DbSet<RateTypeData> RateTypes { get; set; }
         public DbSet<PaymentMethodData> PaymentMethods { get; set; }
         public DbSet<PaymentData> Payments { get; set; }
+        
+        public DbSet<ClientData> Clients { get; set; }
 
         protected override void OnModelCreating(ModelBuilder b) {
             base.OnModelCreating(b);
@@ -33,7 +37,17 @@ namespace Open.Infra {
             createPaymentMethodTable(b);
             createRateTable(b);
             createPaymentTable(b);
+            createClientTable(b);
         }
+
+        private static void createClientTable(ModelBuilder b)
+        {
+            const string table = "Client";
+            b.Entity<ClientData>().ToTable(table);
+            createForeignKey<ClientData, EmailAddressData>(b, table, x => x.EmailAddressDataID, x => x.EmailAddress);
+            createForeignKey<ClientData, GeographicAddressData>(b, table, x => x.GeographicAddressDataID, x => x.GeographicAddress);
+        }
+
         private static void createPaymentMethodTable(ModelBuilder b)
         {
             const string table = "PaymentMethod";

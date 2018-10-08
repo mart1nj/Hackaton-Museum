@@ -43,7 +43,8 @@
   <ItemGroup>
     <Compile Include="Bank\Client.cs" />
     <Compile Include="Bank\ClientFactory.cs" />
-    <Compile Include="Bank\IClient.cs" />
+    <Compile Include="Bank\ClientsList.cs" />
+    <Compile Include="Bank\IClientsRepository.cs" />
     <Compile Include="Common\NamedEntity.cs" />
     <Compile Include="Common\IMetrics.cs" />
     <Compile Include="Common\Metrics.cs" />

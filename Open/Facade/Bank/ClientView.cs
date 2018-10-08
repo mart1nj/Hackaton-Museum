@@ -1,41 +1,40 @@
-﻿using Open.Data.Common;
-using Open.Data.Party;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using Open.Facade.Party;
+using Open.Facade.Common;
 
-namespace Open.Data.Bank
+namespace Open.Facade.Bank
 {
-    public class ClientData : IdentifiedData
-    {
+    public class ClientView : EntityView {
         private string firstName;
         private string lastName;
-        private string passwordHash;
         private string geographicAddressID;
         private string emailAddressID;
 
-        public string FirstName
-        {
+        [Required]
+        [DisplayName("First Name")]
+        public string FirstName {
             get => getString(ref firstName);
             set => firstName = value;
         }
 
-        public string LastName
-        {
+        [Required]
+        [DisplayName("Last Name")]
+        public string LastName {
             get => getString(ref lastName);
             set => lastName = value;
         }
         
-        public string GeographicAddressDataID {
+        public string GeographicAddressID
+        {
             get => getString(ref geographicAddressID);
             set => geographicAddressID = value;
         }
-        
-        public string EmailAddressDataID {
+        public string EmailAddressID
+        {
             get => getString(ref emailAddressID);
             set => emailAddressID = value;
         }
-        
-        public GeographicAddressData GeographicAddress { get; set; }
-        
-        public EmailAddressData EmailAddress { get; set; }
-
     }
 }
+

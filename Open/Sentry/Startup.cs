@@ -5,9 +5,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Open.Domain.Bank;
 using Open.Domain.Party;
 using Open.Domain.Quantity;
 using Open.Infra;
+using Open.Infra.Bank;
 using Open.Infra.Party;
 using Open.Infra.Quantity;
 using Open.Sentry.Data;
@@ -35,6 +37,7 @@ namespace Open.Sentry {
             services.AddScoped<IRateRepository, RatesRepository>();
             services.AddScoped<IPaymentMethodsRepository, PaymentMethodsRepository>();
             services.AddScoped<IPaymentsRepository, PaymentsRepository>();
+            services.AddScoped<IClientsRepository, ClientsRepository>();
         }
 
         protected virtual void setMvcWithAntyFoggeryToken(IServiceCollection services) {

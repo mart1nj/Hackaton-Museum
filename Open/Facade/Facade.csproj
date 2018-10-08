@@ -42,6 +42,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bank\ClientView.cs" />
+    <Compile Include="Bank\ClientViewFactory.cs" />
     <Compile Include="Common\NamedView.cs" />
     <Compile Include="Common\PeriodView.cs" />
     <Compile Include="Common\EntityView.cs" />
