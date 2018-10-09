@@ -78,7 +78,7 @@ Write(ViewData["Message"]);
             WriteLiteral("</h3>\r\n\r\n<li>");
             EndContext();
             BeginContext(110, 74, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "39d582dab73442f1968efb782942f676", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "7ee69aa62cd5449288fcc26bdc5e11a9", async() => {
                 BeginContext(171, 9, true);
                 WriteLiteral("Countries");
                 EndContext();
@@ -104,7 +104,7 @@ Write(ViewData["Message"]);
             WriteLiteral("</li>\r\n<li>");
             EndContext();
             BeginContext(195, 72, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "85f2ef8182894fae9929a4d741b67952", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "4db8aaa757f4403fbcf3d704bee81a4e", async() => {
                 BeginContext(255, 8, true);
                 WriteLiteral("Contacts");
                 EndContext();

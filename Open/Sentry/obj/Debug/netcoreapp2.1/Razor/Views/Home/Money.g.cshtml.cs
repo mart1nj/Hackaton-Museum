@@ -83,7 +83,7 @@ Write(ViewData["Message"]);
             WriteLiteral("</h3>\r\n\r\n<li>");
             EndContext();
             BeginContext(107, 74, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "da16e3ffc2244d2e980497fbd13dbb90", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "a7bace35a9ea456e8eab58fbb2b26a6f", async() => {
                 BeginContext(168, 9, true);
                 WriteLiteral("Countries");
                 EndContext();
@@ -109,7 +109,7 @@ Write(ViewData["Message"]);
             WriteLiteral("</li>\r\n<li>");
             EndContext();
             BeginContext(192, 76, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "8b7331c445b7403b8f77d6f967e95a14", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "dca1ad1019194864a56529ca26e7abb9", async() => {
                 BeginContext(254, 10, true);
                 WriteLiteral("Currencies");
                 EndContext();
@@ -135,7 +135,7 @@ Write(ViewData["Message"]);
             WriteLiteral("</li>\r\n<li>");
             EndContext();
             BeginContext(279, 75, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "eb038fa04a1542f196de4c4bb4fb62a8", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "89589496e56a47bdbb46f4bfd054c301", async() => {
                 BeginContext(340, 10, true);
                 WriteLiteral("Rate Types");
                 EndContext();
@@ -161,7 +161,7 @@ Write(ViewData["Message"]);
             WriteLiteral("</li>\r\n<li>");
             EndContext();
             BeginContext(365, 66, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "b6ed25af800c41aa998a90ccc5a8d3b1", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "12c3944c25684b2a897c59204738109c", async() => {
                 BeginContext(422, 5, true);
                 WriteLiteral("Rates");
                 EndContext();
@@ -187,7 +187,7 @@ Write(ViewData["Message"]);
             WriteLiteral("</li>\r\n<li>");
             EndContext();
             BeginContext(442, 85, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "9dd7435c1d87422587b8bc216602b09d", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "8c991dea167240dc917312ae993bd694", async() => {
                 BeginContext(508, 15, true);
                 WriteLiteral("Payment methods");
                 EndContext();
@@ -213,7 +213,7 @@ Write(ViewData["Message"]);
             WriteLiteral("</li>\r\n<li>");
             EndContext();
             BeginContext(538, 72, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "39cf331d015f4bb087a89e78626ad52c", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "9752a10f19aa4b47a99693173e552eaa", async() => {
                 BeginContext(598, 8, true);
                 WriteLiteral("Payments");
                 EndContext();
@@ -239,7 +239,7 @@ Write(ViewData["Message"]);
             WriteLiteral("</li>\r\n<li>");
             EndContext();
             BeginContext(621, 76, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "3ee69aedfdfc4be39c50a6c02882231d", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "8ef1c817142748e4912ad29673f6361d", async() => {
                 BeginContext(683, 10, true);
                 WriteLiteral("Calculator");
                 EndContext();
