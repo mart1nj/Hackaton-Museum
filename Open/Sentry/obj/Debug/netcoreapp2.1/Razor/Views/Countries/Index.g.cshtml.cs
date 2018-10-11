@@ -66,7 +66,7 @@ using Open.Sentry.Extensions;
                 WriteLiteral("\r\n    ");
                 EndContext();
                 BeginContext(192, 35, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "ba648127948346a690928e1e5bd2e8b9", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "df703c1adac54e6499c07e61065a0a47", async() => {
                     BeginContext(213, 10, true);
                     WriteLiteral("Create New");
                     EndContext();
@@ -93,7 +93,7 @@ using Open.Sentry.Extensions;
             WriteLiteral("\r\n");
             EndContext();
             BeginContext(234, 1272, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("body", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f4b0b23ef46f4aa8886e1e811125f6e7", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("body", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "fe0989e4a52342d682a878513656d1c2", async() => {
                 BeginContext(240, 29, true);
                 WriteLiteral("\r\n    <table class=\"table\">\r\n");
                 EndContext();

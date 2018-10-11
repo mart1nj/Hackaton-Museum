@@ -65,7 +65,7 @@ using Open.Sentry.Extensions;
             WriteLiteral("\r\n");
             EndContext();
             BeginContext(210, 306, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("body", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "350cee5a3c1a4ea6ab91c3b438bc94e6", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("body", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "4f0191fe7a6341d5be233d66a85904fb", async() => {
                 BeginContext(216, 2, true);
                 WriteLiteral("\r\n");
                 EndContext();

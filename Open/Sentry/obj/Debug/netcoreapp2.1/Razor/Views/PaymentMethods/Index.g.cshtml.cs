@@ -65,7 +65,7 @@ using Open.Sentry.Extensions;
                 WriteLiteral("\r\n    <t>Create new </t>\r\n    ");
                 EndContext();
                 BeginContext(229, 30, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "16f89e73cf5c4c2ebcb7714ca1ea6e42", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "79bafecd212b4ff39907d5f99c549c50", async() => {
                     BeginContext(250, 5, true);
                     WriteLiteral("Check");
                     EndContext();
@@ -87,7 +87,7 @@ using Open.Sentry.Extensions;
                 WriteLiteral("\r\n    ");
                 EndContext();
                 BeginContext(265, 46, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "dd3c74a553134599b22e8ae4a9147aa9", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "536c5e2e9ed64b17b5184442a095d55a", async() => {
                     BeginContext(296, 11, true);
                     WriteLiteral("Credit Card");
                     EndContext();
@@ -109,7 +109,7 @@ using Open.Sentry.Extensions;
                 WriteLiteral("\r\n    ");
                 EndContext();
                 BeginContext(317, 44, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "2dc356cb529a4d0186d14d1253c6614b", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "81da3b058c0446788d4b0abeb4efcdc2", async() => {
                     BeginContext(347, 10, true);
                     WriteLiteral("Debit Card");
                     EndContext();
@@ -136,7 +136,7 @@ using Open.Sentry.Extensions;
             WriteLiteral("\r\n");
             EndContext();
             BeginContext(368, 1096, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("body", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "696053717f8c44ee9d58b4b3118e2597", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("body", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "bc8d408dc3e645ca871ac948c0d161e3", async() => {
                 BeginContext(374, 29, true);
                 WriteLiteral("\r\n    <table class=\"table\">\r\n");
                 EndContext();
