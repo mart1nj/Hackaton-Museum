@@ -1,9 +1,12 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Open.Sentry.Models;
+
 namespace Open.Sentry.Controllers {
     public class HomeController : Controller {
-        public IActionResult Index() { return View(); }
+        public IActionResult Index() {
+            return View();
+        }
 
         public IActionResult About() {
             ViewData["Message"] = "Your application description page.";
@@ -22,25 +25,8 @@ namespace Open.Sentry.Controllers {
                 RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
             });
         }
-        public IActionResult Money() {
-            ViewData["Message"] = "Money related stuff.";
 
-            return View();
-        }
-        public IActionResult Contacts() {
-            ViewData["Message"] = "Contacts related stuff.";
-
-            return View();
-        }
-        public IActionResult Settings()
-        {
-            ViewData["Message"] = "Settings";
-
-            return View();
-        }
-        
-        public IActionResult Transaction()
-        {
+        public IActionResult Transaction() {
             ViewData["Message"] = "Transaction";
 
             return View();

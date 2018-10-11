@@ -1,41 +1,36 @@
 ﻿using Open.Data.Common;
 using Open.Data.Party;
 
-namespace Open.Data.Bank
-{
-    public class ClientData : IdentifiedData
-    {
+namespace Open.Data.Bank {
+    public class ClientData : IdentifiedData {
         private string firstName;
         private string lastName;
         private string passwordHash;
         private string geographicAddressID;
         private string emailAddressID;
 
-        public string FirstName
-        {
+        public string FirstName {
             get => getString(ref firstName);
             set => firstName = value;
         }
 
-        public string LastName
-        {
+        public string LastName {
             get => getString(ref lastName);
             set => lastName = value;
         }
-        
+
         public string GeographicAddressDataID {
             get => getString(ref geographicAddressID);
             set => geographicAddressID = value;
         }
-        
+
         public string EmailAddressDataID {
             get => getString(ref emailAddressID);
             set => emailAddressID = value;
         }
-        
-        public GeographicAddressData GeographicAddress { get; set; }
-        
-        public EmailAddressData EmailAddress { get; set; }
 
+        public GeographicAddressData GeographicAddress { get; set; }
+
+        public EmailAddressData EmailAddress { get; set; }
     }
 }

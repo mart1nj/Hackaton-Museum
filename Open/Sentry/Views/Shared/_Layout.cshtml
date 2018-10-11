@@ -29,12 +29,7 @@
                 <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">SonicBank</a>
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Money">Money</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contacts">Countries</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Settings">Settings</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Transaction">Transaction</a></li>
-                </ul>
+                <ul class="nav navbar-nav"></ul>
                 @await Html.PartialAsync("_LoginPartial")
             </div>
         </div>

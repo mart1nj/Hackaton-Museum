@@ -2,14 +2,14 @@
     ViewData["Title"] = "SonicBank";
 }
 
-<div class ="jumbotron">
+<div class="jumbotron">
     <h1>@ViewData["Title"]</h1>
 </div>
 
 <div class="row">
     <div class="col-md-4">
         <h2>Welcome, customer_name</h2>
-        <table style="width:100%">
+        <table style="width: 100%">
             <tr>
                 <th>Account Number</th>
                 <th>Balance</th>
@@ -24,15 +24,15 @@
             </tr>
         </table>
     </div>
-        <div class="col-md-2" style="text-align: end">
-            <h3>Shortcuts</h3>
-            <p>
-                <a class="btn btn-default"
-                   href="http://google.com">Account transactions &raquo;</a>
-                <a class="btn btn-default"
-                   href="http://google.com">Make a transaction &raquo;</a>
-                <a class="btn btn-default"
-                   href="http://google.com">My profile &raquo;</a>
-            </p>
-        </div>
+    <div class="col-md-2" style="text-align: end">
+        <h3>Shortcuts</h3>
+        <p>
+            <a class="btn btn-default"
+               href="../Home/Transaction">Transactions &raquo;</a>
+            <a class="btn btn-default"
+               href="http://google.com">Make a transaction &raquo;</a>
+            <a class="btn btn-default"
+               href="../Manage/Index">Account settings &raquo;</a>
+        </p>
+    </div>
 </div>

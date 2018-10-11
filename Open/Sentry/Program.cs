@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Open.Infra;
+
 namespace Open.Sentry {
     public class Program {
         public static void Main(string[] args) {
@@ -14,8 +15,7 @@ namespace Open.Sentry {
                 try {
                     var dbContext = services.GetRequiredService<SentryDbContext>();
                     DbInitializer.Initialize(dbContext);
-                }
-                catch (Exception ex) {
+                } catch (Exception ex) {
                     var logger = services.GetRequiredService<ILogger<Program>>();
                     logger?.LogError(ex,
                         "An error occured while seeding the database");
@@ -31,6 +31,3 @@ namespace Open.Sentry {
                 .Build();
     }
 }
-
-
-
