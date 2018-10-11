@@ -66,6 +66,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Bank\Docs\Client.cd" />
     <None Include="Common\Docs\BaseClasses.cd" />
     <None Include="Party\Docs\Location.cd" />
     <None Include="Quantity\Docs\CountryCurrency.cd" />

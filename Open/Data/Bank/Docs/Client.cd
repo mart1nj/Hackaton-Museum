@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Open.Data.Bank.ClientData">
+    <Position X="3" Y="3.25" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAECBAAAAAIAAAAAAAAAAAAAACAAAACgAAgAg=</HashCode>
+      <FileName>Bank\ClientData.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="GeographicAddress" />
+      <Property Name="EmailAddress" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Open.Data.Common.IdentifiedData" Collapsed="true">
+    <Position X="3" Y="1.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Common\IdentifiedData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Open.Data.Party.GeographicAddressData">
+    <Position X="7.75" Y="4.5" Width="2" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAABAAAAIQAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Party\GeographicAddressData.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Country" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Open.Data.Party.EmailAddressData" Collapsed="true">
+    <Position X="6" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Party\EmailAddressData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Open.Data.Party.CountryData" Collapsed="true">
+    <Position X="10.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Party\CountryData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Open.Data.Party.AddressData">
+    <Position X="7.75" Y="1.75" Width="2" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAAAIAAQAAAAAAAIAUAACAAAAAAAAAAE=</HashCode>
+      <FileName>Party\AddressData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Open.Data.Common.NamedData" Collapsed="true">
+    <Position X="10.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAgAAQAIAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Common\NamedData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Open.Data.Common.PeriodData" Collapsed="true">
+    <Position X="3" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAIAAAACAAACAAAAAgAAA=</HashCode>
+      <FileName>Common\PeriodData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Open.Core.Archetype" Collapsed="true">
+    <Position X="5.5" Y="0.5" Width="1.75" />
+    <TypeIdentifier />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
