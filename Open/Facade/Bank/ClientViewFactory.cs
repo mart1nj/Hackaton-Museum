@@ -13,8 +13,9 @@ namespace Open.Facade.Bank {
             if (o is null) return v;
             v.ValidFrom = setNullIfExtremum(o.Data.ValidFrom);
             v.ValidTo = setNullIfExtremum(o.Data.ValidTo);
-            v.GeographicAddressID = o.Data.GeographicAddressDataID;
-            v.EmailAddressID = o.Data.EmailAddressDataID;
+            //TODO geoaddress and Emailaddress data to view
+          //  v.GeographicAddress = o.Data.GeographicAddress; //või geoAddID?
+          //  v.EmailAddress = o.Data.EmailAddress; //või emailAddID?
             return v;
         }
         private static DateTime? setNullIfExtremum(DateTime d) {

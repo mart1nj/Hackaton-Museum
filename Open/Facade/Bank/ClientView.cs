@@ -6,11 +6,10 @@ using Open.Facade.Common;
 namespace Open.Facade.Bank
 {
     public class ClientView : EntityView {
-        private string firstName;
-        private string lastName;
-        private string geographicAddressID;
-        private string emailAddressID;
-
+        private string firstName = "Sonic";
+        private string lastName = "The Hedgehog";
+      //  private string geographicAddressID;
+      //  private string emailAddressID;
         [Required]
         [DisplayName("First Name")]
         public string FirstName {
@@ -25,16 +24,11 @@ namespace Open.Facade.Bank
             set => lastName = value;
         }
         
-        public string GeographicAddressID
-        {
-            get => getString(ref geographicAddressID);
-            set => geographicAddressID = value;
-        }
-        public string EmailAddressID
-        {
-            get => getString(ref emailAddressID);
-            set => emailAddressID = value;
-        }
+        public GeographicAddressView GeographicAddress { get; set; } = new GeographicAddressView {
+            AddressLine = "Sonicus road 5", City = "SonicTown", Country = "Estonia", RegionOrState = "Hedgehog state", ZipOrPostalCode = "12345"
+        };
+        public EMailAddressView EmailAddress { get; set; } = new EMailAddressView
+            {EmailAddress = "sonicthehedgehog@sonicbank.com"};
     }
 }
 

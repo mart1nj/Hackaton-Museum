@@ -1,7 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Open.Facade.Bank;
 namespace Open.Sentry.Models.ManageViewModels
 {
-    public class IndexViewModel
+    public class IndexViewModel : ClientView
     {
         public string Username { get; set; }
 

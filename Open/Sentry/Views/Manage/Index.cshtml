@@ -1,4 +1,5 @@
 ﻿@using Open.Sentry.Views.Manage
+@using Open.Sentry.Extensions
 @model Open.Sentry.Models.ManageViewModels.IndexViewModel
 @{
     ViewData["Title"] = "Profile";
@@ -13,27 +14,54 @@
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Username"></label>
-                <input asp-for="Username" class="form-control" disabled/>
+                <input asp-for="Username" class="form-control" disabled />
+            </div>
+            <div class="form-group">
+                <label asp-for="FirstName"></label>
+                <input asp-for="FirstName" class="form-control" disabled />
+            </div>
+            <div class="form-group">
+                <label asp-for="LastName"></label>
+                <input asp-for="LastName" class="form-control" disabled />
             </div>
             <div class="form-group">
                 <label asp-for="Email"></label>
-                @if (Model.IsEmailConfirmed) {
+                @if (Model.IsEmailConfirmed)
+                {
                     <div class="input-group">
-                        <input asp-for="Email" class="form-control"/>
+                        <input asp-for="Email" class="form-control" />
                         <span class="input-group-addon" aria-hidden="true">
                             <span class="glyphicon glyphicon-ok text-success"></span>
                         </span>
                     </div>
-                } else {
-                    <input asp-for="Email" class="form-control"/>
+                }
+                else
+                {
+                    <input asp-for="Email" class="form-control" />
                     <button asp-action="SendVerificationEmail" class="btn btn-link">Send verification email</button>
                 }
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="PhoneNumber"></label>
-                <input asp-for="PhoneNumber" class="form-control"/>
+                <input asp-for="PhoneNumber" class="form-control" />
                 <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GeographicAddress.AddressLine"></label>
+                <input asp-for="GeographicAddress.AddressLine" class="form-control"/>
+            </div>
+            <div class="form-group">
+                <label asp-for="GeographicAddress.City"></label>
+                <input asp-for="GeographicAddress.City" class="form-control"/>
+            </div>
+            <div class="form-group">
+                <label asp-for="GeographicAddress.Country"></label>
+                <input asp-for="GeographicAddress.Country" class="form-control"/>
+            </div>
+            <div class="form-group">
+                <label asp-for="GeographicAddress.ZipOrPostalCode"></label>
+                <input asp-for="GeographicAddress.ZipOrPostalCode" class="form-control"/>
             </div>
             <button type="submit" class="btn btn-default">Save</button>
         </form>
