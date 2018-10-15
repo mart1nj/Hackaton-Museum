@@ -19,12 +19,12 @@ namespace Open.Data.Bank {
             set => lastName = value;
         }
 
-        public string GeographicAddressDataID {
+        public string GeographicAddressID {
             get => getString(ref geographicAddressID);
             set => geographicAddressID = value;
         }
 
-        public string EmailAddressDataID {
+        public string EmailAddressID {
             get => getString(ref emailAddressID);
             set => emailAddressID = value;
         }

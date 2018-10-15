@@ -16,8 +16,8 @@ namespace Open.Domain.Bank
                 FirstName = firstName,
                 LastName = lastName,
                 //PasswordHash = passwordHash,
-                GeographicAddressDataID = geographicID,
-                EmailAddressDataID = emailID,
+                GeographicAddressID = geographicID,
+                EmailAddressID = emailID,
                 ValidFrom = validFrom?? DateTime.MinValue,
                 ValidTo = validTo?? DateTime.MaxValue
             };
@@ -31,8 +31,8 @@ namespace Open.Domain.Bank
                 FirstName = client.FirstName,
                 LastName = client.LastName,
                 //PasswordHash = passwordHash,
-                GeographicAddressDataID = client.GeographicAddressDataID,
-                EmailAddressDataID = client.EmailAddressDataID,
+                GeographicAddressID = client.GeographicAddressID,
+                EmailAddressID = client.EmailAddressID,
                 ValidFrom = client.ValidFrom,
                 ValidTo = client.ValidTo
             };

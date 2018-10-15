@@ -44,8 +44,8 @@ namespace Open.Infra {
         {
             const string table = "Client";
             b.Entity<ClientData>().ToTable(table);
-            createForeignKey<ClientData, EmailAddressData>(b, table, x => x.EmailAddressDataID, x => x.EmailAddress);
-            createForeignKey<ClientData, GeographicAddressData>(b, table, x => x.GeographicAddressDataID, x => x.GeographicAddress);
+            createForeignKey<ClientData, EmailAddressData>(b, table, x => x.EmailAddressID, x => x.EmailAddress);
+            createForeignKey<ClientData, GeographicAddressData>(b, table, x => x.GeographicAddressID, x => x.GeographicAddress);
         }
 
         private static void createPaymentMethodTable(ModelBuilder b)

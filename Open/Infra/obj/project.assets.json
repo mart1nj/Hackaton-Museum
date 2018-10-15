@@ -5269,6 +5269,9 @@
       },
       "Core/1.0.0": {
         "type": "project",
+        "dependencies": {
+          "Aids": "1.0.0"
+        },
         "compile": {
           "bin/placeholder/Core.dll": {}
         },
@@ -5278,6 +5281,10 @@
       },
       "Data/1.0.0": {
         "type": "project",
+        "dependencies": {
+          "Aids": "1.0.0",
+          "Core": "1.0.0"
+        },
         "compile": {
           "bin/placeholder/Data.dll": {}
         },
@@ -5287,6 +5294,11 @@
       },
       "Domain/1.0.0": {
         "type": "project",
+        "dependencies": {
+          "Aids": "1.0.0",
+          "Core": "1.0.0",
+          "Data": "1.0.0"
+        },
         "compile": {
           "bin/placeholder/Domain.dll": {}
         },
@@ -5296,6 +5308,12 @@
       },
       "Facade/1.0.0": {
         "type": "project",
+        "dependencies": {
+          "Aids": "1.0.0",
+          "Core": "1.0.0",
+          "Data": "1.0.0",
+          "Domain": "1.0.0"
+        },
         "compile": {
           "bin/placeholder/Facade.dll": {}
         },
@@ -13651,24 +13669,27 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Hydrasticus\\.nuget\\packages\\": {},
+    "C:\\Users\\marti\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Documents\\Rider\\Source\\SiilSonicBank\\Open\\Infra\\Infra.csproj",
+      "projectUniqueName": "C:\\Users\\marti\\Source\\Repos\\birgit100\\SiilSonicBank\\Open\\Infra\\Infra.csproj",
       "projectName": "Open.Infra",
-      "projectPath": "D:\\Documents\\Rider\\Source\\SiilSonicBank\\Open\\Infra\\Infra.csproj",
-      "packagesPath": "C:\\Users\\Hydrasticus\\.nuget\\packages\\",
-      "outputPath": "D:\\Documents\\Rider\\Source\\SiilSonicBank\\Open\\Infra\\obj\\",
+      "projectPath": "C:\\Users\\marti\\Source\\Repos\\birgit100\\SiilSonicBank\\Open\\Infra\\Infra.csproj",
+      "packagesPath": "C:\\Users\\marti\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\marti\\Source\\Repos\\birgit100\\SiilSonicBank\\Open\\Infra\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\",
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\Hydrasticus\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\marti\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.Fallback.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp2.1"
@@ -13680,20 +13701,20 @@
       "frameworks": {
         "netcoreapp2.1": {
           "projectReferences": {
-            "D:\\Documents\\Rider\\Source\\SiilSonicBank\\Open\\Aids\\Aids.csproj": {
-              "projectPath": "D:\\Documents\\Rider\\Source\\SiilSonicBank\\Open\\Aids\\Aids.csproj"
+            "C:\\Users\\marti\\Source\\Repos\\birgit100\\SiilSonicBank\\Open\\Aids\\Aids.csproj": {
+              "projectPath": "C:\\Users\\marti\\Source\\Repos\\birgit100\\SiilSonicBank\\Open\\Aids\\Aids.csproj"
             },
-            "D:\\Documents\\Rider\\Source\\SiilSonicBank\\Open\\Core\\Core.csproj": {
-              "projectPath": "D:\\Documents\\Rider\\Source\\SiilSonicBank\\Open\\Core\\Core.csproj"
+            "C:\\Users\\marti\\Source\\Repos\\birgit100\\SiilSonicBank\\Open\\Core\\Core.csproj": {
+              "projectPath": "C:\\Users\\marti\\Source\\Repos\\birgit100\\SiilSonicBank\\Open\\Core\\Core.csproj"
             },
-            "D:\\Documents\\Rider\\Source\\SiilSonicBank\\Open\\Data\\Data.csproj": {
-              "projectPath": "D:\\Documents\\Rider\\Source\\SiilSonicBank\\Open\\Data\\Data.csproj"
+            "C:\\Users\\marti\\Source\\Repos\\birgit100\\SiilSonicBank\\Open\\Data\\Data.csproj": {
+              "projectPath": "C:\\Users\\marti\\Source\\Repos\\birgit100\\SiilSonicBank\\Open\\Data\\Data.csproj"
             },
-            "D:\\Documents\\Rider\\Source\\SiilSonicBank\\Open\\Domain\\Domain.csproj": {
-              "projectPath": "D:\\Documents\\Rider\\Source\\SiilSonicBank\\Open\\Domain\\Domain.csproj"
+            "C:\\Users\\marti\\Source\\Repos\\birgit100\\SiilSonicBank\\Open\\Domain\\Domain.csproj": {
+              "projectPath": "C:\\Users\\marti\\Source\\Repos\\birgit100\\SiilSonicBank\\Open\\Domain\\Domain.csproj"
             },
-            "D:\\Documents\\Rider\\Source\\SiilSonicBank\\Open\\Facade\\Facade.csproj": {
-              "projectPath": "D:\\Documents\\Rider\\Source\\SiilSonicBank\\Open\\Facade\\Facade.csproj"
+            "C:\\Users\\marti\\Source\\Repos\\birgit100\\SiilSonicBank\\Open\\Facade\\Facade.csproj": {
+              "projectPath": "C:\\Users\\marti\\Source\\Repos\\birgit100\\SiilSonicBank\\Open\\Facade\\Facade.csproj"
             }
           }
         }

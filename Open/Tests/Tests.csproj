@@ -21,6 +21,28 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Facade\Quantity\CommonTermViewTests.cs" />
+    <Compile Remove="Facade\Quantity\MeasureBaseViewTests.cs" />
+    <Compile Remove="Facade\Quantity\MeasureDerivedViewTests.cs" />
+    <Compile Remove="Facade\Quantity\MeasureTermViewsListTests.cs" />
+    <Compile Remove="Facade\Quantity\MeasureTermViewTests.cs" />
+    <Compile Remove="Facade\Quantity\MeasureViewsListTests.cs" />
+    <Compile Remove="Facade\Quantity\MeasureViewTests.cs" />
+    <Compile Remove="Facade\Quantity\MetricsViewTests.cs" />
+    <Compile Remove="Facade\Quantity\SystemOfUnitsViewsListTests.cs" />
+    <Compile Remove="Facade\Quantity\SystemOfUnitsViewTests.cs" />
+    <Compile Remove="Facade\Quantity\TermViewsListTests.cs" />
+    <Compile Remove="Facade\Quantity\UnitBaseViewTests.cs" />
+    <Compile Remove="Facade\Quantity\UnitDerivedViewTests.cs" />
+    <Compile Remove="Facade\Quantity\UnitFactoredViewTests.cs" />
+    <Compile Remove="Facade\Quantity\UnitFunctionedViewTests.cs" />
+    <Compile Remove="Facade\Quantity\UnitTermViewsListTests.cs" />
+    <Compile Remove="Facade\Quantity\UnitTermViewTests.cs" />
+    <Compile Remove="Facade\Quantity\UnitViewsListTests.cs" />
+    <Compile Remove="Facade\Quantity\UnitViewTests.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="2.1.0" />
     <PackageReference Include="Microsoft.CodeCoverage" Version="1.0.3" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.7.2" />
