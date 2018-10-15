@@ -5,7 +5,6 @@ namespace Open.Data.Bank {
     public class ClientData : IdentifiedData {
         private string firstName;
         private string lastName;
-        private string passwordHash;
         private string geographicAddressID;
         private string emailAddressID;
 
@@ -28,7 +27,6 @@ namespace Open.Data.Bank {
             get => getString(ref emailAddressID);
             set => emailAddressID = value;
         }
-
         public GeographicAddressData GeographicAddress { get; set; }
 
         public EmailAddressData EmailAddress { get; set; }
