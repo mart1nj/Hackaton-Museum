@@ -30,7 +30,7 @@ namespace Open.Tests.Sentry.Controllers {
             var a = GetUrl.ForControllerAction<HomeController>(x => x.Error());
             await testControllerAction(a, "<h1 class=\"text-danger\">Error.</h1>");
         }
-        [TestMethod] public async Task MoneyTest() {
+    /*    [TestMethod] public async Task MoneyTest() {
             var a = GetUrl.ForControllerAction<HomeController>(x => x.Money());
             await testControllerAction(a,
                 "<h2>Money</h2>",
@@ -50,7 +50,7 @@ namespace Open.Tests.Sentry.Controllers {
                 "<h3>Contacts related stuff.</h3>",
                 "<li><a href=\"/Countries\">Countries</a></li>",
                 "<li><a href=\"/Contacts\">Contacts</a></li>");
-        }
+        }*/
     }
 }
 

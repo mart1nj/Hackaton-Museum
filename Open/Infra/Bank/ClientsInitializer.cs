@@ -33,8 +33,8 @@ namespace Open.Infra.Bank
             {
                 FirstName = "Sonic",
                 LastName = "The HedgeHog",
-                EmailAddressDataID = email.ID,
-                GeographicAddressDataID = geoAddress.ID,
+                EmailAddressID = email.ID,
+                GeographicAddressID = geoAddress.ID,
                 ID = Guid.NewGuid().ToString(),
             };
             c.Clients.Add(admin);
