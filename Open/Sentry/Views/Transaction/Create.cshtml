@@ -1,0 +1,16 @@
+@using Open.Sentry.Extensions
+@model Open.Facade.Bank.TransactionView
+
+@{
+    ViewBag.Title = "Create";
+    ViewBag.SubTitle = "Payment";
+    ViewBag.Button = "Create";
+    Layout = "_EditPartial";
+}
+
+<body>
+@Html.EditingControlsFor(x => x.Amount)
+@Html.EditingControlsFor(x => x.PaymentMethodID)
+@Html.EditingControlsFor(x => x.DateMade)
+@Html.EditingControlsFor(x => x.ValidTo)
+</body>

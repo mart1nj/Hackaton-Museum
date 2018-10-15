@@ -25,6 +25,8 @@ namespace Open.Infra {
         public DbSet<PaymentData> Payments { get; set; }
         
         public DbSet<ClientData> Clients { get; set; }
+        
+        public DbSet<TransactionData> Transactions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder b) {
             base.OnModelCreating(b);

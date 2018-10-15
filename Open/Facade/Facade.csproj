@@ -44,6 +44,9 @@
   <ItemGroup>
     <Compile Include="Bank\ClientView.cs" />
     <Compile Include="Bank\ClientViewFactory.cs" />
+    <Compile Include="Bank\TransactionView.cs" />
+    <Compile Include="Bank\TransactionViewFactory.cs" />
+    <Compile Include="Bank\TransactionViewsList.cs" />
     <Compile Include="Common\NamedView.cs" />
     <Compile Include="Common\PeriodView.cs" />
     <Compile Include="Common\EntityView.cs" />

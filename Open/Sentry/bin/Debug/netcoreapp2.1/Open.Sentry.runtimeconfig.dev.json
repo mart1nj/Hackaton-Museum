@@ -1,8 +1,8 @@
 {
   "runtimeOptions": {
     "additionalProbingPaths": [
-      "C:\\Users\\Hydrasticus\\.dotnet\\store\\|arch|\\|tfm|",
-      "C:\\Users\\Hydrasticus\\.nuget\\packages",
+      "C:\\Users\\Stella.Leego.HLP030\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\Stella.Leego.HLP030\\.nuget\\packages",
       "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
     ]
   }
