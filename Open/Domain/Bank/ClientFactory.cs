@@ -20,5 +20,18 @@ namespace Open.Domain.Bank
             };
             return new Client(r);
         }
+        public static Client CreateClient(ClientData client)
+        {
+            var r = new ClientData
+            {
+                ID = client.ID,
+                FirstName = client.FirstName,
+                LastName = client.LastName,
+                //PasswordHash = passwordHash,
+                ValidFrom = client.ValidFrom,
+                ValidTo = client.ValidTo
+            };
+            return new Client(r);
+        }
     }
 }

@@ -11,14 +11,16 @@ namespace Open.Data.Bank
         public DateTime DateMade {
             get => ValidFrom;
             set => ValidFrom = value;
-        }
+        }        
 
-        public string Clarification { get; set; }
+        public string Explanation { get; set; }
 
         public string TransactionAccountNr { get; set; }   
         
-        public virtual PaymentMethodData PaymentMethodID { get; set; }
+        public virtual PaymentMethodData PaymentMethod { get; set; }
 
         public virtual ClientData ClientData { get; set; }
+        
+        public virtual CurrencyData Currency { get; set; }
     }
 }

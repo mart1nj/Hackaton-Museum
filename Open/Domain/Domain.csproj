@@ -45,6 +45,9 @@
     <Compile Include="Bank\ClientFactory.cs" />
     <Compile Include="Bank\ClientsList.cs" />
     <Compile Include="Bank\IClientsRepository.cs" />
+    <Compile Include="Bank\ITransactionRepository.cs" />
+    <Compile Include="Bank\Transaction.cs" />
+    <Compile Include="Bank\TransactionList.cs" />
     <Compile Include="Common\NamedEntity.cs" />
     <Compile Include="Common\IMetrics.cs" />
     <Compile Include="Common\Metrics.cs" />
