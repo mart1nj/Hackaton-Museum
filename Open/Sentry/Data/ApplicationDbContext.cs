@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Open.Sentry.Models;
+using Open.Data.Bank;
 namespace Open.Sentry.Data
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>

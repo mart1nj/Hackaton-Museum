@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Open.Sentry.Models;
+using Open.Data.Bank;
 namespace Open.Tests.Sentry.Models
 {
     [TestClass]

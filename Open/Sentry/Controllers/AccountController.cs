@@ -6,8 +6,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Open.Data.Bank;
 using Open.Sentry.Extensions;
-using Open.Sentry.Models;
 using Open.Sentry.Models.AccountViewModels;
 using Open.Sentry.Services;
 namespace Open.Sentry.Controllers {
@@ -177,7 +177,11 @@ namespace Open.Sentry.Controllers {
             Register(RegisterViewModel model, string returnUrl = null) {
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid) {
-                var user = new ApplicationUser {UserName = model.Email, Email = model.Email};
+                var user = new ApplicationUser {
+                    UserName = model.Email, Email = model.Email,
+                    FirstName = model.FirstName, LastName = model.LastName, AddressLine = model.AddressLine, ZipCode = model.ZipCode,
+                    City = model.City, Country = model.Country
+                };
                 var result = await userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded) {
                     logger.LogInformation("User created a new account with password.");

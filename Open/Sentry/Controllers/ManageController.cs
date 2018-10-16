@@ -8,8 +8,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Open.Data.Bank;
 using Open.Sentry.Extensions;
-using Open.Sentry.Models;
 using Open.Sentry.Models.ManageViewModels;
 using Open.Sentry.Services;
 namespace Open.Sentry.Controllers {
@@ -53,7 +53,13 @@ namespace Open.Sentry.Controllers {
                 Email = user.Email,
                 PhoneNumber = user.PhoneNumber,
                 IsEmailConfirmed = user.EmailConfirmed,
-                StatusMessage = StatusMessage
+                StatusMessage = StatusMessage,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                AddressLine = user.AddressLine,
+                ZipCode = user.ZipCode,
+                City = user.City,
+                Country = user.Country
             };
 
             return View(model);
@@ -88,6 +94,11 @@ namespace Open.Sentry.Controllers {
                 }
             }
 
+            user.AddressLine = model.AddressLine;
+            user.ZipCode = model.ZipCode;
+            user.City = model.City;
+            user.Country = model.Country;
+            await _userManager.UpdateAsync(user);
             StatusMessage = "Your profile has been updated";
             return RedirectToAction(nameof(Index));
         }

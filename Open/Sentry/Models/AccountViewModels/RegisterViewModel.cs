@@ -18,5 +18,23 @@ namespace Open.Sentry.Models.AccountViewModels
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+        [Required]
+        [Display(Name = "First Name")]
+        public string FirstName { get; set; }
+        [Required]
+        [Display(Name = "Last Name")]
+        public string LastName { get; set; }
+        [Required]
+        [Display(Name = "Address Line")]
+        public string AddressLine { get; set; }
+        [Required]
+        [Display(Name = "City")]
+        public string City { get; set; }
+        [Required]
+        [Display(Name = "Zip Code")]
+        public string ZipCode { get; set; }
+        [Required]
+        [Display(Name = "Country")]
+        public string Country { get; set; }
     }
 }

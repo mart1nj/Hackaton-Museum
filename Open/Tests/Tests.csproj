@@ -21,6 +21,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Data\Bank\ClientDataTests.cs" />
+    <Compile Remove="Domain\Bank\ClientTests.cs" />
     <Compile Remove="Facade\Quantity\CommonTermViewTests.cs" />
     <Compile Remove="Facade\Quantity\MeasureBaseViewTests.cs" />
     <Compile Remove="Facade\Quantity\MeasureDerivedViewTests.cs" />
@@ -62,6 +64,8 @@
 
   <ItemGroup>
     <Folder Include="Aids\Extensions\" />
+    <Folder Include="Data\Bank\" />
+    <Folder Include="Domain\Bank\" />
   </ItemGroup>
 
 </Project>

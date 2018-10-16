@@ -19,7 +19,7 @@ namespace Open.Data.Bank
         
         public virtual PaymentMethodData PaymentMethod { get; set; }
 
-        public virtual ClientData ClientData { get; set; }
+        public virtual ApplicationUser ApplicationUser { get; set; }
         
         public virtual CurrencyData Currency { get; set; }
     }

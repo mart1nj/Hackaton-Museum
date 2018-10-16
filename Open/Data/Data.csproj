@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Extensions.Identity.Stores">
+      <HintPath>..\..\..\..\..\..\.nuget\packages\microsoft.extensions.identity.stores\2.1.0\lib\netstandard2.0\Microsoft.Extensions.Identity.Stores.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -41,7 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bank\ClientData.cs" />
+    <Compile Include="Bank\ApplicationUser.cs" />
     <Compile Include="Bank\TransactionData.cs" />
     <Compile Include="Common\NamedData.cs" />
     <Compile Include="Common\MetricsData.cs" />
@@ -66,7 +69,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Bank\Docs\Client.cd" />
+    <None Include="Bank\Docs\ApplicationUserDiagram.cd" />
     <None Include="Common\Docs\BaseClasses.cd" />
     <None Include="Party\Docs\Location.cd" />
     <None Include="Quantity\Docs\CountryCurrency.cd" />

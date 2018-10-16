@@ -24,7 +24,7 @@ namespace Open.Infra {
         public DbSet<PaymentMethodData> PaymentMethods { get; set; }
         public DbSet<PaymentData> Payments { get; set; }
         
-        public DbSet<ClientData> Clients { get; set; }
+    //    public DbSet<ClientData> Clients { get; set; }
         
         public DbSet<TransactionData> Transactions { get; set; }
 
@@ -39,16 +39,16 @@ namespace Open.Infra {
             createPaymentMethodTable(b);
             createRateTable(b);
             createPaymentTable(b);
-            createClientTable(b);
+          //  createClientTable(b);
         }
 
-        private static void createClientTable(ModelBuilder b)
+   /*     private static void createClientTable(ModelBuilder b)
         {
             const string table = "Client";
             b.Entity<ClientData>().ToTable(table);
             createForeignKey<ClientData, EmailAddressData>(b, table, x => x.EmailAddressID, x => x.EmailAddress);
             createForeignKey<ClientData, GeographicAddressData>(b, table, x => x.GeographicAddressID, x => x.GeographicAddress);
-        }
+        }*/
 
         private static void createPaymentMethodTable(ModelBuilder b)
         {

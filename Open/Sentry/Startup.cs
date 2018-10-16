@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Open.Data.Bank;
 using Open.Domain.Bank;
 using Open.Domain.Party;
 using Open.Domain.Quantity;
@@ -25,6 +26,7 @@ namespace Open.Sentry {
             setDatabase(services);
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
+            services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, AppClaimsPrincipalFactory>();
             setAuthentication(services);
             services.AddTransient<IEmailSender, EmailSender>();
             setMvcWithAntyFoggeryToken(services);
@@ -37,7 +39,7 @@ namespace Open.Sentry {
             services.AddScoped<IRateRepository, RatesRepository>();
             services.AddScoped<IPaymentMethodsRepository, PaymentMethodsRepository>();
             services.AddScoped<IPaymentsRepository, PaymentsRepository>();
-            services.AddScoped<IClientsRepository, ClientsRepository>();
+    //        services.AddScoped<IClientsRepository, ClientsRepository>();
         }
 
         protected virtual void setMvcWithAntyFoggeryToken(IServiceCollection services) {
