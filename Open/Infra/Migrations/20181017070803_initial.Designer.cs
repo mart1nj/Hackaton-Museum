@@ -10,16 +10,100 @@ using Open.Infra;
 namespace Open.Infra.Migrations
 {
     [DbContext(typeof(SentryDbContext))]
-    [Migration("20180916074922_initial")]
+    [Migration("20181017070803_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.2-rtm-30932")
+                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("Open.Data.Bank.ApplicationUser", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("AccessFailedCount");
+
+                    b.Property<string>("AddressLine");
+
+                    b.Property<string>("City");
+
+                    b.Property<string>("ConcurrencyStamp");
+
+                    b.Property<string>("Country");
+
+                    b.Property<string>("Email");
+
+                    b.Property<bool>("EmailConfirmed");
+
+                    b.Property<string>("FirstName");
+
+                    b.Property<string>("LastName");
+
+                    b.Property<bool>("LockoutEnabled");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd");
+
+                    b.Property<string>("NormalizedEmail");
+
+                    b.Property<string>("NormalizedUserName");
+
+                    b.Property<string>("PasswordHash");
+
+                    b.Property<string>("PhoneNumber");
+
+                    b.Property<bool>("PhoneNumberConfirmed");
+
+                    b.Property<string>("SecurityStamp");
+
+                    b.Property<bool>("TwoFactorEnabled");
+
+                    b.Property<string>("UserName");
+
+                    b.Property<string>("ZipCode");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ApplicationUser");
+                });
+
+            modelBuilder.Entity("Open.Data.Bank.TransactionData", b =>
+                {
+                    b.Property<string>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<decimal>("Amount");
+
+                    b.Property<string>("ApplicationUserId");
+
+                    b.Property<string>("CurrencyID");
+
+                    b.Property<DateTime>("DateMade");
+
+                    b.Property<string>("Explanation");
+
+                    b.Property<string>("PaymentMethodID");
+
+                    b.Property<string>("TransactionAccountNr");
+
+                    b.Property<DateTime>("ValidFrom");
+
+                    b.Property<DateTime>("ValidTo");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.HasIndex("CurrencyID");
+
+                    b.HasIndex("PaymentMethodID");
+
+                    b.ToTable("Transactions");
+                });
 
             modelBuilder.Entity("Open.Data.Party.AddressData", b =>
                 {
@@ -305,6 +389,21 @@ namespace Open.Infra.Migrations
                     b.ToTable("PaymentMethod");
 
                     b.HasDiscriminator().HasValue("DebitCardData");
+                });
+
+            modelBuilder.Entity("Open.Data.Bank.TransactionData", b =>
+                {
+                    b.HasOne("Open.Data.Bank.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("ApplicationUserId");
+
+                    b.HasOne("Open.Data.Quantity.CurrencyData", "Currency")
+                        .WithMany()
+                        .HasForeignKey("CurrencyID");
+
+                    b.HasOne("Open.Data.Quantity.PaymentMethodData", "PaymentMethod")
+                        .WithMany()
+                        .HasForeignKey("PaymentMethodID");
                 });
 
             modelBuilder.Entity("Open.Data.Party.TelecomDeviceRegistrationData", b =>

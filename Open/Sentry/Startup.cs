@@ -39,7 +39,8 @@ namespace Open.Sentry {
             services.AddScoped<IRateRepository, RatesRepository>();
             services.AddScoped<IPaymentMethodsRepository, PaymentMethodsRepository>();
             services.AddScoped<IPaymentsRepository, PaymentsRepository>();
-    //        services.AddScoped<IClientsRepository, ClientsRepository>();
+            services.AddScoped<ITransactionRepository, TransactionRepository>();
+            //        services.AddScoped<IClientsRepository, ClientsRepository>();
         }
 
         protected virtual void setMvcWithAntyFoggeryToken(IServiceCollection services) {
@@ -53,6 +54,7 @@ namespace Open.Sentry {
                 options => options.UseSqlServer(s));
             services.AddDbContext<SentryDbContext>(
                 options => options.UseSqlServer(s));
+
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env) {
