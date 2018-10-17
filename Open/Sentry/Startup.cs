@@ -14,6 +14,7 @@ using Open.Infra.Bank;
 using Open.Infra.Party;
 using Open.Infra.Quantity;
 using Open.Sentry.Data;
+using Open.Sentry.Extensions;
 using Open.Sentry.Models;
 using Open.Sentry.Services;
 namespace Open.Sentry {
