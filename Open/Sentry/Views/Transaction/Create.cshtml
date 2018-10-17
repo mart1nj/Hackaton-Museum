@@ -3,14 +3,19 @@
 
 @{
     ViewBag.Title = "Create";
-    ViewBag.SubTitle = "Payment";
+    ViewBag.SubTitle = "Transaction";
     ViewBag.Button = "Create";
     Layout = "_EditPartial";
 }
 
 <body>
-@Html.EditingControlsFor(x => x.Amount)
-@Html.EditingControlsFor(x => x.PaymentMethodID)
-@Html.EditingControlsFor(x => x.DateMade)
-@Html.EditingControlsFor(x => x.ValidTo)
+    @Html.ViewData()
+    @Html.EditingControlsFor(x => x.ApplicationUserID)
+    @Html.EditingControlsFor(x => x.Amount)
+    @Html.EditingControlsFor(x => x.Explanation)
+    @Html.EditingControlsFor(x => x.DateMade)
+
+
 </body>
+
+@section Actions{@Html.ActionLink("Back to List", "Index")}

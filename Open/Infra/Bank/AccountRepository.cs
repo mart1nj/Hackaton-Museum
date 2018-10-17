@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Open.Infra.Bank
 {
-    public class AccountRepository : Repository<Account, AccountData>, IAccountsRepository
+    /*public class AccountRepository : Repository<Account, AccountData>, IAccountsRepository
     {
         public AccountRepository(SentryDbContext c) : base(c?.Account, c) { }
 
@@ -24,5 +24,5 @@ namespace Open.Infra.Bank
             return await dbSet.AsNoTracking()
                 .SingleOrDefaultAsync(x => x.ID == id);
         }
-    }
+    }*/
 }
