@@ -8,7 +8,8 @@ namespace Open.Infra {
             CurrenciesInitializer.Initialize(dbContext);
             NationalCurrenciesInitializer.Initialize(dbContext);
             ContactsInitializer.Initialize(dbContext);
-
+            TransactionsInitializer.Initialize(dbContext);
+            
             //ClientsInitializer.Initialize(dbContext);
 
             EuroRateTypesInitializer.Initialize(dbContext);

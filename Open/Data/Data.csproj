@@ -31,6 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.AspNetCore.Identity, Version=2.1.3.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
+      <HintPath>..\..\packages\Microsoft.AspNetCore.Identity.2.1.3\lib\netstandard2.0\Microsoft.AspNetCore.Identity.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Extensions.Identity.Stores">
       <HintPath>..\..\..\..\..\..\.nuget\packages\microsoft.extensions.identity.stores\2.1.0\lib\netstandard2.0\Microsoft.Extensions.Identity.Stores.dll</HintPath>
     </Reference>
@@ -72,6 +76,7 @@
   <ItemGroup>
     <None Include="Bank\Docs\ApplicationUserDiagram.cd" />
     <None Include="Common\Docs\BaseClasses.cd" />
+    <None Include="packages.config" />
     <None Include="Party\Docs\Location.cd" />
     <None Include="Quantity\Docs\CountryCurrency.cd" />
     <None Include="Quantity\Docs\Fig 11 - 2 Currency.cd" />
