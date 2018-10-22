@@ -6,6 +6,7 @@ namespace Open.Data.Bank
 {
     public class TransactionData : IdentifiedData {
         
+        // TODO: why not double?
         public decimal Amount { get; set; }
 
         public DateTime DateMade {

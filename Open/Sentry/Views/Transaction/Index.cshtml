@@ -1,9 +1,16 @@
 @using Open.Sentry.Extensions
 @model Open.Core.IPaginatedList<Open.Facade.Bank.TransactionView>
+
 @{
     ViewBag.Title = "Transactions";
     Layout = "_IndexPartial";
 }
+
+@section Create {
+    <a asp-action=Create>Create</a>
+}
+
+<!-- TODO: Add PosNeg, name of the other party -->
 
 <body>
 <table class="table">
@@ -11,20 +18,19 @@
     <thead>
     <tr>
         @Html.SortColumnHeaderFor(ViewData["SortAmount"], x => payment.Amount)
+        @Html.SortColumnHeaderFor(ViewData["SortExplanation"], x => payment.Explanation)
         @Html.SortColumnHeaderFor(ViewData["SortMethod"], x => payment.PaymentMethodID)
         @Html.SortColumnHeaderFor(ViewData["SortValidFrom"], x => payment.DateMade)
-        @Html.SortColumnHeaderFor(ViewData["SortValidTo"], x => payment.ValidTo)
         <th></th>
     </tr>
     </thead>
     <tbody>
-    @foreach (var item in Model)
-    {
+    @foreach (var item in Model) {
         <tr>
             <td>@Html.DisplayFor(modelItem => item.Amount)</td>
+            <td>@Html.DisplayFor(modelItem => item.Explanation)</td>
             <td>@Html.DisplayFor(modelItem => item.PaymentMethodID)</td>
             <td>@Html.DisplayFor(modelItem => item.DateMade)</td>
-            <td>@Html.DisplayFor(modelItem => item.ValidTo)</td>
             @Html.EditDetailDeleteFor(modelItem => item.ID)
         </tr>
     }
