@@ -46,7 +46,8 @@ namespace Open.Sentry.Migrations
                     AddressLine = table.Column<string>(nullable: true),
                     City = table.Column<string>(nullable: true),
                     ZipCode = table.Column<string>(nullable: true),
-                    Country = table.Column<string>(nullable: true)
+                    Country = table.Column<string>(nullable: true),
+                    DateOfBirth = table.Column<DateTime>(nullable: true)
                 },
                 constraints: table =>
                 {

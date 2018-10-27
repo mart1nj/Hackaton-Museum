@@ -14,50 +14,18 @@ namespace Open.Sentry.Extensions
             : base(userManager, roleManager, optionsAccessor)
         { }
 
-        public async override Task<ClaimsPrincipal> CreateAsync(ApplicationUser user)
+        protected override async Task<ClaimsIdentity> GenerateClaimsAsync(ApplicationUser user)
         {
-            var principal = await base.CreateAsync(user);
+            var identity = await base.GenerateClaimsAsync(user);
+            identity.AddClaim(new Claim("FirstName", user.FirstName ?? ""));
+            identity.AddClaim(new Claim("LastName", user.LastName ?? ""));
+        /*    identity.AddClaim(new Claim(ClaimTypes.StreetAddress, user.AddressLine ?? ""));
+            identity.AddClaim(new Claim(ClaimTypes.PostalCode, user.ZipCode ?? ""));
+            identity.AddClaim(new Claim(ClaimTypes.Locality, user.City ?? ""));
+            identity.AddClaim(new Claim(ClaimTypes.Country, user.Country ?? ""));
+            identity.AddClaim(new Claim(ClaimTypes.DateOfBirth, user.DateOfBirth.ToString() ?? ""));*/
 
-            if (!string.IsNullOrWhiteSpace(user.FirstName))
-            {
-                ((ClaimsIdentity)principal.Identity).AddClaims(new[] {
-                    new Claim(ClaimTypes.GivenName, user.FirstName)
-                });
-            }
-
-            if (!string.IsNullOrWhiteSpace(user.LastName))
-            {
-                ((ClaimsIdentity)principal.Identity).AddClaims(new[] {
-                    new Claim(ClaimTypes.Surname, user.LastName),
-                });
-            }
-
-            if (!string.IsNullOrWhiteSpace(user.AddressLine))
-            {
-                ((ClaimsIdentity)principal.Identity).AddClaims(new[] {
-                    new Claim(ClaimTypes.StreetAddress, user.AddressLine)
-                });
-            }
-            if (!string.IsNullOrWhiteSpace(user.ZipCode))
-            {
-                ((ClaimsIdentity)principal.Identity).AddClaims(new[] {
-                    new Claim(ClaimTypes.PostalCode, user.ZipCode),
-                });
-            }
-            if (!string.IsNullOrWhiteSpace(user.City))
-            {
-                ((ClaimsIdentity)principal.Identity).AddClaims(new[] {
-                    new Claim(ClaimTypes.Locality, user.City),
-                });
-            }
-            if (!string.IsNullOrWhiteSpace(user.Country))
-            {
-                ((ClaimsIdentity)principal.Identity).AddClaims(new[] {
-                    new Claim(ClaimTypes.Country, user.Country),
-                });
-            }
-
-            return principal;
+            return identity;
         }
     }
 }

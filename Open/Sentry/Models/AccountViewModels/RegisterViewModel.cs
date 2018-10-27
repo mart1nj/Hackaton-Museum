@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 namespace Open.Sentry.Models.AccountViewModels
 {
     public class RegisterViewModel
@@ -24,6 +25,10 @@ namespace Open.Sentry.Models.AccountViewModels
         [Required]
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
+        [Required]
+        [DataType(DataType.Date)]
+        [Display(Name = "Date of Birth")]
+        public DateTime? DateOfBirth { get; set; }
         [Required]
         [Display(Name = "Address Line")]
         public string AddressLine { get; set; }

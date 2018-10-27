@@ -11,7 +11,7 @@ using Open.Domain.Quantity;
 using Open.Facade.Party;
 namespace Open.Sentry.Controllers {
 
-    [Authorize] public class CountriesController : Controller {
+    [Authorize] public class CountriesController : Controller, ISentryController {
 
         private readonly ICountriesRepository reporitory;
         private readonly INationalCurrenciesRepository currencyes;
