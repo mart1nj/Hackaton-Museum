@@ -8,6 +8,8 @@ namespace Open.Sentry.Data {
     public class SampleDataInitializer {
         public static void Initialize(ApplicationDbContext context)
         {
+            context.Database.EnsureCreated();
+
             var user = new ApplicationUser
             {
                 FirstName = "Test",

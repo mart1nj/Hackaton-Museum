@@ -99,7 +99,6 @@ namespace Open.Sentry.Controllers {
             user.ZipCode = model.ZipCode;
             user.City = model.City;
             user.Country = model.Country;
-            user.DateOfBirth = model.DateOfBirth;
             await _userManager.UpdateAsync(user);
             StatusMessage = "Your profile has been updated";
             return RedirectToAction(nameof(Index));
