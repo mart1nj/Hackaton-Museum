@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Open.Infra.Migrations
 {
-    public partial class SentryContext : Migration
+    public partial class sentryContext : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -84,6 +84,29 @@ namespace Open.Infra.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_RateType", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Account",
+                columns: table => new
+                {
+                    ValidFrom = table.Column<DateTime>(nullable: false),
+                    ValidTo = table.Column<DateTime>(nullable: false),
+                    ID = table.Column<string>(nullable: false),
+                    Balance = table.Column<double>(nullable: true),
+                    Type = table.Column<string>(nullable: true),
+                    Status = table.Column<string>(nullable: true),
+                    ApplicationUserId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Account", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_Account_ApplicationUser_ApplicationUserId",
+                        column: x => x.ApplicationUserId,
+                        principalTable: "ApplicationUser",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -198,6 +221,35 @@ namespace Open.Infra.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Transaction",
+                columns: table => new
+                {
+                    ValidFrom = table.Column<DateTime>(nullable: false),
+                    ValidTo = table.Column<DateTime>(nullable: false),
+                    ID = table.Column<string>(nullable: false),
+                    Amount = table.Column<double>(nullable: true),
+                    Explanation = table.Column<string>(nullable: true),
+                    SenderAccountId = table.Column<string>(nullable: true),
+                    ReceiverAccountId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Transaction", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_Transaction_Account_ReceiverAccountId",
+                        column: x => x.ReceiverAccountId,
+                        principalTable: "Account",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Transaction_Account_SenderAccountId",
+                        column: x => x.SenderAccountId,
+                        principalTable: "Account",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "TelecomDeviceRegistration",
                 columns: table => new
                 {
@@ -253,43 +305,10 @@ namespace Open.Infra.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "Transactions",
-                columns: table => new
-                {
-                    ValidFrom = table.Column<DateTime>(nullable: false),
-                    ValidTo = table.Column<DateTime>(nullable: false),
-                    ID = table.Column<string>(nullable: false),
-                    Amount = table.Column<decimal>(nullable: false),
-                    DateMade = table.Column<DateTime>(nullable: false),
-                    Explanation = table.Column<string>(nullable: true),
-                    TransactionAccountNr = table.Column<string>(nullable: true),
-                    PaymentMethodID = table.Column<string>(nullable: true),
-                    ApplicationUserId = table.Column<string>(nullable: true),
-                    CurrencyID = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Transactions", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_Transactions_ApplicationUser_ApplicationUserId",
-                        column: x => x.ApplicationUserId,
-                        principalTable: "ApplicationUser",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Transactions_Currency_CurrencyID",
-                        column: x => x.CurrencyID,
-                        principalTable: "Currency",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Transactions_PaymentMethod_PaymentMethodID",
-                        column: x => x.PaymentMethodID,
-                        principalTable: "PaymentMethod",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
-                });
+            migrationBuilder.CreateIndex(
+                name: "IX_Account_ApplicationUserId",
+                table: "Account",
+                column: "ApplicationUserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Address_CountryID",
@@ -332,19 +351,14 @@ namespace Open.Infra.Migrations
                 column: "DeviceID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Transactions_ApplicationUserId",
-                table: "Transactions",
-                column: "ApplicationUserId");
+                name: "IX_Transaction_ReceiverAccountId",
+                table: "Transaction",
+                column: "ReceiverAccountId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Transactions_CurrencyID",
-                table: "Transactions",
-                column: "CurrencyID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Transactions_PaymentMethodID",
-                table: "Transactions",
-                column: "PaymentMethodID");
+                name: "IX_Transaction_SenderAccountId",
+                table: "Transaction",
+                column: "SenderAccountId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -362,7 +376,10 @@ namespace Open.Infra.Migrations
                 name: "TelecomDeviceRegistration");
 
             migrationBuilder.DropTable(
-                name: "Transactions");
+                name: "Transaction");
+
+            migrationBuilder.DropTable(
+                name: "PaymentMethod");
 
             migrationBuilder.DropTable(
                 name: "RateType");
@@ -371,16 +388,16 @@ namespace Open.Infra.Migrations
                 name: "Address");
 
             migrationBuilder.DropTable(
-                name: "ApplicationUser");
+                name: "Account");
 
             migrationBuilder.DropTable(
-                name: "PaymentMethod");
+                name: "Currency");
 
             migrationBuilder.DropTable(
                 name: "Country");
 
             migrationBuilder.DropTable(
-                name: "Currency");
+                name: "ApplicationUser");
         }
     }
 }

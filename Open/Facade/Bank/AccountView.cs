@@ -1,34 +1,37 @@
-﻿using Open.Facade.Common;
-using System;
-using System.ComponentModel;
+﻿using System.ComponentModel.DataAnnotations;
+using Open.Facade.Common;
 
 namespace Open.Facade.Bank
 {
     public class AccountView : EntityView
     {
-        //id ja validfrom ja validto olemas
         private string type;
         private string status;
-        private int amount;
-
-        [DisplayName("Card type")]
+        private double? balance;
+        private string applicationUserId;
+        [Required]
+        public double? Balance
+        {
+            get => getDouble(ref balance);
+            set => balance = value;
+        }
+        [Required]
         public string Type
         {
             get => getString(ref type);
             set => type = value;
         }
-
-        [DisplayName("Card status")]
+        [Required]
         public string Status
         {
             get => getString(ref status);
             set => status = value;
         }
-
-        [DisplayName("Balance/Amount")]
-        public decimal Amount
+        [Required]
+        public string ApplicationUserId
         {
-            get; set;
+            get => getString(ref applicationUserId);
+            set => applicationUserId = value;
         }
     }
 }

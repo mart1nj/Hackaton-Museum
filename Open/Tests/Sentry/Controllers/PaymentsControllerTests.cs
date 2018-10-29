@@ -27,7 +27,7 @@ namespace Open.Tests.Sentry.Controllers {
             return new List<string> {
                 "<h2>Payments</h2>",
                 "<a href=\"/payments/Create\">Create New</a>",
-                "<th><a href=\"/payments?SortOrder=amount\">Amount</a></th>",
+                "<th><a href=\"/payments?SortOrder=amount\">Balance</a></th>",
                 "<th><a href=\"/payments?SortOrder=currency\">Currency</a></th>",
                 "<th><a href=\"/payments?SortOrder=method\">Payment Method</a></th>",
                 "<th><a href=\"/payments?SortOrder=due\">Date Due</a></th>",

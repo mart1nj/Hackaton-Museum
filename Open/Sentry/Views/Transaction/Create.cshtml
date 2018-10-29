@@ -2,17 +2,18 @@
 @model Open.Facade.Bank.TransactionView
 
 @{
-    ViewBag.Title = "Create";
-    ViewBag.SubTitle = "Transaction";
-    ViewBag.Button = "Create";
+    ViewBag.Title = "Make transaction";
+    ViewBag.Button = "Make";
     Layout = "_EditPartial";
 }
 
 <body>
-    @Html.EditingControlsFor(x => x.ApplicationUserID)
-    @Html.EditingControlsFor(x => x.Amount)
-    @Html.EditingControlsFor(x => x.Explanation)
-    @Html.EditingControlsFor(x => x.DateMade)
+@Html.HiddenFor(x => x.ID)
+@Html.ViewingControlsFor(x => x.ValidFrom)
+@Html.ViewingControlsFor(x => x.SenderAccountId)
+@Html.EditingControlsFor(x => x.ReceiverAccountId)
+@Html.EditingControlsFor(x => x.Amount)
+@Html.EditingControlsFor(x => x.Explanation)
 
 
 </body>

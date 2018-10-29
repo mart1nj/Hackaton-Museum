@@ -33,6 +33,10 @@ namespace Open.Core {
 
             return GetType().Name.ToLower().Contains(searchString);
         }
+        protected internal double? getDouble(ref double? field) {
+            field = field ?? 0.0;
+            return field;
+        }
     }
 }
 

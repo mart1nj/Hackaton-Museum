@@ -18,7 +18,7 @@ namespace Open.Tests.Sentry.Extensions
             var scheme = GetRandom.String();
             helper.EmailConfirmationLink(userId, code, scheme);
             Assert.AreEqual("ConfirmEmail", helper.ActionName);
-            Assert.AreEqual("Account", helper.ControllerName);
+            Assert.AreEqual("SenderAccount", helper.ControllerName);
             Assert.AreEqual(scheme, helper.ProtocolScheme);
             Assert.AreEqual("{ userId = " +
                             userId +
@@ -33,7 +33,7 @@ namespace Open.Tests.Sentry.Extensions
             var scheme = GetRandom.String();
             helper.ResetPasswordCallbackLink(userId, code, scheme);
             Assert.AreEqual("ResetPassword", helper.ActionName);
-            Assert.AreEqual("Account", helper.ControllerName);
+            Assert.AreEqual("SenderAccount", helper.ControllerName);
             Assert.AreEqual(scheme, helper.ProtocolScheme);
             Assert.AreEqual("{ userId = " +
                             userId +

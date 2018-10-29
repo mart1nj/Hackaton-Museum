@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 namespace Open.Data.Bank
 {
-    // Add profile data for application users by adding properties to the ApplicationUser class
+    // Add profile data for application users by adding properties to the SenderAccount class
     public class ApplicationUser : IdentityUser
     {
         public string FirstName { get; set; }

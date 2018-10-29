@@ -7,12 +7,9 @@ namespace Open.Domain.Bank
     public sealed class Account : Entity<AccountData>
     {
         public readonly ApplicationUser ApplicationUser;
-        public readonly Money Amount;
         public Account(AccountData data) : base(data)
         {
             ApplicationUser = data?.ApplicationUser;
-            var c = new Currency(data?.Currency);
-            Amount= new Money(c, data?.Amount?? 0, data?.DateMade);
         }
     }
 }

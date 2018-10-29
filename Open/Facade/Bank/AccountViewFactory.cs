@@ -13,7 +13,7 @@ namespace Open.Facade.Bank
             {
                 Type = o?.Data.Type,
                 Status = o?.Data.Status,
-                Amount = o?.Amount?.Amount?? 0,
+                Balance = o?.Data.Balance ?? 0,
                 ID = o?.Data?.ID
             };
             if (o is null) return v;
@@ -25,7 +25,7 @@ namespace Open.Facade.Bank
         {
             var r = new AccountData
             {
-                Amount = v?.Amount ?? 0,
+                Balance = v?.Balance ?? 0,
                 Type = v?.Type,
                 Status= v?.Status,
                 ValidFrom = v?.ValidFrom ?? DateTime.MinValue,

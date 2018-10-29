@@ -27,14 +27,14 @@ namespace Open.Tests.Sentry.Controllers {
             var a = GetUrl.ForControllerAction<AccountController>(x => x.Login(null));
             await testControllerAction(a,
                 "<h2>Log in</h2>",
-                "<form method=\"post\" action=\"/Account/Login\">",
+                "<form method=\"post\" action=\"/SenderAccount/Login\">",
                 "<h4>Use a local account to log in.</h4>",
                 "<label for=\"Email\">Email</label>",
                 "<label for=\"Password\">Password</label>",
                 "<label for=\"RememberMe\">",
                 "<button type=\"submit\" class=\"btn btn-default\">Log in</button>",
-                "<a href=\"/Account/ForgotPassword\">Forgot your password?</a>",
-                "<a href=\"/Account/Register\">Register as a new user?</a>"
+                "<a href=\"/SenderAccount/ForgotPassword\">Forgot your password?</a>",
+                "<a href=\"/SenderAccount/Register\">Register as a new user?</a>"
             );
         }
         [TestMethod] public async Task LoginPostTest() {
@@ -71,7 +71,7 @@ namespace Open.Tests.Sentry.Controllers {
             var a = GetUrl.ForControllerAction<AccountController>(x => x.Register(null));
             await testControllerAction(a,
                 "<h2>Register</h2>",
-                "<form method=\"post\" action=\"/Account/Register\">",
+                "<form method=\"post\" action=\"/SenderAccount/Register\">",
                 "<h4>Create a new account.</h4>",
                 "<label for=\"Email\">Email</label>",
                 "<label for=\"Password\">Password</label>",

@@ -23,9 +23,7 @@ namespace Open.Infra {
         public DbSet<RateTypeData> RateTypes { get; set; }
         public DbSet<PaymentMethodData> PaymentMethods { get; set; }
         public DbSet<PaymentData> Payments { get; set; }
-        
-    //    public DbSet<ClientData> Clients { get; set; }
-        
+        public DbSet<AccountData> Accounts { get; set; }              
         public DbSet<TransactionData> Transactions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder b) {
@@ -39,17 +37,22 @@ namespace Open.Infra {
             createPaymentMethodTable(b);
             createRateTable(b);
             createPaymentTable(b);
-          //  createClientTable(b);
+            createAccountTable(b);
+            createTransactionTable(b);
         }
-
-   /*     private static void createClientTable(ModelBuilder b)
+        private static void createAccountTable(ModelBuilder b)
         {
-            const string table = "Client";
-            b.Entity<ClientData>().ToTable(table);
-            createForeignKey<ClientData, EmailAddressData>(b, table, x => x.EmailAddressID, x => x.EmailAddress);
-            createForeignKey<ClientData, GeographicAddressData>(b, table, x => x.GeographicAddressID, x => x.GeographicAddress);
-        }*/
-
+            const string table = "Account";
+            b.Entity<AccountData>().ToTable(table);
+            createForeignKey<AccountData, ApplicationUser>(b, table, x => x.ApplicationUserId, x => x.ApplicationUser);
+        }
+        private static void createTransactionTable(ModelBuilder b)
+        {
+            const string table = "Transaction";
+            b.Entity<TransactionData>().ToTable(table);
+            createForeignKey<TransactionData, AccountData>(b, table, x => x.SenderAccountId, x => x.SenderAccount);
+            createForeignKey<TransactionData, AccountData>(b, table, x => x.ReceiverAccountId, x => x.ReceiverAccount);
+        }
         private static void createPaymentMethodTable(ModelBuilder b)
         {
             const string table = "PaymentMethod";

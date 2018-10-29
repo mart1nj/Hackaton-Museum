@@ -1,17 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Open.Core;
 using Open.Data.Bank;
-using Open.Data.Quantity;
 using Open.Domain.Bank;
-using Open.Domain.Quantity;
 using Open.Facade.Bank;
-using Open.Facade.Quantity;
-using StackExchange.Redis;
 
 namespace Open.Sentry.Controllers
 {
@@ -19,16 +13,13 @@ namespace Open.Sentry.Controllers
     public class TransactionController : Controller
     {
         private readonly ITransactionRepository transactions;
-        private readonly ICurrencyRepository currencyes;
-        private readonly IPaymentMethodsRepository paymentMethods;
-        internal const string properties = "ID, Amount, CurrencyID, PaymentMethodID, DateDue, DateMade, ValidTo";
+        internal const string properties =
+            "ID, Amount, Explanation, ReceiverAccountId, SenderAccountId," +
+            "ValidFrom";
 
-        public TransactionController(ITransactionRepository p, ICurrencyRepository c,
-            IPaymentMethodsRepository m)
+        public TransactionController(ITransactionRepository p)
         {
             transactions = p;
-            currencyes = c;
-            paymentMethods = m;
         }
 
         public async Task<IActionResult> Index(string sortOrder = null, string currentFilter = null,
@@ -37,7 +28,6 @@ namespace Open.Sentry.Controllers
             ViewData["CurrentSort"] = sortOrder;
             ViewData["SortValidFrom"] = string.IsNullOrEmpty(sortOrder) ? "validFrom_desc" : "";
             ViewData["SortAmount"] = sortOrder == "amount" ? "amount_desc" : "amount";
-            ViewData["SortMethod"] = sortOrder == "method" ? "method_desc" : "method";
             transactions.SortOrder = sortOrder != null && sortOrder.EndsWith("_desc")
                 ? SortOrder.Descending
                 : SortOrder.Ascending;
@@ -53,11 +43,10 @@ namespace Open.Sentry.Controllers
 
         private Func<TransactionData, object> getSortFunction(string sortOrder)
         {
-            if (string.IsNullOrWhiteSpace(sortOrder)) return x => x.DateMade;
-            if (sortOrder.StartsWith("validFrom")) return x => x.DateMade;
+            if (string.IsNullOrWhiteSpace(sortOrder)) return x => x.ValidFrom;
+            if (sortOrder.StartsWith("validFrom")) return x => x.ValidFrom;
             if (sortOrder.StartsWith("amount")) return x => x.Amount;
-            if (sortOrder.StartsWith("method")) return x => x.PaymentMethod;
-            return x => x.DateMade;
+            return x => x.ValidFrom;
         }
 
         public IActionResult Create()

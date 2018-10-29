@@ -10,8 +10,8 @@ using Open.Infra;
 namespace Open.Infra.Migrations
 {
     [DbContext(typeof(SentryDbContext))]
-    [Migration("20181027102224_SentryContext")]
-    partial class SentryContext
+    [Migration("20181029112118_sentryContext")]
+    partial class sentryContext
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,30 @@ namespace Open.Infra.Migrations
                 .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("Open.Data.Bank.AccountData", b =>
+                {
+                    b.Property<string>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ApplicationUserId");
+
+                    b.Property<double?>("Balance");
+
+                    b.Property<string>("Status");
+
+                    b.Property<string>("Type");
+
+                    b.Property<DateTime>("ValidFrom");
+
+                    b.Property<DateTime>("ValidTo");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.ToTable("Account");
+                });
 
             modelBuilder.Entity("Open.Data.Bank.ApplicationUser", b =>
                 {
@@ -78,19 +102,13 @@ namespace Open.Infra.Migrations
                     b.Property<string>("ID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<decimal>("Amount");
-
-                    b.Property<string>("ApplicationUserId");
-
-                    b.Property<string>("CurrencyID");
-
-                    b.Property<DateTime>("DateMade");
+                    b.Property<double?>("Amount");
 
                     b.Property<string>("Explanation");
 
-                    b.Property<string>("PaymentMethodID");
+                    b.Property<string>("ReceiverAccountId");
 
-                    b.Property<string>("TransactionAccountNr");
+                    b.Property<string>("SenderAccountId");
 
                     b.Property<DateTime>("ValidFrom");
 
@@ -98,13 +116,11 @@ namespace Open.Infra.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("ApplicationUserId");
+                    b.HasIndex("ReceiverAccountId");
 
-                    b.HasIndex("CurrencyID");
+                    b.HasIndex("SenderAccountId");
 
-                    b.HasIndex("PaymentMethodID");
-
-                    b.ToTable("Transactions");
+                    b.ToTable("Transaction");
                 });
 
             modelBuilder.Entity("Open.Data.Party.AddressData", b =>
@@ -393,19 +409,25 @@ namespace Open.Infra.Migrations
                     b.HasDiscriminator().HasValue("DebitCardData");
                 });
 
-            modelBuilder.Entity("Open.Data.Bank.TransactionData", b =>
+            modelBuilder.Entity("Open.Data.Bank.AccountData", b =>
                 {
                     b.HasOne("Open.Data.Bank.ApplicationUser", "ApplicationUser")
                         .WithMany()
-                        .HasForeignKey("ApplicationUserId");
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
 
-                    b.HasOne("Open.Data.Quantity.CurrencyData", "Currency")
+            modelBuilder.Entity("Open.Data.Bank.TransactionData", b =>
+                {
+                    b.HasOne("Open.Data.Bank.AccountData", "ReceiverAccount")
                         .WithMany()
-                        .HasForeignKey("CurrencyID");
+                        .HasForeignKey("ReceiverAccountId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("Open.Data.Quantity.PaymentMethodData", "PaymentMethod")
+                    b.HasOne("Open.Data.Bank.AccountData", "SenderAccount")
                         .WithMany()
-                        .HasForeignKey("PaymentMethodID");
+                        .HasForeignKey("SenderAccountId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Open.Data.Party.TelecomDeviceRegistrationData", b =>

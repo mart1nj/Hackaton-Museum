@@ -12,7 +12,7 @@ namespace Open.Sentry.Controllers {
         private readonly ICurrencyRepository repository;
         private Currency currency;
         private Currency scoreCurrency;
-        private const string properties = "Operation, Amount, CurrencyID, Score, ScoreCurrency, RoundingStrategy, RoundingStep, RoundingDecimals, RoundingDigit";
+        private const string properties = "Operation, Balance, CurrencyID, Score, ScoreCurrency, RoundingStrategy, RoundingStep, RoundingDecimals, RoundingDigit";
         public CalculatorController(SentryDbContext r, ICurrencyRepository c) {
             db = r;
             repository = c;

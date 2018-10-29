@@ -1,26 +1,33 @@
-using System;
 using Open.Data.Common;
-using Open.Data.Quantity;
 
 namespace Open.Data.Bank
 {
     public class TransactionData : IdentifiedData {
-        
-        // TODO: why not double?
-        public decimal Amount { get; set; }
 
-        public DateTime DateMade {
-            get => ValidFrom;
-            set => ValidFrom = value;
-        }        
-
-        public string Explanation { get; set; }
-
-        public string TransactionAccountNr { get; set; }   
-        
-        public virtual PaymentMethodData PaymentMethod { get; set; }
-
-        public virtual ApplicationUser ApplicationUser { get; set; }
-                public virtual CurrencyData Currency { get; set; }
+        private double? amount;
+        private string explanation;
+        private string sAccountId;
+        private string rAccountId;
+        public double? Amount
+        {
+            get => getDouble(ref amount);
+            set => amount = value;
+        }       
+        public string Explanation {
+            get => getString(ref explanation);
+            set => explanation = value;
+        }
+        public string SenderAccountId
+        {
+            get => getString(ref sAccountId);
+            set => sAccountId = value;
+        }
+        public string ReceiverAccountId
+        {
+            get => getString(ref rAccountId);
+            set => rAccountId = value;
+        }
+        public virtual AccountData SenderAccount { get; set; }
+        public virtual AccountData ReceiverAccount { get; set; }
     }
 }

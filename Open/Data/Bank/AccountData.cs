@@ -1,6 +1,4 @@
-﻿using System;
-using Open.Data.Common;
-using Open.Data.Quantity;
+﻿using Open.Data.Common;
 
 namespace Open.Data.Bank
 {
@@ -8,38 +6,28 @@ namespace Open.Data.Bank
     {
         private string type;
         private string status;
-        private decimal amount;
-        private string clientID;
-        //exp_date
-        //id
-
-        public decimal Amount
+        private double? balance;
+        private string applicationUserId;
+        public double? Balance
         {
-            get;set;
+            get => getDouble(ref balance);
+            set => balance = value;
         }
-
         public string Type
         {
             get => getString(ref type);
             set => type = value;
         }
-
         public string Status
         {
             get => getString(ref status);
             set => status = value;
         }
-
-        public string ClientID
-        {
-            get => getString(ref clientID);
-            set => clientID = value;
+        public string ApplicationUserId {
+            get => getString(ref applicationUserId);
+            set => applicationUserId = value;
         }
-        //public ClientData Client { get; set; }
-
         public virtual ApplicationUser ApplicationUser { get; set; }
-
-        public virtual CurrencyData Currency { get; set; }
-        public DateTime DateMade { get; set; }
+      
     }
 }

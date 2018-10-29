@@ -40,6 +40,37 @@ namespace Open.Sentry.Data {
                 var result = userStore.CreateAsync(user);
 
             }
+
+            var user2 = new ApplicationUser
+            {
+                FirstName = "Sonic",
+                LastName = "Siil",
+                Email = "siil@sonic.com",
+                NormalizedEmail = "SIIL@SONIC.COM",
+                UserName = "siil@sonic.com",
+                NormalizedUserName = "SIIL@SONIC.COM",
+                PhoneNumber = "+111111111111",
+                AddressLine = "Test Lane 4",
+                ZipCode = "12344",
+                City = "Test City",
+                Country = "Estonia",
+                DateOfBirth = DateTime.ParseExact("29/10/2018", "dd/MM/yyyy", CultureInfo.InvariantCulture),
+                EmailConfirmed = true,
+                PhoneNumberConfirmed = true,
+                SecurityStamp = Guid.NewGuid().ToString("D"),
+                Id = "sonicSiilId"
+            };
+
+
+            if (!context.Users.Any(u => u.UserName == user2.UserName))
+            {
+                var password = new PasswordHasher<ApplicationUser>();
+                var hashed = password.HashPassword(user2, "secret");
+                user2.PasswordHash = hashed;
+                var userStore = new UserStore<ApplicationUser>(context);
+                var result = userStore.CreateAsync(user2);
+
+            }
             context.SaveChangesAsync();
         }
     }

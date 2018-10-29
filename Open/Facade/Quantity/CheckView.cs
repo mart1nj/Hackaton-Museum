@@ -6,8 +6,8 @@ namespace Open.Facade.Quantity {
 
         public string Payee { get; set; }
 
-        [DisplayName("Account Name")] public string AccountName { get; set; }
-        [DisplayName("Account Number")] public string AccountNumber { get; set; }
+        [DisplayName("SenderAccount Name")] public string AccountName { get; set; }
+        [DisplayName("SenderAccount Number")] public string AccountNumber { get; set; }
         [DisplayName("Bank Address")] public string BankAddress { get; set; }
         [DisplayName("Bank Identification Number")] public string BankID { get; set; }
         [DisplayName("Bank Name")] public string BankName { get; set; }

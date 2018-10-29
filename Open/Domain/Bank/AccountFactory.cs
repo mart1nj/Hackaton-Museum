@@ -5,17 +5,17 @@ namespace Open.Domain.Bank
 {
     public static class AccountFactory
     {
-        public static Account CreateAccount(string id, string type, string status, int amount, string clientID, DateTime? validFrom = null, DateTime? validTo = null)
+        public static Account CreateAccount(string id, double balance, string type, string status, string applicationUserId, DateTime? validFrom = null, DateTime? validTo = null)
         {
             var r = new AccountData
             {
                 ID = id,
+                Balance = balance,
                 Type = type,
                 Status = status,
-                Amount = amount,
-                ClientID = clientID,
                 ValidFrom = validFrom ?? DateTime.MinValue,
-                ValidTo = validTo ?? DateTime.MaxValue
+                ValidTo = validTo ?? DateTime.MaxValue,
+                ApplicationUserId = applicationUserId
             };
             return new Account(r);
         }
@@ -27,10 +27,10 @@ namespace Open.Domain.Bank
                 ID = account.ID,
                 Type = account.Type,
                 Status = account.Status,
-                Amount = account.Amount,
-                ClientID = account.ClientID,
+                Balance = account.Balance,
                 ValidFrom = account.ValidFrom,
-                ValidTo = account.ValidTo
+                ValidTo = account.ValidTo,
+                ApplicationUserId = account.ApplicationUserId
             };
             return new Account(r);
         }

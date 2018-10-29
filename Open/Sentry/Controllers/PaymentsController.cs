@@ -12,7 +12,7 @@ namespace Open.Sentry.Controllers {
         private readonly IPaymentsRepository payments;
         private readonly ICurrencyRepository currencyes;
         private readonly IPaymentMethodsRepository paymentMethods;
-        internal const string properties = "ID, Amount, CurrencyID, PaymentMethodID, DateDue, DateMade, ValidTo";
+        internal const string properties = "ID, Balance, CurrencyID, PaymentMethodID, DateDue, DateMade, ValidTo";
         public PaymentsController(IPaymentsRepository p, ICurrencyRepository c,
             IPaymentMethodsRepository m) {
             payments = p;
