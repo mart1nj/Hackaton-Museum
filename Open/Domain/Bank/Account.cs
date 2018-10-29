@@ -6,7 +6,7 @@ namespace Open.Domain.Bank
 {
     public sealed class Account : Entity<AccountData>
     {
-        public readonly Client Client;
+        public readonly ApplicationUser ApplicationUser;
         public readonly Money Amount;
         public Account(AccountData data) : base(data)
         {

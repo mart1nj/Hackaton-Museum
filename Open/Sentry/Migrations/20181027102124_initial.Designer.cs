@@ -10,7 +10,7 @@ using Open.Sentry.Data;
 namespace Open.Sentry.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20181017070327_initial")]
+    [Migration("20181027102124_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -146,6 +146,8 @@ namespace Open.Sentry.Migrations
                         .IsConcurrencyToken();
 
                     b.Property<string>("Country");
+
+                    b.Property<DateTime?>("DateOfBirth");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256);

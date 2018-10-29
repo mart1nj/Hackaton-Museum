@@ -10,8 +10,8 @@ using Open.Infra;
 namespace Open.Infra.Migrations
 {
     [DbContext(typeof(SentryDbContext))]
-    [Migration("20181017070803_initial")]
-    partial class initial
+    [Migration("20181027102224_SentryContext")]
+    partial class SentryContext
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -35,6 +35,8 @@ namespace Open.Infra.Migrations
                     b.Property<string>("ConcurrencyStamp");
 
                     b.Property<string>("Country");
+
+                    b.Property<DateTime?>("DateOfBirth");
 
                     b.Property<string>("Email");
 

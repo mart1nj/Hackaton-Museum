@@ -59,7 +59,8 @@ namespace Open.Sentry.Controllers {
                 AddressLine = user.AddressLine,
                 ZipCode = user.ZipCode,
                 City = user.City,
-                Country = user.Country
+                Country = user.Country,
+                DateOfBirth = user.DateOfBirth
             };
 
             return View(model);

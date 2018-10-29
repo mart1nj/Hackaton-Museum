@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 namespace Open.Sentry.Models.ManageViewModels
 {
     public class IndexViewModel
@@ -21,6 +22,9 @@ namespace Open.Sentry.Models.ManageViewModels
         public string FirstName { get; set; }
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
+        [DataType(DataType.Date)]
+        [Display(Name = "Date of Birth")]
+        public DateTime? DateOfBirth { get; set; }
         [Required]
         [Display(Name = "Address Line")]
         public string AddressLine { get; set; }

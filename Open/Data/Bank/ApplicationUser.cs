@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using System;
+using Microsoft.AspNetCore.Identity;
 namespace Open.Data.Bank
 {
     // Add profile data for application users by adding properties to the ApplicationUser class
@@ -10,5 +11,6 @@ namespace Open.Data.Bank
         public string City { get; set; }
         public string ZipCode { get; set; }
         public string Country { get; set; }
+        public DateTime? DateOfBirth { get; set; }
     }
 }

@@ -145,6 +145,8 @@ namespace Open.Sentry.Migrations
 
                     b.Property<string>("Country");
 
+                    b.Property<DateTime?>("DateOfBirth");
+
                     b.Property<string>("Email")
                         .HasMaxLength(256);
 

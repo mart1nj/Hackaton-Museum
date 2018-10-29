@@ -41,6 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bank\Account.cs" />
+    <Compile Include="Bank\AccountFactory.cs" />
+    <Compile Include="Bank\AccountList.cs" />
+    <Compile Include="Bank\IAccountsRepository.cs" />
     <Compile Include="Bank\ITransactionRepository.cs" />
     <Compile Include="Bank\Transaction.cs" />
     <Compile Include="Bank\TransactionList.cs" />

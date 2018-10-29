@@ -34,6 +34,8 @@ namespace Open.Infra.Migrations
 
                     b.Property<string>("Country");
 
+                    b.Property<DateTime?>("DateOfBirth");
+
                     b.Property<string>("Email");
 
                     b.Property<bool>("EmailConfirmed");

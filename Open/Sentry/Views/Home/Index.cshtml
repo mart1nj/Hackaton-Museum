@@ -1,4 +1,5 @@
-﻿@{
+﻿@using Open.Sentry.Extensions
+@{
     ViewData["Title"] = "SonicBank";
 }
 
@@ -8,7 +9,7 @@
 
 <div class="row">
     <div class="col-md-4">
-        <h2>Welcome, Toomas</h2>
+        <h2>Welcome, @User.GetFirstName()</h2>
         <table style="width: 100%">
             <tr>
                 <th>Account Number</th>

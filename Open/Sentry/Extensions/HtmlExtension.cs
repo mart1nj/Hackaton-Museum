@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq.Expressions;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Open.Aids;
 namespace Open.Sentry.Extensions {
     public static class HtmlExtension {
 
@@ -85,6 +87,25 @@ namespace Open.Sentry.Extensions {
                 htmlHelper.ActionLink("Delete", delete, new {id = index}),
                 new HtmlString("</th>")
             };
+            return new HtmlContentBuilder(htmlStrings);
+        }
+
+        public static IHtmlContent EditingControlsForCountry<TModel, TResult>(
+            this IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TResult>> expression) {
+            var countryList = new List<string>();
+            foreach (RegionInfo region in SystemRegionInfo.GetRegionsList()) {
+                countryList.Add(region.DisplayName);
+            }
+            var selectList = new SelectList(countryList);
+            
+            var htmlStrings = new List<object> {
+                new HtmlString("<div class=\"form-group\">"),
+                htmlHelper.LabelFor(expression, new {@class = "control-label"}),
+                htmlHelper.DropDownListFor(expression, selectList, new {@class = "form-control"}),
+                htmlHelper.ValidationMessageFor(expression, "", new {@class = "text-danger"}),
+                new HtmlString("</div>"),
+            };
+
             return new HtmlContentBuilder(htmlStrings);
         }
     }
