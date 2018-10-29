@@ -14,7 +14,8 @@ namespace Open.Facade.Bank
                 Type = o?.Data.Type,
                 Status = o?.Data.Status,
                 Balance = o?.Data.Balance ?? 0,
-                ID = o?.Data?.ID
+                ID = o?.Data?.ID,
+                AspnetUserId = o?.Data?.AspnetUserId
             };
             if (o is null) return v;
             v.ValidFrom = Date.SetNullIfMaxOrMin(o.Data.ValidFrom);
@@ -30,7 +31,8 @@ namespace Open.Facade.Bank
                 Status= v?.Status,
                 ValidFrom = v?.ValidFrom ?? DateTime.MinValue,
                 ValidTo = v?.ValidTo?? DateTime.MaxValue,
-                ID = v?.ID
+                ID = v?.ID,
+                AspnetUserId = v?.AspnetUserId
             };
             return new Account(r);
         }

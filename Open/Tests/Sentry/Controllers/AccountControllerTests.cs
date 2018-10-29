@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Open.Aids;
+using Open.Infra;
 using Open.Sentry.Controllers;
-using Open.Sentry.Data;
 using Open.Sentry.Models.AccountViewModels;
 namespace Open.Tests.Sentry.Controllers {
     [TestClass] public class AccountControllerTests : AcceptanceTests {

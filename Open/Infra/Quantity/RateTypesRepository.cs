@@ -6,7 +6,7 @@ using Open.Data.Quantity;
 using Open.Domain.Quantity;
 namespace Open.Infra.Quantity {
     public class RateTypesRepository : Repository<RateType, RateTypeData>, IRateTypeRepository {
-        public RateTypesRepository(SentryDbContext c) : base(c?.RateTypes, c) { }
+        public RateTypesRepository(ApplicationDbContext c) : base(c?.RateTypes, c) { }
         protected internal override RateType createObject(RateTypeData r)
         {
             return new RateType(r);

@@ -3,7 +3,7 @@ using Open.Aids;
 using Open.Data.Quantity;
 namespace Open.Infra.Quantity {
     public static class NationalCurrenciesInitializer {
-        public static void Initialize(SentryDbContext c) {
+        public static void Initialize(ApplicationDbContext c) {
             c.Database.EnsureCreated();
             if (c.CountryCurrencies.Any()) return;
             var regions = SystemRegionInfo.GetRegionsList();

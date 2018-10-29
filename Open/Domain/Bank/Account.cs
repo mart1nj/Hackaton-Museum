@@ -9,7 +9,7 @@ namespace Open.Domain.Bank
         public readonly ApplicationUser ApplicationUser;
         public Account(AccountData data) : base(data)
         {
-            ApplicationUser = data?.ApplicationUser;
+            ApplicationUser = data?.AspNetUser;
         }
     }
 }

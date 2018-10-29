@@ -13,7 +13,7 @@ namespace Open.Infra.Quantity {
             return await dbSet.AsNoTracking().SingleOrDefaultAsync(x => x.ID == id);
         }
 
-        public CurrenciesRepository(SentryDbContext c) : base(c?.Currencies, c) { }
+        public CurrenciesRepository(ApplicationDbContext c) : base(c?.Currencies, c) { }
         protected internal override Currency createObject(CurrencyData r) {
             return new Currency(r);
         }

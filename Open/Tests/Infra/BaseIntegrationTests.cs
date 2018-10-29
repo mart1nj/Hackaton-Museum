@@ -5,7 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Open.Infra;
 namespace Open.Tests.Infra {
     public abstract class BaseIntegrationTests<TClass> : ObjectTests<TClass> {
-        protected SentryDbContext db;
+        protected ApplicationDbContext db;
 
         [TestInitialize] public override void TestInitialize() {
             db = initDatabase();
@@ -16,11 +16,11 @@ namespace Open.Tests.Infra {
             base.TestCleanup();
             db = null;
         }
-        private static SentryDbContext initDatabase() {
+        private static ApplicationDbContext initDatabase() {
             var name = getGuid();
             var provider = getServiceProvider();
-            var builder = getDbBuilder<SentryDbContext>(name, provider);
-            return new SentryDbContext(builder.Options);
+            var builder = getDbBuilder<ApplicationDbContext>(name, provider);
+            return new ApplicationDbContext(builder.Options);
         }
         private static DbContextOptionsBuilder<T> getDbBuilder<T>(string name, IServiceProvider p)
         where T: DbContext{

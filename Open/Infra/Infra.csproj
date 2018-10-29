@@ -10,6 +10,7 @@
   <ItemGroup>
     <Compile Remove="Bank\ClientsInitializer.cs" />
     <Compile Remove="Bank\ClientsRepository.cs" />
+    <Compile Remove="SentryDbContext.cs" />
     <Compile Remove="SystemRegionInfo.cs" />
   </ItemGroup>
 

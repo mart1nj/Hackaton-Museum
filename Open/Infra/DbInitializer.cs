@@ -3,15 +3,13 @@ using Open.Infra.Party;
 using Open.Infra.Quantity;
 namespace Open.Infra {
     public static class DbInitializer {
-        public static void Initialize(SentryDbContext dbContext) {
+        public static void Initialize(ApplicationDbContext dbContext) {
+            SampleAspNetUserInitializer.Initialize(dbContext);
+            TransactionsInitializer.Initialize(dbContext);
             CountriesInitializer.Initialize(dbContext);
             CurrenciesInitializer.Initialize(dbContext);
             NationalCurrenciesInitializer.Initialize(dbContext);
             ContactsInitializer.Initialize(dbContext);
-            TransactionsInitializer.Initialize(dbContext);
-            
-            //ClientsInitializer.Initialize(dbContext);
-
             EuroRateTypesInitializer.Initialize(dbContext);
             EuroRatesInitializer.Initialize(dbContext);
             

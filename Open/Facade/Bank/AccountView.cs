@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Open.Data.Bank;
 using Open.Facade.Common;
 
 namespace Open.Facade.Bank
@@ -8,7 +9,7 @@ namespace Open.Facade.Bank
         private string type;
         private string status;
         private double? balance;
-        private string applicationUserId;
+        private string aspNetUserId;
         [Required]
         public double? Balance
         {
@@ -28,10 +29,12 @@ namespace Open.Facade.Bank
             set => status = value;
         }
         [Required]
-        public string ApplicationUserId
+        public string AspnetUserId
         {
-            get => getString(ref applicationUserId);
-            set => applicationUserId = value;
+            get => getString(ref aspNetUserId);
+            set => aspNetUserId = value;
         }
+
+        public ApplicationUser AspnetUser { get; set; }
     }
 }

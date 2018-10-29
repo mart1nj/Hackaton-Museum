@@ -13,7 +13,7 @@ namespace Open.Infra.Party {
             return await dbSet.AsNoTracking().SingleOrDefaultAsync(x => x.ID == id);
         }
 
-        public CountriesRepository(SentryDbContext c) : base(c?.Countries, c) { }
+        public CountriesRepository(ApplicationDbContext c) : base(c?.Countries, c) { }
         protected internal override Country createObject(CountryData r) {
             return new Country(r);
         }

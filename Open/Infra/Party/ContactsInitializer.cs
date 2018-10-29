@@ -6,7 +6,7 @@ using Open.Core;
 using Open.Data.Party;
 namespace Open.Infra.Party {
     public static class ContactsInitializer {
-        public static void Initialize(SentryDbContext c) {
+        public static void Initialize(ApplicationDbContext c) {
             c.Database.EnsureCreated();
             if (c.Addresses.Any()) return;
             initWebPageAddresses(c);
@@ -17,7 +17,7 @@ namespace Open.Infra.Party {
             c.SaveChanges();
         }
 
-        private static void initTelecomRegistrations(SentryDbContext c, List<string> geographicIDs, List<string> telecomIDs) {
+        private static void initTelecomRegistrations(ApplicationDbContext c, List<string> geographicIDs, List<string> telecomIDs) {
             foreach (var a in geographicIDs) {
                 foreach (var d in telecomIDs) {
                     if (GetRandom.Bool()) continue;
@@ -26,7 +26,7 @@ namespace Open.Infra.Party {
             }
         }
 
-        private static List<string> initTelecomAddresses(SentryDbContext c) {
+        private static List<string> initTelecomAddresses(ApplicationDbContext c) {
             var l = new List<string> {
                 add(c, new TelecomAddressData{Address = "22222222",
                     CityOrAreaCode = "51",
@@ -52,7 +52,7 @@ namespace Open.Infra.Party {
             return l;
         }
 
-        private static List<string> initGeographicAddresses(SentryDbContext c) {
+        private static List<string> initGeographicAddresses(ApplicationDbContext c) {
             var l = new List<string> {
                 add(c, new GeographicAddressData {Address = "Akadeemia tee 15A",
                     CityOrAreaCode = "Tallinn",
@@ -83,21 +83,21 @@ namespace Open.Infra.Party {
             return l;
         }
 
-        private static void initEmailAddresses(SentryDbContext c) {
+        private static void initEmailAddresses(ApplicationDbContext c) {
             add(c, new EmailAddressData { Address = "Harry.Potter@hogwarts.edu" });
             add(c, new EmailAddressData { Address = "Hermione.Granger@hogwarts.edu" });
             add(c, new EmailAddressData { Address = "Ron.Weasley@hogwarts.edu" });
             add(c, new EmailAddressData { Address = "Albus.Dumbledore@hogwarts.edu" });
         }
 
-        private static void initWebPageAddresses(SentryDbContext c) {
+        private static void initWebPageAddresses(ApplicationDbContext c) {
             add(c, new WebPageAddressData {Address = "www.visualstudio.com" });
             add(c, new WebPageAddressData { Address = "www.jetbrains.com" });
             add(c, new WebPageAddressData { Address = "www.wikipedia.org" });
             add(c, new WebPageAddressData { Address = "www.amazon.com" });
         }
 
-        private static string add(SentryDbContext c, AddressData address) {
+        private static string add(ApplicationDbContext c, AddressData address) {
             address.ID = Guid.NewGuid().ToString();
             c.Addresses.Add(address);
             return address.ID;

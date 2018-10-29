@@ -15,7 +15,7 @@ namespace Open.Domain.Bank
                 Status = status,
                 ValidFrom = validFrom ?? DateTime.MinValue,
                 ValidTo = validTo ?? DateTime.MaxValue,
-                ApplicationUserId = applicationUserId
+                AspnetUserId = applicationUserId
             };
             return new Account(r);
         }
@@ -30,7 +30,7 @@ namespace Open.Domain.Bank
                 Balance = account.Balance,
                 ValidFrom = account.ValidFrom,
                 ValidTo = account.ValidTo,
-                ApplicationUserId = account.ApplicationUserId
+                AspnetUserId = account.AspnetUserId
             };
             return new Account(r);
         }

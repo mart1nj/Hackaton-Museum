@@ -2,7 +2,7 @@
 @model Open.Core.IPaginatedList<Open.Facade.Bank.TransactionView>
 
 @{
-    ViewBag.Title = "Transactions";
+    ViewBag.Title = "Transactions for " + Model[0].ReceiverAccountId;
     Layout = "_IndexPartial";
 }
 
@@ -10,30 +10,54 @@
     <a asp-action=Create>Create</a>
 }
 
-<!-- TODO: Add PosNeg, name of the other party -->
-
 <body>
 <table class="table">
     @{ var transaction = Model.FirstOrDefault();}
     <thead>
     <tr>
-        @Html.SortColumnHeaderFor(ViewData["SortSender"], x => transaction.SenderAccountId)
-        @Html.SortColumnHeaderFor(ViewData["SortAmount"], x => transaction.Amount)
-        @Html.SortColumnHeaderFor(ViewData["SortExplanation"], x => transaction.Explanation)
         @Html.SortColumnHeaderFor(ViewData["SortValidFrom"], x => transaction.ValidFrom)
+        @Html.SortColumnHeaderFor(ViewData["SortSender"], x => transaction.SenderAccountId)
+        @Html.SortColumnHeaderFor(ViewData["SortSenderFirstName"], x => transaction.SenderAccount.AspnetUser.FirstName)
+        @Html.SortColumnHeaderFor(ViewData["SortSenderLastName"], x => transaction.SenderAccount.AspnetUser.LastName)
+        @Html.SortColumnHeaderFor(ViewData["SortExplanation"], x => transaction.Explanation)
+        @Html.SortColumnHeaderFor(ViewData["SortAmount"], x => transaction.Amount)
         <th></th>
     </tr>
     </thead>
     <tbody>
     @foreach (var item in Model) {
         <tr>
-            <td>@Html.DisplayFor(modelItem => item.SenderAccountId)</td>
-            <td>@Html.DisplayFor(modelItem => item.Amount)</td>
-            <td>@Html.DisplayFor(modelItem => item.Explanation)</td>
             <td>@Html.DisplayFor(modelItem => item.ValidFrom)</td>
+            <td>@Html.DisplayFor(modelItem => item.SenderAccountId)</td>
+            <td>@Html.DisplayFor(modelItem => item.SenderAccount.AspnetUser.FirstName)</td>
+            <td>@Html.DisplayFor(modelItem => item.SenderAccount.AspnetUser.LastName)</td>
+            <td>@Html.DisplayFor(modelItem => item.Explanation)</td>
+            <td>
+                @if (item.Amount > 0) {
+                    <span style="color: green;">@item.Amount</span>
+                }
+                else {
+                    <span style="color: red;">@item.Amount</span>
+                }               
+            </td>
             @Html.EditDetailDeleteFor(modelItem => item.ID)
         </tr>
     }
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>@Html.Label("Balance"): </td>
+        <td>                
+            @if (Model[0].ReceiverAccount.Balance > 0) {
+                <span style="color: green;">@Model[0].ReceiverAccount.Balance</span>
+            }
+            else {
+                <span style="color: red;">@Model[0].ReceiverAccount.Balance</span>
+            }</td>
+        <td></td>
+    </tr>
     </tbody>
 </table>
 </body>

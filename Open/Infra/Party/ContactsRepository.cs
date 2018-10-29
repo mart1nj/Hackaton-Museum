@@ -10,7 +10,7 @@ namespace Open.Infra.Party {
     public class ContactsRepository : IAddressesRepository {
         private readonly DbSet<AddressData> dbSet;
         private readonly DbContext db;
-        public ContactsRepository(SentryDbContext c) {
+        public ContactsRepository(ApplicationDbContext c) {
             db = c;
             dbSet = c?.Addresses;
         }

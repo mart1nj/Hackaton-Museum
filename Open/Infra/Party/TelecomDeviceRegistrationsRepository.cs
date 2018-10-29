@@ -8,7 +8,7 @@ namespace Open.Infra.Party {
             TelecomDeviceRegistration, TelecomDeviceRegistrationData>,
         ITelecomDeviceRegistrationsRepository {
 
-        public TelecomDeviceRegistrationsRepository(SentryDbContext c) : base(
+        public TelecomDeviceRegistrationsRepository(ApplicationDbContext c) : base(
             c?.TelecomDeviceRegistrations, c) { }
         public async Task LoadAddresses(TelecomAddress device) {
             if (device is null) return;

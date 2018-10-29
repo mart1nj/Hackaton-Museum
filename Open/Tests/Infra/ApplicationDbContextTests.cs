@@ -10,10 +10,11 @@ using Open.Data.Quantity;
 using Open.Infra;
 namespace Open.Tests.Infra {
 
-public class SentryDbContextTests : BaseIntegrationTests<SentryDbContext> {
+public class ApplicationDbContextTests : BaseIntegrationTests<ApplicationDbContext> {
 
-        private class testClass : SentryDbContext {
-            public testClass(DbContextOptions<SentryDbContext> o) : base(o) { }
+        private class testClass : ApplicationDbContext
+        {
+            public testClass(DbContextOptions<ApplicationDbContext> o) : base(o) { }
             public ModelBuilder RunOnModelCreating() {
                 var set = new ConventionSet();
                 var mb = new ModelBuilder(set);
@@ -24,9 +25,9 @@ public class SentryDbContextTests : BaseIntegrationTests<SentryDbContext> {
 
         [TestInitialize] public override void TestInitialize() {
             base.TestInitialize();
-            type = typeof(SentryDbContext);
+            type = typeof(ApplicationDbContext);
         }
-    protected override SentryDbContext getRandomObject() {
+    protected override ApplicationDbContext getRandomObject() {
         return db;
     }
     [TestMethod] public void CountriesTest() {
@@ -48,7 +49,7 @@ public class SentryDbContextTests : BaseIntegrationTests<SentryDbContext> {
         [TestMethod] public void CreateAddressTableTest() {
             var set = new ConventionSet();
             var mb = new ModelBuilder(set);
-            SentryDbContext.createAddressTable(mb);
+            ApplicationDbContext.createAddressTable(mb);
             testHasAdressEntities(mb);
         }
         private static void testHasAdressEntities(ModelBuilder mb) {
@@ -64,7 +65,7 @@ public class SentryDbContextTests : BaseIntegrationTests<SentryDbContext> {
         [TestMethod] public void CreateNationalCurrencyTableTest() {
             var set = new ConventionSet();
             var mb = new ModelBuilder(set);
-            SentryDbContext.createNationalCurrencyTable(mb);
+            ApplicationDbContext.createNationalCurrencyTable(mb);
             testHasNationalCurrencyEntities(mb);
         }
         private static void testHasNationalCurrencyEntities(ModelBuilder mb) {
@@ -80,7 +81,7 @@ public class SentryDbContextTests : BaseIntegrationTests<SentryDbContext> {
         [TestMethod] public void CreateTelecomAddressRegistrationTableTest() {
             var set = new ConventionSet();
             var mb = new ModelBuilder(set);
-            SentryDbContext.createTelecomAddressRegistrationTable(mb);
+            ApplicationDbContext.createTelecomAddressRegistrationTable(mb);
             testHasTelecomRegistrationEntities(mb);
         }
         private static void testHasTelecomRegistrationEntities(ModelBuilder mb) {
@@ -133,7 +134,7 @@ public class SentryDbContextTests : BaseIntegrationTests<SentryDbContext> {
                 }
         }
         [TestMethod] public void OnModelCreatingTest() {
-            var o = new DbContextOptions<SentryDbContext>();
+            var o = new DbContextOptions<ApplicationDbContext>();
             var context = new testClass(o);
             var mb = context.RunOnModelCreating();
             testHasAdressEntities(mb);
