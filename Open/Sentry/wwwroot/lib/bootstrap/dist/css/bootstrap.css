@@ -91,7 +91,7 @@ hr {
 }
 
 h1, h2, h3, h4, h5, h6 {
-    margin-top: 0;
+    margin-top: 10px;
     margin-bottom: 0.5rem;
 }
 
@@ -4398,7 +4398,6 @@ input[type="button"].btn-block {
 }
 
 .navbar {
-    position: relative;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -4411,6 +4410,11 @@ input[type="button"].btn-block {
     -ms-flex-pack: justify;
     justify-content: space-between;
     padding: 0.5rem 1rem;
+    overflow: hidden;
+    background-color: #333;
+    position: fixed; 
+    top: 0; 
+    width: 100%; 
 }
 
     .navbar > .container,
