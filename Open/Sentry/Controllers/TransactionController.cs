@@ -69,8 +69,6 @@ namespace Open.Sentry.Controllers
                     transaction.SenderAccountId = transaction.ReceiverAccountId;
                     transaction.ReceiverAccountId = receiverId;
                 }
-
-                viewList[0].ReceiverAccount.Balance += transaction.Amount; //TODO needs a better way to determine balance for account
             }
             return View(viewList);
         }
