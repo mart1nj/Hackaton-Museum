@@ -10,7 +10,7 @@ namespace Open.Infra.Quantity {
 
     public class RatesRepository : Repository<Rate, RateData>, IRateRepository {
 
-        public RatesRepository(SentryDbContext c) : base(c?.Rates, c) { }
+        public RatesRepository(ApplicationDbContext c) : base(c?.Rates, c) { }
 
         public async Task AddRate(string currencyID, decimal rate, DateTime? date = null,
             string rateTypeID = null) {

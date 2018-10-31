@@ -22,7 +22,6 @@ using Open.Infra;
 using Open.Infra.Party;
 using Open.Infra.Quantity;
 using Open.Sentry;
-using Open.Sentry.Data;
 using Open.Sentry.Services;
 namespace Open.Tests.Sentry {
     [TestClass] public class StartupTests : BaseTests {
@@ -113,7 +112,6 @@ namespace Open.Tests.Sentry {
             isServiceRegistered<IPaymentsRepository, PaymentsRepository>();
             isServiceRegistered<IEmailSender, EmailSender>();
             isServiceRegistered<ApplicationDbContext, ApplicationDbContext>();
-            isServiceRegistered<SentryDbContext, SentryDbContext>();
         }
         private void isServiceRegistered<TService, TImplementation>() {
             var service = services.FirstOrDefault(x => x.ServiceType == typeof(TService));

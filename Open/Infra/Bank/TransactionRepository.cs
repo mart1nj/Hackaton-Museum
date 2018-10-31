@@ -8,7 +8,7 @@ using Open.Domain.Bank;
 namespace Open.Infra.Bank
 {
     public class TransactionRepository : Repository<Transaction, TransactionData>, ITransactionRepository {
-        public TransactionRepository(SentryDbContext c) : base(c?.Transactions, c) { }
+        public TransactionRepository(ApplicationDbContext c) : base(c?.Transactions, c) { }
 
         protected internal override Transaction createObject(TransactionData r) { return new Transaction(r); }
 

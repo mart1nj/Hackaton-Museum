@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Open.Sentry.Data;
+using Open.Infra;
 namespace Open.Tests.Sentry.Data
 {
     [TestClass] public class ApplicationDbContextTests: BaseTests

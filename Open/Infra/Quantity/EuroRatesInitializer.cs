@@ -105,7 +105,7 @@ namespace Open.Infra.Quantity {
             }, string.Empty);
         }
 
-        public static void Initialize(SentryDbContext c) {
+        public static void Initialize(ApplicationDbContext c) {
             var i = 0;
             void addRate(string currencyId, decimal rate, DateTime date) {
                 var r = RateFactory.Create(currencyId, rate, date, RateFactory.EuroRate);

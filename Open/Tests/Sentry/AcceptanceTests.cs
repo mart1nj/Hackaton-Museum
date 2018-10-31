@@ -21,7 +21,7 @@ namespace Open.Tests.Sentry {
     public abstract class AcceptanceTests : BaseTests {
         protected static Assembly assembly;
         protected static HttpClient client;
-        protected static SentryDbContext db;
+        protected static ApplicationDbContext db;
         private bool useAuthentication;
         protected static string path;
         protected static TestServer server;
@@ -63,7 +63,7 @@ namespace Open.Tests.Sentry {
         private void initTestDatabase() {
             var scope = server.Host.Services.CreateScope();
             var services = scope.ServiceProvider;
-            db = services.GetService<SentryDbContext>();
+            db = services.GetService<ApplicationDbContext>();
             DbInitializer.Initialize(db);
         }
         private static void configure(IServiceCollection services, Assembly a) {

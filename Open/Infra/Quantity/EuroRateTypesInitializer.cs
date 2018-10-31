@@ -3,7 +3,7 @@ using Open.Data.Quantity;
 using Open.Domain.Quantity;
 namespace Open.Infra.Quantity {
     public class EuroRateTypesInitializer {
-        public static void Initialize(SentryDbContext c) {
+        public static void Initialize(ApplicationDbContext c) {
             c.Database.EnsureCreated();
             if (c.RateTypes.Any()) return;
             foreach (var rate in RateFactory.RateTypes) {

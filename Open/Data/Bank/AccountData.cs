@@ -23,11 +23,11 @@ namespace Open.Data.Bank
             get => getString(ref status);
             set => status = value;
         }
-        public string ApplicationUserId {
+        public string AspnetUserId {
             get => getString(ref applicationUserId);
             set => applicationUserId = value;
         }
-        public virtual ApplicationUser ApplicationUser { get; set; }
+        public virtual ApplicationUser AspNetUser { get; set; }
       
     }
 }

@@ -5,7 +5,7 @@ using Open.Domain.Quantity;
 namespace Open.Infra.Quantity {
     public static class CurrenciesInitializer {
 
-        public static void Initialize(SentryDbContext c) {
+        public static void Initialize(ApplicationDbContext c) {
             c.Database.EnsureCreated();
             if (c.Currencies.Any()) return;
             var list = new List<string>();

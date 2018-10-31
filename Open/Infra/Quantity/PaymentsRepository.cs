@@ -6,7 +6,7 @@ using Open.Data.Quantity;
 using Open.Domain.Quantity;
 namespace Open.Infra.Quantity {
     public class PaymentsRepository : Repository<Payment, PaymentData>, IPaymentsRepository {
-        public PaymentsRepository(SentryDbContext c) : base(c?.Payments, c) { }
+        public PaymentsRepository(ApplicationDbContext c) : base(c?.Payments, c) { }
 
         protected internal override Payment createObject(PaymentData r) { return new Payment(r); }
 

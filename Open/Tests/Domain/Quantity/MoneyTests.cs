@@ -26,10 +26,10 @@ namespace Open.Tests.Domain.Quantity {
             var serviceProvider = new ServiceCollection()
                 .AddEntityFrameworkInMemoryDatabase()
                 .BuildServiceProvider();
-            var builder = new DbContextOptionsBuilder<SentryDbContext>()
+            var builder = new DbContextOptionsBuilder<ApplicationDbContext>()
                 .UseInMemoryDatabase(name)
                 .UseInternalServiceProvider(serviceProvider);
-            ConvertMoney.rates = new RatesRepository(new SentryDbContext(builder.Options));
+            ConvertMoney.rates = new RatesRepository(new ApplicationDbContext(builder.Options));
             base.TestInitialize();
             usd = new Currency(new CurrencyData {Code = "USD"});
             eur = new Currency(new CurrencyData {Code = "EUR"});

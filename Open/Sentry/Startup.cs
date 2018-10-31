@@ -13,7 +13,6 @@ using Open.Infra;
 using Open.Infra.Bank;
 using Open.Infra.Party;
 using Open.Infra.Quantity;
-using Open.Sentry.Data;
 using Open.Sentry.Extensions;
 using Open.Sentry.Services;
 namespace Open.Sentry {
@@ -39,8 +38,8 @@ namespace Open.Sentry {
             services.AddScoped<IRateRepository, RatesRepository>();
             services.AddScoped<IPaymentMethodsRepository, PaymentMethodsRepository>();
             services.AddScoped<IPaymentsRepository, PaymentsRepository>();
+            services.AddScoped<IAccountsRepository, AccountRepository>();
             services.AddScoped<ITransactionRepository, TransactionRepository>();
-            //        services.AddScoped<IClientsRepository, ClientsRepository>();
         }
 
         protected virtual void setMvcWithAntyFoggeryToken(IServiceCollection services) {
@@ -52,9 +51,6 @@ namespace Open.Sentry {
             var s = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<ApplicationDbContext>(
                 options => options.UseSqlServer(s));
-            services.AddDbContext<SentryDbContext>(
-                options => options.UseSqlServer(s));
-
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env) {

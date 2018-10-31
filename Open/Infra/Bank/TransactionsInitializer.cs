@@ -5,15 +5,16 @@ using Open.Data.Bank;
 
 namespace Open.Infra.Bank {
     public static class TransactionsInitializer {
-        public static void Initialize(SentryDbContext c) {
+        public static void Initialize(ApplicationDbContext c) {
             c.Database.EnsureCreated();
             if (c.Transactions.Any()) return;
             var accounts = initAccounts(c);
+            c.SaveChanges();
             initTransactions(c, accounts);
             c.SaveChanges();
         }
 
-        private static void initTransactions(SentryDbContext c, List<string> accounts) {
+        private static void initTransactions(ApplicationDbContext c, List<string> accounts) {
             var l = new List<string> {
                 addTransaction(c, new TransactionData {
                     Amount = 15120.99,
@@ -45,14 +46,14 @@ namespace Open.Infra.Bank {
             };
         }
 
-        private static List<string> initAccounts(SentryDbContext c) {
+        private static List<string> initAccounts(ApplicationDbContext c) {
             var l = new List<string> {
                 addAccount(c, new AccountData {
                     Balance = 0,
                     ValidFrom = Convert.ToDateTime("5 September 2018"),
                     ValidTo = Convert.ToDateTime("5 September 2028"),
                     Type = "ISIC",
-                    ApplicationUserId = "sonicSiilId",
+                    AspnetUserId = "sonicSiilId",
                     Status = "Active"
                 }),
                 addAccount(c, new AccountData {
@@ -60,19 +61,19 @@ namespace Open.Infra.Bank {
                     ValidFrom = Convert.ToDateTime("30 September 2018"),
                     ValidTo = Convert.ToDateTime("30 September 2028"),
                     Type = "SlugClub",
-                    ApplicationUserId = "testUserid",
+                    AspnetUserId = "testUserid",
                     Status = "Active"
                 })
             };
             return l;
         }
 
-        private static string addTransaction(SentryDbContext c, TransactionData data) {
+        private static string addTransaction(ApplicationDbContext c, TransactionData data) {
             data.ID = Guid.NewGuid().ToString();
             c.Transactions.Add(data);
             return data.ID;
         }
-        private static string addAccount(SentryDbContext c, AccountData data)
+        private static string addAccount(ApplicationDbContext c, AccountData data)
         {
             data.ID = Guid.NewGuid().ToString();
             c.Accounts.Add(data);

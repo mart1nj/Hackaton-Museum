@@ -4,8 +4,8 @@ using System.Linq;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Open.Data.Bank;
-namespace Open.Sentry.Data {
-    public class SampleDataInitializer {
+namespace Open.Infra {
+    public class SampleAspNetUserInitializer {
         public static void Initialize(ApplicationDbContext context)
         {
             context.Database.EnsureCreated();
@@ -31,15 +31,6 @@ namespace Open.Sentry.Data {
             };
 
 
-            if (!context.Users.Any(u => u.UserName == user.UserName))
-            {
-                var password = new PasswordHasher<ApplicationUser>();
-                var hashed = password.HashPassword(user, "secret");
-                user.PasswordHash = hashed;
-                var userStore = new UserStore<ApplicationUser>(context);
-                var result = userStore.CreateAsync(user);
-
-            }
 
             var user2 = new ApplicationUser
             {
@@ -61,15 +52,18 @@ namespace Open.Sentry.Data {
                 Id = "sonicSiilId"
             };
 
-
-            if (!context.Users.Any(u => u.UserName == user2.UserName))
+            if (!context.Users.Any(u => u.UserName == user2.UserName) || !context.Users.Any(u => u.UserName == user.UserName))
             {
                 var password = new PasswordHasher<ApplicationUser>();
-                var hashed = password.HashPassword(user2, "secret");
-                user2.PasswordHash = hashed;
+                var hashed = password.HashPassword(user, "secret");
+                user.PasswordHash = hashed;
                 var userStore = new UserStore<ApplicationUser>(context);
-                var result = userStore.CreateAsync(user2);
+                var result = userStore.CreateAsync(user);
 
+                var passwordForUser2 = new PasswordHasher<ApplicationUser>();
+                var hashedUser2 = password.HashPassword(user2, "secret");
+                user2.PasswordHash = hashed;
+                var resultUser2 = userStore.CreateAsync(user2);
             }
             context.SaveChangesAsync();
         }

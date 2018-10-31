@@ -10,7 +10,7 @@ namespace Open.Infra.Quantity {
     public class PaymentMethodsRepository : IPaymentMethodsRepository {
         private readonly DbSet<PaymentMethodData> dbSet;
         private readonly DbContext db;
-        public PaymentMethodsRepository(SentryDbContext c) {
+        public PaymentMethodsRepository(ApplicationDbContext c) {
             db = c;
             dbSet = c?.PaymentMethods;
         }

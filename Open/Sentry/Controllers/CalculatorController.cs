@@ -8,12 +8,12 @@ using Open.Infra;
 using Open.Infra.Quantity;
 namespace Open.Sentry.Controllers {
     public class CalculatorController : Controller {
-        private readonly SentryDbContext db;
+        private readonly ApplicationDbContext db;
         private readonly ICurrencyRepository repository;
         private Currency currency;
         private Currency scoreCurrency;
         private const string properties = "Operation, Balance, CurrencyID, Score, ScoreCurrency, RoundingStrategy, RoundingStep, RoundingDecimals, RoundingDigit";
-        public CalculatorController(SentryDbContext r, ICurrencyRepository c) {
+        public CalculatorController(ApplicationDbContext r, ICurrencyRepository c) {
             db = r;
             repository = c;
             ConvertMoney.rates = new RatesRepository(db);

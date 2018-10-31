@@ -5,7 +5,7 @@ namespace Open.Infra.Party {
 
     public static class CountriesInitializer {
 
-        public static void Initialize(SentryDbContext c) {
+        public static void Initialize(ApplicationDbContext c) {
             c.Database.EnsureCreated();
             if (c.Countries.Any()) return;
             var regions = SystemRegionInfo.GetRegionsList();

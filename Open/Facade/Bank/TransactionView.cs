@@ -2,7 +2,6 @@ using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using Open.Facade.Common;
-using Open.Facade.Quantity;
 
 namespace Open.Facade.Bank
 {
@@ -38,5 +37,11 @@ namespace Open.Facade.Bank
             get => getString(ref rAccountId);
             set => rAccountId = value;
         }
+        [DataType(DataType.Date)]
+        [DisplayName("Date Made")]
+        public new DateTime? ValidFrom { get; set; }
+
+        public AccountView SenderAccount { get; set; }
+        public AccountView ReceiverAccount { get; set; }
     }
 }

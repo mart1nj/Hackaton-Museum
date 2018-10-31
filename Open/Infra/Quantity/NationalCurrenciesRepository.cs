@@ -7,7 +7,7 @@ using Open.Domain.Quantity;
 namespace Open.Infra.Quantity {
     public class NationalCurrenciesRepository : BaseRepository<NationalCurrency, NationalCurrencyData>, 
         INationalCurrenciesRepository {
-        public NationalCurrenciesRepository(SentryDbContext c): base(c?.CountryCurrencies, c) { }
+        public NationalCurrenciesRepository(ApplicationDbContext c): base(c?.CountryCurrencies, c) { }
         public async Task LoadCountries(Currency currency) {
             if (currency is null) return;
             var id = currency.Data?.ID ?? string.Empty;
