@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Open.Core;
@@ -20,6 +21,16 @@ namespace Open.Infra.Bank
         protected internal override async Task<TransactionData> getObject(string id) {
             return await dbSet.AsNoTracking()
                 .SingleOrDefaultAsync(x => x.ID == id);
+        }
+
+        public async Task<PaginatedList<Transaction>> LoadTransactionsForAccount(string id)
+        {
+            var transactions = await dbSet.Where(x => x.SenderAccountId == id || x.ReceiverAccountId == id)
+                .AsNoTracking().ToListAsync();
+
+            var p = new RepositoryPage(transactions.Count, PageIndex, PageSize);
+            var paginatedList = createList(transactions, p);
+            return paginatedList;
         }
     }
 }

@@ -3,6 +3,7 @@ using Open.Core;
 using Open.Data.Bank;
 using Open.Domain.Bank;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Open.Infra.Bank
@@ -23,6 +24,15 @@ namespace Open.Infra.Bank
         {
             return await dbSet.AsNoTracking()
                 .SingleOrDefaultAsync(x => x.ID == id);
+        }
+
+        public async Task<PaginatedList<Account>> LoadAccountsForUser(string id)
+        {
+            var accounts = await dbSet.Where(x => x.AspnetUserId == id)
+                .AsNoTracking().ToListAsync();
+            var p = new RepositoryPage(accounts.Count, PageIndex, PageSize);
+            var paginatedList = createList(accounts, p);
+            return paginatedList;
         }
     }
 }

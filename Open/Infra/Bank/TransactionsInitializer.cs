@@ -8,6 +8,8 @@ namespace Open.Infra.Bank {
         private static double amount1 = 15120.99;
         private static double amount2 = 200.10;
         private static double amount3 = 864.46;
+        private static double amount4 = 100;
+        private static double amount5 = 50;
 
         public static void Initialize(ApplicationDbContext c) {
             c.Database.EnsureCreated();
@@ -40,6 +42,20 @@ namespace Open.Infra.Bank {
                     Explanation = "Arve nr 35455",
                     SenderAccountId = accounts[1],
                     ReceiverAccountId = accounts[0]
+                }),
+                addTransaction(c, new TransactionData {
+                    Amount = amount4,
+                    ValidFrom = Convert.ToDateTime("3 November 2018"),
+                    Explanation = "Tere tulemast!",
+                    SenderAccountId = accounts[0],
+                    ReceiverAccountId = accounts[2]
+                }),
+                addTransaction(c, new TransactionData {
+                    Amount = amount5,
+                    ValidFrom = Convert.ToDateTime("3 November 2018"),
+                    Explanation = "Võlg",
+                    SenderAccountId = accounts[0],
+                    ReceiverAccountId = accounts[2]
                 })
             };
         }
@@ -47,7 +63,7 @@ namespace Open.Infra.Bank {
         private static List<string> initAccounts(ApplicationDbContext c) {
             var l = new List<string> {
                 addAccount(c, new AccountData {
-                    Balance = -amount1 - amount2 + amount3,
+                    Balance = -amount1 - amount2 + amount3 - amount4 - amount5,
                     ValidFrom = Convert.ToDateTime("5 September 2018"),
                     ValidTo = Convert.ToDateTime("5 September 2028"),
                     Type = "ISIC",
@@ -59,6 +75,14 @@ namespace Open.Infra.Bank {
                     ValidFrom = Convert.ToDateTime("30 September 2018"),
                     ValidTo = Convert.ToDateTime("30 September 2028"),
                     Type = "SlugClub",
+                    AspnetUserId = "testUserid",
+                    Status = "Active"
+                }),
+                addAccount(c, new AccountData {
+                    Balance = amount4 + amount5,
+                    ValidFrom = Convert.ToDateTime("3 November 2018"),
+                    ValidTo = Convert.ToDateTime("30 September 2028"),
+                    Type = "Debit",
                     AspnetUserId = "testUserid",
                     Status = "Active"
                 })

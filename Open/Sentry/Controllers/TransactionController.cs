@@ -27,7 +27,7 @@ namespace Open.Sentry.Controllers
             userManager = uManager;
         }
 
-        public async Task<IActionResult> Index(string sortOrder = null, string currentFilter = null,
+        public async Task<IActionResult> Index(string id, string sortOrder = null, string currentFilter = null,
             string searchString = null, int? page = null)
         {
             ViewData["CurrentSort"] = sortOrder;
@@ -44,23 +44,20 @@ namespace Open.Sentry.Controllers
             ViewData["CurrentFilter"] = searchString;
             transactions.SearchString = searchString;
             transactions.PageIndex = page ?? 1;
-            var l = await transactions.GetObjectsList();
-            var loggedinUser = await userManager.GetUserAsync(HttpContext.User);
+            var l = await transactions.LoadTransactionsForAccount(id);
             var viewList = new TransactionViewsList(l);
-            foreach (var transaction in viewList) {
+            var appUser = await userManager.GetUserAsync(HttpContext.User);
+            foreach (var transaction in viewList)
+            {
                 transaction.SenderAccount =
                     AccountViewFactory.Create(await accounts.GetObject(transaction.SenderAccountId));
                 transaction.SenderAccount.AspnetUser = await userManager.FindByIdAsync(transaction.SenderAccount.AspnetUserId);
                 transaction.ReceiverAccount =
                     AccountViewFactory.Create(await accounts.GetObject(transaction.ReceiverAccountId));
                 transaction.ReceiverAccount.AspnetUser = await userManager.FindByIdAsync(transaction.ReceiverAccount.AspnetUserId);
-                if (transaction.SenderAccount.AspnetUserId != loggedinUser.Id &&
-                    transaction.ReceiverAccount.AspnetUserId != loggedinUser.Id) {
-                    viewList.Remove(transaction);
-                    continue;
-                }
 
-                if (transaction.SenderAccount.AspnetUserId == loggedinUser.Id) {
+                if (transaction.SenderAccount.AspnetUserId == appUser.Id) 
+                {
                     transaction.Amount = -transaction.Amount;
                     var receiver = transaction.SenderAccount;
                     var receiverId = transaction.SenderAccountId;
