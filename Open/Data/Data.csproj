@@ -52,37 +52,16 @@
     <Compile Include="Bank\AccountData.cs" />
     <Compile Include="Bank\ApplicationUser.cs" />
     <Compile Include="Bank\TransactionData.cs" />
-    <Compile Include="Common\NamedData.cs" />
-    <Compile Include="Common\MetricsData.cs" />
-    <Compile Include="Common\PeriodData.cs" />
     <Compile Include="Common\IdentifiedData.cs" />
-    <Compile Include="Party\AddressData.cs" />
-    <Compile Include="Party\CountryData.cs" />
-    <Compile Include="Party\TelecomDeviceRegistrationData.cs" />
-    <Compile Include="Party\EmailAddressData.cs" />
-    <Compile Include="Party\GeographicAddressData.cs" />
-    <Compile Include="Party\TelecomAddressData.cs" />
-    <Compile Include="Party\WebPageAddressData.cs" />
-    <Compile Include="Quantity\CheckData.cs" />
-    <Compile Include="Quantity\NationalCurrencyData.cs" />
-    <Compile Include="Quantity\CreditCardData.cs" />
-    <Compile Include="Quantity\CurrencyData.cs" />
-    <Compile Include="Quantity\DebitCardData.cs" />
-    <Compile Include="Quantity\PaymentData.cs" />
-    <Compile Include="Quantity\PaymentMethodData.cs" />
-    <Compile Include="Quantity\RateData.cs" />
-    <Compile Include="Quantity\RateTypeData.cs" />
+    <Compile Include="Common\MetricsData.cs" />
+    <Compile Include="Common\NamedData.cs" />
+    <Compile Include="Common\PeriodData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Bank\Docs\ApplicationUserDiagram.cd" />
     <None Include="Common\Docs\BaseClasses.cd" />
     <None Include="packages.config" />
-    <None Include="Party\Docs\Location.cd" />
-    <None Include="Quantity\Docs\CountryCurrency.cd" />
-    <None Include="Quantity\Docs\Fig 11 - 2 Currency.cd" />
-    <None Include="Quantity\Docs\Fig 11 - 6 Rate.cd" />
-    <None Include="Quantity\Docs\Fig 11 - 7 Payment Method.cd" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

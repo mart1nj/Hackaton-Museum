@@ -1,6 +1,5 @@
 ﻿using Open.Data.Bank;
 using Open.Domain.Common;
-using Open.Domain.Quantity;
 
 namespace Open.Domain.Bank
 {

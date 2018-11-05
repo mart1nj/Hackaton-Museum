@@ -2,8 +2,8 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Open.Aids;
 using Open.Data.Common;
+using Open.Domain.Bank;
 using Open.Domain.Common;
-using Open.Domain.Party;
 namespace Open.Tests.Domain
 {
     [TestClass] public abstract class EntityBaseTests<TObject, TRecord> : ObjectTests<TObject> 
@@ -26,8 +26,8 @@ namespace Open.Tests.Domain
         [TestMethod]
         public void DataIsReadOnlyTest()
         {
-            var name = GetMember.Name<Country>(x => x.Data);
-            Assert.IsTrue(IsReadOnly.Field<Country>(name));
+            var name = GetMember.Name<Account>(x => x.Data);
+            Assert.IsTrue(IsReadOnly.Field<Account>(name));
         }
     }
 }

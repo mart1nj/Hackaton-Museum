@@ -3,15 +3,15 @@ using System.Linq.Expressions;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Open.Data.Bank;
-using Open.Data.Party;
-using Open.Data.Quantity;
+/*using Open.Data.Party;
+using Open.Data.Quantity;*/
 namespace Open.Infra
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options) {}
-        public DbSet<CountryData> Countries { get; set; }
+     /*   public DbSet<CountryData> Countries { get; set; }
         public DbSet<CurrencyData> Currencies { get; set; }
         public DbSet<NationalCurrencyData> CountryCurrencies { get; set; }
         public DbSet<AddressData> Addresses { get; set; }
@@ -19,7 +19,7 @@ namespace Open.Infra
         public DbSet<RateData> Rates { get; set; }
         public DbSet<RateTypeData> RateTypes { get; set; }
         public DbSet<PaymentMethodData> PaymentMethods { get; set; }
-        public DbSet<PaymentData> Payments { get; set; }
+        public DbSet<PaymentData> Payments { get; set; }*/
         public DbSet<AccountData> Accounts { get; set; }
         public DbSet<TransactionData> Transactions { get; set; }
 
@@ -29,7 +29,8 @@ namespace Open.Infra
             // Customize the ASP.NET Identity model and override the defaults if needed.
             // For example, you can rename the ASP.NET Identity table names and more.
             // Add your customizations after calling base.OnModelCreating(builder);
-            builder.Entity<CurrencyData>().ToTable("Currency");
+
+           /* builder.Entity<CurrencyData>().ToTable("Currency");
             builder.Entity<CountryData>().ToTable("Country");
             builder.Entity<RateTypeData>().ToTable("RateType");
             createAddressTable(builder);
@@ -37,7 +38,7 @@ namespace Open.Infra
             createNationalCurrencyTable(builder);
             createPaymentMethodTable(builder);
             createRateTable(builder);
-            createPaymentTable(builder);
+            createPaymentTable(builder);*/
             createAccountTable(builder);
             createTransactionTable(builder);
         }
@@ -54,7 +55,7 @@ namespace Open.Infra
             createForeignKey<TransactionData, AccountData>(b, table, x => x.SenderAccountId, x => x.SenderAccount);
             createForeignKey<TransactionData, AccountData>(b, table, x => x.ReceiverAccountId, x => x.ReceiverAccount);
         }
-        private static void createPaymentMethodTable(ModelBuilder b)
+     /*   private static void createPaymentMethodTable(ModelBuilder b)
         {
             const string table = "PaymentMethod";
             b.Entity<CheckData>().ToTable(table);
@@ -98,7 +99,7 @@ namespace Open.Infra
             createPrimaryKey<NationalCurrencyData>(b, table, a => new { a.CountryID, a.CurrencyID });
             createForeignKey<NationalCurrencyData, CountryData>(b, table, x => x.CountryID, x => x.Country);
             createForeignKey<NationalCurrencyData, CurrencyData>(b, table, x => x.CurrencyID, x => x.Currency);
-        }
+        }*/
 
         internal static void createPrimaryKey<TEntity>(ModelBuilder b, string tableName,
             Expression<Func<TEntity, object>> primaryKey) where TEntity : class

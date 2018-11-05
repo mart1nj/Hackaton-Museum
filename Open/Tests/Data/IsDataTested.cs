@@ -1,8 +1,4 @@
-﻿
-
-
-
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Open.Tests.Data {
     [TestClass] public class IsDataTested : AssemblyTests {
         private const string assembly = "Open.Data";
@@ -12,12 +8,12 @@ namespace Open.Tests.Data {
         [TestMethod] public void IsCommonTested() {
             isAllTested(assembly, Namespace("Common"));
         }
-        [TestMethod] public void IsPartyTested() {
+      /*  [TestMethod] public void IsPartyTested() {
             isAllTested(assembly, Namespace("Party"));
         }
         [TestMethod] public void IsQuantityTested() {
             isAllTested(assembly, Namespace("Quantity"));
-        }
+        }*/
         [TestMethod] public void IsBankTested() {
             isAllTested(assembly, Namespace("Bank"));
         }

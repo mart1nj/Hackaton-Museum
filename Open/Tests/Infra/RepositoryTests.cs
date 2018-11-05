@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Open.Data.Party;
-using Open.Domain.Party;
+using Open.Data.Bank;
+using Open.Domain.Bank;
 using Open.Infra;
 namespace Open.Tests.Infra
 {
@@ -11,7 +11,7 @@ namespace Open.Tests.Infra
         public override void TestInitialize()
         {
             base.TestInitialize();
-            type = typeof(Repository<Country, CountryData>);
+            type = typeof(Repository<Account, AccountData>);
         }
         [TestMethod] public void IsInitializedTest() {
             Assert.Inconclusive();

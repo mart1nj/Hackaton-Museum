@@ -8,6 +8,15 @@
  </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Party\**" />
+    <Compile Remove="Quantity\**" />
+    <EmbeddedResource Remove="Party\**" />
+    <EmbeddedResource Remove="Quantity\**" />
+    <None Remove="Party\**" />
+    <None Remove="Quantity\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Remove="Bank\ClientsInitializer.cs" />
     <Compile Remove="Bank\ClientsRepository.cs" />
     <Compile Remove="SentryDbContext.cs" />

@@ -15,33 +15,48 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Data\Party\**" />
+    <Compile Remove="Data\Quantity\**" />
     <Compile Remove="Domain\Inventory\**" />
+    <Compile Remove="Domain\Party\**" />
+    <Compile Remove="Domain\Quantity\**" />
+    <Compile Remove="Facade\Party\**" />
+    <Compile Remove="Facade\Quantity\**" />
+    <Compile Remove="Infra\Party\**" />
+    <Compile Remove="Infra\Quantity\**" />
+    <EmbeddedResource Remove="Data\Party\**" />
+    <EmbeddedResource Remove="Data\Quantity\**" />
     <EmbeddedResource Remove="Domain\Inventory\**" />
+    <EmbeddedResource Remove="Domain\Party\**" />
+    <EmbeddedResource Remove="Domain\Quantity\**" />
+    <EmbeddedResource Remove="Facade\Party\**" />
+    <EmbeddedResource Remove="Facade\Quantity\**" />
+    <EmbeddedResource Remove="Infra\Party\**" />
+    <EmbeddedResource Remove="Infra\Quantity\**" />
+    <None Remove="Data\Party\**" />
+    <None Remove="Data\Quantity\**" />
     <None Remove="Domain\Inventory\**" />
+    <None Remove="Domain\Party\**" />
+    <None Remove="Domain\Quantity\**" />
+    <None Remove="Facade\Party\**" />
+    <None Remove="Facade\Quantity\**" />
+    <None Remove="Infra\Party\**" />
+    <None Remove="Infra\Quantity\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="Data\Bank\ClientDataTests.cs" />
     <Compile Remove="Domain\Bank\ClientTests.cs" />
-    <Compile Remove="Facade\Quantity\CommonTermViewTests.cs" />
-    <Compile Remove="Facade\Quantity\MeasureBaseViewTests.cs" />
-    <Compile Remove="Facade\Quantity\MeasureDerivedViewTests.cs" />
-    <Compile Remove="Facade\Quantity\MeasureTermViewsListTests.cs" />
-    <Compile Remove="Facade\Quantity\MeasureTermViewTests.cs" />
-    <Compile Remove="Facade\Quantity\MeasureViewsListTests.cs" />
-    <Compile Remove="Facade\Quantity\MeasureViewTests.cs" />
-    <Compile Remove="Facade\Quantity\MetricsViewTests.cs" />
-    <Compile Remove="Facade\Quantity\SystemOfUnitsViewsListTests.cs" />
-    <Compile Remove="Facade\Quantity\SystemOfUnitsViewTests.cs" />
-    <Compile Remove="Facade\Quantity\TermViewsListTests.cs" />
-    <Compile Remove="Facade\Quantity\UnitBaseViewTests.cs" />
-    <Compile Remove="Facade\Quantity\UnitDerivedViewTests.cs" />
-    <Compile Remove="Facade\Quantity\UnitFactoredViewTests.cs" />
-    <Compile Remove="Facade\Quantity\UnitFunctionedViewTests.cs" />
-    <Compile Remove="Facade\Quantity\UnitTermViewsListTests.cs" />
-    <Compile Remove="Facade\Quantity\UnitTermViewTests.cs" />
-    <Compile Remove="Facade\Quantity\UnitViewsListTests.cs" />
-    <Compile Remove="Facade\Quantity\UnitViewTests.cs" />
+    <Compile Remove="Domain\Common\MetricsTests.cs" />
+    <Compile Remove="Domain\Common\NamedEntityTests.cs" />
+    <Compile Remove="Sentry\Controllers\BaseControllerTests.cs" />
+    <Compile Remove="Sentry\Controllers\CalculatorControllerTests.cs" />
+    <Compile Remove="Sentry\Controllers\ContactsControllerTests.cs" />
+    <Compile Remove="Sentry\Controllers\CountriesControllerTests.cs" />
+    <Compile Remove="Sentry\Controllers\CurrenciesControllerTests.cs" />
+    <Compile Remove="Sentry\Controllers\PaymentMethodsControllerTests.cs" />
+    <Compile Remove="Sentry\Controllers\PaymentsControllerTests.cs" />
+    <Compile Remove="Sentry\Controllers\RatesControllerTests.cs" />
+    <Compile Remove="Sentry\Controllers\RateTypesControllerTests.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -64,8 +79,8 @@
 
   <ItemGroup>
     <Folder Include="Aids\Extensions\" />
-    <Folder Include="Data\Bank\" />
-    <Folder Include="Domain\Bank\" />
+    <Folder Include="Facade\Bank\" />
+    <Folder Include="Infra\Bank\" />
   </ItemGroup>
 
 </Project>

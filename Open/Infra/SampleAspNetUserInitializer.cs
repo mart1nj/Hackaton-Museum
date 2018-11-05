@@ -61,8 +61,8 @@ namespace Open.Infra {
                 var result = userStore.CreateAsync(user);
 
                 var passwordForUser2 = new PasswordHasher<ApplicationUser>();
-                var hashedUser2 = password.HashPassword(user2, "secret");
-                user2.PasswordHash = hashed;
+                var hashedUser2 = passwordForUser2.HashPassword(user2, "secret");
+                user2.PasswordHash = hashedUser2;
                 var resultUser2 = userStore.CreateAsync(user2);
             }
             context.SaveChangesAsync();

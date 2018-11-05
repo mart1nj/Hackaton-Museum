@@ -5,8 +5,8 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Open.Aids;
-using Open.Data.Party;
-using Open.Data.Quantity;
+/*using Open.Data.Party;
+using Open.Data.Quantity;*/
 using Open.Infra;
 namespace Open.Tests.Infra {
 
@@ -30,7 +30,7 @@ public class ApplicationDbContextTests : BaseIntegrationTests<ApplicationDbConte
     protected override ApplicationDbContext getRandomObject() {
         return db;
     }
-    [TestMethod] public void CountriesTest() {
+   /* [TestMethod] public void CountriesTest() {
             Assert.IsNotNull(db.Countries);
         }
 
@@ -96,7 +96,7 @@ public class ApplicationDbContextTests : BaseIntegrationTests<ApplicationDbConte
             testPrimaryKey(entity, adrID, devID);
             testForeignKey(entity, adrID, typeof(GeographicAddressData));
             testForeignKey(entity, devID, typeof(TelecomAddressData));
-        }
+        }*/
         private static IMutableEntityType testEntity<T>(ModelBuilder mb, bool hasPrimaryKey = false, int foreignKeysCount = 0) {
             var name = typeof(T).FullName;
             var entity = mb.Model.FindEntityType(name);
@@ -137,9 +137,9 @@ public class ApplicationDbContextTests : BaseIntegrationTests<ApplicationDbConte
             var o = new DbContextOptions<ApplicationDbContext>();
             var context = new testClass(o);
             var mb = context.RunOnModelCreating();
-            testHasAdressEntities(mb);
+            /*testHasAdressEntities(mb);
             testHasNationalCurrencyEntities(mb);
-            testOtherTelecomRegistrationEntities(mb);
+            testOtherTelecomRegistrationEntities(mb);*/
         }
     }
 }

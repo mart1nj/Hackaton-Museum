@@ -20,7 +20,7 @@ namespace Open.Domain.Bank
             return new Account(r);
         }
 
-        public static Account CreateAccount(AccountData account)
+       /* public static Account CreateAccount(AccountData account)
         {
             var r = new AccountData
             {
@@ -33,6 +33,6 @@ namespace Open.Domain.Bank
                 AspnetUserId = account.AspnetUserId
             };
             return new Account(r);
-        }
+        }*/
     }
 }

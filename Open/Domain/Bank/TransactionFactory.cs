@@ -2,7 +2,7 @@
 using Open.Data.Bank;
 namespace Open.Domain.Bank
 {
-    class TransactionFactory
+    public class TransactionFactory
     {
         public static Transaction CreateTransaction(string id, double? amount, string explanation, string senderAccountId,
             string receiverAccountId, DateTime? validFrom = null, DateTime? validTo = null)
@@ -20,7 +20,7 @@ namespace Open.Domain.Bank
             return new Transaction(r);
         }
 
-        public static Transaction CreateTransaction(TransactionData transaction)
+     /*   public static Transaction CreateTransaction(TransactionData transaction)
         {
             var r = new TransactionData
             {
@@ -33,6 +33,6 @@ namespace Open.Domain.Bank
                 ReceiverAccountId = transaction.ReceiverAccountId
             };
             return new Transaction(r);
-        }
+        }*/
     }
 }

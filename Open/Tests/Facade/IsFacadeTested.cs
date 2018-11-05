@@ -8,11 +8,14 @@ namespace Open.Tests.Facade {
         [TestMethod] public void IsCommonTested() {
             isAllTested(assembly, Namespace("Common"));
         }
-        [TestMethod] public void IsPartyTested() {
+        /*[TestMethod] public void IsPartyTested() {
             isAllTested(assembly, Namespace("Party"));
         }
         [TestMethod] public void IsQuantityTested() {
             isAllTested(assembly, Namespace("Quantity"));
+        }*/
+        [TestMethod] public void IsBankTested() {
+            isAllTested(assembly, Namespace("Bank"));
         }
         [TestMethod]
         public void IsTested()

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -10,7 +8,6 @@ using Open.Core;
 using Open.Data.Bank;
 using Open.Domain.Bank;
 using Open.Facade.Bank;
-using Open.Facade.Quantity;
 namespace Open.Sentry.Controllers
 {
     public class BankAccountController : Controller
@@ -52,7 +49,7 @@ namespace Open.Sentry.Controllers
         }
         private static string idIsInUseMessage(string id)
         {
-            var name = GetMember.DisplayName<RateView>(c => c.ID);
+            var name = GetMember.DisplayName<AccountView>(c => c.ID);
             return string.Format(Messages.ValueIsAlreadyInUse, id, name);
         }
     }

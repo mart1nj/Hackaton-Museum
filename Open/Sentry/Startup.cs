@@ -7,12 +7,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Open.Data.Bank;
 using Open.Domain.Bank;
-using Open.Domain.Party;
-using Open.Domain.Quantity;
+/*using Open.Domain.Party;
+using Open.Domain.Quantity;*/
 using Open.Infra;
 using Open.Infra.Bank;
-using Open.Infra.Party;
-using Open.Infra.Quantity;
+/*using Open.Infra.Party;
+using Open.Infra.Quantity;*/
 using Open.Sentry.Extensions;
 using Open.Sentry.Services;
 namespace Open.Sentry {
@@ -29,7 +29,7 @@ namespace Open.Sentry {
             setAuthentication(services);
             services.AddTransient<IEmailSender, EmailSender>();
             setMvcWithAntyFoggeryToken(services);
-            services.AddScoped<ICountriesRepository, CountriesRepository>();
+          /*  services.AddScoped<ICountriesRepository, CountriesRepository>();
             services.AddScoped<ICurrencyRepository, CurrenciesRepository>();
             services.AddScoped<INationalCurrenciesRepository, NationalCurrenciesRepository>();
             services.AddScoped<IAddressesRepository, ContactsRepository>();
@@ -37,7 +37,7 @@ namespace Open.Sentry {
             services.AddScoped<IRateTypeRepository, RateTypesRepository>();
             services.AddScoped<IRateRepository, RatesRepository>();
             services.AddScoped<IPaymentMethodsRepository, PaymentMethodsRepository>();
-            services.AddScoped<IPaymentsRepository, PaymentsRepository>();
+            services.AddScoped<IPaymentsRepository, PaymentsRepository>();*/
             services.AddScoped<IAccountsRepository, AccountRepository>();
             services.AddScoped<ITransactionRepository, TransactionRepository>();
         }

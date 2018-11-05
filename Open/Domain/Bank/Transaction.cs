@@ -1,16 +1,15 @@
 using Open.Data.Bank;
 using Open.Domain.Common;
-using Open.Domain.Quantity;
 
 namespace Open.Domain.Bank
 {
     public sealed class Transaction: Entity<TransactionData> {
-        public readonly AccountData SenderAccountData;
-        public readonly AccountData ReceiverAccountData;
+        public readonly Account SenderAccount;
+        public readonly Account ReceiverAccount;
 
         public Transaction(TransactionData data) : base(data) {
-            SenderAccountData = data?.SenderAccount;
-            ReceiverAccountData = data?.ReceiverAccount;
+            SenderAccount = new Account(data?.SenderAccount);
+            ReceiverAccount = new Account(data?.ReceiverAccount);
         }
         
     }
