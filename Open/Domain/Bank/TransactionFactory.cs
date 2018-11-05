@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Open.Data.Bank;
 namespace Open.Domain.Bank
 {
     class TransactionFactory
     {
-        public static Transaction CreateTransaction(string id, double amount, string explanation, string senderAccountId,
+        public static Transaction CreateTransaction(string id, double? amount, string explanation, string senderAccountId,
             string receiverAccountId, DateTime? validFrom = null, DateTime? validTo = null)
         {
             var r = new TransactionData

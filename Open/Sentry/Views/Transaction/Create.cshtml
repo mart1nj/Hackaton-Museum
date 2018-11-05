@@ -7,8 +7,8 @@
     ViewBag.Button = "Make";
     Layout = "_EditPartial";
 }
-@if (TransactionController.Error == 0)
-{
+@if (TransactionController.Error == 0) {
+
     <body>
         @Html.HiddenFor(x => x.ID)
         @Html.ViewingControlsFor(x => x.ValidFrom)

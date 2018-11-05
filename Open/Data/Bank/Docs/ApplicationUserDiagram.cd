@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="Open.Data.Bank.ApplicationUser">
-    <Position X="5.5" Y="1.75" Width="2" />
+    <Position X="5.25" Y="0.75" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAAAAEAAAAAAAAAIAAAAAAAAAAIAAAABAAAAAAAQAAg=</HashCode>
+      <HashCode>AAAAAEAAAAAAAAAIAAAAAAAAAAIQAAABAAAAAAAQAAg=</HashCode>
       <FileName>Bank\ApplicationUser.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -14,6 +14,27 @@
   <Class Name="Microsoft.AspNetCore.Identity.IdentityUser&lt;TKey&gt;" Collapsed="true">
     <Position X="2.5" Y="0.75" Width="2" />
     <TypeIdentifier />
+  </Class>
+  <Class Name="Open.Data.Bank.AccountData">
+    <Position X="8.5" Y="0.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>ACQAAAAEAAAAAAAAAAgAAAAIAAABAAAAAwAAAAAAAAQ=</HashCode>
+      <FileName>Bank\AccountData.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="AspNetUser" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Open.Data.Bank.TransactionData">
+    <Position X="12" Y="0.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAAAAAAAAAACQECEAACBgAAAAQAAAAAAAAA=</HashCode>
+      <FileName>Bank\TransactionData.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="SenderAccount" />
+      <Property Name="ReceiverAccount" />
+    </ShowAsAssociation>
   </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

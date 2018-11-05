@@ -46,6 +46,12 @@ else
                                 <a class="btn btn-primary btn-sm"
                                    href="@Url.Action("Index", "Transaction", new { id = item.ID })">Transactions &raquo;</a>
                             </td>
+                            <td>
+
+                                <a class="btn btn-primary btn-sm"
+                                   href="@Url.Action("Create", "Transaction", new { senderId = item.ID })">Make transactions &raquo;
+                                    </a>
+                            </td>
                         </tr>
                     }
             </table>
@@ -54,8 +60,7 @@ else
         <div class="col-md-2" style="text-align: end">
             <h3>Shortcuts</h3>
             <p>
-                <a class="btn btn-primary btn-sm"
-                   href="@Url.Action("Create", "Transaction")">Make transactions &raquo;</a>
+                
                 <a class="btn btn-primary btn-sm"
                    href="@Url.Action("Index", "Manage")">Account settings &raquo;</a>
                 <a class="btn btn-primary btn-sm"

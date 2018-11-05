@@ -88,8 +88,9 @@ namespace Open.Sentry.Controllers {
             return x => x.ValidFrom;
         }
 
-        public IActionResult Create() {
-            return View();
+        public async Task<IActionResult> Create(string senderId) {
+            BankAccount = await accounts.GetObject(senderId);
+            return View(TransactionViewFactory.Create(TransactionFactory.CreateTransaction(null, null, "", senderId, "", DateTime.Now.Date)));
         }
 
         [HttpPost]
@@ -135,7 +136,7 @@ namespace Open.Sentry.Controllers {
                 }
             }
 
-            return View();
+            return View("Index");
         }
 
         private void makeDatabaseChanges(Account senderObject, Account receiverObject, double amountD,
