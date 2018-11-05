@@ -1,4 +1,6 @@
-﻿@using Open.Sentry.Extensions
+﻿@using Open.Data.Bank
+@using Open.Sentry.Extensions
+@inject SignInManager<ApplicationUser> SignInManager
 @model Open.Core.IPaginatedList<Open.Facade.Bank.AccountView>
 
 @{
@@ -9,42 +11,56 @@
     <h1>@ViewData["Title"]</h1>
     <img style="width: 100%; display: block;" src="/images/bankpikalt.jpg" alt="Bank image">
 </div>
+@if (!SignInManager.IsSignedIn(User))
+{
+    <div class="row">
+        <div class="col-md-9">
+            <h2>Welcome to SonicBank!</h2>
+            <h3>Please log in to use our services!</h3>
+        </div>
+    </div>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-9">
+            <h2>Welcome, @User.GetFirstName()</h2>
+            <table style="width: 100%">
+                <thead>
+                    <tr>
+                        <th>Account Number</th>
+                        <th>Type</th>
+                        <th>Balance</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => item.ID)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Type)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Balance)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Status)</td>
+                            <td>
+                                <a class="btn btn-primary btn-sm"
+                                   href="@Url.Action("Index", "Transaction", new { id = item.ID })">Transactions &raquo;</a>
+                            </td>
+                        </tr>
+                    }
+            </table>
 
-<div class="row">
-    <div class="col-md-9">
-        <h2>Welcome, @User.GetFirstName()</h2>
-        <table style="width: 100%">
-            <thead>
-            <tr>
-                <th>Account Number</th>
-                <th>Type</th>
-                <th>Balance</th>
-                <th>Status</th>
-            </tr>
-            </thead>
-            <tbody>
-            @foreach (var item in Model) {
-                <tr>
-                    <td>@Html.DisplayFor(modelItem => item.ID)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Type)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Balance)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Status)</td>
-                    <td>
-                        <a class="btn btn-primary btn-sm"
-                           href="../Transaction/Index/@item.ID">Transactions &raquo;</a>
-                    </td>
-                </tr>
-            }
-        </table>
-        
+        </div>
+        <div class="col-md-2" style="text-align: end">
+            <h3>Shortcuts</h3>
+            <p>
+                <a class="btn btn-primary btn-sm"
+                   href="@Url.Action("Create", "Transaction")">Make transactions &raquo;</a>
+                <a class="btn btn-primary btn-sm"
+                   href="@Url.Action("Index", "Manage")">Account settings &raquo;</a>
+                <a class="btn btn-primary btn-sm"
+                   href="@Url.Action("Create", "BankAccount")">Create an account &raquo;</a>
+            </p>
+        </div>
     </div>
-    <div class="col-md-2" style="text-align: end">
-        <h3>Shortcuts</h3>
-        <p>            
-            <a class="btn btn-primary btn-sm"
-               href="../Transaction/Create">Make transactions &raquo;</a>
-            <a class="btn btn-primary btn-sm"
-               href="../Manage/Index">Account settings &raquo;</a>
-        </p>
-    </div>
-</div>
+}

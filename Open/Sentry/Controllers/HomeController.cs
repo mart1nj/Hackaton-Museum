@@ -19,15 +19,11 @@ namespace Open.Sentry.Controllers {
         }
         public async Task<IActionResult> Index() {
             var loggedInUser = await userManager.GetUserAsync(HttpContext.User);
-            if (loggedInUser == null) return RedirectToAction("NotLoggedIn");
+            if (loggedInUser == null) return View();
             var userAccounts = await accounts.LoadAccountsForUser(loggedInUser.Id);
             var list = new AccountsViewsList(userAccounts);
             return View(list);
 
-        }
-
-        public IActionResult NotLoggedIn() {
-            return View();
         }
         public IActionResult About() {
             ViewData["Message"] = "Your application description page.";

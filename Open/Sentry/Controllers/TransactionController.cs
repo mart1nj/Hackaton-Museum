@@ -15,6 +15,7 @@ namespace Open.Sentry.Controllers
         private readonly IAccountsRepository accounts;
         private readonly ITransactionRepository transactions;
         private readonly UserManager<ApplicationUser> userManager;
+        public static Account BankAccount;
 
         internal const string properties =
             "ID, Amount, Explanation, ReceiverAccountId, SenderAccountId," +
@@ -44,6 +45,7 @@ namespace Open.Sentry.Controllers
             ViewData["CurrentFilter"] = searchString;
             transactions.SearchString = searchString;
             transactions.PageIndex = page ?? 1;
+            BankAccount = await accounts.GetObject(id);
             var l = await transactions.LoadTransactionsForAccount(id);
             var viewList = new TransactionViewsList(l);
             var appUser = await userManager.GetUserAsync(HttpContext.User);

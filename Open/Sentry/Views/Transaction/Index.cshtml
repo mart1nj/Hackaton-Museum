@@ -1,8 +1,9 @@
 @using Open.Sentry.Extensions
+@using Open.Sentry.Controllers
 @model Open.Core.IPaginatedList<Open.Facade.Bank.TransactionView>
 
 @{
-    ViewBag.Title = "Transactions for " + Model[0].ReceiverAccountId;
+    ViewBag.Title = "Transactions for " + TransactionController.BankAccount.Data?.ID;
     Layout = "_IndexPartial";
 }
 
@@ -50,11 +51,11 @@
         <td></td>
         <td>@Html.Label("Balance"): </td>
         <td>                
-            @if (Model[0].ReceiverAccount.Balance > 0) {
-                <span style="color: green;">@Model[0].ReceiverAccount.Balance</span>
+            @if (TransactionController.BankAccount.Data?.Balance > 0) {
+                <span style="color: green;">@TransactionController.BankAccount.Data?.Balance</span>
             }
             else {
-                <span style="color: red;">@Model[0].ReceiverAccount.Balance</span>
+                <span style="color: red;">@TransactionController.BankAccount.Data?.Balance</span>
             }</td>
         <td></td>
     </tr>

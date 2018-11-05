@@ -185,8 +185,6 @@ namespace Open.Sentry.Controllers {
                 var result = await userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded) {
                     logger.LogInformation("User created a new account with password.");
-                /*    await userManager.AddClaimAsync(user, new Claim("FirstName", user.FirstName));
-                    await userManager.AddClaimAsync(user, new Claim("LastName", user.LastName));*/
                     var code = await userManager.GenerateEmailConfirmationTokenAsync(user);
                     var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
                     await emailSender.SendEmailConfirmationAsync(model.Email, callbackUrl);

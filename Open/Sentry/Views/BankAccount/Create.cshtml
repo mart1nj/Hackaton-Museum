@@ -1,0 +1,21 @@
+﻿@using Open.Sentry.Extensions
+@model Open.Facade.Bank.AccountView
+
+@{
+    ViewBag.Title = "Create";
+    ViewBag.SubTitle = "New account";
+    ViewBag.Button = "Create";
+    Layout = "_EditPartial";
+}
+
+<body>
+    @Html.HiddenFor(x => x.ID)
+    @Html.HiddenFor(x => x.Balance)
+    @Html.HiddenFor(x => x.Status)
+    @Html.HiddenFor(x => x.AspnetUserId)
+    @Html.HiddenFor(x => x.ValidFrom)
+    @Html.HiddenFor(x => x.ValidTo)
+    @Html.EditingControlsFor(x => x.Type)
+</body>
+
+@section Actions{@Html.ActionLink("Back", "Index", "Home")}

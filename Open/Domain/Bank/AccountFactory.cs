@@ -5,7 +5,7 @@ namespace Open.Domain.Bank
 {
     public static class AccountFactory
     {
-        public static Account CreateAccount(string id, double balance, string type, string status, string applicationUserId, DateTime? validFrom = null, DateTime? validTo = null)
+        public static Account CreateAccount(string id, double? balance, string type, string status, string applicationUserId, DateTime? validFrom = null, DateTime? validTo = null)
         {
             var r = new AccountData
             {
