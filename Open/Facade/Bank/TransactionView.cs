@@ -11,6 +11,8 @@ namespace Open.Facade.Bank
         private string explanation;
         private string sAccountId;
         private string rAccountId;
+        
+        [Range(0.1, 1000000000.0)]
         [Required]
         public double? Amount
         {

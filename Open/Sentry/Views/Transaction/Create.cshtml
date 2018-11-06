@@ -7,19 +7,7 @@
     ViewBag.Button = "Make";
     Layout = "_EditPartial";
 }
-@if (TransactionController.Error == 0) {
-
-    <body>
-        @Html.HiddenFor(x => x.ID)
-        @Html.ViewingControlsFor(x => x.ValidFrom)
-        @Html.ViewingControlsFor(x => x.SenderAccountId)
-        @Html.EditingControlsFor(x => x.ReceiverAccountId)
-        @Html.EditingControlsFor(x => x.Amount)
-        @Html.EditingControlsFor(x => x.Explanation)
-    </body>
-}
-else
-{
+@if (TransactionController.Error != 0) {
     <div id="alert" class="alert alert-danger fade in" style="position: static; z-index: 200; top: 70px; left: 0; right: 0; margin: 0 auto; width: 500px;">
         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
         <div id="alert-msg">
@@ -27,6 +15,14 @@ else
         </div>
     </div>
 }
+<body>
+@Html.HiddenFor(x => x.ID)
+@Html.ViewingControlsFor(x => x.ValidFrom)
+@Html.ViewingControlsFor(x => x.SenderAccountId)
+@Html.HiddenFor(x => x.SenderAccountId)
+@Html.EditingControlsFor(x => x.ReceiverAccountId)
+@Html.EditingControlsFor(x => x.Amount)
+@Html.EditingControlsFor(x => x.Explanation)
+</body>
 
 @section Actions{@Html.ActionLink("Back to List", "Index")}
-<input type="submit" value="Convert" class="btn btn-default" />

@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Open.Data.Bank;
 using Open.Domain.Bank;
 using Open.Facade.Bank;
@@ -16,6 +17,7 @@ namespace Open.Sentry.Controllers {
         private readonly ITransactionRepository transactions;
         private readonly UserManager<ApplicationUser> userManager;
         public static Account BankAccount;
+        private IConfiguration configuration;
 
         internal const string properties =
             "ID, Amount, Explanation, ReceiverAccountId, SenderAccountId," +
@@ -88,111 +90,80 @@ namespace Open.Sentry.Controllers {
             return x => x.ValidFrom;
         }
 
-        public async Task<IActionResult> Create(string senderId) {
-            BankAccount = await accounts.GetObject(senderId);
+        public async Task<IActionResult> Create(string senderId)
+        {
+           // var l = await transactions.LoadTransactionsForAccount(senderId);
+            //return View("Create");
+           // BankAccount = await accounts.GetObject(senderId);
             return View(TransactionViewFactory.Create(TransactionFactory.CreateTransaction(null, null, "", senderId, "", DateTime.Now.Date)));
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Create([Bind(properties)] TransactionView c) {
-            if (!ModelState.IsValid) return View(c);
-            c.ID = c.ID ?? Guid.NewGuid().ToString();
-            var o = TransactionViewFactory.Create(c);
-            await transactions.AddObject(o);
-            return RedirectToAction("Index");
-        }
 
         public async Task<IActionResult> Details(string id) {
             var c = await transactions.GetObject(id);
             return View(TransactionViewFactory.Create(c));
         }
-
-        public async Task<IActionResult> makeTransaction(TransactionView model) {
-            double amountD = 0;
+       
+        
+        [HttpPost] 
+        public async Task<IActionResult> Create([Bind(properties)] TransactionView model) {
+            if (!ModelState.IsValid) return View(model);
+            //double amountD = 0;
             string rAccountId = model.ReceiverAccountId;
             string sAccountId = model.SenderAccountId;
             string explanation = model.Explanation;
-
-
+           
             bool receiverExists = checkIfReceiverAccountExists(rAccountId);
 
-            if (receiverExists) {
-                try {
-                    amountD = Convert.ToDouble(model.Amount);
-                    var receiverObject = await accounts.GetObject(rAccountId);
-                    var senderObject = await accounts.GetObject(sAccountId);
+            if (receiverExists)
+            {
+                double amountD = Convert.ToDouble(model.Amount);
+                
+                var receiverObject = await accounts.GetObject(rAccountId);
+                var senderObject = await accounts.GetObject(sAccountId);
 
-                    bool senderIsOk = validateSender(senderObject); //check if has enough balance and active card
-                    bool receiverIsOk = validateReceiver(receiverObject); //check if exists and active card
+                bool senderIsOk = validateSender(senderObject); //check if has enough balance and active card
+                bool receiverIsOk = validateReceiver(receiverObject); //c
+                
+                if (senderIsOk && receiverIsOk)
+                {
+                    DateTime date = DateTime.Now;
+                    //receiverBalance
+                    receiverObject.Data.Balance = receiverObject.Data.Balance + amountD;
+                    
+                    //senderBalance
+                    senderObject.Data.Balance = senderObject.Data.Balance - amountD;
+                    
+                    //senderTransaction
+                    model.ID = Guid.NewGuid().ToString();
+                    var senderTransaction = TransactionViewFactory.Create(model);
+                    senderTransaction.Data.Amount = amountD * -1;
+                    senderTransaction.Data.ValidFrom = date;
+                    senderTransaction.Data.Explanation = explanation;
+                    senderTransaction.Data.SenderAccountId = sAccountId;
+                    senderTransaction.Data.ReceiverAccountId = rAccountId;
+                    senderTransaction.Data.ReceiverAccount = null;
+                    
+                    //receiverTransaction
+                    model.ID =  Guid.NewGuid().ToString();
+                    var receiverTransaction = TransactionViewFactory.Create(model);
+                    receiverTransaction.Data.Amount = amountD;
+                    receiverTransaction.Data.ValidFrom = date;
+                    receiverTransaction.Data.Explanation = explanation;
+                    receiverTransaction.Data.SenderAccountId = rAccountId;
+                    receiverTransaction.Data.ReceiverAccountId = sAccountId;
+                    receiverTransaction.Data.ReceiverAccount = null;
 
-                    if (senderIsOk && receiverIsOk) {
-                        subtractFromSenderAccount(senderObject, amountD);
-                        addToReceiverAccount(receiverObject, amountD);
-                        makeDatabaseChanges(senderObject, receiverObject, amountD, explanation);
-                    }
-                } catch {
-                    Error = 1;
-                    ErrorMessage = "Amount is not in the correct format!";
-                }
+                    
+                    await accounts.UpdateObject(senderObject);
+                    await accounts.UpdateObject(receiverObject);
+                    await transactions.AddObject(senderTransaction);
+                    await transactions.AddObject(receiverTransaction);
+
+                }            
             }
-
-            return View("Index");
-        }
-
-        private void makeDatabaseChanges(Account senderObject, Account receiverObject, double amountD,
-            string explanation) {
-            using (SqlConnection sqlConnection = new SqlConnection("DefaultConnection")) {
-                string receiverBalancequery = "UPDATE Account(Balance) VALUES (@rBalance) WHERE ID = @rId";
-                string senderBalancequery = "UPDATE Account(Balance) VALUES (@sBalance) WHERE ID = @sId";
-                string senderTransactionquery =
-                    "INSERT INTO Transactions(ValidFrom, ID, Amount, Explanation, SenderAccount, ReceiverAccount) VALUES (@ValidFrom, @ID, @Amount, @Explanation, @SenderAccount, @ReceiverAccount)";
-                string receiverTransactionquery =
-                    "INSERT INTO Transactions(ValidFrom, ID, Amount, Explanation, SenderAccount, ReceiverAccount) VALUES (@ValidFrom, @ID, @Amount, @Explanation, @SenderAccount, @ReceiverAccount)";
-
-                SqlCommand sqlChangeReceiverBalance = new SqlCommand(receiverBalancequery, sqlConnection);
-                SqlCommand sqlChangeSenderBalance = new SqlCommand(senderBalancequery, sqlConnection);
-                SqlCommand sqlAddReceiverTransaction = new SqlCommand(senderTransactionquery, sqlConnection);
-                SqlCommand sqlAddSenderTransaction = new SqlCommand(receiverTransactionquery, sqlConnection);
-
-
-                sqlChangeReceiverBalance.Parameters.AddWithValue("@rBalance", senderObject.Data.Balance + amountD);
-                sqlChangeReceiverBalance.Parameters.AddWithValue("@rId", senderObject.Data.ID);
-
-
-                sqlChangeSenderBalance.Parameters.AddWithValue("@sBalance", senderObject.Data.Balance - amountD);
-                sqlChangeSenderBalance.Parameters.AddWithValue("@sId", senderObject.Data.ID);
-
-                string transactionId = Guid.NewGuid().ToString();
-                DateTime date = DateTime.Now;
-                sqlAddReceiverTransaction.Parameters.AddWithValue("@ValidFrom", date);
-                sqlAddReceiverTransaction.Parameters.AddWithValue("@ID", transactionId);
-                sqlAddReceiverTransaction.Parameters.AddWithValue("@Explanation", explanation);
-                sqlAddReceiverTransaction.Parameters.AddWithValue("@Amount", amountD * (-1));
-                sqlAddReceiverTransaction.Parameters.AddWithValue("@SenderAccount", senderObject.Data.ID);
-                sqlAddReceiverTransaction.Parameters.AddWithValue("@ReceiverAccount", receiverObject.Data.ID);
-
-
-                sqlAddSenderTransaction.Parameters.AddWithValue("@ValidFrom", date);
-                sqlAddSenderTransaction.Parameters.AddWithValue("@ID", transactionId);
-                sqlAddSenderTransaction.Parameters.AddWithValue("@Explanation", explanation);
-                sqlAddSenderTransaction.Parameters.AddWithValue("@Amount", amountD);
-                sqlAddSenderTransaction.Parameters.AddWithValue("@SenderAccount", receiverObject.Data.ID);
-                sqlAddSenderTransaction.Parameters.AddWithValue("@ReceiverAccount", senderObject.Data.ID);
-
-                sqlConnection.Open();
-                sqlChangeSenderBalance.ExecuteNonQuery();
-                sqlChangeReceiverBalance.ExecuteNonQuery();
-                sqlAddReceiverTransaction.ExecuteNonQuery();
-                sqlAddSenderTransaction.ExecuteNonQuery();
-            }
-        }
-
-        private void addToReceiverAccount(Account receiverObject, double amountD) {
-            receiverObject.Data.Balance = receiverObject.Data.Balance + amountD;
-        }
-
-        private void subtractFromSenderAccount(Account senderObject, double amountD) {
-            senderObject.Data.Balance = senderObject.Data.Balance - amountD;
+            
+            return RedirectToAction("Create");
         }
 
         private bool checkIfReceiverAccountExists(string rAccountId) {
@@ -207,16 +178,13 @@ namespace Open.Sentry.Controllers {
 
         private bool validateReceiver(Account receiverObject) {
             string receiverCardStatus = receiverObject.Data.Status;
-            string receiverId = receiverObject.Data.ID;
-
 
             if (receiverCardStatus == "Active") {
                 return true;
-            } else {
+            } 
                 Error = 1;
                 ErrorMessage = "Receiver's card is not active. Cannot make transaction.";
                 return false;
-            }
         }
 
         private bool validateSender(Account senderObject) {
@@ -226,16 +194,19 @@ namespace Open.Sentry.Controllers {
             if (senderBalance > 0) {
                 if (senderCardStatus == "Active") {
                     return true;
-                } else {
+                } 
                     Error = 1;
                     ErrorMessage = "Your card is not active. Cannot make transaction.";
                     return false;
-                }
-            } else {
+            } 
                 Error = 1;
                 ErrorMessage = "Your balance is " + senderBalance + ". Cannot make transaction.";
                 return false;
-            }
+        }
+
+        public Object GetById(string id)
+        {
+            return  transactions.GetObject(id);
         }
     }
 }
