@@ -11,12 +11,12 @@ namespace Open.Tests.Sentry.Controllers {
         [TestMethod] public async Task IndexTest() {
             var a = GetUrl.ForControllerAction<HomeController>(x => x.Index());
             await testControllerAction(a, "<h1>SonicBank</h1>",
-                "<h2>Welcome to SonicBank!</h2>", "<h2>Please log in to use our services!</h2>");
+                "<h2>Welcome to SonicBank!</h2>", "<h3>Please log in to use our services!</h3>");
         }
         [TestMethod] public async Task HomeTest() {
             var a = GetUrl.ForControllerAction<HomeController>();
             await testControllerAction(a, "<h1>SonicBank</h1>", "<h2>Welcome to SonicBank!</h2>",
-                "<h2>Please log in to use our services!</h2>");
+                "<h3>Please log in to use our services!</h3>");
         }
         [TestMethod] public async Task AboutTest() {
             var a = GetUrl.ForControllerAction<HomeController>(x => x.About());

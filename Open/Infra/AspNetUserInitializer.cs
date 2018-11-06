@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Open.Data.Bank;
 namespace Open.Infra {
-    public class SampleAspNetUserInitializer {
+    public class AspNetUserInitializer {
         public static void Initialize(ApplicationDbContext context)
         {
             context.Database.EnsureCreated();

@@ -4,7 +4,7 @@ using Open.Infra.Quantity;*/
 namespace Open.Infra {
     public static class DbInitializer {
         public static void Initialize(ApplicationDbContext dbContext) {
-            SampleAspNetUserInitializer.Initialize(dbContext);
+            AspNetUserInitializer.Initialize(dbContext);
             TransactionsInitializer.Initialize(dbContext);
            /* CountriesInitializer.Initialize(dbContext);
             CurrenciesInitializer.Initialize(dbContext);

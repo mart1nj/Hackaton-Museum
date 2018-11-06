@@ -79,8 +79,6 @@
 
   <ItemGroup>
     <Folder Include="Aids\Extensions\" />
-    <Folder Include="Facade\Bank\" />
-    <Folder Include="Infra\Bank\" />
   </ItemGroup>
 
 </Project>

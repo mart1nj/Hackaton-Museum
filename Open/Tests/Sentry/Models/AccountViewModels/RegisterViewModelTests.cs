@@ -25,5 +25,52 @@ namespace Open.Tests.Sentry.Models.AccountViewModels {
 
         protected override RegisterViewModel getRandomObject() =>
             GetRandom.Object<RegisterViewModel>();
+
+        [TestMethod]
+        public void FirstNameTest()
+        {
+            isNullableReadWriteStringProperty(() => obj.FirstName, x => obj.FirstName = x);
+            hasAttributes(o => o.FirstName, typeof(RequiredAttribute), typeof(DisplayAttribute));
+        }
+
+        [TestMethod]
+        public void LastNameTest()
+        {
+            isNullableReadWriteStringProperty(() => obj.LastName, x => obj.LastName = x);
+            hasAttributes(o => o.LastName, typeof(RequiredAttribute), typeof(DisplayAttribute));
+        }
+        [TestMethod]
+        public void DateOfBirthTest()
+        {
+            canReadWrite(() => obj.DateOfBirth, x => obj.DateOfBirth = x);
+            hasAttributes(o => o.DateOfBirth, typeof(RequiredAttribute), typeof(DisplayAttribute),
+                typeof(DataTypeAttribute));
+        }
+        [TestMethod]
+        public void AddressLineTest()
+        {
+            isNullableReadWriteStringProperty(() => obj.AddressLine, x => obj.AddressLine = x);
+            hasAttributes(o => o.AddressLine, typeof(RequiredAttribute), typeof(DisplayAttribute));
+        }
+
+        [TestMethod]
+        public void CityTest()
+        {
+            isNullableReadWriteStringProperty(() => obj.City, x => obj.City = x);
+            hasAttributes(o => o.City, typeof(RequiredAttribute), typeof(DisplayAttribute));
+        }
+        [TestMethod]
+        public void ZipCodeTest()
+        {
+            isNullableReadWriteStringProperty(() => obj.ZipCode, x => obj.ZipCode = x);
+            hasAttributes(o => o.ZipCode, typeof(RequiredAttribute), typeof(DisplayAttribute));
+        }
+
+        [TestMethod]
+        public void CountryTest()
+        {
+            isNullableReadWriteStringProperty(() => obj.Country, x => obj.Country = x);
+            hasAttributes(o => o.Country, typeof(RequiredAttribute), typeof(DisplayAttribute));
+        }
     }
 }
