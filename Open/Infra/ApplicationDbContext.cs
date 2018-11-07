@@ -3,6 +3,7 @@ using System.Linq.Expressions;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Open.Data.Bank;
+using Open.Data.Notification;
 /*using Open.Data.Party;
 using Open.Data.Quantity;*/
 namespace Open.Infra
@@ -23,6 +24,7 @@ namespace Open.Infra
         public DbSet<AccountData> Accounts { get; set; }
         public DbSet<TransactionData> Transactions { get; set; }
 
+        public DbSet<NotificationData> Notifications { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -41,6 +43,7 @@ namespace Open.Infra
             createPaymentTable(builder);*/
             createAccountTable(builder);
             createTransactionTable(builder);
+            createNotificationTable(builder);
         }
         private static void createAccountTable(ModelBuilder b)
         {
@@ -55,51 +58,59 @@ namespace Open.Infra
             createForeignKey<TransactionData, AccountData>(b, table, x => x.SenderAccountId, x => x.SenderAccount);
             createForeignKey<TransactionData, AccountData>(b, table, x => x.ReceiverAccountId, x => x.ReceiverAccount);
         }
-     /*   private static void createPaymentMethodTable(ModelBuilder b)
-        {
-            const string table = "PaymentMethod";
-            b.Entity<CheckData>().ToTable(table);
-            b.Entity<CreditCardData>().ToTable(table);
-            b.Entity<DebitCardData>().ToTable(table);
-            createForeignKey<PaymentMethodData, CurrencyData>(b, table, x => x.CurrencyID, x => x.Currency);
-        }
 
-        private static void createPaymentTable(ModelBuilder b)
+        private static void createNotificationTable(ModelBuilder b)
         {
-            const string table = "Payment";
-            createForeignKey<PaymentData, CurrencyData>(b, table, x => x.CurrencyID, x => x.Currency);
-            createForeignKey<PaymentData, PaymentMethodData>(b, table, x => x.PaymentMethodID, x => x.PaymentMethod);
+            const string table = "Notification";
+            b.Entity<NotificationData>().ToTable(table);
+            createForeignKey<NotificationData, AccountData>(b, table, x => x.SenderId, x => x.Sender);
+            createForeignKey<NotificationData, AccountData>(b, table, x => x.ReceiverId, x => x.Receiver);
         }
+        /*   private static void createPaymentMethodTable(ModelBuilder b)
+           {
+               const string table = "PaymentMethod";
+               b.Entity<CheckData>().ToTable(table);
+               b.Entity<CreditCardData>().ToTable(table);
+               b.Entity<DebitCardData>().ToTable(table);
+               createForeignKey<PaymentMethodData, CurrencyData>(b, table, x => x.CurrencyID, x => x.Currency);
+           }
 
-        private static void createRateTable(ModelBuilder b)
-        {
-            const string table = "Rate";
-            createForeignKey<RateData, CurrencyData>(b, table, x => x.CurrencyID, x => x.Currency);
-            createForeignKey<RateData, RateTypeData>(b, table, x => x.RateTypeID, x => x.RateType);
-        }
-        internal static void createAddressTable(ModelBuilder b)
-        {
-            const string table = "Address";
-            b.Entity<AddressData>().ToTable(table);
-            b.Entity<WebPageAddressData>().ToTable(table);
-            b.Entity<EmailAddressData>().ToTable(table);
-            b.Entity<TelecomAddressData>().ToTable(table);
-            createForeignKey<GeographicAddressData, CountryData>(b, table, x => x.CountryID, x => x.Country);
-        }
-        internal static void createTelecomAddressRegistrationTable(ModelBuilder b)
-        {
-            const string table = "TelecomDeviceRegistration";
-            createPrimaryKey<TelecomDeviceRegistrationData>(b, table, a => new { a.AddressID, a.DeviceID });
-            createForeignKey<TelecomDeviceRegistrationData, GeographicAddressData>(b, table, x => x.AddressID, x => x.Address);
-            createForeignKey<TelecomDeviceRegistrationData, TelecomAddressData>(b, table, x => x.DeviceID, x => x.Device);
-        }
-        internal static void createNationalCurrencyTable(ModelBuilder b)
-        {
-            const string table = "NationalCurrency";
-            createPrimaryKey<NationalCurrencyData>(b, table, a => new { a.CountryID, a.CurrencyID });
-            createForeignKey<NationalCurrencyData, CountryData>(b, table, x => x.CountryID, x => x.Country);
-            createForeignKey<NationalCurrencyData, CurrencyData>(b, table, x => x.CurrencyID, x => x.Currency);
-        }*/
+           private static void createPaymentTable(ModelBuilder b)
+           {
+               const string table = "Payment";
+               createForeignKey<PaymentData, CurrencyData>(b, table, x => x.CurrencyID, x => x.Currency);
+               createForeignKey<PaymentData, PaymentMethodData>(b, table, x => x.PaymentMethodID, x => x.PaymentMethod);
+           }
+
+           private static void createRateTable(ModelBuilder b)
+           {
+               const string table = "Rate";
+               createForeignKey<RateData, CurrencyData>(b, table, x => x.CurrencyID, x => x.Currency);
+               createForeignKey<RateData, RateTypeData>(b, table, x => x.RateTypeID, x => x.RateType);
+           }
+           internal static void createAddressTable(ModelBuilder b)
+           {
+               const string table = "Address";
+               b.Entity<AddressData>().ToTable(table);
+               b.Entity<WebPageAddressData>().ToTable(table);
+               b.Entity<EmailAddressData>().ToTable(table);
+               b.Entity<TelecomAddressData>().ToTable(table);
+               createForeignKey<GeographicAddressData, CountryData>(b, table, x => x.CountryID, x => x.Country);
+           }
+           internal static void createTelecomAddressRegistrationTable(ModelBuilder b)
+           {
+               const string table = "TelecomDeviceRegistration";
+               createPrimaryKey<TelecomDeviceRegistrationData>(b, table, a => new { a.AddressID, a.DeviceID });
+               createForeignKey<TelecomDeviceRegistrationData, GeographicAddressData>(b, table, x => x.AddressID, x => x.Address);
+               createForeignKey<TelecomDeviceRegistrationData, TelecomAddressData>(b, table, x => x.DeviceID, x => x.Device);
+           }
+           internal static void createNationalCurrencyTable(ModelBuilder b)
+           {
+               const string table = "NationalCurrency";
+               createPrimaryKey<NationalCurrencyData>(b, table, a => new { a.CountryID, a.CurrencyID });
+               createForeignKey<NationalCurrencyData, CountryData>(b, table, x => x.CountryID, x => x.Country);
+               createForeignKey<NationalCurrencyData, CurrencyData>(b, table, x => x.CurrencyID, x => x.Currency);
+           }*/
 
         internal static void createPrimaryKey<TEntity>(ModelBuilder b, string tableName,
             Expression<Func<TEntity, object>> primaryKey) where TEntity : class

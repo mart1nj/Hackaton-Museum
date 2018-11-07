@@ -7,10 +7,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Open.Data.Bank;
 using Open.Domain.Bank;
+using Open.Domain.Notification;
 /*using Open.Domain.Party;
 using Open.Domain.Quantity;*/
 using Open.Infra;
 using Open.Infra.Bank;
+using Open.Infra.Notification;
 /*using Open.Infra.Party;
 using Open.Infra.Quantity;*/
 using Open.Sentry.Extensions;
@@ -40,6 +42,7 @@ namespace Open.Sentry {
             services.AddScoped<IPaymentsRepository, PaymentsRepository>();*/
             services.AddScoped<IAccountsRepository, AccountRepository>();
             services.AddScoped<ITransactionRepository, TransactionRepository>();
+            services.AddScoped<INotificationsRepository, NotificationsRepository>();
         }
 
         protected virtual void setMvcWithAntyFoggeryToken(IServiceCollection services) {

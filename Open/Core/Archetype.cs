@@ -37,6 +37,11 @@ namespace Open.Core {
             field = field ?? 0.0;
             return field;
         }
+        protected internal bool? getBool(ref bool? field)
+        {
+            field = field ?? false;
+            return field;
+        }
     }
 }
 

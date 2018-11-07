@@ -52,20 +52,42 @@ namespace Open.Infra {
                 Id = "sonicSiilId"
             };
 
-            if (!context.Users.Any(u => u.UserName == user2.UserName) || !context.Users.Any(u => u.UserName == user.UserName))
+            var system = new ApplicationUser
             {
-                var password = new PasswordHasher<ApplicationUser>();
-                var hashed = password.HashPassword(user, "secret");
-                user.PasswordHash = hashed;
+                FirstName = "System",
+                LastName = "User",
+                Email = "system@sonic.com",
+                NormalizedEmail = "SYSTEM@SONIC.COM",
+                UserName = "system@sonic.com",
+                NormalizedUserName = "SYSTEM@SONIC.COM",
+                PhoneNumber = "+111111111111",
+                AddressLine = "null",
+                ZipCode = "12345",
+                City = "null",
+                Country = "Estonia",
+                DateOfBirth = DateTime.ParseExact("07/11/2018", "dd/MM/yyyy", CultureInfo.InvariantCulture),
+                EmailConfirmed = true,
+                PhoneNumberConfirmed = true,
+                SecurityStamp = Guid.NewGuid().ToString("D"),
+                Id = "system"
+            };
+            if (!context.Users.Any(u => u.UserName == user2.UserName) || !context.Users.Any(u => u.UserName == user.UserName) || !context.Users.Any(u => u.UserName == system.UserName))
+            {
                 var userStore = new UserStore<ApplicationUser>(context);
-                var result = userStore.CreateAsync(user);
-
-                var passwordForUser2 = new PasswordHasher<ApplicationUser>();
-                var hashedUser2 = passwordForUser2.HashPassword(user2, "secret");
-                user2.PasswordHash = hashedUser2;
-                var resultUser2 = userStore.CreateAsync(user2);
+                hashPasswordAndCreateUser(userStore, user, "secret");
+                hashPasswordAndCreateUser(userStore, user2, "secret");
+                hashPasswordAndCreateUser(userStore, system, "secret");
             }
             context.SaveChangesAsync();
+        }
+        private static void hashPasswordAndCreateUser(UserStore<ApplicationUser> userStore,
+            ApplicationUser user, string pass)
+        {
+            var password = new PasswordHasher<ApplicationUser>();
+            var hashed = password.HashPassword(user, pass);
+            user.PasswordHash = hashed;
+            var result = userStore.CreateAsync(user);
+
         }
     }
 }

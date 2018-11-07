@@ -53,6 +53,12 @@
     <Compile Include="Common\IMetrics.cs" />
     <Compile Include="Common\Period.cs" />
     <Compile Include="Common\Value.cs" />
+    <Compile Include="Notification\INotification.cs" />
+    <Compile Include="Notification\INotificationsRepository.cs" />
+    <Compile Include="Notification\Notification.cs" />
+    <Compile Include="Notification\NotificationFactory.cs" />
+    <Compile Include="Notification\NotificationsList.cs" />
+    <Compile Include="Notification\WelcomeNotification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

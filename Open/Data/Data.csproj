@@ -59,6 +59,8 @@
     <Compile Include="Common\MetricsData.cs" />
     <Compile Include="Common\NamedData.cs" />
     <Compile Include="Common\PeriodData.cs" />
+    <Compile Include="Notification\NotificationData.cs" />
+    <Compile Include="Notification\WelcomeNotificationData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

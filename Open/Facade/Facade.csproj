@@ -51,6 +51,10 @@
     <Compile Include="Common\EntityView.cs" />
     <Compile Include="Common\NamedView.cs" />
     <Compile Include="Common\PeriodView.cs" />
+    <Compile Include="Notification\NotificationView.cs" />
+    <Compile Include="Notification\NotificationViewFactory.cs" />
+    <Compile Include="Notification\NotificationViewsList.cs" />
+    <Compile Include="Notification\WelcomeNotificationView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

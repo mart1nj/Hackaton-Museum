@@ -21,46 +21,55 @@ namespace Open.Infra.Bank {
         }
 
         private static void initTransactions(ApplicationDbContext c, List<string> accounts) {
-            var l = new List<string> {
-                addTransaction(c, new TransactionData {
-                    Amount = amount1,
-                    ValidFrom = Convert.ToDateTime("12 Feb 2007"),
-                    Explanation = "Makse",
-                    SenderAccountId = accounts[0],
-                    ReceiverAccountId = accounts[1]
-                }),
-                addTransaction(c, new TransactionData {
-                    Amount = amount2,
-                    ValidFrom = Convert.ToDateTime("29 May 2012"),
-                    Explanation = "Jürile õnne sünnipäevaks!",
-                    SenderAccountId = accounts[0],
-                    ReceiverAccountId = accounts[1]
-                }),
-                addTransaction(c, new TransactionData {
-                    Amount = amount3,
-                    ValidFrom = Convert.ToDateTime("5 September 2018"),
-                    Explanation = "Arve nr 35455",
-                    SenderAccountId = accounts[1],
-                    ReceiverAccountId = accounts[0]
-                }),
-                addTransaction(c, new TransactionData {
-                    Amount = amount4,
-                    ValidFrom = Convert.ToDateTime("3 November 2018"),
-                    Explanation = "Tere tulemast!",
-                    SenderAccountId = accounts[0],
-                    ReceiverAccountId = accounts[2]
-                }),
-                addTransaction(c, new TransactionData {
-                    Amount = amount5,
-                    ValidFrom = Convert.ToDateTime("3 November 2018"),
-                    Explanation = "Võlg",
-                    SenderAccountId = accounts[0],
-                    ReceiverAccountId = accounts[2]
-                })
-            };
+
+            addTransaction(c, new TransactionData {
+                Amount = amount1,
+                ValidFrom = Convert.ToDateTime("12 Feb 2007"),
+                Explanation = "Makse",
+                SenderAccountId = accounts[0],
+                ReceiverAccountId = accounts[1]
+            });
+            addTransaction(c, new TransactionData {
+                Amount = amount2,
+                ValidFrom = Convert.ToDateTime("29 May 2012"),
+                Explanation = "Jürile õnne sünnipäevaks!",
+                SenderAccountId = accounts[0],
+                ReceiverAccountId = accounts[1]
+            });
+            addTransaction(c, new TransactionData {
+                Amount = amount3,
+                ValidFrom = Convert.ToDateTime("5 September 2018"),
+                Explanation = "Arve nr 35455",
+                SenderAccountId = accounts[1],
+                ReceiverAccountId = accounts[0]
+            });
+            addTransaction(c, new TransactionData {
+                Amount = amount4,
+                ValidFrom = Convert.ToDateTime("3 November 2018"),
+                Explanation = "Tere tulemast!",
+                SenderAccountId = accounts[0],
+                ReceiverAccountId = accounts[2]
+            });
+            addTransaction(c, new TransactionData {
+                Amount = amount5,
+                ValidFrom = Convert.ToDateTime("3 November 2018"),
+                Explanation = "Võlg",
+                SenderAccountId = accounts[0],
+                ReceiverAccountId = accounts[2]
+            });
         }
 
         private static List<string> initAccounts(ApplicationDbContext c) {
+            var systemAccount = new AccountData {
+                ID = "systemAccount",
+                Balance = 1000000,
+                ValidFrom = Convert.ToDateTime("7 November 2018"),
+                ValidTo = DateTime.MaxValue,
+                Type = "System",
+                AspnetUserId = "system",
+                Status = "Active"
+            };
+            c.Add(systemAccount);
             var l = new List<string> {
                 addAccount(c, new AccountData {
                     Balance = -amount1 - amount2 + amount3 - amount4 - amount5,
@@ -85,15 +94,15 @@ namespace Open.Infra.Bank {
                     Type = "Debit",
                     AspnetUserId = "testUserid",
                     Status = "Active"
-                })
+                }),
+
             };
             return l;
         }
 
-        private static string addTransaction(ApplicationDbContext c, TransactionData data) {
+        private static void addTransaction(ApplicationDbContext c, TransactionData data) {
             data.ID = Guid.NewGuid().ToString();
             c.Transactions.Add(data);
-            return data.ID;
         }
         private static string addAccount(ApplicationDbContext c, AccountData data)
         {
