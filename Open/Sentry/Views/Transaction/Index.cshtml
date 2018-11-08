@@ -2,6 +2,7 @@
 @using Open.Sentry.Controllers
 @model Open.Core.IPaginatedList<Open.Facade.Bank.TransactionView>
 
+
 @{
     ViewBag.Title = "Transactions for " + TransactionController.BankAccount.Data?.ID;
     Layout = "_IndexPartial";
@@ -26,23 +27,30 @@
     </tr>
     </thead>
     <tbody>
-    @foreach (var item in Model) {
-        <tr>
-            <td>@Html.DisplayFor(modelItem => item.ValidFrom)</td>
-            <td>@Html.DisplayFor(modelItem => item.SenderAccountId)</td>
-            <td>@Html.DisplayFor(modelItem => item.SenderAccount.AspNetUser.FirstName)</td>
-            <td>@Html.DisplayFor(modelItem => item.SenderAccount.AspNetUser.LastName)</td>
-            <td>@Html.DisplayFor(modelItem => item.Explanation)</td>
-            <td>
-                @if (item.Amount > 0) {
-                    <span style="color: green;">@item.Amount</span>
-                }
-                else {
-                    <span style="color: red;">@item.Amount</span>
-                }               
-            </td>
-            @Html.EditDetailDeleteFor(modelItem => item.ID)
-        </tr>
+
+    @foreach (var item in Model)
+    {
+        if (item.SenderAccountId== TransactionController.BankAccount.Data?.ID)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.ValidFrom)</td>
+                <td>@Html.DisplayFor(modelItem => item.SenderAccountId)</td>
+                <td>@Html.DisplayFor(modelItem => item.SenderAccount.AspNetUser.FirstName)</td>
+                <td>@Html.DisplayFor(modelItem => item.SenderAccount.AspNetUser.LastName)</td>
+                <td>@Html.DisplayFor(modelItem => item.Explanation)</td>
+                <td>
+                    @if (item.Amount > 0)
+                    {
+                        <span style="color: green;">@item.Amount</span>
+                    }
+                    else
+                    {
+                        <span style="color: red;">@item.Amount</span>
+                    }
+                </td>
+                @Html.EditDetailDeleteFor(modelItem => item.ID)
+            </tr>
+        }
     }
     <tr>
         <td></td>
@@ -50,13 +58,16 @@
         <td></td>
         <td></td>
         <td>@Html.Label("Balance"): </td>
-        <td>                
-            @if (TransactionController.BankAccount.Data?.Balance > 0) {
+        <td>
+            @if (TransactionController.BankAccount.Data?.Balance > 0)
+            {
                 <span style="color: green;">@TransactionController.BankAccount.Data?.Balance</span>
             }
-            else {
+            else
+            {
                 <span style="color: red;">@TransactionController.BankAccount.Data?.Balance</span>
-            }</td>
+            }
+        </td>
         <td></td>
     </tr>
     </tbody>
