@@ -28,7 +28,7 @@ namespace Open.Infra.Bank
 
         public async Task<PaginatedList<Account>> LoadAccountsForUser(string id)
         {
-            var accounts = await dbSet.Where(x => x.AspnetUserId == id)
+            var accounts = await dbSet.Where(x => x.AspNetUserId == id)
                 .AsNoTracking().ToListAsync();
             var p = new RepositoryPage(accounts.Count, PageIndex, PageSize);
             var paginatedList = createList(accounts, p);

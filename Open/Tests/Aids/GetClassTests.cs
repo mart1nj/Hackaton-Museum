@@ -57,7 +57,7 @@ namespace Open.Tests.Aids {
             Assert.IsNull(GetClass.Property<AccountView>(String.Empty));
             Assert.IsNull(GetClass.Property<AccountView>("bla bla"));
             test(GetMember.Name<AccountView>(m => m.Balance));
-            test(GetMember.Name<AccountView>(m => m.AspnetUserId));
+            test(GetMember.Name<AccountView>(m => m.AspNetUserId));
             test(GetMember.Name<AccountView>(m => m.Status));
             test(GetMember.Name<AccountView>(m => m.Type));
             test(GetMember.Name<AccountView>(m => m.ValidFrom));

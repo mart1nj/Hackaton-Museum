@@ -36,7 +36,7 @@ namespace Open.Tests.Domain.Bank
             Assert.AreEqual(b, o.Data.Balance);
             Assert.AreEqual(ty, o.Data.Type);
             Assert.AreEqual(s, o.Data.Status);
-            Assert.AreEqual(a, o.Data.AspnetUserId);
+            Assert.AreEqual(a, o.Data.AspNetUserId);
             Assert.AreEqual(f ?? DateTime.MinValue, o.Data.ValidFrom);
             Assert.AreEqual(t ?? DateTime.MaxValue, o.Data.ValidTo);
         }

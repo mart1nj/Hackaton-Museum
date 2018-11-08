@@ -15,7 +15,7 @@ namespace Open.Domain.Bank
                 Status = status,
                 ValidFrom = validFrom ?? DateTime.MinValue,
                 ValidTo = validTo ?? DateTime.MaxValue,
-                AspnetUserId = applicationUserId
+                AspNetUserId = applicationUserId
             };
             return new Account(r);
         }

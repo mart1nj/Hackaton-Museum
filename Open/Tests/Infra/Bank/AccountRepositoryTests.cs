@@ -22,7 +22,7 @@ namespace Open.Tests.Infra.Bank
         {
             var i = GetRandom.UInt32() % 5;
             if (i == 0) return d.Balance.ToString();
-            if (i == 1) return d.AspnetUserId;
+            if (i == 1) return d.AspNetUserId;
             if (i == 2) return d.ID;
             if (i == 3) return d.Status;
             if (i == 4) return d.Type;
@@ -32,7 +32,7 @@ namespace Open.Tests.Infra.Bank
         {
             var i = GetRandom.UInt32() % 6;
             if (i == 0) return x => x.Balance.ToString();
-            if (i == 1) return x => x.AspnetUserId;
+            if (i == 1) return x => x.AspNetUserId;
             if (i == 2) return x => x.ID;
             if (i == 3) return x => x.Status;
             if (i == 4) return x => x.Type;
@@ -40,7 +40,7 @@ namespace Open.Tests.Infra.Bank
             return x => x.ValidTo;
         }
         protected override Account createObject(AccountData r) =>
-            AccountFactory.CreateAccount(r.ID, r.Balance, r.Type, r.Status, r.AspnetUserId,
+            AccountFactory.CreateAccount(r.ID, r.Balance, r.Type, r.Status, r.AspNetUserId,
                 r.ValidFrom, r.ValidTo);
         protected override AccountData getData(Account o) => o.Data;
         protected override AccountData getRandomDbRecord() => GetRandom.Object<AccountData>();

@@ -18,8 +18,8 @@
     <tr>
         @Html.SortColumnHeaderFor(ViewData["SortValidFrom"], x => transaction.ValidFrom)
         @Html.SortColumnHeaderFor(ViewData["SortSender"], x => transaction.SenderAccountId)
-        @Html.SortColumnHeaderFor(ViewData["SortSenderFirstName"], x => transaction.SenderAccount.AspnetUser.FirstName)
-        @Html.SortColumnHeaderFor(ViewData["SortSenderLastName"], x => transaction.SenderAccount.AspnetUser.LastName)
+        @Html.SortColumnHeaderFor(ViewData["SortSenderFirstName"], x => transaction.SenderAccount.AspNetUser.FirstName)
+        @Html.SortColumnHeaderFor(ViewData["SortSenderLastName"], x => transaction.SenderAccount.AspNetUser.LastName)
         @Html.SortColumnHeaderFor(ViewData["SortExplanation"], x => transaction.Explanation)
         @Html.SortColumnHeaderFor(ViewData["SortAmount"], x => transaction.Amount)
         <th></th>
@@ -30,8 +30,8 @@
         <tr>
             <td>@Html.DisplayFor(modelItem => item.ValidFrom)</td>
             <td>@Html.DisplayFor(modelItem => item.SenderAccountId)</td>
-            <td>@Html.DisplayFor(modelItem => item.SenderAccount.AspnetUser.FirstName)</td>
-            <td>@Html.DisplayFor(modelItem => item.SenderAccount.AspnetUser.LastName)</td>
+            <td>@Html.DisplayFor(modelItem => item.SenderAccount.AspNetUser.FirstName)</td>
+            <td>@Html.DisplayFor(modelItem => item.SenderAccount.AspNetUser.LastName)</td>
             <td>@Html.DisplayFor(modelItem => item.Explanation)</td>
             <td>
                 @if (item.Amount > 0) {

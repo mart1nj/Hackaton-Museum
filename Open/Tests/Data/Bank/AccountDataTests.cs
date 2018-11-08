@@ -2,49 +2,46 @@
 using Open.Aids;
 using Open.Data.Common;
 using Open.Data.Bank;
-namespace Open.Tests.Data.Bank
-{
+
+namespace Open.Tests.Data.Bank {
     [TestClass]
-    public class AccountDataTests : ObjectTests<AccountData>
-    {
+    public class AccountDataTests : ObjectTests<AccountData> {
         class testClass : AccountData { }
-        protected override AccountData getRandomObject()
-        {
+
+        protected override AccountData getRandomObject() {
             return GetRandom.Object<testClass>();
         }
+
         [TestMethod]
-        public void IsInstanceOfIdentifiedData()
-        {
+        public void IsInstanceOfIdentifiedData() {
             Assert.AreEqual(typeof(IdentifiedData), typeof(AccountData).BaseType);
         }
+
         [TestMethod]
-        public void BalanceTest()
-        {
+        public void BalanceTest() {
             canReadWrite(() => obj.Balance, x => obj.Balance = x);
         }
+
         [TestMethod]
-        public void TypeTest()
-        {
+        public void TypeTest() {
             canReadWrite(() => obj.Type, x => obj.Type = x);
         }
+
         [TestMethod]
-        public void StatusTest()
-        {
-            canReadWrite(() => obj.Status,x => obj.Status = x);
+        public void StatusTest() {
+            canReadWrite(() => obj.Status, x => obj.Status = x);
         }
+
         [TestMethod]
-        public void AspnetUserIdTest()
-        {
-            canReadWrite(() => obj.AspnetUserId,
-                x => obj.AspnetUserId = x);
+        public void AspNetUserIdTest() {
+            canReadWrite(() => obj.AspNetUserId,
+                x => obj.AspNetUserId = x);
         }
+
         [TestMethod]
-        public void AspNetUserTest()
-        {
+        public void AspNetUserTest() {
             canReadWrite(() => obj.AspNetUser,
                 x => obj.AspNetUser = x);
         }
     }
 }
-
-

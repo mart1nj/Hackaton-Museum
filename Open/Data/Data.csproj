@@ -66,7 +66,6 @@
   <ItemGroup>
     <None Include="Bank\Docs\ApplicationUserDiagram.cd" />
     <None Include="Common\Docs\BaseClasses.cd" />
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

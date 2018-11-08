@@ -49,7 +49,7 @@ namespace Open.Infra
         {
             const string table = "Account";
             b.Entity<AccountData>().ToTable(table);
-            createForeignKey<AccountData, ApplicationUser>(b, table, x => x.AspnetUserId, x => x.AspNetUser);
+            createForeignKey<AccountData, ApplicationUser>(b, table, x => x.AspNetUserId, x => x.AspNetUser);
         }
         private static void createTransactionTable(ModelBuilder b)
         {
