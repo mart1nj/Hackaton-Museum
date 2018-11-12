@@ -134,7 +134,7 @@ namespace Open.Infra.Migrations
                     b.Property<string>("ID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("AspnetUserId");
+                    b.Property<string>("AspNetUserId");
 
                     b.Property<double?>("Balance");
 
@@ -148,7 +148,7 @@ namespace Open.Infra.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("AspnetUserId");
+                    b.HasIndex("AspNetUserId");
 
                     b.ToTable("Account");
                 });
@@ -160,14 +160,10 @@ namespace Open.Infra.Migrations
 
                     b.Property<int>("AccessFailedCount");
 
-                    b.Property<string>("AddressLine");
-
-                    b.Property<string>("City");
+                    b.Property<string>("AddressID");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
-
-                    b.Property<string>("Country");
 
                     b.Property<DateTime?>("DateOfBirth");
 
@@ -203,9 +199,9 @@ namespace Open.Infra.Migrations
                     b.Property<string>("UserName")
                         .HasMaxLength(256);
 
-                    b.Property<string>("ZipCode");
-
                     b.HasKey("Id");
+
+                    b.HasIndex("AddressID");
 
                     b.HasIndex("NormalizedEmail")
                         .HasName("EmailIndex");
@@ -215,7 +211,7 @@ namespace Open.Infra.Migrations
                         .HasName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.ToTable("AspNetUsers");
+                    b.ToTable("AspNetUser");
                 });
 
             modelBuilder.Entity("Open.Data.Bank.TransactionData", b =>
@@ -223,7 +219,7 @@ namespace Open.Infra.Migrations
                     b.Property<string>("ID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<double?>("Amount");
+                    b.Property<double>("Amount");
 
                     b.Property<string>("Explanation");
 
@@ -268,6 +264,151 @@ namespace Open.Infra.Migrations
                     b.HasIndex("SenderId");
 
                     b.ToTable("Notification");
+                });
+
+            modelBuilder.Entity("Open.Data.Party.AddressData", b =>
+                {
+                    b.Property<string>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Address");
+
+                    b.Property<string>("CityOrAreaCode");
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired();
+
+                    b.Property<string>("RegionOrStateOrCountryCode");
+
+                    b.Property<DateTime>("ValidFrom");
+
+                    b.Property<DateTime>("ValidTo");
+
+                    b.Property<string>("ZipOrPostCodeOrExtension");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Address");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("AddressData");
+                });
+
+            modelBuilder.Entity("Open.Data.Party.CountryData", b =>
+                {
+                    b.Property<string>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Code");
+
+                    b.Property<string>("Name");
+
+                    b.Property<DateTime>("ValidFrom");
+
+                    b.Property<DateTime>("ValidTo");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Country");
+                });
+
+            modelBuilder.Entity("Open.Data.Party.TelecomDeviceRegistrationData", b =>
+                {
+                    b.Property<string>("AddressID");
+
+                    b.Property<string>("DeviceID");
+
+                    b.Property<DateTime>("ValidFrom");
+
+                    b.Property<DateTime>("ValidTo");
+
+                    b.HasKey("AddressID", "DeviceID");
+
+                    b.HasIndex("DeviceID");
+
+                    b.ToTable("TelecomDeviceRegistration");
+                });
+
+            modelBuilder.Entity("Open.Data.Quantity.CurrencyData", b =>
+                {
+                    b.Property<string>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Code");
+
+                    b.Property<string>("Definition");
+
+                    b.Property<string>("Name");
+
+                    b.Property<DateTime>("ValidFrom");
+
+                    b.Property<DateTime>("ValidTo");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Currency");
+                });
+
+            modelBuilder.Entity("Open.Data.Quantity.NationalCurrencyData", b =>
+                {
+                    b.Property<string>("CountryID");
+
+                    b.Property<string>("CurrencyID");
+
+                    b.Property<DateTime>("ValidFrom");
+
+                    b.Property<DateTime>("ValidTo");
+
+                    b.HasKey("CountryID", "CurrencyID");
+
+                    b.HasIndex("CurrencyID");
+
+                    b.ToTable("NationalCurrency");
+                });
+
+            modelBuilder.Entity("Open.Data.Party.EmailAddressData", b =>
+                {
+                    b.HasBaseType("Open.Data.Party.AddressData");
+
+
+                    b.ToTable("Address");
+
+                    b.HasDiscriminator().HasValue("EmailAddressData");
+                });
+
+            modelBuilder.Entity("Open.Data.Party.GeographicAddressData", b =>
+                {
+                    b.HasBaseType("Open.Data.Party.AddressData");
+
+                    b.Property<string>("CountryID");
+
+                    b.HasIndex("CountryID");
+
+                    b.ToTable("Address");
+
+                    b.HasDiscriminator().HasValue("GeographicAddressData");
+                });
+
+            modelBuilder.Entity("Open.Data.Party.TelecomAddressData", b =>
+                {
+                    b.HasBaseType("Open.Data.Party.AddressData");
+
+                    b.Property<int>("Device");
+
+                    b.Property<string>("NationalDirectDialingPrefix");
+
+                    b.ToTable("Address");
+
+                    b.HasDiscriminator().HasValue("TelecomAddressData");
+                });
+
+            modelBuilder.Entity("Open.Data.Party.WebPageAddressData", b =>
+                {
+                    b.HasBaseType("Open.Data.Party.AddressData");
+
+
+                    b.ToTable("Address");
+
+                    b.HasDiscriminator().HasValue("WebPageAddressData");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -319,7 +460,15 @@ namespace Open.Infra.Migrations
                 {
                     b.HasOne("Open.Data.Bank.ApplicationUser", "AspNetUser")
                         .WithMany()
-                        .HasForeignKey("AspnetUserId")
+                        .HasForeignKey("AspNetUserId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("Open.Data.Bank.ApplicationUser", b =>
+                {
+                    b.HasOne("Open.Data.Party.GeographicAddressData", "Address")
+                        .WithMany()
+                        .HasForeignKey("AddressID")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
@@ -346,6 +495,40 @@ namespace Open.Infra.Migrations
                     b.HasOne("Open.Data.Bank.AccountData", "Sender")
                         .WithMany()
                         .HasForeignKey("SenderId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("Open.Data.Party.TelecomDeviceRegistrationData", b =>
+                {
+                    b.HasOne("Open.Data.Party.GeographicAddressData", "Address")
+                        .WithMany()
+                        .HasForeignKey("AddressID")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Open.Data.Party.TelecomAddressData", "Device")
+                        .WithMany()
+                        .HasForeignKey("DeviceID")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("Open.Data.Quantity.NationalCurrencyData", b =>
+                {
+                    b.HasOne("Open.Data.Party.CountryData", "Country")
+                        .WithMany()
+                        .HasForeignKey("CountryID")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Open.Data.Quantity.CurrencyData", "Currency")
+                        .WithMany()
+                        .HasForeignKey("CurrencyID")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("Open.Data.Party.GeographicAddressData", b =>
+                {
+                    b.HasOne("Open.Data.Party.CountryData", "Country")
+                        .WithMany()
+                        .HasForeignKey("CountryID")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 #pragma warning restore 612, 618

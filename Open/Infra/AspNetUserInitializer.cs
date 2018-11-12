@@ -4,12 +4,22 @@ using System.Linq;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Open.Data.Bank;
+using Open.Data.Party;
 namespace Open.Infra {
     public class AspNetUserInitializer {
         public static void Initialize(ApplicationDbContext context)
         {
             context.Database.EnsureCreated();
 
+            var userAddressId = Guid.NewGuid().ToString();
+            var userAddress = new GeographicAddressData {
+                ID = userAddressId,
+                Address = "Test Lane 5",
+                ZipOrPostCodeOrExtension = "12345",
+                CityOrAreaCode = "Test City",
+                RegionOrStateOrCountryCode = "Siilimäe",
+                CountryID = "EST",
+            };
             var user = new ApplicationUser
             {
                 FirstName = "Test",
@@ -19,10 +29,8 @@ namespace Open.Infra {
                 UserName = "test@sonic.com",
                 NormalizedUserName = "TEST@SONIC.COM",
                 PhoneNumber = "+111111111111",
-                AddressLine = "Test Lane 5",
-                ZipCode = "12345",
-                City = "Test City",
-                Country = "Estonia",
+                Address = userAddress,
+                AddressID = userAddressId,
                 DateOfBirth = DateTime.ParseExact("27/10/2018", "dd/MM/yyyy", CultureInfo.InvariantCulture),
                 EmailConfirmed = true,
                 PhoneNumberConfirmed = true,
@@ -30,8 +38,16 @@ namespace Open.Infra {
                 Id = "testUserid"
             };
 
-
-
+            var user2AddressId = Guid.NewGuid().ToString();
+            var user2Address = new GeographicAddressData
+            {
+                ID = user2AddressId,
+                Address = "Test Lane 4",
+                ZipOrPostCodeOrExtension = "12344",
+                CityOrAreaCode = "Test City",
+                RegionOrStateOrCountryCode = "Mustamäe",
+                CountryID = "EST",
+            };
             var user2 = new ApplicationUser
             {
                 FirstName = "Sonic",
@@ -41,10 +57,8 @@ namespace Open.Infra {
                 UserName = "siil@sonic.com",
                 NormalizedUserName = "SIIL@SONIC.COM",
                 PhoneNumber = "+111111111111",
-                AddressLine = "Test Lane 4",
-                ZipCode = "12344",
-                City = "Test City",
-                Country = "Estonia",
+                Address = user2Address,
+                AddressID = user2AddressId,
                 DateOfBirth = DateTime.ParseExact("29/10/2018", "dd/MM/yyyy", CultureInfo.InvariantCulture),
                 EmailConfirmed = true,
                 PhoneNumberConfirmed = true,
@@ -52,6 +66,16 @@ namespace Open.Infra {
                 Id = "sonicSiilId"
             };
 
+            var systemAddressId = Guid.NewGuid().ToString();
+            var systemAddress = new GeographicAddressData
+            {
+                ID = systemAddressId,
+                Address = "null",
+                ZipOrPostCodeOrExtension = "12345",
+                CityOrAreaCode = "null",
+                RegionOrStateOrCountryCode = "Siliine",
+                CountryID = "EST",
+            };
             var system = new ApplicationUser
             {
                 FirstName = "System",
@@ -61,10 +85,8 @@ namespace Open.Infra {
                 UserName = "system@sonic.com",
                 NormalizedUserName = "SYSTEM@SONIC.COM",
                 PhoneNumber = "+111111111111",
-                AddressLine = "null",
-                ZipCode = "12345",
-                City = "null",
-                Country = "Estonia",
+                Address = systemAddress,
+                AddressID = systemAddressId,
                 DateOfBirth = DateTime.ParseExact("07/11/2018", "dd/MM/yyyy", CultureInfo.InvariantCulture),
                 EmailConfirmed = true,
                 PhoneNumberConfirmed = true,

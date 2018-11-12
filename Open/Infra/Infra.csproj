@@ -8,11 +8,8 @@
  </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Party\**" />
     <Compile Remove="Quantity\**" />
-    <EmbeddedResource Remove="Party\**" />
     <EmbeddedResource Remove="Quantity\**" />
-    <None Remove="Party\**" />
     <None Remove="Quantity\**" />
   </ItemGroup>
 
@@ -21,6 +18,13 @@
     <Compile Remove="Bank\ClientsRepository.cs" />
     <Compile Remove="SentryDbContext.cs" />
     <Compile Remove="SystemRegionInfo.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Quantity\CurrenciesInitializer.cs" />
+    <Compile Include="Quantity\CurrenciesRepository.cs" />
+    <Compile Include="Quantity\NationalCurrenciesInitializer.cs" />
+    <Compile Include="Quantity\NationalCurrenciesRepository.cs" />
   </ItemGroup>
 
   <ItemGroup>

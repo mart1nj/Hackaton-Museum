@@ -36,6 +36,9 @@ namespace Open.Sentry.Models.AccountViewModels
         [Display(Name = "City")]
         public string City { get; set; }
         [Required]
+        [Display(Name = "County")]
+        public string County { get; set; }
+        [Required]
         [Display(Name = "Zip Code")]
         public string ZipCode { get; set; }
         [Required]

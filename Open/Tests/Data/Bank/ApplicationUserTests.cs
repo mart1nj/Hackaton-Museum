@@ -28,24 +28,14 @@ namespace Open.Tests.Data.Bank
             canReadWrite(() => obj.LastName, x => obj.LastName = x);
         }
         [TestMethod]
-        public void AddressLineTest()
+        public void AddressTest()
         {
-            canReadWrite(() => obj.AddressLine, x => obj.AddressLine = x);
+            canReadWrite(() => obj.Address, x => obj.Address = x);
         }
         [TestMethod]
-        public void CityTest()
+        public void AddressIdTest()
         {
-            canReadWrite(() => obj.City, x => obj.City = x);
-        }
-        [TestMethod]
-        public void ZipCodeTest()
-        {
-            canReadWrite(() => obj.ZipCode, x => obj.ZipCode = x);
-        }
-        [TestMethod]
-        public void CountryTest()
-        {
-            canReadWrite(() => obj.Country, x => obj.Country = x);
+            canReadWrite(() => obj.AddressID, x => obj.AddressID = x);
         }
         [TestMethod]
         public void DateOfBirthTest()

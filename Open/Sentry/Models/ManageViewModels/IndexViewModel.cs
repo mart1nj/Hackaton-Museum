@@ -17,13 +17,10 @@ namespace Open.Sentry.Models.ManageViewModels
         public string PhoneNumber { get; set; }
 
         public string StatusMessage { get; set; }
-        [Required]
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
-        [Required]
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
-        [Required]
         [DataType(DataType.Date)]
         [Display(Name = "Date of Birth")]
         public DateTime? DateOfBirth { get; set; }
@@ -33,6 +30,9 @@ namespace Open.Sentry.Models.ManageViewModels
         [Required]
         [Display(Name = "City")]
         public string City { get; set; }
+        [Required]
+        [Display(Name = "County")]
+        public string County { get; set; }
         [Required]
         [Display(Name = "Zip Code")]
         public string ZipCode { get; set; }

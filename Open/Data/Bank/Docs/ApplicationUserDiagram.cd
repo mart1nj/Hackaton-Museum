@@ -3,9 +3,12 @@
   <Class Name="Open.Data.Bank.ApplicationUser">
     <Position X="5.25" Y="0.75" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAAAAEAAAAAAAAAIAAAAAAAAAAIQAAABAAAAAAAQAAg=</HashCode>
+      <HashCode>QAAAAEAAAAAAAAAAAAAAAAAAAAAQAAACAAAAAAAAAAg=</HashCode>
       <FileName>Bank\ApplicationUser.cs</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Address" />
+    </ShowAsAssociation>
   </Class>
   <Class Name="Microsoft.AspNetCore.Identity.IdentityUser">
     <Position X="2.5" Y="1.75" Width="2" />
@@ -28,7 +31,7 @@
   <Class Name="Open.Data.Bank.TransactionData">
     <Position X="12" Y="0.75" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAAAAIAAAAAAAAAAAAACQECEAACBgAAAAQAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAIAAAAAAAAAAAAACQECEAACBAAAAAQAAAAAAAAA=</HashCode>
       <FileName>Bank\TransactionData.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -69,6 +72,30 @@
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAA=</HashCode>
       <FileName>Notification\WelcomeNotificationData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Open.Data.Party.GeographicAddressData">
+    <Position X="5.25" Y="3.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAABAAAAIQAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Party\GeographicAddressData.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Country" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Open.Data.Party.AddressData">
+    <Position X="2.5" Y="3.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAAAIAAQAAAAAAAIAUAACAAAAAAAAAAE=</HashCode>
+      <FileName>Party\AddressData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Open.Data.Party.CountryData" Collapsed="true">
+    <Position X="5.25" Y="5.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Party\CountryData.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

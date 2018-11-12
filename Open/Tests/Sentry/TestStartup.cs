@@ -25,7 +25,7 @@ namespace Open.Tests.Sentry {
             }).AddTestAuth(o => { });
         }
 
-        protected override void setMvcWithAntyFoggeryToken(IServiceCollection services)
+        protected override void setMvcWithAntiForgeryToken(IServiceCollection services)
         {
             services.AddMvc(options =>options.Filters.Add(new TestAntiForgeryAttribute()));
         }

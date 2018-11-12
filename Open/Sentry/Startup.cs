@@ -8,13 +8,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Open.Data.Bank;
 using Open.Domain.Bank;
 using Open.Domain.Notification;
-/*using Open.Domain.Party;
-using Open.Domain.Quantity;*/
+using Open.Domain.Party;
+using Open.Domain.Quantity;
 using Open.Infra;
 using Open.Infra.Bank;
 using Open.Infra.Notification;
-/*using Open.Infra.Party;
-using Open.Infra.Quantity;*/
+using Open.Infra.Party;
+using Open.Infra.Quantity;
 using Open.Sentry.Extensions;
 using Open.Sentry.Services;
 namespace Open.Sentry {
@@ -30,22 +30,22 @@ namespace Open.Sentry {
             services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, AppClaimsPrincipalFactory>();
             setAuthentication(services);
             services.AddTransient<IEmailSender, EmailSender>();
-            setMvcWithAntyFoggeryToken(services);
-          /*  services.AddScoped<ICountriesRepository, CountriesRepository>();
+            setMvcWithAntiForgeryToken(services);
+            services.AddScoped<ICountriesRepository, CountriesRepository>();
             services.AddScoped<ICurrencyRepository, CurrenciesRepository>();
             services.AddScoped<INationalCurrenciesRepository, NationalCurrenciesRepository>();
             services.AddScoped<IAddressesRepository, ContactsRepository>();
             services.AddScoped<ITelecomDeviceRegistrationsRepository, TelecomDeviceRegistrationsRepository>();
-            services.AddScoped<IRateTypeRepository, RateTypesRepository>();
-            services.AddScoped<IRateRepository, RatesRepository>();
-            services.AddScoped<IPaymentMethodsRepository, PaymentMethodsRepository>();
-            services.AddScoped<IPaymentsRepository, PaymentsRepository>();*/
+       //     services.AddScoped<IRateTypeRepository, RateTypesRepository>();
+       //     services.AddScoped<IRateRepository, RatesRepository>();
+       //     services.AddScoped<IPaymentMethodsRepository, PaymentMethodsRepository>();
+       //     services.AddScoped<IPaymentsRepository, PaymentsRepository>();*/
             services.AddScoped<IAccountsRepository, AccountRepository>();
             services.AddScoped<ITransactionRepository, TransactionRepository>();
             services.AddScoped<INotificationsRepository, NotificationsRepository>();
         }
 
-        protected virtual void setMvcWithAntyFoggeryToken(IServiceCollection services) {
+        protected virtual void setMvcWithAntiForgeryToken(IServiceCollection services) {
             services.AddMvc(options => options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()));
         }
 
