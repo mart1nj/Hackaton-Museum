@@ -2,39 +2,37 @@
 using Open.Data.Bank;
 using Open.Facade.Common;
 
-namespace Open.Facade.Bank
-{
-    public class AccountView : EntityView
-    {
+namespace Open.Facade.Bank {
+    public class AccountView : EntityView {
         private string type;
         private string status;
         private double? balance;
         private string aspNetUserId;
+
         [Required]
-        public double? Balance
-        {
+        public double? Balance {
             get => getDouble(ref balance);
             set => balance = value;
         }
+
         [Required]
-        public string Type
-        {
+        public string Type {
             get => getString(ref type);
             set => type = value;
         }
+
         [Required]
-        public string Status
-        {
+        public string Status {
             get => getString(ref status);
             set => status = value;
         }
+
         [Required]
-        public string AspnetUserId
-        {
+        public string AspNetUserId {
             get => getString(ref aspNetUserId);
             set => aspNetUserId = value;
         }
 
-        public ApplicationUser AspnetUser { get; set; }
+        public ApplicationUser AspNetUser { get; set; }
     }
 }

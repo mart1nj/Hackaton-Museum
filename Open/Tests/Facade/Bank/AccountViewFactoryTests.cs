@@ -26,7 +26,7 @@ namespace Open.Tests.Facade.Bank
             Assert.AreEqual(v.ValidTo, o.Data.ValidTo);
             Assert.AreEqual(v.Status, o.Data.Status);
             Assert.AreEqual(v.Balance, o.Data.Balance);
-            Assert.AreEqual(v.AspnetUserId, o.Data.AspnetUserId);
+            Assert.AreEqual(v.AspNetUserId, o.Data.AspNetUserId);
         }
     }
 }

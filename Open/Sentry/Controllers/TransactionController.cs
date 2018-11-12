@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Data.SqlClient;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -57,14 +56,14 @@ namespace Open.Sentry.Controllers {
             foreach (var transaction in viewList) {
                 transaction.SenderAccount =
                     AccountViewFactory.Create(await accounts.GetObject(transaction.SenderAccountId));
-                transaction.SenderAccount.AspnetUser =
-                    await userManager.FindByIdAsync(transaction.SenderAccount.AspnetUserId);
+                transaction.SenderAccount.AspNetUser =
+                    await userManager.FindByIdAsync(transaction.SenderAccount.AspNetUserId);
                 transaction.ReceiverAccount =
                     AccountViewFactory.Create(await accounts.GetObject(transaction.ReceiverAccountId));
-                transaction.ReceiverAccount.AspnetUser =
-                    await userManager.FindByIdAsync(transaction.ReceiverAccount.AspnetUserId);
+                transaction.ReceiverAccount.AspNetUser =
+                    await userManager.FindByIdAsync(transaction.ReceiverAccount.AspNetUserId);
 
-                if (transaction.SenderAccount.AspnetUserId == appUser.Id) {
+                if (transaction.SenderAccount.AspNetUserId == appUser.Id) {
                     transaction.Amount = -transaction.Amount;
                     var receiver = transaction.SenderAccount;
                     var receiverId = transaction.SenderAccountId;
@@ -90,12 +89,12 @@ namespace Open.Sentry.Controllers {
             return x => x.ValidFrom;
         }
 
-        public async Task<IActionResult> Create(string senderId)
-        {
-           // var l = await transactions.LoadTransactionsForAccount(senderId);
+        public async Task<IActionResult> Create(string senderId) {
+            // var l = await transactions.LoadTransactionsForAccount(senderId);
             //return View("Create");
-           // BankAccount = await accounts.GetObject(senderId);
-            return View(TransactionViewFactory.Create(TransactionFactory.CreateTransaction(null, null, "", senderId, "", DateTime.Now.Date)));
+            // BankAccount = await accounts.GetObject(senderId);
+            return View(TransactionViewFactory.Create(
+                TransactionFactory.CreateTransaction(null, null, "", senderId, "", DateTime.Now.Date)));
         }
 
 
@@ -103,37 +102,35 @@ namespace Open.Sentry.Controllers {
             var c = await transactions.GetObject(id);
             return View(TransactionViewFactory.Create(c));
         }
-       
-        
-        [HttpPost] 
+
+
+        [HttpPost]
         public async Task<IActionResult> Create([Bind(properties)] TransactionView model) {
             if (!ModelState.IsValid) return View(model);
             //double amountD = 0;
             string rAccountId = model.ReceiverAccountId;
             string sAccountId = model.SenderAccountId;
             string explanation = model.Explanation;
-           
+
             bool receiverExists = checkIfReceiverAccountExists(rAccountId);
 
-            if (receiverExists)
-            {
+            if (receiverExists) {
                 double amountD = Convert.ToDouble(model.Amount);
-                
+
                 var receiverObject = await accounts.GetObject(rAccountId);
                 var senderObject = await accounts.GetObject(sAccountId);
 
                 bool senderIsOk = validateSender(senderObject); //check if has enough balance and active card
                 bool receiverIsOk = validateReceiver(receiverObject); //c
-                
-                if (senderIsOk && receiverIsOk)
-                {
+
+                if (senderIsOk && receiverIsOk) {
                     DateTime date = DateTime.Now;
                     //receiverBalance
                     receiverObject.Data.Balance = receiverObject.Data.Balance + amountD;
-                    
+
                     //senderBalance
                     senderObject.Data.Balance = senderObject.Data.Balance - amountD;
-                    
+
                     //senderTransaction
                     model.ID = Guid.NewGuid().ToString();
                     var senderTransaction = TransactionViewFactory.Create(model);
@@ -143,9 +140,9 @@ namespace Open.Sentry.Controllers {
                     senderTransaction.Data.SenderAccountId = sAccountId;
                     senderTransaction.Data.ReceiverAccountId = rAccountId;
                     senderTransaction.Data.ReceiverAccount = null;
-                    
+
                     //receiverTransaction
-                    model.ID =  Guid.NewGuid().ToString();
+                    model.ID = Guid.NewGuid().ToString();
                     var receiverTransaction = TransactionViewFactory.Create(model);
                     receiverTransaction.Data.Amount = amountD;
                     receiverTransaction.Data.ValidFrom = date;
@@ -154,15 +151,14 @@ namespace Open.Sentry.Controllers {
                     receiverTransaction.Data.ReceiverAccountId = sAccountId;
                     receiverTransaction.Data.ReceiverAccount = null;
 
-                    
+
                     await accounts.UpdateObject(senderObject);
                     await accounts.UpdateObject(receiverObject);
                     await transactions.AddObject(senderTransaction);
                     await transactions.AddObject(receiverTransaction);
-
-                }            
+                }
             }
-            
+
             return RedirectToAction("Create");
         }
 
@@ -181,10 +177,11 @@ namespace Open.Sentry.Controllers {
 
             if (receiverCardStatus == "Active") {
                 return true;
-            } 
-                Error = 1;
-                ErrorMessage = "Receiver's card is not active. Cannot make transaction.";
-                return false;
+            }
+
+            Error = 1;
+            ErrorMessage = "Receiver's card is not active. Cannot make transaction.";
+            return false;
         }
 
         private bool validateSender(Account senderObject) {
@@ -194,19 +191,20 @@ namespace Open.Sentry.Controllers {
             if (senderBalance > 0) {
                 if (senderCardStatus == "Active") {
                     return true;
-                } 
-                    Error = 1;
-                    ErrorMessage = "Your card is not active. Cannot make transaction.";
-                    return false;
-            } 
+                }
+
                 Error = 1;
-                ErrorMessage = "Your balance is " + senderBalance + ". Cannot make transaction.";
+                ErrorMessage = "Your card is not active. Cannot make transaction.";
                 return false;
+            }
+
+            Error = 1;
+            ErrorMessage = "Your balance is " + senderBalance + ". Cannot make transaction.";
+            return false;
         }
 
-        public Object GetById(string id)
-        {
-            return  transactions.GetObject(id);
+        public Object GetById(string id) {
+            return transactions.GetObject(id);
         }
     }
 }

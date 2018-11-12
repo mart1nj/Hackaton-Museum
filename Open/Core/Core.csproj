@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BankId.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="IActivity.cs" />
     <Compile Include="IActivityType.cs" />

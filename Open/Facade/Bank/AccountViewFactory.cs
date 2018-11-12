@@ -15,7 +15,7 @@ namespace Open.Facade.Bank
                 Status = o?.Data.Status,
                 Balance = o?.Data.Balance ?? 0,
                 ID = o?.Data?.ID,
-                AspnetUserId = o?.Data?.AspnetUserId
+                AspNetUserId = o?.Data?.AspNetUserId
             };
             if (o is null) return v;
             v.ValidFrom = Date.SetNullIfMaxOrMin(o.Data.ValidFrom);
@@ -32,7 +32,7 @@ namespace Open.Facade.Bank
                 ValidFrom = v?.ValidFrom ?? DateTime.MinValue,
                 ValidTo = v?.ValidTo?? DateTime.MaxValue,
                 ID = v?.ID,
-                AspnetUserId = v?.AspnetUserId
+                AspNetUserId = v?.AspNetUserId
             };
             return new Account(r);
         }

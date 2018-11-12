@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Open.Core;
 using Open.Data.Bank;
 
 namespace Open.Infra.Bank {
@@ -21,7 +22,6 @@ namespace Open.Infra.Bank {
         }
 
         private static void initTransactions(ApplicationDbContext c, List<string> accounts) {
-
             addTransaction(c, new TransactionData {
                 Amount = amount1,
                 ValidFrom = Convert.ToDateTime("12 Feb 2007"),
@@ -66,7 +66,7 @@ namespace Open.Infra.Bank {
                 ValidFrom = Convert.ToDateTime("7 November 2018"),
                 ValidTo = DateTime.MaxValue,
                 Type = "System",
-                AspnetUserId = "system",
+                AspNetUserId = "system",
                 Status = "Active"
             };
             c.Add(systemAccount);
@@ -76,7 +76,7 @@ namespace Open.Infra.Bank {
                     ValidFrom = Convert.ToDateTime("5 September 2018"),
                     ValidTo = Convert.ToDateTime("5 September 2028"),
                     Type = "ISIC",
-                    AspnetUserId = "sonicSiilId",
+                    AspNetUserId = "sonicSiilId",
                     Status = "Active"
                 }),
                 addAccount(c, new AccountData {
@@ -84,7 +84,7 @@ namespace Open.Infra.Bank {
                     ValidFrom = Convert.ToDateTime("30 September 2018"),
                     ValidTo = Convert.ToDateTime("30 September 2028"),
                     Type = "SlugClub",
-                    AspnetUserId = "testUserid",
+                    AspNetUserId = "testUserid",
                     Status = "Active"
                 }),
                 addAccount(c, new AccountData {
@@ -92,10 +92,9 @@ namespace Open.Infra.Bank {
                     ValidFrom = Convert.ToDateTime("3 November 2018"),
                     ValidTo = Convert.ToDateTime("30 September 2028"),
                     Type = "Debit",
-                    AspnetUserId = "testUserid",
+                    AspNetUserId = "testUserid",
                     Status = "Active"
                 }),
-
             };
             return l;
         }
@@ -104,9 +103,9 @@ namespace Open.Infra.Bank {
             data.ID = Guid.NewGuid().ToString();
             c.Transactions.Add(data);
         }
-        private static string addAccount(ApplicationDbContext c, AccountData data)
-        {
-            data.ID = Guid.NewGuid().ToString();
+
+        private static string addAccount(ApplicationDbContext c, AccountData data) {
+            data.ID = BankId.NewBankId();
             c.Accounts.Add(data);
             return data.ID;
         }
