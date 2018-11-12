@@ -4,15 +4,12 @@ namespace Open.Data.Bank
 {
     public class TransactionData : IdentifiedData {
 
-        private double? amount;
         private string explanation;
         private string sAccountId;
         private string rAccountId;
-        public double? Amount
-        {
-            get => getDouble(ref amount);
-            set => amount = value;
-        }       
+        
+        public double Amount { get; set; }      
+        
         public string Explanation {
             get => getString(ref explanation);
             set => explanation = value;
@@ -27,6 +24,7 @@ namespace Open.Data.Bank
             get => getString(ref rAccountId);
             set => rAccountId = value;
         }
+        
         public virtual AccountData SenderAccount { get; set; }
         public virtual AccountData ReceiverAccount { get; set; }
     }

@@ -4,25 +4,17 @@
 
 @{
     ViewBag.Title = "Make transaction";
-    ViewBag.Button = "Make";
     Layout = "_EditPartial";
-}
-@if (TransactionController.Error != 0) {
-    <div id="alert" class="alert alert-danger fade in" style="position: static; z-index: 200; top: 70px; left: 0; right: 0; margin: 0 auto; width: 500px;">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        <div id="alert-msg">
-            <strong>Error!</strong> @TransactionController.ErrorMessage
-        </div>
-    </div>
+    ViewBag.Button = "Make";
 }
 <body>
-@Html.HiddenFor(x => x.ID)
-@Html.ViewingControlsFor(x => x.ValidFrom)
-@Html.ViewingControlsFor(x => x.SenderAccountId)
-@Html.HiddenFor(x => x.SenderAccountId)
-@Html.EditingControlsFor(x => x.ReceiverAccountId)
-@Html.EditingControlsFor(x => x.Amount)
-@Html.EditingControlsFor(x => x.Explanation)
-</body>
-
+    @Html.HiddenFor(x => x.ID)
+    @Html.ViewingControlsFor(x => x.ValidFrom)
+    @Html.ViewingControlsFor(x => x.SenderAccountId)
+    @Html.HiddenFor(x => x.SenderAccountId)
+    @Html.EditingControlsFor(x => x.ReceiverAccountId)
+    @Html.EditingControlsFor(x => x.Amount)
+    @Html.EditingControlsFor(x => x.Explanation)
+    
 @section Actions{@Html.ActionLink("Back to List", "Index")}
+</body>

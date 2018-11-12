@@ -19,7 +19,6 @@ namespace Open.Sentry.Controllers {
         internal const string properties =
             "ID, Amount, Explanation, ReceiverAccountId, SenderAccountId, ValidFrom";
 
-        public static int Error;
         public static string ErrorMessage;
 
         public TransactionController(ITransactionRepository p, IAccountsRepository a,
@@ -30,7 +29,7 @@ namespace Open.Sentry.Controllers {
         }
 
         public async Task<IActionResult> Index(string id, string sortOrder = null, string currentFilter = null,
-            string searchString = null, int? page = null) {
+            string searchString = null, int? page = null){
             ViewData["CurrentSort"] = sortOrder;
             ViewData["SortSenderFirstName"] =
                 sortOrder == "senderFirstName" ? "senderFirstName_desc" : "senderFirstName";
@@ -91,10 +90,10 @@ namespace Open.Sentry.Controllers {
             return x => x.ValidFrom;
         }
 
-        public IActionResult Create(string senderId)
-        {
+        public IActionResult Create(string senderId){
+
             return View(TransactionViewFactory.Create(
-                TransactionFactory.CreateTransaction(null, null, "", senderId, "", DateTime.Now.Date)));
+                TransactionFactory.CreateTransaction(null, 0, "", senderId, "", DateTime.Now.Date)));
         }
 
 
@@ -105,9 +104,8 @@ namespace Open.Sentry.Controllers {
 
 
         [HttpPost]
-        public async Task<IActionResult> Create([Bind(properties)] TransactionView model) {
-            if (!ModelState.IsValid) return View(model);
-            bool receiverExists = checkIfReceiverAccountExists(model.ReceiverAccountId);
+        public async Task<IActionResult> Create([Bind(properties)] TransactionView model){
+            bool receiverExists = await checkIfReceiverAccountExists(model.ReceiverAccountId);
 
             if (receiverExists) {
                 double amountD = Convert.ToDouble(model.Amount);
@@ -115,7 +113,7 @@ namespace Open.Sentry.Controllers {
                 var receiverObject = await accounts.GetObject(model.ReceiverAccountId);
                 var senderObject = await accounts.GetObject(model.SenderAccountId);
 
-                bool senderIsOk = validateSender(senderObject); //check if has enough balance and active card
+                bool senderIsOk = validateSender(senderObject, amountD); //check if has enough balance and active card
                 bool receiverIsOk = validateReceiver(receiverObject); //c
 
                 if (senderIsOk && receiverIsOk) {
@@ -138,20 +136,25 @@ namespace Open.Sentry.Controllers {
                     await accounts.UpdateObject(senderObject);
                     await accounts.UpdateObject(receiverObject);
                     await transactions.AddObject(transaction);
+
+                    ErrorMessage = "Transaction successfully done to " + model.ReceiverAccountId + " from " +
+                                   model.SenderAccountId +
+                                   " in the amount of " + amountD;
                 }
             }
-
-            return RedirectToAction("Index", "Home");
+            return View("Info");
         }
 
-        private bool checkIfReceiverAccountExists(string rAccountId) {
-            if (accounts.GetObject(rAccountId) != null) {
-                return true;
-            } else {
-                Error = 1;
+        private async Task<bool> checkIfReceiverAccountExists(string rAccountId)
+        {
+            var o = await accounts.GetObject(rAccountId);
+                if (o.Data.AspNetUserId != "Unspecified") //vb peab seda siin rohkem kontrollima
+                {
+                    return true;
+                }
+                   
                 ErrorMessage = "Receiver account number doesn't exist in our system. Cannot make transaction!";
-                return false;
-            }
+                return false;   
         }
 
         private bool validateReceiver(Account receiverObject) {
@@ -161,27 +164,25 @@ namespace Open.Sentry.Controllers {
                 return true;
             }
 
-            Error = 1;
             ErrorMessage = "Receiver's card is not active. Cannot make transaction.";
             return false;
         }
 
-        private bool validateSender(Account senderObject) {
+        private bool validateSender(Account senderObject, double amount) {
             double? senderBalance = senderObject.Data.Balance;
             string senderCardStatus = senderObject.Data.Status;
 
-            if (senderBalance > 0) {
+            if (senderBalance >= amount) {
                 if (senderCardStatus == "Active") {
                     return true;
                 }
 
-                Error = 1;
                 ErrorMessage = "Your card is not active. Cannot make transaction.";
                 return false;
             }
 
-            Error = 1;
-            ErrorMessage = "Your balance is " + senderBalance + ". Cannot make transaction.";
+            ErrorMessage = "Your balance is " + senderBalance + " , but transaction amount is " 
+            + amount + ". Cannot make transaction.";
             return false;
         }
 

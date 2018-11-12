@@ -7,24 +7,21 @@ namespace Open.Facade.Bank
 {
     public class TransactionView : EntityView
     {
-        private double? amount;
         private string explanation;
         private string sAccountId;
         private string rAccountId;
         
-        [Range(0.1, 1000000000.0)]
+        [Range(0.01, double.MaxValue)]
         [Required]
-        public double? Amount
-        {
-            get => getDouble(ref amount);
-            set => amount = value;
-        }
+        public double Amount { get; set; }
+        
         [Required]
         public string Explanation
         {
             get => getString(ref explanation);
             set => explanation = value;
         }
+        
         [Required]
         [DisplayName("Sender Account Number")]
         public string SenderAccountId
@@ -32,6 +29,7 @@ namespace Open.Facade.Bank
             get => getString(ref sAccountId);
             set => sAccountId = value;
         }
+        
         [Required]
         [DisplayName("Receiver Account Number")]
         public string ReceiverAccountId
@@ -39,6 +37,7 @@ namespace Open.Facade.Bank
             get => getString(ref rAccountId);
             set => rAccountId = value;
         }
+        
         [DataType(DataType.Date)]
         [DisplayName("Date Made")]
         public new DateTime? ValidFrom { get; set; }

@@ -9,7 +9,7 @@ namespace Open.Facade.Bank
     {
         public static TransactionView Create(Transaction o) {
             var v = new TransactionView() {
-                Amount = o?.Data.Amount ?? 0,
+                Amount = o?.Data.Amount ?? 0.0,
                 Explanation = o?.Data.Explanation,
                 ID = o?.Data?.ID,
                 SenderAccountId = o?.Data.SenderAccountId,
@@ -22,7 +22,7 @@ namespace Open.Facade.Bank
         }
         public static Transaction Create(TransactionView v) {
             var r = new TransactionData{
-                Amount = v?.Amount ?? 0,
+                Amount = v?.Amount ?? 0.0,
                 Explanation = v?.Explanation,
                 ID = v?.ID,
                 SenderAccountId = v?.SenderAccountId,

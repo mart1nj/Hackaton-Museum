@@ -9,7 +9,7 @@ namespace Open.Tests.Domain.Bank
     public class TransactionFactoryTests : BaseTests
     {
         private string id;
-        private double? amount;
+        private double amount;
         private string explanation;
         private string senderAccountId;
         private string receiverAccountId;

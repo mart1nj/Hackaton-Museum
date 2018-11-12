@@ -1,0 +1,12 @@
+@using Open.Sentry.Controllers
+@model Open.Facade.Bank.TransactionView
+
+
+@{
+    ViewBag.Title = "Info";
+    Layout = "_Layout";
+}
+<body>
+    @Html.DisplayFor(m => TransactionController.ErrorMessage)
+</body>
+

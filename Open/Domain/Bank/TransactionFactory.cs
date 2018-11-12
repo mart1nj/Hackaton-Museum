@@ -4,7 +4,7 @@ namespace Open.Domain.Bank
 {
     public class TransactionFactory
     {
-        public static Transaction CreateTransaction(string id, double? amount, string explanation, string senderAccountId,
+        public static Transaction CreateTransaction(string id, double amount, string explanation, string senderAccountId,
             string receiverAccountId, DateTime? validFrom = null, DateTime? validTo = null)
         {
             var r = new TransactionData
