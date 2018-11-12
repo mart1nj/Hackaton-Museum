@@ -18,7 +18,7 @@
   <Class Name="Open.Data.Bank.AccountData">
     <Position X="8.5" Y="0.75" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>ACQAAAAEAAAAAAAAAAgAAAAIAAABAAAAAwAAAAAAAAQ=</HashCode>
+      <HashCode>ACQAAAAEAAAAAAAAAAgAAAAIAAABAAAAAwAABAAAAAA=</HashCode>
       <FileName>Bank\AccountData.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -65,7 +65,7 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="Open.Data.Notification.WelcomeNotificationData">
-    <Position X="12" Y="4.5" Width="1.5" />
+    <Position X="12" Y="4.5" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAA=</HashCode>
       <FileName>Notification\WelcomeNotificationData.cs</FileName>

@@ -3,11 +3,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using Open.Data.Bank;
 using Open.Domain.Bank;
 using Open.Facade.Bank;
-using SortOrder = Open.Core.SortOrder;
+using Open.Core;
 
 namespace Open.Sentry.Controllers {
     [Authorize]
@@ -16,13 +15,11 @@ namespace Open.Sentry.Controllers {
         private readonly ITransactionRepository transactions;
         private readonly UserManager<ApplicationUser> userManager;
         public static Account BankAccount;
-        private IConfiguration configuration;
 
         internal const string properties =
-            "ID, Amount, Explanation, ReceiverAccountId, SenderAccountId," +
-            "ValidFrom";
+            "ID, Amount, Explanation, ReceiverAccountId, SenderAccountId, ValidFrom";
 
-        public static int Error = 0;
+        public static int Error;
         public static string ErrorMessage;
 
         public TransactionController(ITransactionRepository p, IAccountsRepository a,
@@ -41,7 +38,7 @@ namespace Open.Sentry.Controllers {
             ViewData["SortValidFrom"] = string.IsNullOrEmpty(sortOrder) ? "validFrom_desc" : "";
             ViewData["SortAmount"] = sortOrder == "amount" ? "amount_desc" : "amount";
             transactions.SortOrder = sortOrder != null && sortOrder.EndsWith("_desc")
-                ? Core.SortOrder.Descending
+                ? SortOrder.Descending
                 : SortOrder.Ascending;
             transactions.SortFunction = getSortFunction(sortOrder);
             if (searchString != null) page = 1;
@@ -50,7 +47,9 @@ namespace Open.Sentry.Controllers {
             transactions.SearchString = searchString;
             transactions.PageIndex = page ?? 1;
             BankAccount = await accounts.GetObject(id);
+
             var l = await transactions.LoadTransactionsForAccount(id);
+
             var viewList = new TransactionViewsList(l);
             var appUser = await userManager.GetUserAsync(HttpContext.User);
             foreach (var transaction in viewList) {
@@ -62,21 +61,24 @@ namespace Open.Sentry.Controllers {
                     AccountViewFactory.Create(await accounts.GetObject(transaction.ReceiverAccountId));
                 transaction.ReceiverAccount.AspNetUser =
                     await userManager.FindByIdAsync(transaction.ReceiverAccount.AspNetUserId);
-
-                if (transaction.SenderAccount.AspNetUserId == appUser.Id) {
-                    transaction.Amount = -transaction.Amount;
-                    var receiver = transaction.SenderAccount;
-                    var receiverId = transaction.SenderAccountId;
-                    transaction.SenderAccount = transaction.ReceiverAccount;
-                    transaction.ReceiverAccount = receiver;
-                    transaction.SenderAccountId = transaction.ReceiverAccountId;
-                    transaction.ReceiverAccountId = receiverId;
-                }
+                adjustAmountIfUserIsTransactionSender(transaction, appUser.Id);
             }
 
             return View(viewList);
         }
 
+        private void adjustAmountIfUserIsTransactionSender(TransactionView transaction, string id) {
+            if (transaction.SenderAccount.AspNetUserId == id)
+            {
+                transaction.Amount = -transaction.Amount;
+                var receiver = transaction.SenderAccount;
+                var receiverId = transaction.SenderAccountId;
+                transaction.SenderAccount = transaction.ReceiverAccount;
+                transaction.ReceiverAccount = receiver;
+                transaction.SenderAccountId = transaction.ReceiverAccountId;
+                transaction.ReceiverAccountId = receiverId;
+            }
+        }
         private Func<TransactionData, object> getSortFunction(string sortOrder) {
             //Todo sorting by first and last name- need to load account and aspnetUser
             if (string.IsNullOrWhiteSpace(sortOrder)) return x => x.ValidFrom;
@@ -89,10 +91,8 @@ namespace Open.Sentry.Controllers {
             return x => x.ValidFrom;
         }
 
-        public async Task<IActionResult> Create(string senderId) {
-            // var l = await transactions.LoadTransactionsForAccount(senderId);
-            //return View("Create");
-            // BankAccount = await accounts.GetObject(senderId);
+        public IActionResult Create(string senderId)
+        {
             return View(TransactionViewFactory.Create(
                 TransactionFactory.CreateTransaction(null, null, "", senderId, "", DateTime.Now.Date)));
         }
@@ -107,59 +107,41 @@ namespace Open.Sentry.Controllers {
         [HttpPost]
         public async Task<IActionResult> Create([Bind(properties)] TransactionView model) {
             if (!ModelState.IsValid) return View(model);
-            //double amountD = 0;
-            string rAccountId = model.ReceiverAccountId;
-            string sAccountId = model.SenderAccountId;
-            string explanation = model.Explanation;
-
-            bool receiverExists = checkIfReceiverAccountExists(rAccountId);
+            bool receiverExists = checkIfReceiverAccountExists(model.ReceiverAccountId);
 
             if (receiverExists) {
                 double amountD = Convert.ToDouble(model.Amount);
 
-                var receiverObject = await accounts.GetObject(rAccountId);
-                var senderObject = await accounts.GetObject(sAccountId);
+                var receiverObject = await accounts.GetObject(model.ReceiverAccountId);
+                var senderObject = await accounts.GetObject(model.SenderAccountId);
 
                 bool senderIsOk = validateSender(senderObject); //check if has enough balance and active card
                 bool receiverIsOk = validateReceiver(receiverObject); //c
 
                 if (senderIsOk && receiverIsOk) {
-                    DateTime date = DateTime.Now;
                     //receiverBalance
                     receiverObject.Data.Balance = receiverObject.Data.Balance + amountD;
 
                     //senderBalance
                     senderObject.Data.Balance = senderObject.Data.Balance - amountD;
 
-                    //senderTransaction
+                    //Transaction
                     model.ID = Guid.NewGuid().ToString();
-                    var senderTransaction = TransactionViewFactory.Create(model);
-                    senderTransaction.Data.Amount = amountD * -1;
-                    senderTransaction.Data.ValidFrom = date;
-                    senderTransaction.Data.Explanation = explanation;
-                    senderTransaction.Data.SenderAccountId = sAccountId;
-                    senderTransaction.Data.ReceiverAccountId = rAccountId;
-                    senderTransaction.Data.ReceiverAccount = null;
-
-                    //receiverTransaction
-                    model.ID = Guid.NewGuid().ToString();
-                    var receiverTransaction = TransactionViewFactory.Create(model);
-                    receiverTransaction.Data.Amount = amountD;
-                    receiverTransaction.Data.ValidFrom = date;
-                    receiverTransaction.Data.Explanation = explanation;
-                    receiverTransaction.Data.SenderAccountId = rAccountId;
-                    receiverTransaction.Data.ReceiverAccountId = sAccountId;
-                    receiverTransaction.Data.ReceiverAccount = null;
+                    var transaction = TransactionViewFactory.Create(model);
+                    transaction.Data.Amount = amountD;
+                    transaction.Data.ValidFrom = DateTime.Now;
+                    transaction.Data.Explanation = model.Explanation;
+                    transaction.Data.SenderAccountId = model.SenderAccountId;
+                    transaction.Data.ReceiverAccountId = model.ReceiverAccountId;
 
 
                     await accounts.UpdateObject(senderObject);
                     await accounts.UpdateObject(receiverObject);
-                    await transactions.AddObject(senderTransaction);
-                    await transactions.AddObject(receiverTransaction);
+                    await transactions.AddObject(transaction);
                 }
             }
 
-            return RedirectToAction("Create");
+            return RedirectToAction("Index", "Home");
         }
 
         private bool checkIfReceiverAccountExists(string rAccountId) {
@@ -203,7 +185,7 @@ namespace Open.Sentry.Controllers {
             return false;
         }
 
-        public Object GetById(string id) {
+        public object GetById(string id) {
             return transactions.GetObject(id);
         }
     }
