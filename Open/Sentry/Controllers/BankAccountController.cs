@@ -31,6 +31,7 @@ namespace Open.Sentry.Controllers {
             if (!ModelState.IsValid) return View(c);
             c.Balance = 0;
             c.Status = "Active";
+            c.Type = Enum.GetName(typeof(CardType), int.Parse(c.Type));
             var loggedInUser = await userManager.GetUserAsync(HttpContext.User);
             c.AspNetUserId = loggedInUser.Id;
             var o = AccountFactory.CreateAccount(c.ID, c.Balance, c.Type, c.Status, c.AspNetUserId,

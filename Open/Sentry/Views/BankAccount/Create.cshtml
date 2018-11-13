@@ -15,7 +15,6 @@
 @Html.HiddenFor(x => x.AspNetUserId)
 @Html.HiddenFor(x => x.ValidFrom)
 @Html.HiddenFor(x => x.ValidTo)
-@* TODO: Make it return the Enum key (as string), not its (numeric) value. *@
 @Html.DropDownListFor(x => x.Type, Html.GetEnumSelectList<CardType>(), new { @class = "form-control" })
 </body>
 
