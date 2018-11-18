@@ -6,12 +6,12 @@ namespace Open.Facade.Bank {
     public class AccountView : EntityView {
         private string type;
         private string status;
-        private double? balance;
+        private decimal? balance;
         private string aspNetUserId;
 
         [Required]
-        public double? Balance {
-            get => getDouble(ref balance);
+        public decimal? Balance {
+            get => getDecimal(ref balance);
             set => balance = value;
         }
 

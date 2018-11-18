@@ -41,6 +41,11 @@ namespace Open.Core {
         {
             field = field ?? false;
             return field;
+       }
+        protected internal decimal? getDecimal(ref decimal? field)
+        {
+            field = field ?? Convert.ToDecimal(0.0);
+            return field;
         }
     }
 }

@@ -6,11 +6,11 @@ using Open.Data.Bank;
 
 namespace Open.Infra.Bank {
     public static class TransactionsInitializer {
-        private static double amount1 = 15120.99;
-        private static double amount2 = 200.10;
-        private static double amount3 = 864.46;
-        private static double amount4 = 100;
-        private static double amount5 = 50;
+        private static decimal amount1 = (decimal) 15120.99;
+        private static decimal amount2 = (decimal) 200.10;
+        private static decimal amount3 = (decimal) 864.46;
+        private static decimal amount4 = 100;
+        private static decimal amount5 = 50;
 
         public static void Initialize(ApplicationDbContext c) {
             c.Database.EnsureCreated();

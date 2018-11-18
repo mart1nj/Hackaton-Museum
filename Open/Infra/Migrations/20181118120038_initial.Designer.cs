@@ -10,7 +10,7 @@ using Open.Infra;
 namespace Open.Infra.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20181112211625_initial")]
+    [Migration("20181118120038_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -138,7 +138,7 @@ namespace Open.Infra.Migrations
 
                     b.Property<string>("AspNetUserId");
 
-                    b.Property<double?>("Balance");
+                    b.Property<decimal?>("Balance");
 
                     b.Property<string>("Status");
 
@@ -221,7 +221,7 @@ namespace Open.Infra.Migrations
                     b.Property<string>("ID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<double>("Amount");
+                    b.Property<decimal?>("Amount");
 
                     b.Property<string>("Explanation");
 

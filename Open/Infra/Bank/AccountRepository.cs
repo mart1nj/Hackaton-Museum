@@ -28,11 +28,17 @@ namespace Open.Infra.Bank
 
         public async Task<PaginatedList<Account>> LoadAccountsForUser(string id)
         {
-            var accounts = await dbSet.Where(x => x.AspNetUserId == id)
+            var accounts = getSorted().Where(s => s.Contains(SearchString) && s.AspNetUserId == id).AsNoTracking();
+            var count = await accounts.CountAsync();
+            var p = new RepositoryPage(count, PageIndex, PageSize);
+            var items = await accounts.Skip(p.FirstItemIndex).Take(p.PageSize).ToListAsync();
+            return createList(items, p);
+
+           /* var accounts = await dbSet.Where(x => x.AspNetUserId == id)
                 .AsNoTracking().ToListAsync();
             var p = new RepositoryPage(accounts.Count, PageIndex, PageSize);
             var paginatedList = createList(accounts, p);
-            return paginatedList;
+            return paginatedList;*/
         }
     }
 }

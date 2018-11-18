@@ -195,7 +195,7 @@ namespace Open.Infra.Migrations
                     ValidFrom = table.Column<DateTime>(nullable: false),
                     ValidTo = table.Column<DateTime>(nullable: false),
                     ID = table.Column<string>(nullable: false),
-                    Balance = table.Column<double>(nullable: true),
+                    Balance = table.Column<decimal>(nullable: true),
                     Type = table.Column<string>(nullable: true),
                     Status = table.Column<string>(nullable: true),
                     AspNetUserId = table.Column<string>(nullable: true)
@@ -332,7 +332,7 @@ namespace Open.Infra.Migrations
                     ValidFrom = table.Column<DateTime>(nullable: false),
                     ValidTo = table.Column<DateTime>(nullable: false),
                     ID = table.Column<string>(nullable: false),
-                    Amount = table.Column<double>(nullable: false),
+                    Amount = table.Column<decimal>(nullable: true),
                     Explanation = table.Column<string>(nullable: true),
                     SenderAccountId = table.Column<string>(nullable: true),
                     ReceiverAccountId = table.Column<string>(nullable: true)

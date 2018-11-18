@@ -9,7 +9,7 @@ namespace Open.Tests.Domain.Bank
     public class TransactionFactoryTests : BaseTests
     {
         private string id;
-        private double amount;
+        private decimal amount;
         private string explanation;
         private string senderAccountId;
         private string receiverAccountId;
@@ -21,7 +21,7 @@ namespace Open.Tests.Domain.Bank
             var min = DateTime.Now.AddYears(-50);
             var max = DateTime.Now.AddYears(50);
             id = GetRandom.String();
-            amount = GetRandom.Double();
+            amount = GetRandom.Decimal();
             explanation = GetRandom.String();
             senderAccountId = GetRandom.String();
             receiverAccountId = GetRandom.String();
@@ -29,7 +29,7 @@ namespace Open.Tests.Domain.Bank
             validTo = GetRandom.DateTime(validFrom, max);
         }
         private void validateResults(string i = Constants.Unspecified,
-            double? a = 0, string e = Constants.Unspecified, string s = Constants.Unspecified,
+            decimal? a = 0, string e = Constants.Unspecified, string s = Constants.Unspecified,
             string r = Constants.Unspecified, DateTime? f = null, DateTime? t = null)
         {
             Assert.AreEqual(i, o.Data.ID);

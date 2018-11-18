@@ -1,5 +1,4 @@
 @using Open.Sentry.Extensions
-@using Open.Sentry.Controllers;
 @model Open.Facade.Bank.TransactionView
 
 @{
@@ -13,7 +12,7 @@
     @Html.ViewingControlsFor(x => x.SenderAccountId)
     @Html.HiddenFor(x => x.SenderAccountId)
     @Html.EditingControlsFor(x => x.ReceiverAccountId)
-    @Html.EditingControlsFor(x => x.Amount)
+    @Html.EditingControlsForDecimal(x => x.AmountInStringFormat)
     @Html.EditingControlsFor(x => x.Explanation)
     
 @section Actions{@Html.ActionLink("Back to List", "Index")}

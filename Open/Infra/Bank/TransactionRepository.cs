@@ -9,7 +9,9 @@ using Open.Domain.Bank;
 namespace Open.Infra.Bank
 {
     public class TransactionRepository : Repository<Transaction, TransactionData>, ITransactionRepository {
-        public TransactionRepository(ApplicationDbContext c) : base(c?.Transactions, c) { }
+        public TransactionRepository(ApplicationDbContext c) : base(c?.Transactions, c) {
+            PageSize = 100;
+        }
 
         protected internal override Transaction createObject(TransactionData r) { return new Transaction(r); }
 
@@ -25,12 +27,18 @@ namespace Open.Infra.Bank
 
         public async Task<PaginatedList<Transaction>> LoadTransactionsForAccount(string id)
         {
-            var transactions = await dbSet.Where(x => x.SenderAccountId == id || x.ReceiverAccountId == id)
+            var objects = getSorted().Where(s => s.Contains(SearchString) && (s.SenderAccountId == id || s.ReceiverAccountId == id)).AsNoTracking();
+            var count = await objects.CountAsync();
+            var p = new RepositoryPage(count, PageIndex, PageSize);
+            var items = await objects.Skip(p.FirstItemIndex).Take(p.PageSize).ToListAsync();
+            return createList(items, p);
+
+       /*     var transactions = await dbSet.Where(x => x.SenderAccountId == id || x.ReceiverAccountId == id)
                 .AsNoTracking().ToListAsync();
 
             var p = new RepositoryPage(transactions.Count, PageIndex, PageSize);
             var paginatedList = createList(transactions, p);
-            return paginatedList;
+            return paginatedList;*/
         }
     }
 }

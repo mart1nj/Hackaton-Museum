@@ -9,7 +9,7 @@ namespace Open.Tests.Domain.Bank
     public class AccountFactoryTests : BaseTests
     {
         private string id;
-        private double? balance;
+        private decimal? balance;
         private string accountType;
         private string status;
         private string aspNetUserId;
@@ -21,7 +21,7 @@ namespace Open.Tests.Domain.Bank
             var min = DateTime.Now.AddYears(-50);
             var max = DateTime.Now.AddYears(50);
             id = GetRandom.String();
-            balance = GetRandom.Double();
+            balance = GetRandom.Decimal();
             accountType = GetRandom.String();
             status = GetRandom.String();
             aspNetUserId = GetRandom.String();
@@ -29,7 +29,7 @@ namespace Open.Tests.Domain.Bank
             validTo = GetRandom.DateTime(validFrom, max);
         }
         private void validateResults(string i = Constants.Unspecified,
-            double? b = 0, string ty = Constants.Unspecified, string s = Constants.Unspecified,
+            decimal? b = 0, string ty = Constants.Unspecified, string s = Constants.Unspecified,
             string a = Constants.Unspecified, DateTime? f = null, DateTime? t = null)
         {
             Assert.AreEqual(i, o.Data.ID);

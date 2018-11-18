@@ -18,9 +18,7 @@
     <thead>
     <tr>
         @Html.SortColumnHeaderFor(ViewData["SortValidFrom"], x => transaction.ValidFrom)
-        @Html.SortColumnHeaderFor(ViewData["SortSender"], x => transaction.SenderAccountId)
-        @Html.SortColumnHeaderFor(ViewData["SortSenderFirstName"], x => transaction.SenderAccount.AspNetUser.FirstName)
-        @Html.SortColumnHeaderFor(ViewData["SortSenderLastName"], x => transaction.SenderAccount.AspNetUser.LastName)
+        @Html.SortColumnHeaderFor(ViewData["SortSenderAccount"], x => transaction.SenderAccountId)
         @Html.SortColumnHeaderFor(ViewData["SortExplanation"], x => transaction.Explanation)
         @Html.SortColumnHeaderFor(ViewData["SortAmount"], x => transaction.Amount)
         <th></th>
@@ -33,9 +31,12 @@
 
         <tr>
             <td>@Html.DisplayFor(modelItem => item.ValidFrom)</td>
-            <td>@Html.DisplayFor(modelItem => item.SenderAccountId)</td>
-            <td>@Html.DisplayFor(modelItem => item.SenderAccount.AspNetUser.FirstName)</td>
-            <td>@Html.DisplayFor(modelItem => item.SenderAccount.AspNetUser.LastName)</td>
+            <td>
+                <b>
+                    @Html.DisplayFor(modelItem => item.SenderAccount.AspNetUser.FirstName) @Html.DisplayFor(modelItem => item.SenderAccount.AspNetUser.LastName)
+                </b><br />                   
+                @Html.DisplayFor(modelItem => item.SenderAccountId)
+            </td>
             <td>@Html.DisplayFor(modelItem => item.Explanation)</td>
             <td>
                 @if (item.Amount > 0)
@@ -47,27 +48,26 @@
                     <span style="color: red;">@item.Amount</span>
                 }
             </td>
-            @Html.EditDetailDeleteFor(modelItem => item.ID)
+            <td>Details</td>
         </tr>
     }
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td>@Html.Label("Balance"): </td>
-        <td>
-            @if (TransactionController.BankAccount.Data?.Balance > 0)
-            {
-                <span style="color: green;">@TransactionController.BankAccount.Data?.Balance</span>
-            }
-            else
-            {
-                <span style="color: red;">@TransactionController.BankAccount.Data?.Balance</span>
-            }
-        </td>
-        <td></td>
-    </tr>
+        <tr>
+            <td></td>
+            <td></td>
+
+            <td><b>@Html.Label("Balance"): </b></td>
+            <td>
+                @if (TransactionController.BankAccount.Data?.Balance > 0)
+                {
+                    <span style="color: green; font-weight: bold">@TransactionController.BankAccount.Data?.Balance</span>
+                }
+                else
+                {
+                    <span style="color: red; font-weight: bold">@TransactionController.BankAccount.Data?.Balance</span>
+                }
+            </td>
+            <td></td>
+        </tr>
     </tbody>
 </table>
 </body>

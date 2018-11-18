@@ -31,7 +31,7 @@
   <Class Name="Open.Data.Bank.TransactionData">
     <Position X="12" Y="0.75" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAAAAIAAAAAAAAAAAAACQECEAACBAAAAAQAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAIAAAAAAAAAAAAACQECEAACBgAAAAQAAAAAAAAA=</HashCode>
       <FileName>Bank\TransactionData.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -41,9 +41,6 @@
   </Class>
   <Class Name="Open.Data.Notification.NotificationData">
     <Position X="8.5" Y="4.5" Width="1.75" />
-    <Compartments>
-      <Compartment Name="Fields" Collapsed="true" />
-    </Compartments>
     <AssociationLine Name="Sender" Type="Open.Data.Bank.AccountData">
       <MemberNameLabel ManuallyPlaced="true">
         <Position X="0.204" Y="0.07" />

@@ -7,8 +7,13 @@ namespace Open.Data.Bank
         private string explanation;
         private string sAccountId;
         private string rAccountId;
+        private decimal? amount;
         
-        public double Amount { get; set; }      
+        public decimal? Amount
+        {
+            get => getDecimal(ref amount);
+            set => amount = value;
+        }      
         
         public string Explanation {
             get => getString(ref explanation);

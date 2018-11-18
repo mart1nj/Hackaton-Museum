@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 using Open.Facade.Common;
 
 namespace Open.Facade.Bank
@@ -10,11 +11,30 @@ namespace Open.Facade.Bank
         private string explanation;
         private string sAccountId;
         private string rAccountId;
-        
-        [Range(0.01, double.MaxValue)]
+        private string amountInStringFormat;
+
+        [DataType(DataType.Currency)]
+        [Range(0.01, 1000000000000)]
         [Required]
-        public double Amount { get; set; }
-        
+        [DisplayName("Amount")]
+        public string AmountInStringFormat {
+            get => getString(ref amountInStringFormat, "0");
+            set => amountInStringFormat = value;            
+        }
+        public decimal? Amount {
+            get {
+                var toDecimal = stringToDecimal(amountInStringFormat);
+                return getDecimal(ref toDecimal);
+            }
+            set => amountInStringFormat = value.ToString();
+        }
+        private static decimal? stringToDecimal(string str) {
+            str = str.Replace(',', '.');
+            return decimal.TryParse(str, NumberStyles.Any, CultureInfo.InvariantCulture,
+                out var value)
+                ? value
+                : 0;
+        }
         [Required]
         public string Explanation
         {
@@ -38,7 +58,7 @@ namespace Open.Facade.Bank
             set => rAccountId = value;
         }
         
-        [DataType(DataType.Date)]
+        [DataType(DataType.DateTime)]
         [DisplayName("Date Made")]
         public new DateTime? ValidFrom { get; set; }
 
