@@ -1,13 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Open.Core;
+using Open.Domain.Notification;
 
 namespace Open.Facade.Notification
 {
-    class NotificationViewsList
-    {
-        //TODO
+    public class NotificationViewsList : PaginatedList<NotificationView> {
+        public NotificationViewsList(IPaginatedList<INotification> list)
+        {
+            if (list is null) return;
+            PageIndex = list.PageIndex;
+            TotalPages = list.TotalPages;
+            foreach (var e in list) {
+                Add(NotificationViewFactory.Create(e));
+            }
+        }
     }
 }

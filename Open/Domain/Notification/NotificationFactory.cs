@@ -6,19 +6,20 @@ namespace Open.Domain.Notification
     {
         public static INotification Create(NotificationData data)
         {
-            /*  switch (data)
+              switch (data)
              {
-                 case NewTransactionNotificationData newTransaction:
-                     return create(newTransaction);
-                 case NewTransactionRequestNotificationData newTransactionRequest:
+                 case WelcomeNotificationData welcome:
+                     return create(welcome);
+               /*  case NewTransactionRequestNotificationData newTransactionRequest:
                      return create(newTransactionRequest);
                  case AccountExpireNotificationData accountExpire:
                      return create(accountExpire);
                  case RequestStatusNotificationData requestStatus:
-                     return create(requestStatus);
-             }*/
+                     return create(requestStatus);*/
+             }
 
-            return create(data as WelcomeNotificationData);
+            return null;
+            //return create(data as WelcomeNotificationData);
         }
         private static WelcomeNotification create(WelcomeNotificationData data)
         {

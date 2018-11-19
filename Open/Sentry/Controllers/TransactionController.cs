@@ -88,10 +88,14 @@ namespace Open.Sentry.Controllers {
             return x => x.ValidFrom;
         }
 
-        public IActionResult Create(string senderId){
-
+        public IActionResult Create(string senderId){        
+                     return View(TransactionViewFactory.Create(
+                         TransactionFactory.CreateTransaction(null, 0, "", senderId, "", DateTime.Now)));
+                 }
+        
+        public IActionResult CreateWithReceiver(string senderId, string receiverId){
             return View(TransactionViewFactory.Create(
-                TransactionFactory.CreateTransaction(null, 0, "", senderId, "", DateTime.Now)));
+                TransactionFactory.CreateTransaction(null, 0, "", senderId, receiverId, DateTime.Now)));
         }
 
 
@@ -139,6 +143,12 @@ namespace Open.Sentry.Controllers {
                 }
             }
             return View("Info");
+        }
+        
+        
+        [HttpPost]
+        public async Task<IActionResult> CreateWithReceiver([Bind(properties)] TransactionView model){
+            return await Create(model);
         }
 
         private async Task<bool> checkIfReceiverAccountExists(string rAccountId)
