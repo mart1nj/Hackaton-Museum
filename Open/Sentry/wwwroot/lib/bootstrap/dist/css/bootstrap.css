@@ -4410,11 +4410,12 @@ input[type="button"].btn-block {
     -ms-flex-pack: justify;
     justify-content: space-between;
     padding: 0.5rem 1rem;
-    overflow: hidden;
+    overflow: visible;
     background-color: #333;
-    position: fixed; 
-    top: 0; 
-    width: 100%; 
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 99;
 }
 
     .navbar > .container,
