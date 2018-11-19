@@ -51,25 +51,29 @@
                 }
             </td>
             <td>Details</td>
+            <td>    
+                <a class="btn btn-primary btn-sm"
+                   href="@Url.Action("CreateWithReceiver", "Transaction", new { senderId = TransactionController.BankAccount.Data?.ID, receiverId = item.SenderAccountId})">Make transaction &raquo;
+                </a></td>
         </tr>
     }
-        <tr>
-            <td></td>
-            <td></td>
+    <tr>
+        <td></td>
+        <td></td>
 
-            <td><b>@Html.Label("Balance"): </b></td>
-            <td>
-                @if (TransactionController.BankAccount.Data?.Balance > 0)
-                {
-                    <span style="color: green; font-weight: bold">@TransactionController.BankAccount.Data?.Balance</span>
-                }
-                else
-                {
-                    <span style="color: red; font-weight: bold">@TransactionController.BankAccount.Data?.Balance</span>
-                }
-            </td>
-            <td></td>
-        </tr>
+        <td><b>@Html.Label("Balance"): </b></td>
+        <td>
+            @if (TransactionController.BankAccount.Data?.Balance > 0)
+            {
+                <span style="color: green; font-weight: bold">@TransactionController.BankAccount.Data?.Balance</span>
+            }
+            else
+            {
+                <span style="color: red; font-weight: bold">@TransactionController.BankAccount.Data?.Balance</span>
+            }
+        </td>
+        <td></td>
+    </tr>
     </tbody>
 </table>
 </body>

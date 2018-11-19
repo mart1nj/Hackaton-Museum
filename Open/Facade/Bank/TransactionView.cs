@@ -14,7 +14,7 @@ namespace Open.Facade.Bank
         private string amountInStringFormat;
 
         [DataType(DataType.Currency)]
-        [Range(0.01, 1000000000000)]
+        [Range(0.01, double.MaxValue)]
         [Required]
         [DisplayName("Amount")]
         public string AmountInStringFormat {
