@@ -27,9 +27,7 @@
             <div class="navbar-collapse collapse" id="navbarColor01">
                 <ul class="navbar-nav mr-auto"></ul>
                 
-                <!-- Notification bar begin -->
                 @await Component.InvokeAsync("Notifications")
-                <!-- Notification<> bar end -->
                 @await Html.PartialAsync("_LoginPartial")
             </div>
         </div>
