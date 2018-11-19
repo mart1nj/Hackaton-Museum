@@ -16,6 +16,7 @@ namespace Open.Infra.Notification
         {
             db = c;
             dbSet = c?.Notifications;
+            PageSize = 100;
         }
         public string SearchString { get; set; }
         public int? PageIndex { get; set; }
@@ -84,13 +85,19 @@ namespace Open.Infra.Notification
             db.Database.EnsureCreated();
             return dbSet.Any();
         }
-        public async Task<PaginatedList<INotification>> LoadNotificationsForUser(string id)
+        public async Task<PaginatedList<INotification>> LoadNotificationsForAllUsers(List<string> ids)
         {
-            var notifications = await dbSet.Where(x => x.ReceiverId == id)
+            var notifications = getSorted().Where(s => s.Contains(SearchString) && ids.Contains(s.ReceiverId)).AsNoTracking();
+            var count = await notifications.CountAsync();
+            var p = new RepositoryPage(count, PageIndex, PageSize);
+            var items = await notifications.Skip(p.FirstItemIndex).Take(p.PageSize).ToListAsync();
+            return createList(items, p);
+
+          /*  var notifications = await dbSet.Where(x => x.ReceiverId == id)
                 .AsNoTracking().ToListAsync();
             var p = new RepositoryPage(notifications.Count, PageIndex, PageSize);
             var paginatedList = createList(notifications, p);
-            return paginatedList;
+            return paginatedList;*/
         }
     }
 }

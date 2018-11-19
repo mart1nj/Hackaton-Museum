@@ -1,0 +1,47 @@
+﻿@using Open.Data.Bank
+@model Open.Core.IPaginatedList<Open.Facade.Notification.NotificationView>
+@inject SignInManager<ApplicationUser> SignInManager
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <div class="btn-group dropdown dropdown-notifications">
+        <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" style="background-color:transparent">
+            <i data-count="3" class="glyphicon glyphicon-bell notification-icon"></i>
+            <span class="caret"></span>
+        </button>
+
+        <div class="dropdown-container">
+            <div class="dropdown-toolbar">
+                <div class="dropdown-toolbar-actions">
+                    <a href="#"><i class="glyphicon glyphicon-search"></i> View All</a>
+                </div>
+                <h3 class="dropdown-toolbar-title">Recent Notifications  (3)</h3>
+            </div><!-- /dropdown-toolbar -->
+
+            <ul class="dropdown-menu notifications">
+                @foreach (var notification in Model)
+                {
+                    <li class="notification">
+                        <div class="media">
+                            @*<div class="media-left">
+                                        <div class="media-object">
+                                            <img data-src="holder.js/50x50?bg=cccccc" class="img-circle" alt="Name">
+                                        </div>
+                                    </div>*@
+                            <div class="media-body">
+                                <strong class="notification-title"><a href="#">From: @notification.Sender.AspNetUser.FirstName @notification.Sender.AspNetUser.LastName  </a></strong>
+                                <p class="notification-desc">
+                                    (@notification.ReceiverAccountId)<br />
+                                    @notification.Message
+                                </p>
+                                <div class="notification-meta">
+                                    <small class="timestamp">@notification.ValidFrom.ToString() </small>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+}

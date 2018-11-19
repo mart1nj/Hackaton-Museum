@@ -17,10 +17,11 @@ namespace Open.Tests.Data.Notification
             Assert.AreEqual(typeof(NotificationData), typeof(WelcomeNotificationData).BaseType);
         }
         [TestMethod]
-        public void MessageTest()
-        {
-            Assert.AreEqual("Welcome to SonicBank! Thank you for opening an account!", obj.Message);
+        public void MessageTest() {
+
             canReadWrite(() => obj.Message, x => obj.Message = x);
+            obj.Message = null;
+            Assert.AreEqual("Welcome to SonicBank! Thank you for opening an account!", obj.Message);
         }
     }
 }

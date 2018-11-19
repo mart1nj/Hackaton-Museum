@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using Open.Facade.Bank;
 using Open.Facade.Common;
 namespace Open.Facade.Notification
 {
@@ -10,9 +11,10 @@ namespace Open.Facade.Notification
         private string message;
         private string senderAccountId;
         private string receiverAccountId;
+        private bool? isSeen;
 
         [DisplayName("Notification type")]
-        public string AddressType
+        public string NotificationType
         {
             get
             {
@@ -40,6 +42,14 @@ namespace Open.Facade.Notification
             get => getString(ref receiverAccountId);
             set => receiverAccountId = value;
         }
+        public bool? IsSeen
+        {
+            get => getBool(ref isSeen);
+            set => isSeen = value;
+        }
+
+        public AccountView Sender { get; set; }
+        public AccountView Receiver { get; set; }
     }
 
 }
