@@ -33,7 +33,7 @@ namespace Open.Tests.Data.Bank
             canReadWrite(() => obj.Address, x => obj.Address = x);
         }
         [TestMethod]
-        public void AddressIdTest()
+        public void AddressIDTest()
         {
             canReadWrite(() => obj.AddressID, x => obj.AddressID = x);
         }

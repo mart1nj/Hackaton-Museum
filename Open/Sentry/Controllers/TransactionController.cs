@@ -81,7 +81,10 @@ namespace Open.Sentry.Controllers {
                     ? y.ReceiverAccountId
                     : y.SenderAccountId;
             if (sortOrder.StartsWith("explanation")) return x => x.Explanation;
-            if (sortOrder.StartsWith("amount")) return x => x.Amount;
+            if (sortOrder.StartsWith("amount"))
+                return y => y.SenderAccountId == accountId
+                ? -y.Amount
+                : y.Amount; 
             return x => x.ValidFrom;
         }
 
