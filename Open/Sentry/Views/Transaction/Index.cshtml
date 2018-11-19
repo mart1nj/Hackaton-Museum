@@ -9,7 +9,9 @@
 }
 
 @section Create {
-    <a asp-action="Create">Create</a>
+    <a class="btn btn-primary btn-sm"
+       href="@Url.Action("Create", "Transaction", new { senderId = TransactionController.BankAccount.Data?.ID })">New Transaction &raquo;
+    </a>
 }
 
 <body>

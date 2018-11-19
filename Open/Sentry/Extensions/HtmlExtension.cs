@@ -13,7 +13,7 @@ namespace Open.Sentry.Extensions {
             var selectList = new SelectList(Enum.GetNames(typeof(TResult)));
             var htmlStrings = new List<object> {
                 new HtmlString("<div class=\"form-group\">"),
-                htmlHelper.LabelFor(expression, new {@class = "control-label col-md-2"}),
+                htmlHelper.LabelFor(expression, new {@class = "control-label col-md-4"}),
                 new HtmlString("<div class=\"col-md-4\">"),
                 htmlHelper.DropDownListFor(expression, selectList, new {@class = "form-control"}),
                 htmlHelper.ValidationMessageFor(expression, "", new {@class = "text-danger"}),
@@ -29,7 +29,7 @@ namespace Open.Sentry.Extensions {
 
             var htmlStrings = new List<object> {
                 new HtmlString("<div class=\"form-group\">"),
-                htmlHelper.LabelFor(expression, new {@class = "control-label col-md-2"}),
+                htmlHelper.LabelFor(expression, new {@class = "control-label col-md-4", style = "font-weight: bold"}),
                 new HtmlString("<div class=\"col-md-4\">"),
                 htmlHelper.EditorFor(expression,
                     new {htmlAttributes = new {@class = "form-control"}}),
@@ -47,7 +47,7 @@ namespace Open.Sentry.Extensions {
 
             var htmlStrings = new List<object> {
                 new HtmlString("<div class=\"form-group\">"),
-                htmlHelper.LabelFor(expression, new {@class = "control-label col-md-2"}),
+                htmlHelper.LabelFor(expression, new {@class = "control-label col-md-4", style = "font-weight: bold"}),
                 new HtmlString("<div class=\"col-md-10\" style=\"margin-top:10px\">"),
                 htmlHelper.DisplayFor(expression,
                     new {htmlAttributes = new {@class = "form-control"}}),
@@ -114,9 +114,9 @@ namespace Open.Sentry.Extensions {
 
             var htmlStrings = new List<object> {
                 new HtmlString("<div class=\"form-group\">"),
-                htmlHelper.LabelFor(expression, new {@class = "control-label col-md-2"}),
+                htmlHelper.LabelFor(expression, new {@class = "control-label col-md-4", style = "font-weight: bold"}),
                 new HtmlString("<div class=\"col-md-4\">"),
-                htmlHelper.EditorFor(expression, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = "0", @step = "0.01", @value = "0" }
+                htmlHelper.EditorFor(expression, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = "0", @step = ".01", @value = "0",  }
                 }),
                 htmlHelper.ValidationMessageFor(expression, "", new {@class = "text-danger"}),
                 new HtmlString("</div>"),
@@ -126,7 +126,22 @@ namespace Open.Sentry.Extensions {
             return new HtmlContentBuilder(htmlStrings);
         }
 
+        public static IHtmlContent ViewingControlsCustomLabelFor<TModel, TResult>(
+            this IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TResult>> expression, string label)
+        {
 
+            var htmlStrings = new List<object> {
+                new HtmlString("<div class=\"form-group\">"),
+                htmlHelper.Label(expression.ToString(), label, new {@class = "control-label col-md-4", style = "font-weight: bold"}),
+                new HtmlString("<div class=\"col-md-10\" style=\"margin-top:10px\">"),
+                htmlHelper.DisplayFor(expression,
+                    new {htmlAttributes = new {@class = "form-control"}}),
+                new HtmlString("</div>"),
+                new HtmlString("</div>")
+            };
+
+            return new HtmlContentBuilder(htmlStrings);
+        }
     }
 }
 

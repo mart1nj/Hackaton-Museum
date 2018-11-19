@@ -43,7 +43,7 @@ namespace Open.Facade.Bank
         }
         
         [Required]
-        [DisplayName("Sender Account Number")]
+        [DisplayName("Sender/Receiver")]
         public string SenderAccountId
         {
             get => getString(ref sAccountId);

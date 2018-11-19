@@ -88,7 +88,7 @@ namespace Open.Sentry.Controllers {
         public IActionResult Create(string senderId){
 
             return View(TransactionViewFactory.Create(
-                TransactionFactory.CreateTransaction(null, 0, "", senderId, "", DateTime.Now.Date)));
+                TransactionFactory.CreateTransaction(null, 0, "", senderId, "", DateTime.Now)));
         }
 
 
