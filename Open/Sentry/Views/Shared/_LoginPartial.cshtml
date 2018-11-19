@@ -1,4 +1,4 @@
-@using Open.Data.Bank
+﻿@using Open.Data.Bank
 @using Open.Sentry.Extensions
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
@@ -7,28 +7,45 @@
     .logOutButton {
         background-color: lightgrey;
     }
-    .logOutButton:hover {
-        background-color: white;
-    }
 
+        .logOutButton:hover {
+            background-color: white;
+        }
 </style>
 
 @if (SignInManager.IsSignedIn(User))
 {
-    <form asp-area="" asp-controller="Account" asp-action="Logout" method="post" id="logoutForm" class="navbar-right">
-        <ul class="nav navbar-nav navbar-right">
-            <li>
-                <a class="nav-link" href="@Url.Action("Index", "Manage")" title ="Manage">@User.GetFirstName() @User.GetLastName()</a>
+<form asp-area="" asp-controller="Account" asp-action="Logout" method="post" id="logoutForm" class="navbar-right">
+    <ul class="nav navbar-nav navbar-right">
+        @*<li>
+                <a class="nav-link" href="@Url.Action("Index", "Manage")" title="Manage">@User.GetFirstName() @User.GetLastName()</a>
             </li>
             <li>
                 <button type="submit" class="btn btn-primary btn-sm" class="btn logOutButton btn-link navbar-btn navbar-link">Log out</button>
-            </li>
-        </ul>
-    </form>
+            </li>*@
+    </ul>
+    <div class="btn-group dropdown">
+        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" style="background-color:transparent" aria-haspopup="true" aria-expanded="true">
+            <i class="glyphicon glyphicon-user">@User.GetFirstName() @User.GetLastName() </i>
+            <span class="caret"></span>
+        </button>
+
+        <div class="dropdown-container">
+            <ul class="dropdown-menu">
+                <li><a href="@Url.Action("Index", "Manage")">Your profile</a></li>
+                <li><a href="@Url.Action("Logout", "Account")">Log out</a></li>
+            </ul>
+
+            <div class="dropdown-footer">
+                <i class="btn logOutButton btn-link navbar-btn navbar-link"></i> Log out 
+            </div><!-- /dropdown-footer -->
+        </div><!-- /dropdown-container -->
+    </div><!-- /dropdown -->
+</form>
 }
 else
 {
-    <ul class="nav navbar-nav navbar-right">          
+    <ul class="nav navbar-nav navbar-right">
         <li><a class="nav-link" href="@Url.Action("Register", "Account")">Register</a></li>
         <li><a class="nav-link" href="@Url.Action("Login", "Account")">Log in</a></li>
     </ul>
