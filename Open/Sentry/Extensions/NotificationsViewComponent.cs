@@ -13,12 +13,15 @@ namespace Open.Sentry.Extensions {
         private readonly IAccountsRepository accounts;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly INotificationsRepository notifications;
+        public static int? NotSeenCount;
+
         public NotificationsViewComponent(IAccountsRepository a,
             UserManager<ApplicationUser> uManager,
             INotificationsRepository n) {
             accounts = a;
             userManager = uManager;
             notifications = n;
+            NotSeenCount = 0;
         }
 
         public async Task<IViewComponentResult> InvokeAsync() {
@@ -30,16 +33,30 @@ namespace Open.Sentry.Extensions {
             foreach (var account in bankAccountsViewsList) { bankAccountIds.Add(account.ID); }
             var notificationsList =
                 await notifications.LoadNotificationsForAllUsers(bankAccountIds);
-            var notificationsViewsList = new NotificationViewsList(notificationsList);
-            foreach (var notification in notificationsViewsList) {
-                notification.Sender = AccountViewFactory.Create(await accounts.GetObject(notification.SenderAccountId));
-                notification.Sender.AspNetUser =
-                    await userManager.FindByIdAsync(notification.Sender.AspNetUserId);
-                notification.Receiver = AccountViewFactory.Create(await accounts.GetObject(notification.ReceiverAccountId));
-                notification.Receiver.AspNetUser =
-                    await userManager.FindByIdAsync(notification.Receiver.AspNetUserId);
+            foreach (var notification in notificationsList) {
+                checkIfNotificationIsSeen(notification);
             }
+            var notificationsViewsList = new NotificationViewsList(notificationsList);
+            foreach (var notification in notificationsViewsList) { await loadSenderAndReceiver(notification); }
             return View(notificationsViewsList);
+        }
+        private async Task loadSenderAndReceiver(NotificationView notification) {
+            notification.Sender =
+                AccountViewFactory.Create(await accounts.GetObject(notification.SenderAccountId));
+            notification.Sender.AspNetUser =
+                await userManager.FindByIdAsync(notification.Sender.AspNetUserId);
+            notification.Receiver =
+                AccountViewFactory.Create(await accounts.GetObject(notification.ReceiverAccountId));
+            notification.Receiver.AspNetUser =
+                await userManager.FindByIdAsync(notification.Receiver.AspNetUserId);
+        }
+        private void checkIfNotificationIsSeen(INotification notification) {
+            switch (notification)
+            {
+                case WelcomeNotification wel:
+                    if (wel.Data?.IsSeen == false) NotSeenCount++;
+                    break;
+            }
         }
     }
 }

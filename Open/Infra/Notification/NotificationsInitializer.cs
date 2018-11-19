@@ -15,7 +15,7 @@ namespace Open.Infra.Notification
 
         private static void initNotification(ApplicationDbContext c, string id) {
             if (id == "systemAccount") return;
-            c.Notifications.Add(new WelcomeNotificationData { ID = Guid.NewGuid().ToString(), ReceiverId = id, SenderId = "systemAccount" });
+            c.Notifications.Add(new WelcomeNotificationData { ID = Guid.NewGuid().ToString(), ReceiverId = id, SenderId = "systemAccount", ValidFrom = DateTime.Now});
         }
     }
 }

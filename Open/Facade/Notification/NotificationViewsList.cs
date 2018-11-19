@@ -1,6 +1,6 @@
 ﻿using Open.Core;
 using Open.Domain.Notification;
-using Open.Facade.Bank;
+
 namespace Open.Facade.Notification
 {
     public class NotificationViewsList : PaginatedList<NotificationView> {
@@ -9,7 +9,9 @@ namespace Open.Facade.Notification
             if (list is null) return;
             PageIndex = list.PageIndex;
             TotalPages = list.TotalPages;
-            foreach (var e in list) { Add(NotificationViewFactory.Create(e)); }
+            foreach (var e in list) {
+                Add(NotificationViewFactory.Create(e));
+            }
         }
     }
 }
