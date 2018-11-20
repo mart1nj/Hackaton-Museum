@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Open.Core;
@@ -70,8 +69,8 @@ namespace Open.Sentry.Controllers
                 await userManager.FindByIdAsync(notification.Sender.AspNetUserId);
         }
 
-        public async Task<IActionResult> ChangeSeenStatus(string id) {
-            var notification = await notifications.GetObject(id);
+        public async Task<IActionResult> ChangeSeenStatus(string notificationId) {
+            var notification = await notifications.GetObject(notificationId);
             switch (notification) {
                 case WelcomeNotification wel:
                     WelcomeNotification welcome =

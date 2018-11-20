@@ -3,24 +3,14 @@
 @model Open.Core.IPaginatedList<Open.Facade.Notification.NotificationView>
 @inject SignInManager<ApplicationUser> SignInManager
 
-<script>
-    //for trying to get "mark as read" to work without changing view
-    $("#myLink").click(function(e){
-        e.preventDefault();
-        $.ajax({
-            url:$(this).attr("href"),
-            success: function(){
-                alert("Value Added"); 
-            }
-        });
-    });
-</script>
-
-@if (SignInManager.IsSignedIn(User))
-{
+@if (SignInManager.IsSignedIn(User)) {
     <div class="btn-group dropdown dropdown-notifications">
-        <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" style="background-color:transparent">
-            <i data-count="@NotificationsViewComponent.NotSeenCount" class="fa fa-bell notification-icon"></i>
+        <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" style="background-color: transparent">
+            @if (NotificationsViewComponent.NotSeenCount != 0) {
+                <i data-count="@NotificationsViewComponent.NotSeenCount" class="fa fa-bell notification-icon"></i>
+            }
+            else {
+                <i class="fa fa-bell"></i>}
             <span class="caret"></span>
         </button>
 
@@ -29,12 +19,11 @@
                 <div class="dropdown-toolbar-actions">
                     <a href="@Url.Action("Index", "Notifications")"><i class="fa fa-search"></i> View All</a>
                 </div>
-                <h3 class="dropdown-toolbar-title">Recent Notifications  (@NotificationsViewComponent.NotSeenCount)</h3>
+                <h3 class="dropdown-toolbar-title">Recent Notifications (@NotificationsViewComponent.NotSeenCount)</h3>
             </div>
             <ul class="dropdown-menu notifications">
-                @foreach (var notification in Model)
-                {
-                    <li class="notification" style = @(notification.IsSeen == false ? "color:black" : "color:lightgrey")>
+                @foreach (var notification in Model) {
+                    <li class="notification" style=@(notification.IsSeen == false ? "color:black" : "color:lightgrey")>
                         <div class="media">
                             @*<div class="media-left">
                                         <div class="media-object">
@@ -42,21 +31,16 @@
                                         </div>
                                     </div>*@
                             <div class="media-body">
-                                <div>(@notification.ReceiverAccountId) <br /></div>
+                                <div>(@notification.ReceiverAccountId) <br/></div>
                                 <strong class="notification-title">
-                                    From: @notification.Sender.AspNetUser.FirstName @notification.Sender.AspNetUser.LastName</strong>
+                                    From: @notification.Sender.AspNetUser.FirstName @notification.Sender.AspNetUser.LastName
+                                </strong>
                                 <p class="notification-desc">
                                     @notification.Message <br/>
-                                    @Html.ActionLink("Mark as read", "ChangeSeenStatus", "Notifications", new {id = notification.ID}, new { id="myLink"})
-                                        @*@if (@notification.IsSeen == true) {
-                                            <div>Mark as unread</div>
-                                        }
-                                        else {
-                                            <div> Mark as read</div>
-                                        }*@
+                                    @Html.ActionLink(notification.IsSeen == true ? "Mark as read" : "Mark as unread", "ChangeSeenStatus", "Notifications", new {notificationId = notification.ID})
                                 </p>
                                 <div class="notification-meta">
-                                    <small class="timestamp">@notification.ValidFrom.ToString() </small>
+                                    <small>@notification.ValidFrom.ToString() </small>
                                 </div>
                             </div>
                         </div>
@@ -66,3 +50,4 @@
         </div>
     </div>
 }
+    

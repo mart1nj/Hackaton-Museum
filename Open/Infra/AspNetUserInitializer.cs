@@ -37,7 +37,6 @@ namespace Open.Infra {
                 SecurityStamp = Guid.NewGuid().ToString("D"),
                 Id = "testUserid"
             };
-
             var user2AddressId = Guid.NewGuid().ToString();
             var user2Address = new GeographicAddressData
             {
