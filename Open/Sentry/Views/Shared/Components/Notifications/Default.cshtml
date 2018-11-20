@@ -3,18 +3,31 @@
 @model Open.Core.IPaginatedList<Open.Facade.Notification.NotificationView>
 @inject SignInManager<ApplicationUser> SignInManager
 
+<script>
+    //for trying to get "mark as read" to work without changing view
+    $("#myLink").click(function(e){
+        e.preventDefault();
+        $.ajax({
+            url:$(this).attr("href"),
+            success: function(){
+                alert("Value Added"); 
+            }
+        });
+    });
+</script>
+
 @if (SignInManager.IsSignedIn(User))
 {
     <div class="btn-group dropdown dropdown-notifications">
         <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" style="background-color:transparent">
-            <i data-count="@NotificationsViewComponent.NotSeenCount" class="glyphicon glyphicon-bell notification-icon"></i>
+            <i data-count="@NotificationsViewComponent.NotSeenCount" class="fa fa-bell notification-icon"></i>
             <span class="caret"></span>
         </button>
 
         <div class="dropdown-container dropdown-position-bottomright">
             <div class="dropdown-toolbar">
                 <div class="dropdown-toolbar-actions">
-                    <a href="#"><i class="glyphicon glyphicon-search"></i> View All</a>
+                    <a href="@Url.Action("Index", "Notifications")"><i class="fa fa-search"></i> View All</a>
                 </div>
                 <h3 class="dropdown-toolbar-title">Recent Notifications  (@NotificationsViewComponent.NotSeenCount)</h3>
             </div>
@@ -34,14 +47,13 @@
                                     From: @notification.Sender.AspNetUser.FirstName @notification.Sender.AspNetUser.LastName</strong>
                                 <p class="notification-desc">
                                     @notification.Message <br/>
-                                    <a href="@Url.Action("ChangeSeenStatus", "Notifications", new {id = notification.ID})">
-                                        @if (@notification.IsSeen == true) {
+                                    @Html.ActionLink("Mark as read", "ChangeSeenStatus", "Notifications", new {id = notification.ID}, new { id="myLink"})
+                                        @*@if (@notification.IsSeen == true) {
                                             <div>Mark as unread</div>
                                         }
                                         else {
                                             <div> Mark as read</div>
-                                        }
-                                    </a>
+                                        }*@
                                 </p>
                                 <div class="notification-meta">
                                     <small class="timestamp">@notification.ValidFrom.ToString() </small>

@@ -7,17 +7,21 @@ using Open.Aids;
 using Open.Core;
 using Open.Data.Bank;
 using Open.Domain.Bank;
+using Open.Domain.Notification;
 using Open.Facade.Bank;
 
 namespace Open.Sentry.Controllers {
     public class BankAccountController : Controller {
         private readonly IAccountsRepository repository;
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly INotificationsRepository notifications;
         internal const string properties = "ID, ValidFrom, ValidTo, Balance, Type, Status, AspNetUserId";
 
-        public BankAccountController(IAccountsRepository r, UserManager<ApplicationUser> uManager) {
+        public BankAccountController(IAccountsRepository r, UserManager<ApplicationUser> uManager, 
+            INotificationsRepository n) {
             repository = r;
             userManager = uManager;
+            notifications = n;
         }
 
         public IActionResult Create() {
@@ -37,6 +41,7 @@ namespace Open.Sentry.Controllers {
             var o = AccountFactory.CreateAccount(c.ID, c.Balance, c.Type, c.Status, c.AspNetUserId,
                 c.ValidFrom = DateTime.Now, c.ValidTo = DateTime.Now.AddYears(2));
             await repository.AddObject(o);
+            await createWelcomeNotification(c.ID);
             return RedirectToAction("Index", "Home");
         }
 
@@ -52,6 +57,12 @@ namespace Open.Sentry.Controllers {
         private static string idIsInUseMessage(string id) {
             var name = GetMember.DisplayName<AccountView>(c => c.ID);
             return string.Format(Messages.ValueIsAlreadyInUse, id, name);
+        }
+
+        private async Task createWelcomeNotification(string accountId) {
+            var welcome = NotificationFactory.CreateWelcomeNotification(Guid.NewGuid().ToString(), "systemAccount",
+                accountId, false, DateTime.Now);
+            await notifications.AddObject(welcome);
         }
     }
 }

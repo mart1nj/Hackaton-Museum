@@ -1,0 +1,41 @@
+﻿@using Open.Sentry.Extensions
+@model Open.Core.IPaginatedList<Open.Facade.Notification.NotificationView>
+
+
+@{
+    ViewBag.Title = "Your notifications";
+    Layout = "_IndexPartial";
+}
+@section Create {}
+<body>
+    <table class="table">
+        @{ var notification = Model.FirstOrDefault();}
+        <thead>
+            <tr>
+                @Html.SortColumnHeaderFor(ViewData["SortValidFrom"], x => notification.ValidFrom)
+                @Html.SortColumnHeaderFor(ViewData["SortSenderAccount"], x => notification.SenderAccountId)
+                @Html.SortColumnHeaderFor(ViewData["SortMessage"], x => notification.Message)
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.ValidFrom)</td>
+                    <td>
+                        <b>
+                            @Html.DisplayFor(modelItem => item.Sender.AspNetUser.FirstName) @Html.DisplayFor(modelItem => item.Sender.AspNetUser.LastName)
+                        </b><br />
+                        @Html.DisplayFor(modelItem => item.SenderAccountId)
+                    </td>
+                    <td>
+                        (@Html.DisplayFor(modelItem => item.ReceiverAccountId)) <br />
+                        @Html.DisplayFor(modelItem => item.Message)
+                    </td>
+                    <td>Details</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>

@@ -10,7 +10,7 @@ using Open.Infra;
 namespace Open.Infra.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20181118120038_initial")]
+    [Migration("20181120102400_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -247,6 +247,9 @@ namespace Open.Infra.Migrations
                     b.Property<string>("ID")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired();
+
                     b.Property<bool?>("IsSeen");
 
                     b.Property<string>("Message");
@@ -266,6 +269,8 @@ namespace Open.Infra.Migrations
                     b.HasIndex("SenderId");
 
                     b.ToTable("Notification");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("NotificationData");
                 });
 
             modelBuilder.Entity("Open.Data.Party.AddressData", b =>
@@ -365,6 +370,16 @@ namespace Open.Infra.Migrations
                     b.HasIndex("CurrencyID");
 
                     b.ToTable("NationalCurrency");
+                });
+
+            modelBuilder.Entity("Open.Data.Notification.WelcomeNotificationData", b =>
+                {
+                    b.HasBaseType("Open.Data.Notification.NotificationData");
+
+
+                    b.ToTable("Notification");
+
+                    b.HasDiscriminator().HasValue("WelcomeNotificationData");
                 });
 
             modelBuilder.Entity("Open.Data.Party.EmailAddressData", b =>

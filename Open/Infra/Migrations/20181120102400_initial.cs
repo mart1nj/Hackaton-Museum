@@ -306,7 +306,8 @@ namespace Open.Infra.Migrations
                     Message = table.Column<string>(nullable: true),
                     SenderId = table.Column<string>(nullable: true),
                     ReceiverId = table.Column<string>(nullable: true),
-                    IsSeen = table.Column<bool>(nullable: true)
+                    IsSeen = table.Column<bool>(nullable: true),
+                    Discriminator = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
