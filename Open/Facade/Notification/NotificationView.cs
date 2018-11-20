@@ -48,8 +48,14 @@ namespace Open.Facade.Notification
             set => isSeen = value;
         }
 
+        [DisplayName("Sent at")]
+        public new DateTime? ValidFrom { get; set; }
+
         public AccountView Sender { get; set; }
         public AccountView Receiver { get; set; }
+
+        public string FormatedMessage => ToString();
+
     }
 
 }

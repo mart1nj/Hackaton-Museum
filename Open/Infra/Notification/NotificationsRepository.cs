@@ -59,24 +59,24 @@ namespace Open.Infra.Notification
         public async Task AddObject(INotification o)
         {
             if (o is WelcomeNotification welcome) dbSet.Add(welcome.Data);
-        /*    if (o is EmailAddress email) dbSet.Add(email.Data);
-            if (o is GeographicAddress adr) dbSet.Add(adr.Data);
+            if (o is NewTransactionNotification newTransaction) dbSet.Add(newTransaction.Data);
+          /*  if (o is GeographicAddress adr) dbSet.Add(adr.Data);
             if (o is TelecomAddress tel) dbSet.Add(tel.Data);*/
             await db.SaveChangesAsync();
         }
         public async Task UpdateObject(INotification o)
         {
             if (o is WelcomeNotification welcome) dbSet.Update(welcome.Data);
-           /* if (o is EmailAddress email) dbSet.Update(email.Data);
-            if (o is GeographicAddress adr) dbSet.Update(adr.Data);
+            if (o is NewTransactionNotification newTransaction) dbSet.Update(newTransaction.Data);
+           /* if (o is GeographicAddress adr) dbSet.Update(adr.Data);
             if (o is TelecomAddress tel) dbSet.Update(tel.Data);*/
             await db.SaveChangesAsync();
         }
         public async Task DeleteObject(INotification o)
         {
             if (o is WelcomeNotification welcome) dbSet.Remove(welcome.Data);
-          /*  if (o is EmailAddress email) dbSet.Remove(email.Data);
-            if (o is GeographicAddress adr) dbSet.Remove(adr.Data);
+            if (o is NewTransactionNotification newTransaction) dbSet.Remove(newTransaction.Data);
+          /*  if (o is GeographicAddress adr) dbSet.Remove(adr.Data);
             if (o is TelecomAddress tel) dbSet.Remove(tel.Data);*/
             await db.SaveChangesAsync();
         }
@@ -92,12 +92,6 @@ namespace Open.Infra.Notification
             var p = new RepositoryPage(count, PageIndex, PageSize);
             var items = await notifications.Skip(p.FirstItemIndex).Take(p.PageSize).ToListAsync();
             return createList(items, p);
-
-          /*  var notifications = await dbSet.Where(x => x.ReceiverId == id)
-                .AsNoTracking().ToListAsync();
-            var p = new RepositoryPage(notifications.Count, PageIndex, PageSize);
-            var paginatedList = createList(notifications, p);
-            return paginatedList;*/
         }
     }
 }

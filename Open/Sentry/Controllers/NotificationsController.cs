@@ -79,6 +79,13 @@ namespace Open.Sentry.Controllers
                             wel.Data?.ValidFrom, wel.Data?.ValidTo);
                     await notifications.UpdateObject(welcome);
                     break;
+                case NewTransactionNotification tra:
+                    NewTransactionNotification transaction =
+                        NotificationFactory.CreateNewTransactionNotification(tra.Data?.ID,
+                            tra.Data?.SenderId, tra.Data?.ReceiverId, tra.Data?.Amount, !tra.Data?.IsSeen,
+                            tra.Data?.ValidFrom, tra.Data?.ValidTo);
+                    await notifications.UpdateObject(transaction);
+                    break;
             }
             return RedirectToAction("Index", "Home");
         }

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Open.Core;
 using Open.Data.Bank;
 using Open.Domain.Bank;
+using Open.Domain.Notification;
 using Open.Facade.Bank;
 namespace Open.Sentry.Controllers {
     [Authorize]
@@ -13,6 +14,7 @@ namespace Open.Sentry.Controllers {
         private readonly IAccountsRepository accounts;
         private readonly ITransactionRepository transactions;
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly INotificationsRepository notifications;
         public static Account BankAccount;
 
         internal const string properties =
@@ -20,10 +22,11 @@ namespace Open.Sentry.Controllers {
 
         public static string ErrorMessage;
 
-        public TransactionController(ITransactionRepository p, IAccountsRepository a,
+        public TransactionController(ITransactionRepository p, IAccountsRepository a, INotificationsRepository n,
             UserManager<ApplicationUser> uManager) {
             transactions = p;
             accounts = a;
+            notifications = n;
             userManager = uManager;
         }
 
@@ -136,7 +139,7 @@ namespace Open.Sentry.Controllers {
                     await accounts.UpdateObject(senderObject);
                     await accounts.UpdateObject(receiverObject);
                     await transactions.AddObject(transaction);
-
+                    await generateTransactionNotification(transaction);
                     ErrorMessage = "Transaction successfully done to " + model.ReceiverAccountId + " from " +
                                    model.SenderAccountId +
                                    " in the amount of " + model.Amount;
@@ -144,8 +147,13 @@ namespace Open.Sentry.Controllers {
             }
             return View("Info");
         }
-        
-        
+        private async Task generateTransactionNotification(Transaction transaction) {
+            var notification = NotificationFactory.CreateNewTransactionNotification(
+                Guid.NewGuid().ToString(), transaction.Data.SenderAccountId,
+                transaction.Data.ReceiverAccountId, transaction.Data.Amount,
+                false, DateTime.Now);
+            await notifications.AddObject(notification);
+        }
         [HttpPost]
         public async Task<IActionResult> CreateWithReceiver([Bind(properties)] TransactionView model){
             return await Create(model);

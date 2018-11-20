@@ -370,6 +370,17 @@ namespace Open.Infra.Migrations
                     b.ToTable("NationalCurrency");
                 });
 
+            modelBuilder.Entity("Open.Data.Notification.NewTransactionNotificationData", b =>
+                {
+                    b.HasBaseType("Open.Data.Notification.NotificationData");
+
+                    b.Property<decimal?>("Amount");
+
+                    b.ToTable("Notification");
+
+                    b.HasDiscriminator().HasValue("NewTransactionNotificationData");
+                });
+
             modelBuilder.Entity("Open.Data.Notification.WelcomeNotificationData", b =>
                 {
                     b.HasBaseType("Open.Data.Notification.NotificationData");

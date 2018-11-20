@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Open.Core;
 using Open.Data.Bank;
 using Open.Domain.Bank;
 using Open.Domain.Notification;
@@ -25,6 +26,8 @@ namespace Open.Sentry.Extensions {
         }
 
         public async Task<IViewComponentResult> InvokeAsync() {
+            notifications.SortFunction = x => x.ValidFrom;
+            notifications.SortOrder = SortOrder.Descending;
             var loggedInUser = await userManager.GetUserAsync(HttpContext.User);
             if (loggedInUser == null) return View();
             var bankAccounts = await accounts.LoadAccountsForUser(loggedInUser.Id);
@@ -33,11 +36,11 @@ namespace Open.Sentry.Extensions {
             foreach (var account in bankAccountsViewsList) { bankAccountIds.Add(account.ID); }
             var notificationsList =
                 await notifications.LoadNotificationsForAllUsers(bankAccountIds);
-            foreach (var notification in notificationsList) {
-                checkIfNotificationIsSeen(notification);
-            }
             var notificationsViewsList = new NotificationViewsList(notificationsList);
-            foreach (var notification in notificationsViewsList) { await loadSenderAndReceiver(notification); }
+            foreach (var notification in notificationsViewsList) {
+                await loadSenderAndReceiver(notification);
+                if (notification.IsSeen == false) NotSeenCount++;
+            }
             return View(notificationsViewsList);
         }
         private async Task loadSenderAndReceiver(NotificationView notification) {
@@ -49,14 +52,6 @@ namespace Open.Sentry.Extensions {
                 AccountViewFactory.Create(await accounts.GetObject(notification.ReceiverAccountId));
             notification.Receiver.AspNetUser =
                 await userManager.FindByIdAsync(notification.Receiver.AspNetUserId);
-        }
-        private void checkIfNotificationIsSeen(INotification notification) {
-            switch (notification)
-            {
-                case WelcomeNotification wel:
-                    if (wel.Data?.IsSeen == false) NotSeenCount++;
-                    break;
-            }
         }
     }
 }

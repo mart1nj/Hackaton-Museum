@@ -10,7 +10,7 @@ using Open.Infra;
 namespace Open.Infra.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20181120102400_initial")]
+    [Migration("20181120154408_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -370,6 +370,17 @@ namespace Open.Infra.Migrations
                     b.HasIndex("CurrencyID");
 
                     b.ToTable("NationalCurrency");
+                });
+
+            modelBuilder.Entity("Open.Data.Notification.NewTransactionNotificationData", b =>
+                {
+                    b.HasBaseType("Open.Data.Notification.NotificationData");
+
+                    b.Property<decimal?>("Amount");
+
+                    b.ToTable("Notification");
+
+                    b.HasDiscriminator().HasValue("NewTransactionNotificationData");
                 });
 
             modelBuilder.Entity("Open.Data.Notification.WelcomeNotificationData", b =>

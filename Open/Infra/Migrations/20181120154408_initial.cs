@@ -307,7 +307,8 @@ namespace Open.Infra.Migrations
                     SenderId = table.Column<string>(nullable: true),
                     ReceiverId = table.Column<string>(nullable: true),
                     IsSeen = table.Column<bool>(nullable: true),
-                    Discriminator = table.Column<string>(nullable: false)
+                    Discriminator = table.Column<string>(nullable: false),
+                    Amount = table.Column<decimal>(nullable: true)
                 },
                 constraints: table =>
                 {

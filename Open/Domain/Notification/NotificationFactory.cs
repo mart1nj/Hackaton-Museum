@@ -10,9 +10,9 @@ namespace Open.Domain.Notification
              {
                  case WelcomeNotificationData welcome:
                      return create(welcome);
-               /*  case NewTransactionRequestNotificationData newTransactionRequest:
-                     return create(newTransactionRequest);
-                 case AccountExpireNotificationData accountExpire:
+                 case NewTransactionNotificationData newTransaction:
+                     return create(newTransaction);
+                /* case AccountExpireNotificationData accountExpire:
                      return create(accountExpire);
                  case RequestStatusNotificationData requestStatus:
                      return create(requestStatus);*/
@@ -38,6 +38,25 @@ namespace Open.Domain.Notification
                 ValidTo = validTo ?? DateTime.MaxValue
             };
             return new WelcomeNotification(r);
+        }
+        private static NewTransactionNotification create(NewTransactionNotificationData data)
+        {
+            return new NewTransactionNotification(data);
+        }
+        public static NewTransactionNotification CreateNewTransactionNotification(string id, string senderId, string receiverId, decimal? amount, bool? isSeen = false,
+            DateTime? validFrom = null, DateTime? validTo = null)
+        {
+            var r = new NewTransactionNotificationData
+            {
+                ID = id,
+                ReceiverId = receiverId,
+                SenderId = senderId,
+                Amount = amount,
+                IsSeen = isSeen,
+                ValidFrom = validFrom ?? DateTime.MinValue,
+                ValidTo = validTo ?? DateTime.MaxValue
+            };
+            return new NewTransactionNotification(r);
         }
     }
 }

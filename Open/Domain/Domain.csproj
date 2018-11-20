@@ -57,6 +57,7 @@
     <Compile Include="Common\Value.cs" />
     <Compile Include="Notification\INotification.cs" />
     <Compile Include="Notification\INotificationsRepository.cs" />
+    <Compile Include="Notification\NewTransactionNotification.cs" />
     <Compile Include="Notification\Notification.cs" />
     <Compile Include="Notification\NotificationFactory.cs" />
     <Compile Include="Notification\NotificationsList.cs" />

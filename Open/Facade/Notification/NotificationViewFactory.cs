@@ -1,58 +1,66 @@
 ﻿using System;
 using Open.Data.Notification;
 using Open.Domain.Notification;
-namespace Open.Facade.Notification
-{
-    public static class NotificationViewFactory
-    {
-
-        public static NotificationView Create(INotification o)
-        {
-            switch (o)
-            {
-               // case WebPageAddress web: return create(web);
+namespace Open.Facade.Notification {
+    public static class NotificationViewFactory {
+        public static NotificationView Create(INotification o) {
+            switch (o) {
+                case NewTransactionNotification newTransaction: return create(newTransaction);
                 default: return create(o as WelcomeNotification);
             }
         }
-
-        private static WelcomeNotificationView create(WelcomeNotification o)
-        {
-            var v = new WelcomeNotificationView
-            {
-                Message = o.Data?.Message,
-                SenderAccountId = o.Data?.SenderId,
-                ReceiverAccountId = o.Data?.ReceiverId,
-                IsSeen = o.Data?.IsSeen
-            };
-            setCommonValues(v, o.Data?.ID, o.Data?.ValidFrom, o.Data?.ValidTo);
+        private static WelcomeNotificationView create(WelcomeNotification o) {
+            var v = new WelcomeNotificationView();
+            setCommonValues(v, o.Data?.ID, o.Data?.Message, o.Data?.SenderId, o.Data?.ReceiverId,
+                o.Data?.IsSeen, o.Data?.ValidFrom, o.Data?.ValidTo);
             return v;
         }
-
-        private static void setCommonValues(NotificationView model, string id, DateTime? validFrom,
-            DateTime? validTo)
-        {
-            model.ID = id;
-            model.ValidFrom = setNullIfExtremum(validFrom ?? DateTime.MinValue);
-            model.ValidTo = setNullIfExtremum(validTo ?? DateTime.MaxValue);
+        private static NewTransactionNotificationView create(NewTransactionNotification o) {
+            var v = new NewTransactionNotificationView {Amount = o?.Data.Amount};
+            setCommonValues(v, o?.Data?.ID, o?.Data?.Message, o?.Data?.SenderId, o?.Data?.ReceiverId,
+                o?.Data?.IsSeen, o?.Data?.ValidFrom, o?.Data?.ValidTo);
+            return v;
         }
-        private static DateTime? setNullIfExtremum(DateTime d)
-        {
-            if (d.Date >= DateTime.MaxValue.Date) return null;
-            if (d.Date <= DateTime.MinValue.AddDays(1).Date) return null;
-            return d;
-        }
-        public static WelcomeNotification Create(WelcomeNotificationView v)
-        {
-            var d = new WelcomeNotificationData
-            {
+        public static WelcomeNotification Create(WelcomeNotificationView v) {
+            var d = new WelcomeNotificationData {
                 ID = v.ID,
                 Message = v.Message,
                 SenderId = v.SenderAccountId,
                 ReceiverId = v.ReceiverAccountId,
+                IsSeen = v.IsSeen,
                 ValidTo = v.ValidTo ?? DateTime.MaxValue,
                 ValidFrom = v.ValidFrom ?? DateTime.MinValue
             };
             return new WelcomeNotification(d);
+        }
+        public static NewTransactionNotification Create(NewTransactionNotificationView v) {
+            var d = new NewTransactionNotificationData {
+                ID = v.ID,
+                Message = v.Message,
+                SenderId = v.SenderAccountId,
+                ReceiverId = v.ReceiverAccountId,
+                IsSeen = v.IsSeen,
+                Amount = v.Amount,
+                ValidTo = v.ValidTo ?? DateTime.MaxValue,
+                ValidFrom = v.ValidFrom ?? DateTime.MinValue
+            };
+            return new NewTransactionNotification(d);
+        }
+        private static void setCommonValues(NotificationView model, string id, string message,
+            string senderId, string receiverId, bool? isSeen, DateTime? validFrom,
+            DateTime? validTo) {
+            model.ID = id;
+            model.Message = message;
+            model.SenderAccountId = senderId;
+            model.ReceiverAccountId = receiverId;
+            model.IsSeen = isSeen;
+            model.ValidFrom = setNullIfExtremum(validFrom ?? DateTime.MinValue);
+            model.ValidTo = setNullIfExtremum(validTo ?? DateTime.MaxValue);
+        }
+        private static DateTime? setNullIfExtremum(DateTime d) {
+            if (d.Date >= DateTime.MaxValue.Date) return null;
+            if (d.Date <= DateTime.MinValue.AddDays(1).Date) return null;
+            return d;
         }
     }
 }

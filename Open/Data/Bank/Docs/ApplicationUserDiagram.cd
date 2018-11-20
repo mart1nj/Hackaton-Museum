@@ -95,5 +95,12 @@
       <FileName>Party\CountryData.cs</FileName>
     </TypeIdentifier>
   </Class>
+  <Class Name="Open.Data.Notification.NewTransactionNotificationData">
+    <Position X="12" Y="6" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAACAAAAAgAAAAAAAIAAAAAA=</HashCode>
+      <FileName>Notification\NewTransactionNotificationData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>
