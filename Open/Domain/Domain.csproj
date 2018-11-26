@@ -50,6 +50,7 @@
     <Compile Include="Bank\InsuranceFactory.cs" />
     <Compile Include="Bank\InsuranceList.cs" />
     <Compile Include="Bank\ITransactionRepository.cs" />
+    <Compile Include="Bank\RequestTransactionRepository.cs" />
     <Compile Include="Bank\Transaction.cs" />
     <Compile Include="Bank\TransactionFactory.cs" />
     <Compile Include="Bank\TransactionList.cs" />
