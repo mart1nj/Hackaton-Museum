@@ -54,7 +54,7 @@ namespace Open.Facade.Notification
         public AccountView Sender { get; set; }
         public AccountView Receiver { get; set; }
 
-        public string FormatedMessage => ToString();
+        public string FormattedMessage => ToString();
 
     }
 

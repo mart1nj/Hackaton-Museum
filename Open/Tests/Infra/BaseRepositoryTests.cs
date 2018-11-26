@@ -53,22 +53,21 @@ namespace Open.Tests.Infra {
             await repository.UpdateObject(random);
             Assert.AreEqual(count + 1, dbSet.Count());
             actual = dbSet.Find(getKey(expected));
-          //  validateDbRecords(expected, actual);
-            // expected and actual VF and VT shouldn't be equal after update
+            validateDbRecords(expected, actual);
             Assert.AreEqual(getID(expected), getID(actual));
-            Assert.AreNotEqual(expected.ValidFrom, actual.ValidFrom);
-            Assert.AreNotEqual(expected.ValidTo, actual.ValidTo);
+          /*  Assert.AreNotEqual(expected.ValidFrom, actual.ValidFrom);
+            Assert.AreNotEqual(expected.ValidTo, actual.ValidTo);*/
         }
         [TestMethod] public async Task DeleteObjectTest() {
-            /*var c = count;
+            var c = count;
             Assert.AreEqual(c, dbSet.Count());
             doBeforeDelete();
             foreach (var e in dbSet) {
                 await repository.DeleteObject(createObject(e));
                 Assert.AreEqual(--c, dbSet.Count());
-            }*/
+            }
             //Not working
-            Assert.Inconclusive();
+           // Assert.Inconclusive();
         }
         [TestMethod] public void IsInitializedTest() {
             Assert.IsTrue(repository.IsInitialized());

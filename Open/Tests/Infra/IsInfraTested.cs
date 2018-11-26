@@ -16,6 +16,11 @@ namespace Open.Tests.Infra {
         {
             isAllTested(assembly, Namespace("Bank"));
         }
+        [TestMethod]
+        public void IsNotificationTested()
+        {
+            isAllTested(assembly, Namespace("Notification"));
+        }
         [TestMethod] public void IsTested() {
             isAllTested(base.Namespace("Infra"));
         }

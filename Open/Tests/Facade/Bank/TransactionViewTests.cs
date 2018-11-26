@@ -6,17 +6,24 @@ namespace Open.Tests.Facade.Bank
 {
 
     [TestClass]
-    public class TransactionViewTests : ViewTests<TransactionView, EntityView>
-    {
+    public class TransactionViewTests : ViewTests<TransactionView, EntityView> {
+
         protected override TransactionView getRandomObject()
         {
             return GetRandom.Object<TransactionView>();
         }
-
+        [TestMethod]
+        public void AmountInStringFormatTest() {
+            var str = obj.AmountInStringFormat;
+            Assert.AreEqual(str, obj.AmountInStringFormat);
+            var rnd = GetRandom.String();
+            obj.AmountInStringFormat = rnd;
+            Assert.AreEqual(rnd, obj.AmountInStringFormat);
+        }
         [TestMethod]
         public void AmountTest()
         {
-            canReadWrite(() => obj.Amount, x => obj.Amount = x);
+            Assert.AreEqual(obj.AmountInStringFormat, obj.Amount.ToString());
         }
         [TestMethod]
         public void ExplanationTest()

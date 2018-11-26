@@ -13,8 +13,8 @@ namespace Open.Facade.Notification {
         }
         private static WelcomeNotificationView create(WelcomeNotification o) {
             var v = new WelcomeNotificationView();
-            setCommonValues(v, o.Data?.ID, o.Data?.Message, o.Data?.SenderId, o.Data?.ReceiverId,
-                o.Data?.IsSeen, o.Data?.ValidFrom, o.Data?.ValidTo);
+            setCommonValues(v, o?.Data?.ID, o?.Data?.Message, o?.Data?.SenderId, o?.Data?.ReceiverId,
+                o?.Data?.IsSeen, o?.Data?.ValidFrom, o?.Data?.ValidTo);
             return v;
         }
         private static NewTransactionNotificationView create(NewTransactionNotification o) {

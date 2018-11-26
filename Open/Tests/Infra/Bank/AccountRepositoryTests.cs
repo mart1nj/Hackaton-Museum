@@ -39,24 +39,30 @@ namespace Open.Tests.Infra.Bank
             if (i == 5) return x => x.ValidFrom;
             return x => x.ValidTo;
         }
-        protected override Account createObject(AccountData r) =>
-            AccountFactory.CreateAccount(r.ID, r.Balance, r.Type, r.Status, r.AspNetUserId,
-                r.ValidFrom, r.ValidTo);
-        protected override AccountData getData(Account o) => o.Data;
-        protected override AccountData getRandomDbRecord() => GetRandom.Object<AccountData>();
-        protected override string getID(AccountData r) => r.ID;
-
-        protected override ICrudRepository<Account> getRepository() =>
-            new AccountRepository(db);
-
         protected override DbSet<AccountData> getDbSet() => db.Accounts;
-
+        protected override ICrudRepository<Account> getRepository() => new AccountRepository(db);
+        protected override Account createObject(AccountData r) => new Account(r);
+        protected override AccountData getData(Account o) => o.Data;
+        protected override string getID(AccountData r) => r.ID;
+        protected override void setRandomValues(Account o)
+        {
+            o.Data.Balance = GetRandom.Decimal();
+            o.Data.Status = GetRandom.String();
+            o.Data.Type = GetRandom.String();
+            base.setRandomValues(o);
+        }
+        protected override void validateDbRecords(AccountData e, AccountData a)
+        {
+            Assert.AreEqual(e.Balance, a.Balance);
+            Assert.AreEqual(e.Status, a.Status);
+            Assert.AreEqual(e.Type, a.Type);
+            base.validateDbRecords(e, a);
+        }
         [TestMethod]
-        public void CanCreateWithNullTest()
+        public void CanCreate()
         {
             Assert.IsNotNull(new AccountRepository(null));
         }
-
         [TestMethod]
         public void LoadAccountsForUserTest()
         {

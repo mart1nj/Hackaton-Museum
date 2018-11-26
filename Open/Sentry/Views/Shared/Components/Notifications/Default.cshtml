@@ -37,7 +37,7 @@
                                          From: @notification.Sender.AspNetUser.FirstName @notification.Sender.AspNetUser.LastName
                                      </strong>
                                      <p class="notification-desc">
-                                         @notification.FormatedMessage <br/>
+                                         @notification.FormattedMessage <br/>
                                          @Html.ActionLink(notification.IsSeen == true ? "Mark as unread" : "Mark as read", "ChangeSeenStatus", "Notifications", new {notificationId = notification.ID})
                                      </p>
                                      <div class="notification-meta">

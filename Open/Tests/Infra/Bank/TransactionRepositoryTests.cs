@@ -39,28 +39,32 @@ namespace Open.Tests.Infra.Bank
             if (i == 5) return x => x.ValidTo;
             return x => x.ValidFrom;
         }
-        protected override Transaction createObject(TransactionData r) =>
-            TransactionFactory.CreateTransaction(r.ID, r.Amount, r.Explanation,r.SenderAccountId, r.ReceiverAccountId,
-                r.ValidFrom, r.ValidTo);
-        protected override TransactionData getData(Transaction o) => o.Data;
-        protected override TransactionData getRandomDbRecord() => GetRandom.Object<TransactionData>();
-        protected override string getID(TransactionData r) => r.ID;
-
-        protected override ICrudRepository<Transaction> getRepository() =>
-            new TransactionRepository(db);
-
         protected override DbSet<TransactionData> getDbSet() => db.Transactions;
-
-        [TestMethod]
-        public void CanCreateWithNullTest()
+        protected override ICrudRepository<Transaction> getRepository() => new TransactionRepository(db);
+        protected override Transaction createObject(TransactionData r) => new Transaction(r);
+        protected override TransactionData getData(Transaction o) => o.Data;
+        protected override string getID(TransactionData r) => r.ID;
+        protected override void setRandomValues(Transaction o)
         {
-            Assert.IsNotNull(new AccountRepository(null));
+            o.Data.Amount = GetRandom.Decimal();
+            o.Data.Explanation = GetRandom.String();
+            base.setRandomValues(o);
         }
-
-        [TestMethod]
-        public void LoadTransactionsForAccountTest()
+        protected override void validateDbRecords(TransactionData e, TransactionData a)
         {
+            Assert.AreEqual(e.Amount, a.Amount);
+            Assert.AreEqual(e.Explanation, a.Explanation);
+            base.validateDbRecords(e, a);
+        }
+        [TestMethod]
+        public void CanCreate()
+        {
+            Assert.IsNotNull(new TransactionRepository(null));
+        }
+        [TestMethod] public void LoadTransactionsForAccountTest() {
             Assert.Inconclusive();
         }
     }
 }
+
+
