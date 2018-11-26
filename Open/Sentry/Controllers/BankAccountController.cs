@@ -3,25 +3,29 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.SignalR;
 using Open.Aids;
 using Open.Core;
 using Open.Data.Bank;
 using Open.Domain.Bank;
 using Open.Domain.Notification;
 using Open.Facade.Bank;
+using Open.Sentry.Hubs;
 
 namespace Open.Sentry.Controllers {
     public class BankAccountController : Controller {
         private readonly IAccountsRepository repository;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly INotificationsRepository notifications;
+        private readonly IHubContext<BankHub> _bankHub;
         internal const string properties = "ID, ValidFrom, ValidTo, Balance, Type, Status, AspNetUserId";
 
-        public BankAccountController(IAccountsRepository r, UserManager<ApplicationUser> uManager, 
-            INotificationsRepository n) {
+        public BankAccountController(IAccountsRepository r, UserManager<ApplicationUser> uManager,
+            INotificationsRepository n, IHubContext<BankHub> bankHub) {
             repository = r;
             userManager = uManager;
             notifications = n;
+            _bankHub = bankHub;
         }
 
         public IActionResult Create() {
@@ -41,6 +45,8 @@ namespace Open.Sentry.Controllers {
             var o = AccountFactory.CreateAccount(c.ID, c.Balance, c.Type, c.Status, c.AspNetUserId,
                 c.ValidFrom = DateTime.Now, c.ValidTo = DateTime.Now.AddYears(2));
             await repository.AddObject(o);
+            // TODO: see whether this is needed or not
+            // await _bankHub.Clients.All.SendAsync("NewAccount", c.ID, c.Type, c.Balance, c.Status);
             await createWelcomeNotification(c.ID);
             return RedirectToAction("Index", "Home");
         }

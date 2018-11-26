@@ -16,13 +16,17 @@ using Open.Infra.Notification;
 using Open.Infra.Party;
 using Open.Infra.Quantity;
 using Open.Sentry.Extensions;
+using Open.Sentry.Hubs;
 using Open.Sentry.Services;
+
 namespace Open.Sentry {
     public class Startup {
         public Startup(IConfiguration configuration) {
             Configuration = configuration;
         }
+
         public IConfiguration Configuration { get; }
+
         public void ConfigureServices(IServiceCollection services) {
             setDatabase(services);
             services.AddIdentity<ApplicationUser, IdentityRole>()
@@ -36,14 +40,16 @@ namespace Open.Sentry {
             services.AddScoped<INationalCurrenciesRepository, NationalCurrenciesRepository>();
             services.AddScoped<IAddressesRepository, ContactsRepository>();
             services.AddScoped<ITelecomDeviceRegistrationsRepository, TelecomDeviceRegistrationsRepository>();
-       //     services.AddScoped<IRateTypeRepository, RateTypesRepository>();
-       //     services.AddScoped<IRateRepository, RatesRepository>();
-       //     services.AddScoped<IPaymentMethodsRepository, PaymentMethodsRepository>();
-       //     services.AddScoped<IPaymentsRepository, PaymentsRepository>();*/
+            //     services.AddScoped<IRateTypeRepository, RateTypesRepository>();
+            //     services.AddScoped<IRateRepository, RatesRepository>();
+            //     services.AddScoped<IPaymentMethodsRepository, PaymentMethodsRepository>();
+            //     services.AddScoped<IPaymentsRepository, PaymentsRepository>();*/
             services.AddScoped<IAccountsRepository, AccountRepository>();
             services.AddScoped<ITransactionRepository, TransactionRepository>();
             services.AddScoped<INotificationsRepository, NotificationsRepository>();
             services.AddScoped<IInsuranceRepository, InsuranceRepository>();
+
+            services.AddSignalR();
         }
 
         protected virtual void setMvcWithAntiForgeryToken(IServiceCollection services) {
@@ -51,6 +57,7 @@ namespace Open.Sentry {
         }
 
         protected virtual void setAuthentication(IServiceCollection services) { }
+
         protected virtual void setDatabase(IServiceCollection services) {
             var s = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<ApplicationDbContext>(
@@ -61,20 +68,23 @@ namespace Open.Sentry {
             setErrorPage(app, env);
             app.UseStaticFiles();
             app.UseAuthentication();
+
+            app.UseSignalR(routes => { routes.MapHub<BankHub>("/bankHub"); });
+
             app.UseMvc(routes => {
                 routes.MapRoute(name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
         }
+
         protected virtual void setErrorPage(IApplicationBuilder app, IHostingEnvironment env) {
-            if (env.IsDevelopment())
-            {
+            if (env.IsDevelopment()) {
                 app.UseBrowserLink();
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
+            } else {
+                app.UseExceptionHandler("/Home/Error");
             }
-            else { app.UseExceptionHandler("/Home/Error"); }
         }
     }
 }
-
