@@ -43,6 +43,7 @@ namespace Open.Sentry {
             services.AddScoped<IAccountsRepository, AccountRepository>();
             services.AddScoped<ITransactionRepository, TransactionRepository>();
             services.AddScoped<INotificationsRepository, NotificationsRepository>();
+            services.AddScoped<IInsuranceRepository, InsuranceRepository>();
         }
 
         protected virtual void setMvcWithAntiForgeryToken(IServiceCollection services) {

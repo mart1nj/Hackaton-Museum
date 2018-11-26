@@ -25,7 +25,7 @@ namespace Open.Infra
 
         public DbSet<AccountData> Accounts { get; set; }
         public DbSet<TransactionData> Transactions { get; set; }
-
+        public DbSet<InsuranceData> Insurances { get; set; }
         public DbSet<NotificationData> Notifications { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -45,9 +45,17 @@ namespace Open.Infra
          //   createPaymentTable(builder);
             createAccountTable(builder);
             createTransactionTable(builder);
+            createInsuranceTable(builder);
             createNotificationTable(builder);
             createForeignKey<ApplicationUser, GeographicAddressData>(builder, "AspNetUser", x => x.AddressID, x => x.Address);
         }
+        
+        private static void createInsuranceTable(ModelBuilder b){
+            const string table = "Insurance";
+            b.Entity<InsuranceData>().ToTable(table);
+            createForeignKey<InsuranceData, ApplicationUser>(b, table, x => x.AspNetUserId, x => x.AspNetUser);
+        }
+        
         private static void createAccountTable(ModelBuilder b)
         {
             const string table = "Account";
