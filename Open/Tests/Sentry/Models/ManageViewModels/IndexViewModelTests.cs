@@ -40,20 +40,20 @@ namespace Open.Tests.Sentry.Models.ManageViewModels
         public void FirstNameTest()
         {
             isNullableReadWriteStringProperty(() => obj.FirstName, x => obj.FirstName = x);
-            hasAttributes(o => o.FirstName, typeof(RequiredAttribute), typeof(DisplayAttribute));
+            hasAttributes(o => o.FirstName, typeof(DisplayAttribute));
         }
 
         [TestMethod]
         public void LastNameTest()
         {
             isNullableReadWriteStringProperty(() => obj.LastName, x => obj.LastName = x);
-            hasAttributes(o => o.LastName, typeof(RequiredAttribute), typeof(DisplayAttribute));
+            hasAttributes(o => o.LastName, typeof(DisplayAttribute));
         }
         [TestMethod]
         public void DateOfBirthTest()
         {
             canReadWrite(() => obj.DateOfBirth, x => obj.DateOfBirth = x);
-            hasAttributes(o => o.DateOfBirth, typeof(RequiredAttribute), typeof(DisplayAttribute),
+            hasAttributes(o => o.DateOfBirth, typeof(DisplayAttribute),
                 typeof(DataTypeAttribute));
         }
         [TestMethod]
@@ -81,6 +81,12 @@ namespace Open.Tests.Sentry.Models.ManageViewModels
         {
             isNullableReadWriteStringProperty(() => obj.Country, x => obj.Country = x);
             hasAttributes(o => o.Country, typeof(RequiredAttribute), typeof(DisplayAttribute));
+        }
+        [TestMethod]
+        public void CountyTest()
+        {
+            isNullableReadWriteStringProperty(() => obj.County, x => obj.County = x);
+            hasAttributes(o => o.County, typeof(RequiredAttribute), typeof(DisplayAttribute));
         }
     }
 }

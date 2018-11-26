@@ -128,7 +128,8 @@ namespace Open.Sentry.Controllers {
 
                     //Transaction
                     model.ID = Guid.NewGuid().ToString();
-                    var transaction = TransactionViewFactory.Create(model);
+                    var transaction = TransactionFactory.CreateTransaction(model.ID, model.Amount, model.Explanation, model.SenderAccountId, model.ReceiverAccountId,
+                        model.ValidFrom, model.ValidTo);
                     transaction.Data.Amount = model.Amount;
                     transaction.Data.ValidFrom = DateTime.Now;
                     transaction.Data.Explanation = model.Explanation;

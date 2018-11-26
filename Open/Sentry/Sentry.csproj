@@ -10,21 +10,33 @@
 
   <ItemGroup>
     <Compile Remove="Views\Calculator\**" />
+    <Compile Remove="Views\Contacts\**" />
+    <Compile Remove="Views\Countries\**" />
+    <Compile Remove="Views\Currencies\**" />
     <Compile Remove="Views\PaymentMethods\**" />
     <Compile Remove="Views\Payments\**" />
     <Compile Remove="Views\Rates\**" />
     <Compile Remove="Views\RateTypes\**" />
     <Content Remove="Views\Calculator\**" />
+    <Content Remove="Views\Contacts\**" />
+    <Content Remove="Views\Countries\**" />
+    <Content Remove="Views\Currencies\**" />
     <Content Remove="Views\PaymentMethods\**" />
     <Content Remove="Views\Payments\**" />
     <Content Remove="Views\Rates\**" />
     <Content Remove="Views\RateTypes\**" />
     <EmbeddedResource Remove="Views\Calculator\**" />
+    <EmbeddedResource Remove="Views\Contacts\**" />
+    <EmbeddedResource Remove="Views\Countries\**" />
+    <EmbeddedResource Remove="Views\Currencies\**" />
     <EmbeddedResource Remove="Views\PaymentMethods\**" />
     <EmbeddedResource Remove="Views\Payments\**" />
     <EmbeddedResource Remove="Views\Rates\**" />
     <EmbeddedResource Remove="Views\RateTypes\**" />
     <None Remove="Views\Calculator\**" />
+    <None Remove="Views\Contacts\**" />
+    <None Remove="Views\Countries\**" />
+    <None Remove="Views\Currencies\**" />
     <None Remove="Views\PaymentMethods\**" />
     <None Remove="Views\Payments\**" />
     <None Remove="Views\Rates\**" />
@@ -33,6 +45,9 @@
 
   <ItemGroup>
     <Compile Remove="Controllers\CalculatorController.cs" />
+    <Compile Remove="Controllers\ContactsController.cs" />
+    <Compile Remove="Controllers\CountriesController.cs" />
+    <Compile Remove="Controllers\CurrenciesController.cs" />
     <Compile Remove="Controllers\PaymentMethodsController.cs" />
     <Compile Remove="Controllers\PaymentsController.cs" />
     <Compile Remove="Controllers\RatesController.cs" />
@@ -60,41 +75,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Views\Contacts\Create.cshtml" />
-    <None Include="Views\Contacts\CreateEmail.cshtml" />
-    <None Include="Views\Contacts\CreateTelecom.cshtml" />
-    <None Include="Views\Contacts\CreateWeb.cshtml" />
-    <None Include="Views\Contacts\DeleteAddress.cshtml" />
-    <None Include="Views\Contacts\DeleteEmail.cshtml" />
-    <None Include="Views\Contacts\DeleteTelecom.cshtml" />
-    <None Include="Views\Contacts\DeleteWeb.cshtml" />
-    <None Include="Views\Contacts\DetailsAddress.cshtml" />
-    <None Include="Views\Contacts\DetailsEmail.cshtml" />
-    <None Include="Views\Contacts\DetailsTelecom.cshtml" />
-    <None Include="Views\Contacts\DetailsWeb.cshtml" />
-    <None Include="Views\Contacts\EditAddress.cshtml" />
-    <None Include="Views\Contacts\EditEmail.cshtml" />
-    <None Include="Views\Contacts\EditTelecom.cshtml" />
-    <None Include="Views\Contacts\EditWeb.cshtml" />
-    <None Include="Views\Contacts\Index.cshtml" />
-    <None Include="Views\Contacts\_EditAddress.cshtml" />
-    <None Include="Views\Contacts\_EditEmail.cshtml" />
-    <None Include="Views\Contacts\_EditTelecom.cshtml" />
-    <None Include="Views\Contacts\_EditWeb.cshtml" />
-    <None Include="Views\Contacts\_ViewAddress.cshtml" />
-    <None Include="Views\Contacts\_ViewEmail.cshtml" />
-    <None Include="Views\Contacts\_ViewTelecom.cshtml" />
-    <None Include="Views\Contacts\_ViewWeb.cshtml" />
-    <None Include="Views\Countries\Create.cshtml" />
-    <None Include="Views\Countries\Delete.cshtml" />
-    <None Include="Views\Countries\Details.cshtml" />
-    <None Include="Views\Countries\Edit.cshtml" />
-    <None Include="Views\Countries\Index.cshtml" />
-    <None Include="Views\Currencies\Create.cshtml" />
-    <None Include="Views\Currencies\Delete.cshtml" />
-    <None Include="Views\Currencies\Details.cshtml" />
-    <None Include="Views\Currencies\Edit.cshtml" />
-    <None Include="Views\Currencies\Index.cshtml" />
     <None Include="wwwroot\css\bootstrap-dropmenu.css" />
   </ItemGroup>
 

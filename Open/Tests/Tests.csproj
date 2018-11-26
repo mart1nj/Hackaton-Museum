@@ -35,6 +35,9 @@
   <ItemGroup>
     <Compile Remove="Domain\Bank\ClientTests.cs" />
     <Compile Remove="Sentry\Controllers\CalculatorControllerTests.cs" />
+    <Compile Remove="Sentry\Controllers\ContactsControllerTests.cs" />
+    <Compile Remove="Sentry\Controllers\CountriesControllerTests.cs" />
+    <Compile Remove="Sentry\Controllers\CurrenciesControllerTests.cs" />
     <Compile Remove="Sentry\Controllers\PaymentMethodsControllerTests.cs" />
     <Compile Remove="Sentry\Controllers\PaymentsControllerTests.cs" />
     <Compile Remove="Sentry\Controllers\RatesControllerTests.cs" />

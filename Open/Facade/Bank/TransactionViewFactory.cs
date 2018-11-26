@@ -20,7 +20,7 @@ namespace Open.Facade.Bank
             v.ValidTo = Date.SetNullIfMaxOrMin(o.Data.ValidTo);
             return v;
         }
-        public static Transaction Create(TransactionView v) {
+  /*      public static Transaction Create(TransactionView v) {
             var r = new TransactionData{
                 Amount = v?.Amount ?? (decimal?) 0.0,
                 Explanation = v?.Explanation,
@@ -31,6 +31,6 @@ namespace Open.Facade.Bank
                 ValidTo = v?.ValidTo ?? DateTime.MaxValue,
             };
             return new Transaction(r);
-        }
+        }*/
     }
 }

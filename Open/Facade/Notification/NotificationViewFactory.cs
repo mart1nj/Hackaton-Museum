@@ -30,7 +30,7 @@ namespace Open.Facade.Notification {
                 o?.Data?.IsSeen, o?.Data?.ValidFrom, o?.Data?.ValidTo);
             return v;
         }
-        public static WelcomeNotification Create(WelcomeNotificationView v) {
+      /*  public static WelcomeNotification Create(WelcomeNotificationView v) {
             var d = new WelcomeNotificationData {
                 ID = v.ID,
                 Message = v.Message,
@@ -70,7 +70,7 @@ namespace Open.Facade.Notification {
                 ValidFrom = v.ValidFrom ?? DateTime.MinValue
             };
             return new NewRequestTransactionNotification(d);
-        }
+        }*/
         private static void setCommonValues(NotificationView model, string id, string message,
             string senderId, string receiverId, bool? isSeen, DateTime? validFrom,
             DateTime? validTo) {

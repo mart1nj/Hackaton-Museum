@@ -23,7 +23,7 @@ namespace Open.Facade.Bank
             return v;
         }
         
-        public static Account Create(AccountView v)
+     /*   public static Account Create(AccountView v)
         {
             var r = new AccountData
             {
@@ -36,6 +36,6 @@ namespace Open.Facade.Bank
                 AspNetUserId = v?.AspNetUserId
             };
             return new Account(r);
-        }
+        }*/
     }
 }

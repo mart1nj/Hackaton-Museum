@@ -16,9 +16,13 @@ using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Primitives;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Open.Domain.Party;
+using Open.Domain.Quantity;
 /*using Open.Domain.Party;
 using Open.Domain.Quantity;*/
 using Open.Infra;
+using Open.Infra.Party;
+using Open.Infra.Quantity;
 /*using Open.Infra.Party;
 using Open.Infra.Quantity;*/
 using Open.Sentry;
@@ -100,16 +104,16 @@ namespace Open.Tests.Sentry {
             startup.ConfigureServices(services);
             Assert.AreEqual(1, configuration.Keys.Count);
             Assert.AreEqual("ConnectionStrings", configuration.Keys[0]);
-            Assert.AreEqual(240, services.Count);
-            /*isServiceRegistered<ICountriesRepository, CountriesRepository>();
+            Assert.AreEqual(262, services.Count);
+       /*     isServiceRegistered<IRateTypeRepository, RateTypesRepository>();
+            isServiceRegistered<IRateRepository, RatesRepository>();
+            isServiceRegistered<IPaymentMethodsRepository, PaymentMethodsRepository>();
+            isServiceRegistered<IPaymentsRepository, PaymentsRepository>();*/
+            isServiceRegistered<ICountriesRepository, CountriesRepository>();
             isServiceRegistered<ICurrencyRepository, CurrenciesRepository>();
             isServiceRegistered<INationalCurrenciesRepository, NationalCurrenciesRepository>();
             isServiceRegistered<IAddressesRepository, ContactsRepository>();
             isServiceRegistered<ITelecomDeviceRegistrationsRepository, TelecomDeviceRegistrationsRepository>();
-            isServiceRegistered<IRateTypeRepository, RateTypesRepository>();
-            isServiceRegistered<IRateRepository, RatesRepository>();
-            isServiceRegistered<IPaymentMethodsRepository, PaymentMethodsRepository>();
-            isServiceRegistered<IPaymentsRepository, PaymentsRepository>();*/
             isServiceRegistered<IEmailSender, EmailSender>();
             isServiceRegistered<ApplicationDbContext, ApplicationDbContext>();
         }

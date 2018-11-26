@@ -72,5 +72,12 @@ namespace Open.Tests.Sentry.Models.AccountViewModels {
             isNullableReadWriteStringProperty(() => obj.Country, x => obj.Country = x);
             hasAttributes(o => o.Country, typeof(RequiredAttribute), typeof(DisplayAttribute));
         }
+
+        [TestMethod]
+        public void CountyTest()
+        {
+            isNullableReadWriteStringProperty(() => obj.County, x => obj.County = x);
+            hasAttributes(o => o.County, typeof(RequiredAttribute), typeof(DisplayAttribute));
+        }
     }
 }

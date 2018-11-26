@@ -45,7 +45,7 @@ namespace Open.Tests.Facade.Notification
         {
             var o = GetRandom.Object<WelcomeNotification>();
             o.Data.Message = null;
-            var v = NotificationViewFactory.Create(o) as WelcomeNotificationView;
+            var v = NotificationViewFactory.Create(o);
             validateCommon(o.Data, v);
         }
 
@@ -53,14 +53,14 @@ namespace Open.Tests.Facade.Notification
         public void CreateNewTransactionNotificationViewTest()
         {
             var o = GetRandom.Object<NewTransactionNotification>();
-            var v = NotificationViewFactory.Create(o) as NewTransactionNotificationView;
+            var v = NotificationViewFactory.Create(o);
             validateCommon(o.Data, v);
         }
         [TestMethod]
         public void CreateNewRequestTransactionNotificationViewTest()
         {
             var o = GetRandom.Object<NewRequestTransactionNotification>();
-            var v = NotificationViewFactory.Create(o) as NewRequestTransactionNotificationView;
+            var v = NotificationViewFactory.Create(o);
             validateCommon(o.Data, v);
         }
 
