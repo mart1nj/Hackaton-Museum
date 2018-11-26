@@ -28,10 +28,6 @@ namespace Open.Sentry.Controllers {
             if (loggedInUser == null) return View();
             var bankAccounts = await accounts.LoadAccountsForUser(loggedInUser.Id);
             var bankAccountsViewsList = new AccountsViewsList(bankAccounts);
-            /*List<string> bankAccountIds = new List<string>();
-             foreach (var account in bankAccountsViewsList) { bankAccountIds.Add(account.ID);}
-             var notificationsList = await notifications.LoadNotificationsForAllUsers(bankAccountIds);
-             var notificationsViewsLIst = new NotificationViewsList(notificationsList);*/
             return View(bankAccountsViewsList);
 
         }
@@ -52,19 +48,5 @@ namespace Open.Sentry.Controllers {
                 RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
             });
         }
-
-   /*     public async Task<PartialViewResult> _NotificationPartial() {
-            var loggedInUser = await userManager.GetUserAsync(HttpContext.User);
-            if (loggedInUser == null) return PartialView();
-            var bankAccounts = await accounts.LoadAccountsForUser(loggedInUser.Id);
-            var bankAccountsViewsList = new AccountsViewsList(bankAccounts);
-            List<string> bankAccountIds = new List<string>();
-            foreach (var account in bankAccountsViewsList) { bankAccountIds.Add(account.ID); }
-
-            var notificationsList =
-                await notifications.LoadNotificationsForAllUsers(bankAccountIds);
-            var notificationsViewsList = new NotificationViewsList(notificationsList);
-            return PartialView(notificationsViewsList);
-        }*/
     }
 }

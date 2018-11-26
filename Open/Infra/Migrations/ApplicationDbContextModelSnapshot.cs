@@ -437,6 +437,17 @@ namespace Open.Infra.Migrations
                     b.HasDiscriminator().HasValue("WebPageAddressData");
                 });
 
+            modelBuilder.Entity("Open.Data.Notification.NewRequestTransactionNotificationData", b =>
+                {
+                    b.HasBaseType("Open.Data.Notification.NewTransactionNotificationData");
+
+                    b.Property<int>("Status");
+
+                    b.ToTable("Notification");
+
+                    b.HasDiscriminator().HasValue("NewRequestTransactionNotificationData");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")

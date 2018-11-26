@@ -1,10 +1,12 @@
 ﻿using System;
+using Open.Core;
 using Open.Data.Notification;
 using Open.Domain.Notification;
 namespace Open.Facade.Notification {
     public static class NotificationViewFactory {
         public static NotificationView Create(INotification o) {
             switch (o) {
+                case NewRequestTransactionNotification newRequest: return create(newRequest);
                 case NewTransactionNotification newTransaction: return create(newTransaction);
                 default: return create(o as WelcomeNotification);
             }
@@ -17,6 +19,13 @@ namespace Open.Facade.Notification {
         }
         private static NewTransactionNotificationView create(NewTransactionNotification o) {
             var v = new NewTransactionNotificationView {Amount = o?.Data.Amount};
+            setCommonValues(v, o?.Data?.ID, o?.Data?.Message, o?.Data?.SenderId, o?.Data?.ReceiverId,
+                o?.Data?.IsSeen, o?.Data?.ValidFrom, o?.Data?.ValidTo);
+            return v;
+        }
+        private static NewRequestTransactionNotificationView create(NewRequestTransactionNotification o)
+        {
+            var v = new NewRequestTransactionNotificationView { Amount = o?.Data.Amount, Status = o?.Data.Status ?? Status.Pending };
             setCommonValues(v, o?.Data?.ID, o?.Data?.Message, o?.Data?.SenderId, o?.Data?.ReceiverId,
                 o?.Data?.IsSeen, o?.Data?.ValidFrom, o?.Data?.ValidTo);
             return v;
@@ -45,6 +54,22 @@ namespace Open.Facade.Notification {
                 ValidFrom = v.ValidFrom ?? DateTime.MinValue
             };
             return new NewTransactionNotification(d);
+        }
+        public static NewRequestTransactionNotification Create(NewRequestTransactionNotificationView v)
+        {
+            var d = new NewRequestTransactionNotificationData
+            {
+                ID = v.ID,
+                Message = v.Message,
+                SenderId = v.SenderAccountId,
+                ReceiverId = v.ReceiverAccountId,
+                IsSeen = v.IsSeen,
+                Amount = v.Amount,
+                Status = v.Status,
+                ValidTo = v.ValidTo ?? DateTime.MaxValue,
+                ValidFrom = v.ValidFrom ?? DateTime.MinValue
+            };
+            return new NewRequestTransactionNotification(d);
         }
         private static void setCommonValues(NotificationView model, string id, string message,
             string senderId, string receiverId, bool? isSeen, DateTime? validFrom,

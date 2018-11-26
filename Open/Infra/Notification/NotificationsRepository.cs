@@ -59,25 +59,25 @@ namespace Open.Infra.Notification
         public async Task AddObject(INotification o)
         {
             if (o is WelcomeNotification welcome) dbSet.Add(welcome.Data);
+            if (o is NewRequestTransactionNotification newRequest) dbSet.Add(newRequest.Data);
             if (o is NewTransactionNotification newTransaction) dbSet.Add(newTransaction.Data);
-          /*  if (o is GeographicAddress adr) dbSet.Add(adr.Data);
-            if (o is TelecomAddress tel) dbSet.Add(tel.Data);*/
+           // if (o is TelecomAddress tel) dbSet.Add(tel.Data);*/
             await db.SaveChangesAsync();
         }
         public async Task UpdateObject(INotification o)
         {
             if (o is WelcomeNotification welcome) dbSet.Update(welcome.Data);
+            if (o is NewRequestTransactionNotification newRequest) dbSet.Update(newRequest.Data);
             if (o is NewTransactionNotification newTransaction) dbSet.Update(newTransaction.Data);
-           /* if (o is GeographicAddress adr) dbSet.Update(adr.Data);
-            if (o is TelecomAddress tel) dbSet.Update(tel.Data);*/
+           // if (o is TelecomAddress tel) dbSet.Update(tel.Data);
             await db.SaveChangesAsync();
         }
         public async Task DeleteObject(INotification o)
         {
             if (o is WelcomeNotification welcome) dbSet.Remove(welcome.Data);
+            if (o is NewRequestTransactionNotification newRequest) dbSet.Remove(newRequest.Data);
             if (o is NewTransactionNotification newTransaction) dbSet.Remove(newTransaction.Data);
-          /*  if (o is GeographicAddress adr) dbSet.Remove(adr.Data);
-            if (o is TelecomAddress tel) dbSet.Remove(tel.Data);*/
+      //      if (o is TelecomAddress tel) dbSet.Remove(tel.Data);
             await db.SaveChangesAsync();
         }
         public bool IsInitialized()

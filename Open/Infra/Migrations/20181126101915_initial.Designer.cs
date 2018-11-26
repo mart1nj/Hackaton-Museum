@@ -10,7 +10,7 @@ using Open.Infra;
 namespace Open.Infra.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20181122095212_initial")]
+    [Migration("20181126101915_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -437,6 +437,17 @@ namespace Open.Infra.Migrations
                     b.ToTable("Address");
 
                     b.HasDiscriminator().HasValue("WebPageAddressData");
+                });
+
+            modelBuilder.Entity("Open.Data.Notification.NewRequestTransactionNotificationData", b =>
+                {
+                    b.HasBaseType("Open.Data.Notification.NewTransactionNotificationData");
+
+                    b.Property<int>("Status");
+
+                    b.ToTable("Notification");
+
+                    b.HasDiscriminator().HasValue("NewRequestTransactionNotificationData");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
