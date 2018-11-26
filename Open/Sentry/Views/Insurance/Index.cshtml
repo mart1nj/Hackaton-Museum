@@ -1,0 +1,43 @@
+@using Open.Sentry.Controllers
+@using Open.Sentry.Extensions
+@model Open.Facade.Bank.InsuranceViewsList
+@{
+    ViewBag.Title = "Your insurances";
+    Layout = "_IndexPartial";
+    //ViewBag.Button = "Create";
+}
+
+@section Create {
+    <a class="btn btn-primary btn-sm"
+       href="@Url.Action("Create", "Insurance", new { accountId = InsuranceController.BankAccount.Data.AspNetUserId })">New Insurance &raquo;
+    </a>
+}
+
+<body>
+<table class="table">
+    @{ var dummy = Model.FirstOrDefault();}
+    <thead>
+    <tr>
+        @Html.SortColumnHeaderFor(ViewData["SortValidFrom"], model => dummy.ValidFrom)
+        @Html.SortColumnHeaderFor(ViewData["SortValidTo"], model => dummy.ValidTo)
+        @Html.SortColumnHeaderFor(ViewData["SortType"], model => dummy.Type)
+        @Html.SortColumnHeaderFor(ViewData["SortPayment"], model => dummy.Payment)
+        @Html.SortColumnHeaderFor(ViewData["SortStatus"], model => dummy.Status)
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.ValidFrom)</td>
+            <td>@Html.DisplayFor(modelItem => item.ValidTo)</td>
+            <td>@Html.DisplayFor(modelItem => item.Type)</td>
+            <td>@Html.DisplayFor(modelItem => item.Payment)</td>
+            <td>@Html.DisplayFor(modelItem => item.Status)</td>
+        </tr>
+    }
+    </tbody>
+</table>
+</body>
+

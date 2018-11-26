@@ -25,8 +25,7 @@ namespace Open.Infra
 
         public DbSet<AccountData> Accounts { get; set; }
         public DbSet<TransactionData> Transactions { get; set; }
-        public DbSet<TransactionData> Transactions { get; set; }
-
+        public DbSet<InsuranceData> Insurances { get; set; }
         public DbSet<NotificationData> Notifications { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -46,9 +45,17 @@ namespace Open.Infra
          //   createPaymentTable(builder);
             createAccountTable(builder);
             createTransactionTable(builder);
+            createInsuranceTable(builder);
             createNotificationTable(builder);
             createForeignKey<ApplicationUser, GeographicAddressData>(builder, "AspNetUser", x => x.AddressID, x => x.Address);
         }
+        
+        private static void createInsuranceTable(ModelBuilder b){
+            const string table = "Insurance";
+            b.Entity<InsuranceData>().ToTable(table);
+            createForeignKey<InsuranceData, ApplicationUser>(b, table, x => x.AspNetUserId, x => x.AspNetUser);
+        }
+        
         private static void createAccountTable(ModelBuilder b)
         {
             const string table = "Account";
@@ -63,19 +70,12 @@ namespace Open.Infra
             createForeignKey<TransactionData, AccountData>(b, table, x => x.ReceiverAccountId, x => x.ReceiverAccount);
         }
 
-        private static void createRequestedTransactionTable(ModelBuilder b)
-        {
-            const string table = "RequestedTransaction";
-            b.Entity<TransactionData>().ToTable(table);
-            createForeignKey<TransactionData, AccountData>(b, table, x => x.SenderAccountId, x => x.SenderAccount);
-            createForeignKey<TransactionData, AccountData>(b, table, x => x.ReceiverAccountId, x => x.ReceiverAccount);
-        }
-
         private static void createNotificationTable(ModelBuilder b)
         {
             const string table = "Notification";
             b.Entity<NotificationData>().ToTable(table);
             b.Entity<WelcomeNotificationData>().ToTable(table);
+            b.Entity<NewRequestTransactionNotificationData>().ToTable(table);
             b.Entity<NewTransactionNotificationData>().ToTable(table);
             createForeignKey<NotificationData, AccountData>(b, table, x => x.SenderId, x => x.Sender);
             createForeignKey<NotificationData, AccountData>(b, table, x => x.ReceiverId, x => x.Receiver);

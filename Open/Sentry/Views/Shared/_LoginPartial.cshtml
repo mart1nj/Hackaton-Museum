@@ -4,13 +4,9 @@
 @inject UserManager<ApplicationUser> UserManager
 
 <style>
-    .logOutButton {
-        background-color: lightgrey;
-    }
+    .logOutButton { background-color: lightgrey; }
 
-        .logOutButton:hover {
-            background-color: white;
-        }
+    .logOutButton:hover { background-color: white; }
 </style>
 
 @if (SignInManager.IsSignedIn(User))

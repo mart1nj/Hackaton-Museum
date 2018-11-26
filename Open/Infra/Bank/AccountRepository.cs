@@ -33,12 +33,6 @@ namespace Open.Infra.Bank
             var p = new RepositoryPage(count, PageIndex, PageSize);
             var items = await accounts.Skip(p.FirstItemIndex).Take(p.PageSize).ToListAsync();
             return createList(items, p);
-
-           /* var accounts = await dbSet.Where(x => x.AspNetUserId == id)
-                .AsNoTracking().ToListAsync();
-            var p = new RepositoryPage(accounts.Count, PageIndex, PageSize);
-            var paginatedList = createList(accounts, p);
-            return paginatedList;*/
         }
     }
 }

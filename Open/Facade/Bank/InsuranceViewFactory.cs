@@ -1,19 +1,18 @@
-﻿using Open.Aids;
+using System;
+using Open.Aids;
 using Open.Data.Bank;
 using Open.Domain.Bank;
-using System;
-
 namespace Open.Facade.Bank
 {
-    public class AccountViewFactory
+    public class InsuranceViewFactory
     {
-        public static AccountView Create(Account o)
+        public static InsuranceView Create(Insurance o)
         {
-            var v = new AccountView
+            var v = new InsuranceView
             {
                 Type = o?.Data.Type,
                 Status = o?.Data.Status,
-                Balance = o?.Data.Balance ?? 0,
+                Payment = o?.Data.Payment ?? 0,
                 ID = o?.Data?.ID,
                 AspNetUserId = o?.Data?.AspNetUserId
             };
@@ -23,11 +22,11 @@ namespace Open.Facade.Bank
             return v;
         }
         
-        public static Account Create(AccountView v)
+        public static Insurance Create(InsuranceView v)
         {
-            var r = new AccountData
+            var r = new InsuranceData
             {
-                Balance = v?.Balance ?? 0,
+                Payment = v?.Payment ?? 0,
                 Type = v?.Type,
                 Status= v?.Status,
                 ValidFrom = v?.ValidFrom ?? DateTime.MinValue,
@@ -35,7 +34,7 @@ namespace Open.Facade.Bank
                 ID = v?.ID,
                 AspNetUserId = v?.AspNetUserId
             };
-            return new Account(r);
+            return new Insurance(r);
         }
     }
 }

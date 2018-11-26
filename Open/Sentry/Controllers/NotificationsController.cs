@@ -86,6 +86,13 @@ namespace Open.Sentry.Controllers
                             tra.Data?.ValidFrom, tra.Data?.ValidTo);
                     await notifications.UpdateObject(transaction);
                     break;
+                case NewRequestTransactionNotification req:
+                    NewRequestTransactionNotification request =
+                        NotificationFactory.CreateNewRequestTransactionNotification(req.Data?.ID,
+                            req.Data?.SenderId, req.Data?.ReceiverId, req.Data?.Amount, req.Data?.Status ?? Status.Pending,
+                            !req.Data?.IsSeen, req.Data?.ValidFrom, req.Data?.ValidTo);
+                    await notifications.UpdateObject(request);
+                    break;
             }
             return RedirectToAction("Index", "Home");
         }

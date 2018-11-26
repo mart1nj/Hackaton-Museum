@@ -102,5 +102,12 @@
       <FileName>Notification\NewTransactionNotificationData.cs</FileName>
     </TypeIdentifier>
   </Class>
+  <Class Name="Open.Data.Notification.NewRequestTransactionNotificationData">
+    <Position X="14.75" Y="6" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>Notification\NewRequestTransactionNotificationData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

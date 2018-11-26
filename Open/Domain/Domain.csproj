@@ -45,6 +45,10 @@
     <Compile Include="Bank\AccountFactory.cs" />
     <Compile Include="Bank\AccountList.cs" />
     <Compile Include="Bank\IAccountsRepository.cs" />
+    <Compile Include="Bank\IInsuranceRepository.cs" />
+    <Compile Include="Bank\Insurance.cs" />
+    <Compile Include="Bank\InsuranceFactory.cs" />
+    <Compile Include="Bank\InsuranceList.cs" />
     <Compile Include="Bank\ITransactionRepository.cs" />
     <Compile Include="Bank\Transaction.cs" />
     <Compile Include="Bank\TransactionFactory.cs" />
@@ -57,6 +61,7 @@
     <Compile Include="Common\Value.cs" />
     <Compile Include="Notification\INotification.cs" />
     <Compile Include="Notification\INotificationsRepository.cs" />
+    <Compile Include="Notification\NewRequestTransactionNotification.cs" />
     <Compile Include="Notification\NewTransactionNotification.cs" />
     <Compile Include="Notification\Notification.cs" />
     <Compile Include="Notification\NotificationFactory.cs" />
