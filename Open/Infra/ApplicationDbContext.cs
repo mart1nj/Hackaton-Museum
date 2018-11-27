@@ -53,7 +53,7 @@ namespace Open.Infra
         private static void createInsuranceTable(ModelBuilder b){
             const string table = "Insurance";
             b.Entity<InsuranceData>().ToTable(table);
-            createForeignKey<InsuranceData, ApplicationUser>(b, table, x => x.AspNetUserId, x => x.AspNetUser);
+            createForeignKey<InsuranceData, AccountData>(b, table, x => x.AccountId, x => x.Account);
         }
         
         private static void createAccountTable(ModelBuilder b)

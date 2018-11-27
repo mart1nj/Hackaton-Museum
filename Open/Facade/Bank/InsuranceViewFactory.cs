@@ -12,9 +12,9 @@ namespace Open.Facade.Bank
             {
                 Type = o?.Data.Type,
                 Status = o?.Data.Status,
-                Payment = o?.Data.Payment ?? 0,
+                Payment = o?.Data.Payment ?? (decimal?) 0.0,
                 ID = o?.Data?.ID,
-                AspNetUserId = o?.Data?.AspNetUserId
+                AccountId = o?.Data?.AccountId
             };
             if (o is null) return v;
             v.ValidFrom = Date.SetNullIfMaxOrMin(o.Data.ValidFrom);
@@ -26,13 +26,13 @@ namespace Open.Facade.Bank
         {
             var r = new InsuranceData
             {
-                Payment = v?.Payment ?? 0,
+                Payment = v?.Payment?? (decimal?) 0.0,
                 Type = v?.Type,
                 Status= v?.Status,
                 ValidFrom = v?.ValidFrom ?? DateTime.MinValue,
                 ValidTo = v?.ValidTo?? DateTime.MaxValue,
                 ID = v?.ID,
-                AspNetUserId = v?.AspNetUserId
+                AccountId = v?.AccountId
             };
             return new Insurance(r);
         }

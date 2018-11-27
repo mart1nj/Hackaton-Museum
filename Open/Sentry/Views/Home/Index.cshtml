@@ -1,4 +1,5 @@
 ﻿@using Open.Data.Bank
+@using Open.Sentry.Controllers
 @using Open.Sentry.Extensions
 @inject SignInManager<ApplicationUser> SignInManager
 @model Open.Core.IPaginatedList<Open.Facade.Bank.AccountView>
@@ -7,20 +8,34 @@
     ViewData["Title"] = "SonicBank";
 }
 
-<div class="jumbotron" >
+<div class="jumbotron">
     <h1>@ViewData["Title"]</h1>
-    <img style="width: 100%; display: block;" src="/images/bankpikalt.jpg" alt="Bank image" >
+    <img style="width: 100%; display: block;" src="/images/bankpikalt.jpg" alt="Bank image">
 </div>
-<div class="row" >
-    @if (!SignInManager.IsSignedIn(User) || Model == null) {
-        <div class="col-md-10" >
+@if (!SignInManager.IsSignedIn(User) || Model == null)
+{
+    <div class="row">
+        <div class="col-md-9">
             <h2>Welcome to SonicBank!</h2>
             <h3>Please log in to use our services!</h3>
         </div>
-    } else {
-        <div class="col-md-10" >
+    </div>
+}
+else
+{
+    <div class="col-md-2" style="text-align: end">
+        <h3>Shortcuts</h3>
+        <p>
+            <a class="btn btn-primary btn-sm"
+               href="@Url.Action("Index", "Manage")">Account settings &raquo;</a>
+            <a class="btn btn-primary btn-sm"
+               href="@Url.Action("Create", "BankAccount")">Create an account &raquo;</a>
+        </p>
+    </div>
+    <div class="row">
+        <div class="col-md-9">
             <h2>Welcome, @User.GetFirstName()!</h2>
-            <table style="width: 100%" >
+            <table style="width: 100%">
                 <thead>
                 <tr>
                     <th>Account Number</th>
@@ -30,40 +45,37 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach (var item in Model) {
+                @foreach (var item in Model)
+                {
                     <tr>
                         <td>@Html.DisplayFor(modelItem => item.ID)</td>
                         <td>@Html.DisplayFor(modelItem => item.Type)</td>
                         <td>@Html.DisplayFor(modelItem => item.Balance)</td>
                         <td>@Html.DisplayFor(modelItem => item.Status)</td>
                         <td>
-                            <a class="btn btn-primary btn-sm" style="width: 95%"
-                               href="@Url.Action("Index", "Transaction", new { id = item.ID })" >
-                                Transactions &raquo;
+                            <a class="btn btn-primary btn-sm"
+                               href="@Url.Action("Index", "Transaction", new { id = item.ID })">Transactions &raquo;</a>
+                        </td>
+                        <td>
+
+                            <a class="btn btn-primary btn-sm"
+                               href="@Url.Action("Create", "Transaction", new { senderId = item.ID })">New transaction &raquo;
                             </a>
                         </td>
                         <td>
-                            <a class="btn btn-primary btn-sm" style="width: 95%"
-                               href="@Url.Action("Create", "Transaction", new { senderId = item.ID })" >
-                                New transaction &raquo;
+                            <a class="btn btn-primary btn-sm"
+                               href="@Url.Action("Create", "Insurance", new { accountId = item.ID})">New Insurance &raquo;
+                            </a>
+                        </td>
+                        <td>
+                            <a class="btn btn-primary btn-sm"
+                               href="@Url.Action("Index", "Insurance", new { id = item.ID})">Account's Insurance &raquo;
                             </a>
                         </td>
                     </tr>
                 }
             </table>
+
         </div>
-        <div class="col-md-2" >
-            <h2 style="text-align: center" >Shortcuts</h2>
-            <p>
-                <a class="btn btn-primary btn-sm col-12"
-                   href="@Url.Action("Index", "Insurance")" >
-                    Insurances &raquo;
-                </a>
-                <a class="btn btn-primary btn-sm col-12"
-                   href="@Url.Action("Create", "BankAccount")" >
-                    Create an account &raquo;
-                </a>
-            </p>
-        </div>
-    }
-</div>
+    </div>
+}

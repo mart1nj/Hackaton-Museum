@@ -4,7 +4,7 @@ namespace Open.Domain.Bank
 {
     public static class InsuranceFactory
     {
-        public static Insurance CreateInsurance(string id, decimal? payment, string type, string status, string applicationUserId, DateTime? validFrom = null, DateTime? validTo = null)
+        public static Insurance CreateInsurance(string id, decimal? payment, string type, string status, string accountId, DateTime? validFrom = null, DateTime? validTo = null)
         {
             var r = new InsuranceData
             {
@@ -14,7 +14,7 @@ namespace Open.Domain.Bank
                 Status = status,
                 ValidFrom = validFrom ?? DateTime.MinValue,
                 ValidTo = validTo ?? DateTime.MaxValue,
-                AspNetUserId = applicationUserId
+                AccountId = accountId
             };
             return new Insurance(r);
         }

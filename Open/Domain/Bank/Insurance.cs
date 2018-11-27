@@ -4,10 +4,10 @@ namespace Open.Domain.Bank
 {
     public sealed class Insurance : Entity<InsuranceData>
     {
-        public readonly ApplicationUser ApplicationUser;
+        public readonly Account Account;
         public Insurance(InsuranceData data) : base(data)
         {
-            ApplicationUser = data?.AspNetUser;
+            Account = new Account(data?.Account);
         }
     }
 }

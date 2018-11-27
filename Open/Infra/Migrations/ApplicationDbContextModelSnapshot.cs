@@ -15,7 +15,7 @@ namespace Open.Infra.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
+                .HasAnnotation("ProductVersion", "2.1.3-rtm-32065")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -219,7 +219,7 @@ namespace Open.Infra.Migrations
                     b.Property<string>("ID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("AspNetUserId");
+                    b.Property<string>("AccountId");
 
                     b.Property<decimal?>("Payment");
 
@@ -233,7 +233,7 @@ namespace Open.Infra.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("AspNetUserId");
+                    b.HasIndex("AccountId");
 
                     b.ToTable("Insurance");
                 });
@@ -535,9 +535,9 @@ namespace Open.Infra.Migrations
 
             modelBuilder.Entity("Open.Data.Bank.InsuranceData", b =>
                 {
-                    b.HasOne("Open.Data.Bank.ApplicationUser", "AspNetUser")
+                    b.HasOne("Open.Data.Bank.AccountData", "Account")
                         .WithMany()
-                        .HasForeignKey("AspNetUserId")
+                        .HasForeignKey("AccountId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 

@@ -5,7 +5,7 @@ namespace Open.Data.Bank
         private string type;
         private string status;
         private decimal? payment;
-        private string applicationUserId;
+        private string accountId;
 
         public decimal? Payment {
             get => getDecimal(ref payment);
@@ -22,11 +22,11 @@ namespace Open.Data.Bank
             set => status = value;
         }
 
-        public string AspNetUserId {
-            get => getString(ref applicationUserId);
-            set => applicationUserId = value;
+        public string AccountId {
+            get => getString(ref accountId);
+            set => accountId = value;
         }
 
-        public virtual ApplicationUser AspNetUser { get; set; }
+        public virtual AccountData Account { get; set; }
     }
 }

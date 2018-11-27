@@ -27,7 +27,7 @@ namespace Open.Infra.Bank
 
         public async Task<PaginatedList<Insurance>> LoadInsurancesForUser(string id)
         {
-            var accounts = getSorted().Where(s => s.Contains(SearchString) && s.AspNetUserId == id).AsNoTracking();
+            var accounts = getSorted().Where(s => s.Contains(SearchString) && s.AccountId == id).AsNoTracking();
             var count = await accounts.CountAsync();
             var p = new RepositoryPage(count, PageIndex, PageSize);
             var items = await accounts.Skip(p.FirstItemIndex).Take(p.PageSize).ToListAsync();

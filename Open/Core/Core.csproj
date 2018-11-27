@@ -51,6 +51,7 @@
     <Compile Include="ILinked.cs" />
     <Compile Include="ILinkedId.cs" />
     <Compile Include="IMaster.cs" />
+    <Compile Include="InsuranceType.cs" />
     <Compile Include="IRepository.cs" />
     <Compile Include="IPaginatedList.cs" />
     <Compile Include="IPaginatedRepository.cs" />

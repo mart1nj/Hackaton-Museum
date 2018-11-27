@@ -1,8 +1,23 @@
+@using Open.Core
+@using Open.Sentry.Extensions
 @model Open.Facade.Bank.InsuranceView
 
 @{
-    ViewBag.Title = "title";
-    Layout = "_Layout";
-}
-
-<h2>title</h2>
+     ViewBag.Title = "New insurance";
+     Layout = "_EditPartial";
+     ViewBag.Button = "Make";
+ }
+<body>
+@Html.HiddenFor(x => x.ID)
+@Html.EditingControlsFor(x => x.ValidFrom)
+@Html.EditingControlsFor(x => x.ValidTo)
+@Html.ViewingControlsCustomLabelFor(x => x.AccountId, "Account number")
+@Html.HiddenFor(x => x.AccountId)
+@Html.EditingControlsForDecimal(x => x.PaymentInStringFormat)
+@Html.DropDownListFor(x => x.Type, Html.GetEnumSelectList<InsuranceType>(), new { @class = "form-control"  })
+    
+@section Actions{    
+    <a class="btn btn-primary btn-sm"
+       href="@Url.Action("Index", "Insurance", new { id = Model.AccountId })">Back to your insurances &raquo;
+    </a>}
+</body>

@@ -20,4 +20,3 @@ namespace Open.Domain.Bank
         }
     }
 }
-}

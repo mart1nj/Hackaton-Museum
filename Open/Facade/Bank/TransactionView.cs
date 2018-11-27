@@ -21,6 +21,7 @@ namespace Open.Facade.Bank
             get => getString(ref amountInStringFormat, "0");
             set => amountInStringFormat = value;            
         }
+        
         public decimal? Amount {
             get {
                 var toDecimal = stringToDecimal(amountInStringFormat);
@@ -28,6 +29,7 @@ namespace Open.Facade.Bank
             }
             set => amountInStringFormat = value.ToString();
         }
+        
         private static decimal? stringToDecimal(string str) {
             str = str.Replace(',', '.');
             return decimal.TryParse(str, NumberStyles.Any, CultureInfo.InvariantCulture,
@@ -35,6 +37,7 @@ namespace Open.Facade.Bank
                 ? value
                 : 0;
         }
+        
         [Required]
         public string Explanation
         {

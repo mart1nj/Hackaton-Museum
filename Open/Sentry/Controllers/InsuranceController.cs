@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualStudio.Web.CodeGeneration;
 using Open.Core;
 using Open.Data.Bank;
 using Open.Domain.Bank;
@@ -19,7 +20,7 @@ namespace Open.Sentry.Controllers
        public static Account BankAccount;
 
         internal const string properties =
-            "ID, PaymentInString, Type, Status, AccountId, ValidFrom, ValidTo";
+            "ID, PaymentInStringFormat, Type, Status, AccountId, ValidFrom, ValidTo";
 
         public static string ErrorMessage;
 
@@ -59,13 +60,44 @@ namespace Open.Sentry.Controllers
        
        public IActionResult Create(string accountId){        
            return View(InsuranceViewFactory.Create(
-               InsuranceFactory.CreateInsurance(null, null, "", "", accountId, null, null)));
+               InsuranceFactory.CreateInsurance(null, null, "", "", accountId)));
        }
 
-      /* [HttpPost]
-       public async Task<IActionResult> Create([Bind(properties)] TransactionView model)
+       [HttpPost]
+       public async Task<IActionResult> Create([Bind(properties)] InsuranceView model)
        {
-       }*/
+          //if (!ModelState.IsValid) return View(model);
+           var accountObject = await accounts.GetObject(model.AccountId);         
+           bool isOk = checkIfHasEnoughPaymentMoney(accountObject, model.Payment);
+           
+           if (isOk){
+               model.ID = Guid.NewGuid().ToString();
+               var insurance = InsuranceViewFactory.Create(model);
+               insurance.Data.Payment = model.Payment;
+               insurance.Data.Type = Enum.GetName(typeof(InsuranceType), int.Parse(model.Type));
+               insurance.Data.ValidFrom = (DateTime) model.ValidFrom;
+               insurance.Data.ValidTo = (DateTime) model.ValidTo;
+               insurance.Data.AccountId = model.AccountId;
+               insurance.Data.Status = "Active";
+
+               await insurances.AddObject(insurance);
+               //await generateTransactionNotification(transaction);
+           }
+
+           return RedirectToAction("Create");
+       }
+
+       private bool checkIfHasEnoughPaymentMoney(Account account, decimal? payment)
+       {
+           decimal? balance = account.Data.Balance;
+
+           if (balance >= payment)
+           {
+               return true;
+           }
+
+           return false;
+       }
 
 
    }
