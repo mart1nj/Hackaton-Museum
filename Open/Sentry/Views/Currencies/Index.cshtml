@@ -1,9 +1,11 @@
 ﻿@using Open.Sentry.Extensions
 @model Open.Core.IPaginatedList<Open.Facade.Quantity.CurrencyView>
+
 @{
     ViewBag.Title = "Currencies";
     Layout = "_IndexPartial";
 }
+
 @section Create {
     <a asp-action=Create>Create New</a>
 }
@@ -13,11 +15,11 @@
         @{ var dummy = Model.FirstOrDefault();}
         <thead>
             <tr>
-                @Html.SortColumnHeaderFor(ViewData["SortAlpha3"], model => dummy.IsoCode)
-                @Html.SortColumnHeaderFor(ViewData["SortAlpha2"], model => dummy.Symbol)
-                @Html.SortColumnHeaderFor(ViewData["SortName"], model => dummy.Name)
-                @Html.SortColumnHeaderFor(ViewData["SortValidFrom"], model => dummy.ValidFrom)
-                @Html.SortColumnHeaderFor(ViewData["SortValidFrom"], model => dummy.ValidTo)
+                @Html.SortColumnHeaderFor(model => dummy.IsoCode, ViewData["SortAlpha3"])
+                @Html.SortColumnHeaderFor(model => dummy.Symbol, ViewData["SortAlpha2"])
+                @Html.SortColumnHeaderFor(model => dummy.Name, ViewData["SortName"])
+                @Html.SortColumnHeaderFor(model => dummy.ValidFrom, ViewData["SortValidFrom"])
+                @Html.SortColumnHeaderFor(model => dummy.ValidTo, ViewData["SortValidFrom"])
                 <th></th>
             </tr>
         </thead>
@@ -36,4 +38,3 @@
         </tbody>
     </table>
 </body>
-

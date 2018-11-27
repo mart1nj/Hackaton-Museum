@@ -1,6 +1,7 @@
 @using Open.Sentry.Controllers
 @using Open.Sentry.Extensions
 @model Open.Facade.Bank.InsuranceViewsList
+
 @{
     ViewBag.Title = "Your insurances";
     Layout = "_IndexPartial";
@@ -9,26 +10,26 @@
 
 @section Create {
     <a class="btn btn-primary btn-sm"
-       href="@Url.Action("Create", "Insurance", new { accountId = InsuranceController.BankAccount.Data.AspNetUserId })">New Insurance &raquo;
+       href="@Url.Action("Create", "Insurance", new { accountId = InsuranceController.BankAccount.Data.AspNetUserId })" >
+        New Insurance &raquo;
     </a>
 }
 
 <body>
-<table class="table">
+<table class="table" >
     @{ var dummy = Model.FirstOrDefault();}
     <thead>
     <tr>
-        @Html.SortColumnHeaderFor(ViewData["SortValidFrom"], model => dummy.ValidFrom)
-        @Html.SortColumnHeaderFor(ViewData["SortValidTo"], model => dummy.ValidTo)
-        @Html.SortColumnHeaderFor(ViewData["SortType"], model => dummy.Type)
-        @Html.SortColumnHeaderFor(ViewData["SortPayment"], model => dummy.Payment)
-        @Html.SortColumnHeaderFor(ViewData["SortStatus"], model => dummy.Status)
+        @Html.SortColumnHeaderFor(model => dummy.ValidFrom, ViewData["SortValidFrom"])
+        @Html.SortColumnHeaderFor(model => dummy.ValidTo, ViewData["SortValidTo"])
+        @Html.SortColumnHeaderFor(model => dummy.Type, ViewData["SortType"])
+        @Html.SortColumnHeaderFor(model => dummy.Payment, ViewData["SortPayment"])
+        @Html.SortColumnHeaderFor(model => dummy.Status, ViewData["SortStatus"])
         <th></th>
     </tr>
     </thead>
     <tbody>
-    @foreach (var item in Model)
-    {
+    @foreach (var item in Model) {
         <tr>
             <td>@Html.DisplayFor(modelItem => item.ValidFrom)</td>
             <td>@Html.DisplayFor(modelItem => item.ValidTo)</td>
@@ -40,4 +41,3 @@
     </tbody>
 </table>
 </body>
-

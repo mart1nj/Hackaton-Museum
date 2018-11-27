@@ -1,9 +1,11 @@
 ﻿@using Open.Sentry.Extensions
 @model Open.Core.IPaginatedList<Open.Facade.Party.AddressView>
+
 @{
     ViewBag.Title = "Contacts";
     Layout = "_IndexPartial";
 }
+
 @section Create {
     <t>Create new </t>
     <a asp-action=CreateWeb>Web</a>
@@ -17,10 +19,10 @@
         @{ var dummy = Model.FirstOrDefault();}
         <thead>
             <tr>
-                @Html.SortColumnHeaderFor(ViewData["SortAddressType"], model => dummy.AddressType)
-                @Html.SortColumnHeaderFor(ViewData["SortToString"], model => dummy.Contact)
-                @Html.SortColumnHeaderFor(ViewData["SortValidFrom"], model => dummy.ValidFrom)
-                @Html.SortColumnHeaderFor(ViewData["SortValidFrom"], model => dummy.ValidTo)
+                @Html.SortColumnHeaderFor(model => dummy.AddressType, ViewData["SortAddressType"])
+                @Html.SortColumnHeaderFor(model => dummy.Contact, ViewData["SortToString"])
+                @Html.SortColumnHeaderFor(model => dummy.ValidFrom, ViewData["SortValidFrom"])
+                @Html.SortColumnHeaderFor(model => dummy.ValidTo, ViewData["SortValidFrom"])
                 <th></th>
             </tr>
         </thead>
@@ -38,4 +40,3 @@
         </tbody>
     </table>
 </body>
-
