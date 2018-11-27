@@ -1,5 +1,6 @@
 ﻿@using Open.Sentry.Extensions
 @model Open.Core.IPaginatedList<Open.Facade.Party.CountryView>
+
 @{
     ViewBag.Title = "Countries";
     Layout = "_IndexPartial";
@@ -14,11 +15,11 @@
         @{ var dummy = Model.FirstOrDefault();}
         <thead>
             <tr>
-                @Html.SortColumnHeaderFor(ViewData["SortAlpha3"], model => dummy.Alpha3Code)
-                @Html.SortColumnHeaderFor(ViewData["SortAlpha2"], model => dummy.Alpha2Code)
-                @Html.SortColumnHeaderFor(ViewData["SortName"], model => dummy.Name)
-                @Html.SortColumnHeaderFor(ViewData["SortValidFrom"], model => dummy.ValidFrom)
-                @Html.SortColumnHeaderFor(ViewData["SortValidFrom"], model => dummy.ValidTo)
+                @Html.SortColumnHeaderFor(model => dummy.Alpha3Code, ViewData["SortAlpha3"])
+                @Html.SortColumnHeaderFor(model => dummy.Alpha2Code, ViewData["SortAlpha2"])
+                @Html.SortColumnHeaderFor(model => dummy.Name, ViewData["SortName"])
+                @Html.SortColumnHeaderFor(model => dummy.ValidFrom, ViewData["SortValidFrom"])
+                @Html.SortColumnHeaderFor(model => dummy.ValidTo, ViewData["SortValidFrom"])
                 <th></th>
             </tr>
         </thead>
@@ -37,4 +38,3 @@
         </tbody>
     </table>
 </body>
-

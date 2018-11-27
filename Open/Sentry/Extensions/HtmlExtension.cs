@@ -8,12 +8,13 @@ using Open.Aids;
 
 namespace Open.Sentry.Extensions {
     public static class HtmlExtension {
-        public static IHtmlContent DisplayForSignalR<TModel, TResult>() {
+        public static IHtmlContent DisplayForSignalR<TModel, TResult>(
+            this IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TResult>> expression) {
             // TODO: write method body
-            
+
             return new HtmlContentBuilder();
         }
-        
+
         public static IHtmlContent EditingControlsForEnum<TModel, TResult>(
             this IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TResult>> expression) {
             var selectList = new SelectList(Enum.GetNames(typeof(TResult)));
@@ -62,8 +63,7 @@ namespace Open.Sentry.Extensions {
         }
 
         public static IHtmlContent SortColumnHeaderFor<TModel, TResult>(
-            this IHtmlHelper<TModel> htmlHelper, object sortString,
-            Expression<Func<TModel, TResult>> expression) {
+            this IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TResult>> expression, object sortString) {
             var linkName = htmlHelper.DisplayNameFor(expression);
             var action = "Index";
             var htmlStrings = new List<object> {
@@ -99,6 +99,7 @@ namespace Open.Sentry.Extensions {
             foreach (RegionInfo region in SystemRegionInfo.GetRegionsList()) {
                 countryList.Add(region.DisplayName);
             }
+
             var selectList = new SelectList(countryList);
             var htmlStrings = new List<object> {
                 new HtmlString("<div class=\"form-group\">"),

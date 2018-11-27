@@ -6,20 +6,23 @@ using Open.Aids;
 using Open.Facade.Bank;
 using Open.Facade.Party;
 using Open.Sentry.Extensions;
+
 namespace Open.Tests.Sentry.Extensions {
-    [TestClass] public class HtmlExtensionTests : BaseTests {
-
+    [TestClass]
+    public class HtmlExtensionTests : BaseTests {
         private IHtmlHelper<AccountView> helper;
-        private StringWriter writer; 
+        private StringWriter writer;
 
-        [TestInitialize] public override void TestInitialize() {
+        [TestInitialize]
+        public override void TestInitialize() {
             base.TestInitialize();
             type = typeof(HtmlExtension);
             helper = new mockHtmlHelper<AccountView>();
             writer = new StringWriter();
         }
 
-        [TestMethod] public void EditingControlsForEnumTest() {
+        [TestMethod]
+        public void EditingControlsForEnumTest() {
             var h = new mockHtmlHelper<TelecomAddressView>();
             var v = h.EditingControlsForEnum(x => x.DeviceType);
             v.WriteTo(writer, new HtmlTestEncoder());
@@ -34,36 +37,39 @@ namespace Open.Tests.Sentry.Extensions {
             Assert.AreEqual(expected, writer.ToString());
         }
 
-        [TestMethod] public void EditingControlsForTest() {
+        [TestMethod]
+        public void EditingControlsForTest() {
             var v = helper.EditingControlsFor(x => x.Balance);
             v.WriteTo(writer, new HtmlTestEncoder());
             const string expected =
-                "<div class=\"form-group\">"+
+                "<div class=\"form-group\">" +
                 "LabelFor Balance { class = control-label col-md-4, style = font-weight: bold }" +
-                "<div class=\"col-md-4\">"+
-                "EditorFor Balance { htmlAttributes = { class = form-control } }"+
+                "<div class=\"col-md-4\">" +
+                "EditorFor Balance { htmlAttributes = { class = form-control } }" +
                 "ValidationMessageFor Balance { class = text-danger }" +
-                "</div>"+
+                "</div>" +
                 "</div>";
             Assert.AreEqual(expected, writer.ToString());
         }
 
-        [TestMethod] public void ViewingControlsForTest() {
+        [TestMethod]
+        public void ViewingControlsForTest() {
             var v = helper.ViewingControlsFor(x => x.Balance);
             v.WriteTo(writer, new HtmlTestEncoder());
             const string expected =
-                "<div class=\"form-group\">"+
+                "<div class=\"form-group\">" +
                 "LabelFor Balance { class = control-label col-md-4, style = font-weight: bold }" +
-                "<div class=\"col-md-10\" style=\"margin-top:10px\">"+
+                "<div class=\"col-md-10\" style=\"margin-top:10px\">" +
                 "DisplayFor Balance { htmlAttributes = { class = form-control } }" +
-                "</div>"+
+                "</div>" +
                 "</div>";
             Assert.AreEqual(expected, writer.ToString());
         }
 
-        [TestMethod] public void SortColumnHeaderForTest() {
+        [TestMethod]
+        public void SortColumnHeaderForTest() {
             var s = GetRandom.String();
-            var v = helper.SortColumnHeaderFor(s, x => x.Balance);
+            var v = helper.SortColumnHeaderFor(x => x.Balance, s);
             v.WriteTo(writer, new HtmlTestEncoder());
             var expected =
                 "<th>" +
@@ -74,7 +80,8 @@ namespace Open.Tests.Sentry.Extensions {
             Assert.AreEqual(expected, writer.ToString());
         }
 
-        [TestMethod] public void EditDetailDeleteForTest() {
+        [TestMethod]
+        public void EditDetailDeleteForTest() {
             var v = helper.EditDetailDeleteFor(x => x.Balance);
             v.WriteTo(writer, new HtmlTestEncoder());
             const string expected =
@@ -88,7 +95,8 @@ namespace Open.Tests.Sentry.Extensions {
             Assert.AreEqual(expected, writer.ToString());
         }
 
-        [TestMethod] public void EditingControlsForCountryTest() {
+        [TestMethod]
+        public void EditingControlsForCountryTest() {
             var v = helper.EditingControlsFor(x => x.Balance);
             v.WriteTo(writer, new HtmlTestEncoder());
             const string expected =
