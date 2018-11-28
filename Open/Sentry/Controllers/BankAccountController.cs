@@ -45,8 +45,7 @@ namespace Open.Sentry.Controllers {
             var o = AccountFactory.CreateAccount(c.ID, c.Balance, c.Type, c.Status, c.AspNetUserId,
                 c.ValidFrom = DateTime.Now, c.ValidTo = DateTime.Now.AddYears(2));
             await repository.AddObject(o);
-            // TODO: see whether this is needed or not
-            // await _bankHub.Clients.All.SendAsync("NewAccount", c.ID, c.Type, c.Balance, c.Status);
+            await _bankHub.Clients.All.SendAsync("NewAccount", c.ID, c.Type, c.Balance, c.Status);
             await createWelcomeNotification(c.ID);
             return RedirectToAction("Index", "Home");
         }
