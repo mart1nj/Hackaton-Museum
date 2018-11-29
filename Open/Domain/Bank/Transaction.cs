@@ -3,7 +3,7 @@ using Open.Domain.Common;
 
 namespace Open.Domain.Bank
 {
-    public abstract class Transaction: Entity<TransactionData> {
+    public class Transaction: Entity<TransactionData> {
         public readonly Account SenderAccount;
         public readonly Account ReceiverAccount;
 
