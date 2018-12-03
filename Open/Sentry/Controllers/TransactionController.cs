@@ -117,7 +117,7 @@ namespace Open.Sentry.Controllers {
                 var senderObject = await accounts.GetObject(model.SenderAccountId);
 
                 bool senderIsOk = validateSender(senderObject, model.Amount); //check if has enough balance and active card
-                bool receiverIsOk = validateReceiver(receiverObject); //c
+                bool receiverIsOk = validateReceiverAndSender(receiverObject, senderObject); //c
 
                 if (senderIsOk && receiverIsOk) {
                     //receiverBalance
@@ -172,11 +172,17 @@ namespace Open.Sentry.Controllers {
                 return false;   
         }
 
-        private bool validateReceiver(Account receiverObject) {
+        private bool validateReceiverAndSender(Account receiverObject, Account senderObject) {
             string receiverCardStatus = receiverObject.Data.Status;
 
             if (receiverCardStatus == "Active") {
-                return true;
+                if (receiverObject.Data.ID != senderObject.Data.ID)
+                {
+                    return true;
+                }
+
+                ErrorMessage = "You cannot make transaction to yourself.";
+                return false;
             }
 
             ErrorMessage = "Receiver's card is not active. Cannot make transaction.";
