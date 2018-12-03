@@ -94,7 +94,7 @@ namespace Open.Sentry.Controllers
                     await notifications.UpdateObject(request);
                     break;
             }
-            return RedirectToAction("Index", "Home");
+            return new EmptyResult();
         }
     }
 }
