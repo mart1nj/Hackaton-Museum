@@ -39,12 +39,15 @@ namespace Open.Sentry.Controllers
             ViewData["SortValidFrom"] = string.IsNullOrEmpty(sortOrder) ? "validFrom_desc" : "";
             ViewData["SortType"] = sortOrder == "type" ? "type_desc" : "type";
             ViewData["SortPayment"] = sortOrder == "payment" ? "payment_desc" : "payment";
+            ViewData["SortAccountId"] = sortOrder == "accountId" ? "accountId_desc" : "accountId";
             ViewData["SortValidTo"] = string.IsNullOrEmpty(sortOrder) ? "validTo_desc" : "";
             ViewData["SortStatus"] = sortOrder == "status" ? "status_desc" : "status";            
             insurances.SortOrder = sortOrder != null && sortOrder.EndsWith("_desc")
                 ? SortOrder.Descending
                 : SortOrder.Ascending;
             
+            
+            insurances.SortFunction = getSortFunction(sortOrder);
             if (searchString != null) page = 1;
             else searchString = currentFilter;
             ViewData["CurrentFilter"] = searchString;
@@ -103,7 +106,17 @@ namespace Open.Sentry.Controllers
 
            return false;
        }
+       
+       private Func<InsuranceData, object> getSortFunction(string sortOrder) {
+           if (string.IsNullOrWhiteSpace(sortOrder)) return x => x.ValidFrom;
+           if (sortOrder.StartsWith("ValidTo")) return x => x.ValidTo;
+           if (sortOrder.StartsWith("AccountId")) return x => x.AccountId;
+           if (sortOrder.StartsWith("Type")) return x => x.Type;
+           if (sortOrder.StartsWith("Status")) return x => x.Status;
+           if (sortOrder.StartsWith("Payment")) return x => x.Payment;
+           return x => x.ValidFrom;
 
+       }
 
    }
 }
