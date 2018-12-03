@@ -10,13 +10,14 @@
                 <i data-count="@NotificationsViewComponent.NotSeenCount" class="fa fa-bell notification-icon"></i>
             }
             else {
-                <i class="fa fa-bell"></i>}
+                <i data-count="0" class="fa fa-bell"></i>}
             <span class="caret"></span>
         </button>
 
         <div class="dropdown-container dropdown-position-bottomright">
             <div class="dropdown-toolbar">
                 <div class="dropdown-toolbar-actions">
+                    @Html.ActionLink("Mark all as read", "ChangeSeenStatusForAll", "Notifications", null, new {@class = "markAllAsRead"})
                     <a href="@Url.Action("Index", "Notifications")"><i class="fa fa-search"></i> View All</a>
                 </div>
                 <h3 class="dropdown-toolbar-title">Recent Notifications (@NotificationsViewComponent.NotSeenCount)</h3>
@@ -38,7 +39,7 @@
                                      </strong>
                                      <p class="notification-desc">
                                          @notification.FormattedMessage <br />
-                                         @Html.ActionLink(notification.IsSeen == true ? "Mark as unread" : "Mark as read", "ChangeSeenStatus", "Notifications", new { notificationId = notification.ID}, new {@class = "preventRedirect"})
+                                         @Html.ActionLink(notification.IsSeen == true ? "Mark as unread" : "Mark as read", "ChangeSeenStatus", "Notifications", new { notificationId = notification.ID}, new {@class = "markAsRead" })
                                      </p>
                                      <div class="notification-meta">
                                          <small>@notification.ValidFrom.ToString() </small>

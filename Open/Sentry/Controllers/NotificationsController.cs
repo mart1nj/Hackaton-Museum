@@ -44,15 +44,20 @@ namespace Open.Sentry.Controllers
             notifications.PageIndex = page ?? 1;
             var loggedInUser = await userManager.GetUserAsync(HttpContext.User);
             if (loggedInUser == null) return View();
+            var notificationsList = await loadNotifications(loggedInUser);
+            var notificationsViewsList = new NotificationViewsList(notificationsList);
+            foreach (var notification in notificationsViewsList) { await loadSender(notification); }
+            return View(notificationsViewsList);
+        }
+        private async Task<PaginatedList<INotification>> loadNotifications(ApplicationUser loggedInUser) {
             var bankAccounts = await accounts.LoadAccountsForUser(loggedInUser.Id);
             var bankAccountsViewsList = new AccountsViewsList(bankAccounts);
             List<string> bankAccountIds = new List<string>();
             foreach (var account in bankAccountsViewsList) { bankAccountIds.Add(account.ID); }
+
             var notificationsList =
                 await notifications.LoadNotificationsForAllUsers(bankAccountIds);
-            var notificationsViewsList = new NotificationViewsList(notificationsList);
-            foreach (var notification in notificationsViewsList) { await loadSender(notification); }
-            return View(notificationsViewsList);
+            return notificationsList;
         }
         private Func<NotificationData, object> getSortFunction(string sortOrder)
         {
@@ -93,6 +98,41 @@ namespace Open.Sentry.Controllers
                             !req.Data?.IsSeen, req.Data?.ValidFrom, req.Data?.ValidTo);
                     await notifications.UpdateObject(request);
                     break;
+            }
+            return new EmptyResult();
+        }
+
+        public async Task<IActionResult> ChangeSeenStatusForAll() {
+            var loggedInUser = await userManager.GetUserAsync(HttpContext.User);
+            if (loggedInUser == null) return new EmptyResult();
+            var notificationsList = await loadNotifications(loggedInUser);
+            foreach (var notification in notificationsList) {
+                switch (notification) {
+                    case WelcomeNotification wel:
+                        WelcomeNotification welcome =
+                            NotificationFactory.CreateWelcomeNotification(wel.Data?.ID,
+                                wel.Data?.SenderId, wel.Data?.ReceiverId, true,
+                                wel.Data?.ValidFrom, wel.Data?.ValidTo);
+                        await notifications.UpdateObject(welcome);
+                        break;
+                    case NewTransactionNotification tra:
+                        NewTransactionNotification transaction =
+                            NotificationFactory.CreateNewTransactionNotification(tra.Data?.ID,
+                                tra.Data?.SenderId, tra.Data?.ReceiverId, tra.Data?.Amount,
+                                true,
+                                tra.Data?.ValidFrom, tra.Data?.ValidTo);
+                        await notifications.UpdateObject(transaction);
+                        break;
+                    case NewRequestTransactionNotification req:
+                        NewRequestTransactionNotification request =
+                            NotificationFactory.CreateNewRequestTransactionNotification(
+                                req.Data?.ID,
+                                req.Data?.SenderId, req.Data?.ReceiverId, req.Data?.Amount,
+                                req.Data?.Status ?? Status.Pending,
+                                true, req.Data?.ValidFrom, req.Data?.ValidTo);
+                        await notifications.UpdateObject(request);
+                        break;
+                }
             }
             return new EmptyResult();
         }

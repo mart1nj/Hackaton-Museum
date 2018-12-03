@@ -29,15 +29,15 @@ connection.on("NewAccount", function(id, type, balance, status) {
 
 connection.start();
 
-$("a.preventRedirect").click(function (e) {
+$("a.markAsRead").click(function (e) {
 
     e.preventDefault();
     var btn = $(this);
     $.ajax({
         url: $(this).attr("href"),
         type: "GET",
-        success: function (html) {
-            var dataCount = $(".notification-icon").attr("data-count");
+        success: function () {
+            var dataCount = $(".fa-bell").attr("data-count");
             if (btn.text().indexOf("Mark as unread") > -1) {
                 btn.text("Mark as read");
                 btn.closest("li").attr("style", "color:black");
@@ -47,14 +47,30 @@ $("a.preventRedirect").click(function (e) {
                 btn.closest("li").attr("style", "color:lightgrey");
                 dataCount--;
             }
-            $(".notification-icon").attr("data-count", dataCount);
+            $(".fa-bell").attr("data-count", dataCount);
             $(".dropdown-toolbar-title").text("Recent Notifications (" + dataCount + ")");
         }
     });
 
 });
 
-$(".dropdown .dropdown-menu").on("click.bs.dropdown", function () {
+$("a.markAllAsRead").click(function (e) {
+
+    e.preventDefault();
+    var btn = $(this);
+    $.ajax({
+        url: $(this).attr("href"),
+        type: "GET",
+        success: function () {
+            $(".notification").attr("style", "color:lightgrey");
+            $(".fa-bell").attr("data-count", 0);
+            $(".markAsRead").text("Mark as unread");
+            $(".dropdown-toolbar-title").text("Recent Notifications (" + 0 + ")");
+        }
+    });
+
+});
+$(".dropdown-container").on("click.bs.dropdown", function () {
     return $(".dropdown").one("hide.bs.dropdown", function () {
         return false;
     });
