@@ -3,14 +3,13 @@
 @model Open.Core.IPaginatedList<Open.Facade.Bank.InsuranceView>
 
 @{
-    ViewBag.Title = "Your insurances for account " + InsuranceController.BankAccount.Data?.ID;;
+    ViewBag.Title = "Your insurances";
     Layout = "_IndexPartial";
     //ViewBag.Button = "Create";
 }
-
 @section Create {
     <a class="btn btn-primary btn-sm"
-       href="@Url.Action("Create", "Insurance", new { accountId = InsuranceController.BankAccount.Data?.ID})" >
+       href="@Url.Action("Create", "Insurance", new { accountId = Model.FirstOrDefault().AccountId})" >
         New Insurance &raquo;
     </a>
 }
@@ -22,6 +21,7 @@
     <tr>
         @Html.SortColumnHeaderFor(model => insurance.ValidFrom, ViewData["SortValidFrom"])
         @Html.SortColumnHeaderFor(model => insurance.ValidTo, ViewData["SortValidTo"])
+        @Html.SortColumnHeaderFor(model => insurance.AccountId, ViewData["SortAccountId"])
         @Html.SortColumnHeaderFor(model => insurance.Type, ViewData["SortType"])
         @Html.SortColumnHeaderFor(model => insurance.Payment, ViewData["SortPayment"])
         @Html.SortColumnHeaderFor(model => insurance.Status, ViewData["SortStatus"])
@@ -33,6 +33,7 @@
         <tr>
             <td>@Html.DisplayFor(modelItem => item.ValidFrom)</td>
             <td>@Html.DisplayFor(modelItem => item.ValidTo)</td>
+            <td>@Html.DisplayFor(modelItem => item.AccountId)</td>
             <td>@Html.DisplayFor(modelItem => item.Type)</td>
             <td>@Html.DisplayFor(modelItem => item.Payment)</td>
             <td>@Html.DisplayFor(modelItem => item.Status)</td>
