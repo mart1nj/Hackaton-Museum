@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -39,9 +40,7 @@ namespace Open.Sentry.Controllers
             ViewData["SortType"] = sortOrder == "type" ? "type_desc" : "type";
             ViewData["SortPayment"] = sortOrder == "payment" ? "payment_desc" : "payment";
             ViewData["SortValidTo"] = string.IsNullOrEmpty(sortOrder) ? "validTo_desc" : "";
-            ViewData["SortStatus"] = sortOrder == "status" ? "status_desc" : "status";
-            
-            
+            ViewData["SortStatus"] = sortOrder == "status" ? "status_desc" : "status";            
             insurances.SortOrder = sortOrder != null && sortOrder.EndsWith("_desc")
                 ? SortOrder.Descending
                 : SortOrder.Ascending;
@@ -51,11 +50,17 @@ namespace Open.Sentry.Controllers
             ViewData["CurrentFilter"] = searchString;
             insurances.SearchString = searchString;
             insurances.PageIndex = page ?? 1;
-            BankAccount = await accounts.GetObject(id);
-
-            var l = await insurances.LoadInsurancesForUser(id);
-            var viewList = new InsuranceViewsList(l);
-            return View(viewList);
+            
+            var loggedInUser = await userManager.GetUserAsync(HttpContext.User);
+            if (loggedInUser == null) return View();
+            var bankAccounts = await accounts.LoadAccountsForUser(loggedInUser.Id);
+            var bankAccountsViewsList = new AccountsViewsList(bankAccounts);
+            List<string> bankAccountIds = new List<string>();
+            foreach (var account in bankAccountsViewsList) { bankAccountIds.Add(account.ID); }
+            var insuranceList =
+                await insurances.LoadInsurancesForUser(bankAccountIds);
+            var insurancesViewsList = new InsuranceViewsList(insuranceList);
+            return View(insurancesViewsList);
         }
        
        public IActionResult Create(string accountId){        

@@ -31,7 +31,7 @@ else
                 {
                     <a class="btn btn-outline-danger" style="border-radius: 0; font-weight: bold"
                        href="@Url.Action("Create", "BankAccount")">
-                        CREATE YOUR FIRST ACCOUNT &raquo;
+                        Create your first account &raquo;
                     </a>
                 }
                 else
@@ -39,52 +39,54 @@ else
 
                     <table style="width: 100%">
                         <thead>
-                            <tr>
-                                <th>Account Number</th>
-                                <th>Type</th>
-                                <th>Balance</th>
-                                <th>Status</th>
-                            </tr>
+                        <tr>
+                            <th>Account Number</th>
+                            <th>Type</th>
+                            <th>Balance</th>
+                            <th>Status</th>
+                        </tr>
                         </thead>
                         <tbody id="accTable">
-                            @foreach (var item in Model)
-                            {
-                                <tr>
-                                    <td>@Html.DisplayFor(modelItem => item.ID)</td>
-                                    <td>@Html.DisplayFor(modelItem => item.Type)</td>
-                                    <td>@Html.DisplayFor(modelItem => item.Balance)</td>
-                                    <td>@Html.DisplayFor(modelItem => item.Status)</td>
-                                    <td>
-                                        <a class="btn btn-primary btn-sm"
-                                           href="@Url.Action("Index", "Transaction", new { id = item.ID })">
-                                            Transactions &raquo;
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <a class="btn btn-primary btn-sm"
-                                           href="@Url.Action("Create", "Transaction", new { senderId = item.ID })">
-                                            New transaction &raquo;
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <a class="btn btn-primary btn-sm"
-                                           href="@Url.Action("Create", "Insurance", new { accountId = item.ID })">
-                                            New Insurance &raquo;
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <a class="btn btn-primary btn-sm"
-                                           href="@Url.Action("Index", "Insurance", new { id = item.ID })">
-                                            Account's Insurance &raquo;
-                                        </a>
-                                    </td>
-                                </tr>
-                            }
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@Html.DisplayFor(modelItem => item.ID)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Type)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Balance)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Status)</td>
+                                <td>
+                                    <a class="btn btn-primary btn-sm"
+                                       href="@Url.Action("Index", "Transaction", new { id = item.ID })">
+                                        Transactions &raquo;
+                                    </a>
+                                </td>
+                                <td>
+                                    <a class="btn btn-primary btn-sm"
+                                       href="@Url.Action("Create", "Transaction", new { senderId = item.ID })">
+                                        New transaction &raquo;
+                                    </a>
+                                </td>
+                                <td>
+                                    <a class="btn btn-primary btn-sm"
+                                       href="@Url.Action("Create", "Insurance", new { accountId = item.ID })">
+                                        New Insurance &raquo;
+                                    </a>
+                                </td>
+                            </tr>
+                        }
                     </table>
-                    <a class="btn btn-outline-danger btn-sm" style="border-radius: 0; font-weight: bold " 
-                       href="@Url.Action("Create", "BankAccount")">
-                        CREATE AN OTHER ACCOUNT &raquo;
+                    <div>
+                        <a class="btn btn-outline-danger btn-sm" style="border-radius: 0; font-weight: bold " 
+                           href="@Url.Action("Create", "BankAccount")">
+                            Create new account &raquo;
+                        </a>
+                    </div>
+                    <div>
+                    <a class="btn btn-primary btn-sm"
+                       href="@Url.Action("Index", "Insurance")">
+                        Your insurances &raquo;
                     </a>
+                    </div>
                 }
             </div>
         </div>

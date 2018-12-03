@@ -12,12 +12,11 @@
 @Html.EditingControlsFor(x => x.ValidFrom)
 @Html.EditingControlsFor(x => x.ValidTo)
 @Html.ViewingControlsCustomLabelFor(x => x.AccountId, "Account number")
-@Html.HiddenFor(x => x.AccountId)
 @Html.EditingControlsForDecimal(x => x.PaymentInStringFormat)
 @Html.DropDownListFor(x => x.Type, Html.GetEnumSelectList<InsuranceType>(), new { @class = "form-control"  })
     
 @section Actions{    
     <a class="btn btn-primary btn-sm"
-       href="@Url.Action("Index", "Insurance", new { id = Model.AccountId })">Back to your insurances &raquo;
+       href="@Url.Action("Index", "Insurance")">Back to your insurances &raquo;
     </a>}
 </body>

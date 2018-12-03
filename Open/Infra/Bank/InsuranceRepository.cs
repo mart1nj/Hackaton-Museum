@@ -25,12 +25,12 @@ namespace Open.Infra.Bank
                 .SingleOrDefaultAsync(x => x.ID == id);
         }
 
-        public async Task<PaginatedList<Insurance>> LoadInsurancesForUser(string id)
+        public async Task<PaginatedList<Insurance>> LoadInsurancesForUser(List<string> ids)
         {
-            var accounts = getSorted().Where(s => s.Contains(SearchString) && s.AccountId == id).AsNoTracking();
-            var count = await accounts.CountAsync();
+            var insurances = getSorted().Where(s => s.Contains(SearchString) && ids.Contains(s.AccountId)).AsNoTracking();
+            var count = await insurances.CountAsync();
             var p = new RepositoryPage(count, PageIndex, PageSize);
-            var items = await accounts.Skip(p.FirstItemIndex).Take(p.PageSize).ToListAsync();
+            var items = await insurances.Skip(p.FirstItemIndex).Take(p.PageSize).ToListAsync();
             return createList(items, p);
         }
     }
