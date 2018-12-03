@@ -38,7 +38,7 @@
                                      </strong>
                                      <p class="notification-desc">
                                          @notification.FormattedMessage <br />
-                                         @Html.ActionLink(notification.IsSeen == true ? "Mark as unread" : "Mark as read", "ChangeSeenStatus", "Notifications", new { notificationId = notification.ID}, new {id = "preventRedirect"})
+                                         @Html.ActionLink(notification.IsSeen == true ? "Mark as unread" : "Mark as read", "ChangeSeenStatus", "Notifications", new { notificationId = notification.ID}, new {@class = "preventRedirect"})
                                      </p>
                                      <div class="notification-meta">
                                          <small>@notification.ValidFrom.ToString() </small>

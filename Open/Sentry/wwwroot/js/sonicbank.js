@@ -29,7 +29,7 @@ connection.on("NewAccount", function(id, type, balance, status) {
 
 connection.start();
 
-$("#preventRedirect").click(function (e) {
+$("a.preventRedirect").click(function (e) {
 
     e.preventDefault();
     var btn = $(this);
@@ -37,16 +37,18 @@ $("#preventRedirect").click(function (e) {
         url: $(this).attr("href"),
         type: "GET",
         success: function (html) {
+            var dataCount = $(".notification-icon").attr("data-count");
             if (btn.text().indexOf("Mark as unread") > -1) {
                 btn.text("Mark as read");
-                $(".notification").attr("style", "color:black");
-               // $(".notification-icon").attr("data-count", +1);
+                btn.closest("li").attr("style", "color:black");
+                dataCount++;
             } else {
                 btn.text("Mark as unread"); 
-                $(".notification").attr("style", "color:lightgrey");
-               // $(".notification-icon").attr("data-count", -1);
+                btn.closest("li").attr("style", "color:lightgrey");
+                dataCount--;
             }
-
+            $(".notification-icon").attr("data-count", dataCount);
+            $(".dropdown-toolbar-title").text("Recent Notifications (" + dataCount + ")");
         }
     });
 
