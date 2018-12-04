@@ -57,6 +57,7 @@
   <ItemGroup>
     <Content Remove="Views\Home\Contacts.cshtml" />
     <Content Remove="Views\Home\Money.cshtml" />
+    <Content Remove="Views\Transaction\Info.cshtml" />
   </ItemGroup>
 
 

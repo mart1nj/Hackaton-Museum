@@ -6,6 +6,16 @@
 
 <h2>@ViewBag.Title</h2>
 
+@section Scripts {  
+    @if(@TempData["TransactionStatus"] != null)
+    {   
+        <script>
+            $(document).ready(function(){
+                alert("@TempData["TransactionStatus"]");
+            });
+        </script>
+    }
+}
 <p>
     @RenderSection("Create")
 </p>

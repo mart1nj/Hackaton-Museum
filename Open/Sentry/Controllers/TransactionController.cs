@@ -20,8 +20,6 @@ namespace Open.Sentry.Controllers {
         internal const string properties =
             "ID, AmountInStringFormat, Explanation, ReceiverAccountId, SenderAccountId, ValidFrom";
 
-        public static string ErrorMessage;
-
         public TransactionController(ITransactionRepository p, IAccountsRepository a, INotificationsRepository n,
             UserManager<ApplicationUser> uManager) {
             transactions = p;
@@ -129,24 +127,18 @@ namespace Open.Sentry.Controllers {
                     //Transaction
                     model.ID = Guid.NewGuid().ToString();
                     var transaction = TransactionFactory.CreateTransaction(model.ID, model.Amount, model.Explanation, model.SenderAccountId, model.ReceiverAccountId,
-                        model.ValidFrom, model.ValidTo);
-                    transaction.Data.Amount = model.Amount;
-                    transaction.Data.ValidFrom = DateTime.Now;
-                    transaction.Data.Explanation = model.Explanation;
-                    transaction.Data.SenderAccountId = model.SenderAccountId;
-                    transaction.Data.ReceiverAccountId = model.ReceiverAccountId;
-
+                        DateTime.Now, model.ValidTo);
 
                     await accounts.UpdateObject(senderObject);
                     await accounts.UpdateObject(receiverObject);
                     await transactions.AddObject(transaction);
                     await generateTransactionNotification(transaction);
-                    ErrorMessage = "Transaction successfully done to " + model.ReceiverAccountId + " from " +
+                    TempData["TransactionStatus"] = "Transaction successfully done to " + model.ReceiverAccountId + " from " +
                                    model.SenderAccountId +
-                                   " in the amount of " + model.Amount;
+                                   " in the amount of " + model.Amount + ". ";
                 }
             }
-            return View("Info");
+            return RedirectToAction("Index", new {id = model.SenderAccountId});
         }
         private async Task generateTransactionNotification(Transaction transaction) {
             var notification = NotificationFactory.CreateNewTransactionNotification(
@@ -163,13 +155,14 @@ namespace Open.Sentry.Controllers {
         private async Task<bool> checkIfReceiverAccountExists(string rAccountId)
         {
             var o = await accounts.GetObject(rAccountId);
-                if (o.Data.AspNetUserId != "Unspecified") //vb peab seda siin rohkem kontrollima
-                {
-                    return true;
-                }
-                   
-                ErrorMessage = "Receiver account number doesn't exist in our system. Cannot make transaction!";
-                return false;   
+            if (o.Data.AspNetUserId != "Unspecified") //vb peab seda siin rohkem kontrollima
+            {
+                return true;
+            }
+
+            TempData["TransactionStatus"] =
+                "Receiver account number does not exist in our system. Cannot make transaction!";
+            return false;   
         }
 
         private bool validateReceiverAndSender(Account receiverObject, Account senderObject) {
@@ -181,11 +174,11 @@ namespace Open.Sentry.Controllers {
                     return true;
                 }
 
-                ErrorMessage = "You cannot make transaction to yourself.";
+                TempData["TransactionStatus"] = "You cannot make transaction to yourself.";
                 return false;
             }
 
-            ErrorMessage = "Receiver's card is not active. Cannot make transaction.";
+            TempData["TransactionStatus"] = "Receiver's card is not active. Cannot make transaction.";
             return false;
         }
 
@@ -198,11 +191,11 @@ namespace Open.Sentry.Controllers {
                     return true;
                 }
 
-                ErrorMessage = "Your card is not active. Cannot make transaction.";
+                TempData["TransactionStatus"] = "Your card is not active. Cannot make transaction.";
                 return false;
             }
 
-            ErrorMessage = "Your balance is " + senderBalance + " , but transaction amount is " 
+            TempData["TransactionStatus"] = "Your balance is " + senderBalance + " , but transaction amount is " 
             + amount + ". Cannot make transaction.";
             return false;
         }
