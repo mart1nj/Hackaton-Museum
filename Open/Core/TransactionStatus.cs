@@ -1,6 +1,6 @@
 ﻿namespace Open.Core
 {
-    public enum Status
+    public enum TransactionStatus
     {
         Pending,
         Denied,

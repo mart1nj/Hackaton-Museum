@@ -1,17 +1,9 @@
-﻿using Open.Core;
-using Open.Data.Bank;
+﻿using Open.Data.Bank;
 
 namespace Open.Domain.Bank
 {
-    public sealed class RequestTransaction : Transaction
+    public class RequestTransaction : BaseTransaction<RequestTransactionData>
     {
-        public readonly Status Status;
-        public RequestTransaction(RequestTransactionData data) : base(data)
-        {
-            if (data?.Status != null)
-            {
-                Status = data.Status;
-            }
-        }
+        public RequestTransaction(RequestTransactionData data) : base(data) { }
     }
 }

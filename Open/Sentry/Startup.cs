@@ -44,8 +44,10 @@ namespace Open.Sentry {
             //     services.AddScoped<IRateRepository, RatesRepository>();
             //     services.AddScoped<IPaymentMethodsRepository, PaymentMethodsRepository>();
             //     services.AddScoped<IPaymentsRepository, PaymentsRepository>();*/
+
             services.AddScoped<IAccountsRepository, AccountRepository>();
             services.AddScoped<ITransactionRepository, TransactionRepository>();
+            services.AddScoped<IRequestTransactionRepository, RequestTransactionRepository>();
             services.AddScoped<INotificationsRepository, NotificationsRepository>();
             services.AddScoped<IInsuranceRepository, InsuranceRepository>();
 

@@ -25,6 +25,7 @@ namespace Open.Infra
 
         public DbSet<AccountData> Accounts { get; set; }
         public DbSet<TransactionData> Transactions { get; set; }
+        public DbSet<RequestTransactionData> RequestTransactions { get; set; }
         public DbSet<InsuranceData> Insurances { get; set; }
         public DbSet<NotificationData> Notifications { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
@@ -68,6 +69,10 @@ namespace Open.Infra
             b.Entity<TransactionData>().ToTable(table);
             createForeignKey<TransactionData, AccountData>(b, table, x => x.SenderAccountId, x => x.SenderAccount);
             createForeignKey<TransactionData, AccountData>(b, table, x => x.ReceiverAccountId, x => x.ReceiverAccount);
+            const string reqTable = "RequestTransaction";
+            b.Entity<RequestTransactionData>().ToTable(reqTable);
+            createForeignKey<RequestTransactionData, AccountData>(b, reqTable, x => x.SenderAccountId, x => x.SenderAccount);
+            createForeignKey<RequestTransactionData, AccountData>(b, reqTable, x => x.ReceiverAccountId, x => x.ReceiverAccount);
         }
 
         private static void createNotificationTable(ModelBuilder b)

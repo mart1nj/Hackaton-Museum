@@ -94,7 +94,7 @@ namespace Open.Sentry.Controllers
                 case NewRequestTransactionNotification req:
                     NewRequestTransactionNotification request =
                         NotificationFactory.CreateNewRequestTransactionNotification(req.Data?.ID,
-                            req.Data?.SenderId, req.Data?.ReceiverId, req.Data?.Amount, req.Data?.Status ?? Status.Pending,
+                            req.Data?.SenderId, req.Data?.ReceiverId, req.Data?.Amount, req.Data?.Status ?? TransactionStatus.Pending,
                             !req.Data?.IsSeen, req.Data?.ValidFrom, req.Data?.ValidTo);
                     await notifications.UpdateObject(request);
                     break;
@@ -128,7 +128,7 @@ namespace Open.Sentry.Controllers
                             NotificationFactory.CreateNewRequestTransactionNotification(
                                 req.Data?.ID,
                                 req.Data?.SenderId, req.Data?.ReceiverId, req.Data?.Amount,
-                                req.Data?.Status ?? Status.Pending,
+                                req.Data?.Status ?? TransactionStatus.Pending,
                                 true, req.Data?.ValidFrom, req.Data?.ValidTo);
                         await notifications.UpdateObject(request);
                         break;

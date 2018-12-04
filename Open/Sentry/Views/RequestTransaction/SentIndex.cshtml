@@ -1,0 +1,54 @@
+﻿@using Open.Sentry.Extensions
+@using Open.Sentry.Controllers
+@model Open.Core.IPaginatedList<Open.Facade.Bank.RequestTransactionView>
+
+@{
+    ViewBag.Title = "Sent requests from " + RequestTransactionController.BankAccount.Data?.ID;
+    Layout = "_IndexPartial";
+}
+
+@section Create {
+    <a class="btn btn-primary btn-sm"
+       href="@Url.Action("ReceivedIndex", "RequestTransaction", new { id = TransactionController.BankAccount.Data?.ID })" >
+        Received requests &raquo;
+    </a>
+    <a class="btn btn-primary btn-sm"
+       href="@Url.Action("Create", "RequestTransaction", new { receiverId = RequestTransactionController.BankAccount.Data?.ID })">
+        New Request &raquo;
+    </a>
+}
+
+<body>
+    <table class="table">
+        @{ var transaction = Model.FirstOrDefault();}
+        <thead>
+            <tr>
+                @Html.SortColumnHeaderFor(x => transaction.ValidFrom, ViewData["SortValidFrom"])
+                @Html.SortColumnHeaderFor(x => transaction.ReceiverAccountId, ViewData["SortReceiverAccount"])
+                @Html.SortColumnHeaderFor(x => transaction.Explanation, ViewData["SortExplanation"])
+                @Html.SortColumnHeaderFor(x => transaction.Amount, ViewData["SortAmount"])
+                @Html.SortColumnHeaderFor(x => transaction.Status, ViewData["SortStatus"])
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.ValidFrom)</td>
+                    <td>
+                        <b>
+                            @Html.DisplayFor(modelItem => item.ReceiverAccount.AspNetUser.FirstName) @Html.DisplayFor(modelItem => item.ReceiverAccount.AspNetUser.LastName)
+                        </b><br />
+                        @Html.DisplayFor(modelItem => item.ReceiverAccountId)
+                    </td>
+                    <td>@Html.DisplayFor(modelItem => item.Explanation)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Amount)</td>
+                    <td>
+                        <b>@Html.DisplayFor(modelItem => item.Status)</b>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>

@@ -1,8 +1,8 @@
 ﻿using Open.Core;
 
-namespace Open.Data.Bank
+namespace Open.Facade.Bank
 {
-    public class RequestTransactionData : BaseTransactionData
+    public class RequestTransactionView : TransactionView
     {
         public TransactionStatus Status { get; set; }
     }

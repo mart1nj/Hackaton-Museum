@@ -1,0 +1,22 @@
+﻿@using Open.Sentry.Extensions
+@model Open.Facade.Bank.RequestTransactionView
+
+@{
+    ViewBag.Title = "New request";
+    Layout = "_EditPartial";
+    ViewBag.Button = "Make";
+}
+<body>
+@Html.HiddenFor(x => x.ID)
+@Html.ViewingControlsFor(x => x.ValidFrom)
+@Html.ViewingControlsCustomLabelFor(x => x.ReceiverAccountId, "Receiver Account Number")
+@Html.HiddenFor(x => x.ReceiverAccountId)
+@Html.EditingControlsFor(x => x.SenderAccountId)
+@Html.EditingControlsForDecimal(x => x.AmountInStringFormat)
+@Html.EditingControlsFor(x => x.Explanation)
+    
+@section Actions{    
+    <a class="btn btn-primary btn-sm"
+       href="@Url.Action("Index", "Transaction", new { id = Model.ReceiverAccountId })">Back to Transactions &raquo;
+    </a>}
+</body>

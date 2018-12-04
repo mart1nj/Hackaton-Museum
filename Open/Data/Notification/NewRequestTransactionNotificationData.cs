@@ -8,6 +8,6 @@ namespace Open.Data.Notification
             get => getString(ref message, "has requested a transaction in the amount of");
             set => message = value;
         }
-        public Status Status { get; set; }
+        public TransactionStatus Status { get; set; }
     }
 }

@@ -55,7 +55,7 @@ namespace Open.Domain.Notification {
             return new NewRequestTransactionNotification(data);
         }
         public static NewRequestTransactionNotification CreateNewRequestTransactionNotification(
-            string id, string senderId, string receiverId, decimal? amount, Status status = Status.Pending,
+            string id, string senderId, string receiverId, decimal? amount, TransactionStatus status = TransactionStatus.Pending,
             bool? isSeen = false,
             DateTime? validFrom = null, DateTime? validTo = null) {
             var r = new NewRequestTransactionNotificationData {

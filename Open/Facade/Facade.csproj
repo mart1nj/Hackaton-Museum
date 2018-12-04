@@ -48,7 +48,8 @@
     <Compile Include="Bank\InsuranceView.cs" />
     <Compile Include="Bank\InsuranceViewFactory.cs" />
     <Compile Include="Bank\InsuranceViewList.cs" />
-    <Compile Include="Bank\RequestTransacionView.cs" />
+    <Compile Include="Bank\RequestTransactionView.cs" />
+    <Compile Include="Bank\RequestTransactionViewsList.cs" />
     <Compile Include="Bank\TransactionView.cs" />
     <Compile Include="Bank\TransactionViewFactory.cs" />
     <Compile Include="Bank\TransactionViewsList.cs" />

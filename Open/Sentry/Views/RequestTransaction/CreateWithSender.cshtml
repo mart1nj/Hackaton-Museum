@@ -1,22 +1,25 @@
 ﻿@using Open.Sentry.Extensions
-@model Open.Facade.Bank.RequestTransacionView
+@model Open.Facade.Bank.RequestTransactionView
 
 @{
-    ViewBag.Title = "Ask money";
+    ViewBag.Title = "New request";
     Layout = "_EditPartial";
-    ViewBag.Button = "Ask";
+    ViewBag.Button = "Make";
 }
 <body>
 @Html.HiddenFor(x => x.ID)
 @Html.ViewingControlsFor(x => x.ValidFrom)
+@Html.ViewingControlsCustomLabelFor(x => x.ReceiverAccountId, "Receiver Account Number")
+@Html.HiddenFor(x => x.ReceiverAccountId)
 @Html.ViewingControlsCustomLabelFor(x => x.SenderAccountId, "Sender Account Number")
 @Html.HiddenFor(x => x.SenderAccountId)
-@Html.EditingControlsFor(x => x.ReceiverAccountId)
 @Html.EditingControlsForDecimal(x => x.AmountInStringFormat)
 @Html.EditingControlsFor(x => x.Explanation)
-    
-@section Actions{    
+
+@section Actions{
     <a class="btn btn-primary btn-sm"
-       href="@Url.Action("Index", "Transaction", new { id = Model.SenderAccountId })">Back to Transactions &raquo;
+       href="@Url.Action("Index", "Transaction", new {id = Model.ReceiverAccountId})">
+        Back to Transactions &raquo;
     </a>}
+
 </body>

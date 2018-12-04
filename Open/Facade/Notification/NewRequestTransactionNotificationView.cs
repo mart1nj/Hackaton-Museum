@@ -3,6 +3,6 @@ namespace Open.Facade.Notification
 {
     public class NewRequestTransactionNotificationView : NewTransactionNotificationView
     {
-        public Status Status { get; set; }
+        public TransactionStatus Status { get; set; }
     }
 }

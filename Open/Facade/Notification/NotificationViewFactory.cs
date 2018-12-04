@@ -25,7 +25,7 @@ namespace Open.Facade.Notification {
         }
         private static NewRequestTransactionNotificationView create(NewRequestTransactionNotification o)
         {
-            var v = new NewRequestTransactionNotificationView { Amount = o?.Data.Amount, Status = o?.Data.Status ?? Status.Pending };
+            var v = new NewRequestTransactionNotificationView { Amount = o?.Data.Amount, Status = o?.Data.Status ?? TransactionStatus.Pending };
             setCommonValues(v, o?.Data?.ID, o?.Data?.Message, o?.Data?.SenderId, o?.Data?.ReceiverId,
                 o?.Data?.IsSeen, o?.Data?.ValidFrom, o?.Data?.ValidTo);
             return v;

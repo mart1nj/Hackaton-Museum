@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="Bank\AccountData.cs" />
     <Compile Include="Bank\ApplicationUser.cs" />
+    <Compile Include="Bank\BaseTransactionData.cs" />
     <Compile Include="Bank\InsuranceData.cs" />
     <Compile Include="Bank\RequestTransactionData.cs" />
     <Compile Include="Bank\TransactionData.cs" />

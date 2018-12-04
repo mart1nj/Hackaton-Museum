@@ -11,7 +11,7 @@ namespace Open.Domain.Bank
             if (items is null) return;
             foreach (var dbRecord in items)
             {
-                Add(new Transaction(dbRecord));
+                Add((Transaction) TransactionFactory.Create(dbRecord));
             }
         }
     }

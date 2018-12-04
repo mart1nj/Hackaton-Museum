@@ -13,6 +13,7 @@ namespace Open.Sentry.Controllers {
     public class TransactionController : Controller {
         private readonly IAccountsRepository accounts;
         private readonly ITransactionRepository transactions;
+        private readonly IRequestTransactionRepository requests;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly INotificationsRepository notifications;
         public static Account BankAccount;
@@ -20,9 +21,10 @@ namespace Open.Sentry.Controllers {
         internal const string properties =
             "ID, AmountInStringFormat, Explanation, ReceiverAccountId, SenderAccountId, ValidFrom";
 
-        public TransactionController(ITransactionRepository p, IAccountsRepository a, INotificationsRepository n,
+        public TransactionController(ITransactionRepository p, IRequestTransactionRepository r, IAccountsRepository a, INotificationsRepository n,
             UserManager<ApplicationUser> uManager) {
             transactions = p;
+            requests = r;
             accounts = a;
             notifications = n;
             userManager = uManager;
@@ -98,7 +100,11 @@ namespace Open.Sentry.Controllers {
             return View(TransactionViewFactory.Create(
                 TransactionFactory.CreateTransaction(null, 0, "", senderId, receiverId, DateTime.Now)));
         }
-
+        public IActionResult CreateRequested(decimal amount, string explanation, string senderAccountId, string receiverAccountId)
+        {
+            return View(TransactionViewFactory.Create(
+                TransactionFactory.CreateTransaction(null, amount, explanation, senderAccountId, receiverAccountId, DateTime.Now)));
+        }
 
         public async Task<IActionResult> Details(string id) {
             var c = await transactions.GetObject(id);
@@ -114,7 +120,9 @@ namespace Open.Sentry.Controllers {
                 var receiverObject = await accounts.GetObject(model.ReceiverAccountId);
                 var senderObject = await accounts.GetObject(model.SenderAccountId);
 
-                bool senderIsOk = validateSender(senderObject, model.Amount); //check if has enough balance and active card
+                bool senderIsOk =
+                    validateSender(senderObject,
+                        model.Amount); //check if has enough balance and active card
                 bool receiverIsOk = validateReceiverAndSender(receiverObject, senderObject); //c
 
                 if (senderIsOk && receiverIsOk) {
@@ -126,19 +134,35 @@ namespace Open.Sentry.Controllers {
 
                     //Transaction
                     model.ID = Guid.NewGuid().ToString();
-                    var transaction = TransactionFactory.CreateTransaction(model.ID, model.Amount, model.Explanation, model.SenderAccountId, model.ReceiverAccountId,
+                    var transaction = TransactionFactory.CreateTransaction(model.ID, model.Amount,
+                        model.Explanation, model.SenderAccountId, model.ReceiverAccountId,
                         DateTime.Now, model.ValidTo);
 
                     await accounts.UpdateObject(senderObject);
                     await accounts.UpdateObject(receiverObject);
                     await transactions.AddObject(transaction);
                     await generateTransactionNotification(transaction);
-                    TempData["TransactionStatus"] = "Transaction successfully done to " + model.ReceiverAccountId + " from " +
-                                   model.SenderAccountId +
-                                   " in the amount of " + model.Amount + ". ";
+                    TempData["TransactionStatus"] =
+                        "Transaction successfully done to " + model.ReceiverAccountId + " from " +
+                        model.SenderAccountId +
+                        " in the amount of " + model.Amount + ". ";
+
+                    await confirmIfTransactionWasRequested(transaction);
                 }
             }
             return RedirectToAction("Index", new {id = model.SenderAccountId});
+        }
+        private async Task confirmIfTransactionWasRequested(Transaction transaction) {
+            var reqs = await requests.GetObjectsList();
+            foreach (var req in reqs) {
+                if (req.Data.SenderAccountId == transaction.Data.SenderAccountId &&
+                    req.Data.ReceiverAccountId == transaction.Data.ReceiverAccountId &&
+                    req.Data.Amount == transaction.Data.Amount &&
+                    req.Data.Explanation == transaction.Data.Explanation) {
+                    req.Data.Status = TransactionStatus.Confirmed;
+                    await requests.UpdateObject(req);
+                }
+            }
         }
         private async Task generateTransactionNotification(Transaction transaction) {
             var notification = NotificationFactory.CreateNewTransactionNotification(
@@ -151,7 +175,11 @@ namespace Open.Sentry.Controllers {
         public async Task<IActionResult> CreateWithReceiver([Bind(properties)] TransactionView model){
             return await Create(model);
         }
-
+        [HttpPost]
+        public async Task<IActionResult> CreateRequested([Bind(properties)] TransactionView model)
+        {
+            return await Create(model);
+        }
         private async Task<bool> checkIfReceiverAccountExists(string rAccountId)
         {
             var o = await accounts.GetObject(rAccountId);

@@ -12,6 +12,14 @@
        href="@Url.Action("Create", "Transaction", new { senderId = TransactionController.BankAccount.Data?.ID })" >
         New Transaction &raquo;
     </a>
+    <a class="btn btn-primary btn-sm"
+       href="@Url.Action("ReceivedIndex", "RequestTransaction", new { id = TransactionController.BankAccount.Data?.ID })" >
+        Received requests &raquo;
+    </a>
+    <a class="btn btn-primary btn-sm"
+       href="@Url.Action("SentIndex", "RequestTransaction", new { id = TransactionController.BankAccount.Data?.ID })" >
+        Sent requests &raquo;
+    </a>
 }
 
 <body>
