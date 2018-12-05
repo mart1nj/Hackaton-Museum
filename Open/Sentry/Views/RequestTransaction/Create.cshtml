@@ -6,6 +6,7 @@
     Layout = "_EditPartial";
     ViewBag.Button = "Make";
 }
+
 <body>
 @Html.HiddenFor(x => x.ID)
 @Html.ViewingControlsFor(x => x.ValidFrom)
@@ -14,9 +15,11 @@
 @Html.EditingControlsFor(x => x.SenderAccountId)
 @Html.EditingControlsForDecimal(x => x.AmountInStringFormat)
 @Html.EditingControlsFor(x => x.Explanation)
-    
-@section Actions{    
+
+@section Actions{
     <a class="btn btn-primary btn-sm"
-       href="@Url.Action("Index", "Transaction", new { id = Model.ReceiverAccountId })">Back to Transactions &raquo;
-    </a>}
+       href="@Url.Action("Index", "Transaction", new { id = Model.ReceiverAccountId })">
+        Back to transactions &raquo;
+    </a>
+}
 </body>

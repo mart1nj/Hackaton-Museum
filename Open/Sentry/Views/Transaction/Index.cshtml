@@ -9,21 +9,21 @@
 
 @section Create {
     <a class="btn btn-primary btn-sm"
-       href="@Url.Action("Create", "Transaction", new { senderId = TransactionController.BankAccount.Data?.ID })" >
-        New Transaction &raquo;
+       href="@Url.Action("Create", "Transaction", new { senderId = TransactionController.BankAccount.Data?.ID })">
+        New transaction &raquo;
     </a>
     <a class="btn btn-primary btn-sm"
-       href="@Url.Action("ReceivedIndex", "RequestTransaction", new { id = TransactionController.BankAccount.Data?.ID })" >
+       href="@Url.Action("ReceivedIndex", "RequestTransaction", new { id = TransactionController.BankAccount.Data?.ID })">
         Received requests &raquo;
     </a>
     <a class="btn btn-primary btn-sm"
-       href="@Url.Action("SentIndex", "RequestTransaction", new { id = TransactionController.BankAccount.Data?.ID })" >
+       href="@Url.Action("SentIndex", "RequestTransaction", new { id = TransactionController.BankAccount.Data?.ID })">
         Sent requests &raquo;
     </a>
 }
 
 <body>
-<table class="table" >
+<table class="table">
     @{ var transaction = Model.FirstOrDefault();}
     <thead>
     <tr>
@@ -34,7 +34,7 @@
         <th></th>
     </tr>
     </thead>
-    <tbody>
+    <tbody id="transTable">
     @foreach (var item in Model) {
         <tr>
             <td>@Html.DisplayFor(modelItem => item.ValidFrom)</td>
@@ -47,15 +47,15 @@
             <td>@Html.DisplayFor(modelItem => item.Explanation)</td>
             <td>
                 @if (item.Amount > 0) {
-                    <span style="color: green;" >@item.Amount</span>
+                    <span style="color: green;">@item.Amount</span>
                 } else {
-                    <span style="color: red;" >@item.Amount</span>
+                    <span style="color: red;">@item.Amount</span>
                 }
             </td>
             <td>Details</td>
             <td>
                 <a class="btn btn-primary btn-sm"
-                   href="@Url.Action("CreateWithReceiver", "Transaction", new { senderId = TransactionController.BankAccount.Data?.ID, receiverId = item.SenderAccountId })" >
+                   href="@Url.Action("CreateWithReceiver", "Transaction", new { senderId = TransactionController.BankAccount.Data?.ID, receiverId = item.SenderAccountId })">
                     Make transaction &raquo;
                 </a>
             </td>
@@ -69,9 +69,9 @@
         </td>
         <td>
             @if (TransactionController.BankAccount.Data?.Balance > 0) {
-                <span style="color: green; font-weight: bold" >@TransactionController.BankAccount.Data?.Balance</span>
+                <span style="color: green; font-weight: bold">@TransactionController.BankAccount.Data?.Balance</span>
             } else {
-                <span style="color: red; font-weight: bold" >@TransactionController.BankAccount.Data?.Balance</span>
+                <span style="color: red; font-weight: bold">@TransactionController.BankAccount.Data?.Balance</span>
             }
         </td>
         <td></td>
