@@ -5,7 +5,7 @@
 
 @if (SignInManager.IsSignedIn(User)) {
     <div class="btn-group dropdown dropdown-notifications">
-        <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" style="background-color: transparent">
+        <button class="btn customButton btn-default dropdown-toggle" data-toggle="dropdown" style="background-color: transparent">
             @if (NotificationsViewComponent.NotSeenCount != 0) {
                 <i data-count="@NotificationsViewComponent.NotSeenCount" class="fa fa-bell notification-icon"></i>
             }

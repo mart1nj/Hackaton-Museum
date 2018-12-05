@@ -172,7 +172,7 @@ sup {
 }
 
 a {
-    color: #78C2AD;
+    color: #2e878f;
     text-decoration: none;
     background-color: transparent;
     -webkit-text-decoration-skip: objects;
@@ -2695,14 +2695,14 @@ fieldset:disabled a.btn {
 
 .btn-primary {
     color: #fff;
-    background-color: #78C2AD;
-    border-color: #78C2AD;
+    background-color: #2e878f;
+    border-color: #2e878f;
 }
 
     .btn-primary:hover {
         color: #fff;
-        background-color: #5eb69d;
-        border-color: #55b298;
+        background-color: #52bdc7;
+        border-color: #52bdc7;
     }
 
     .btn-primary:focus, .btn-primary.focus {
@@ -3271,12 +3271,12 @@ fieldset:disabled a.btn {
 
 .btn-link {
     font-weight: 400;
-    color: #78C2AD;
+    color: #2e878f;
     background-color: transparent;
 }
 
     .btn-link:hover {
-        color: #4aa48a;
+        color: #52bdc7;
         text-decoration: underline;
         background-color: transparent;
         border-color: transparent;
@@ -4410,7 +4410,7 @@ input[type="button"].btn-block {
     -ms-flex-pack: justify;
     justify-content: space-between;
     padding: 0.5rem 1rem;
-    overflow: hidden;
+    overflow: visible;
     background-color: #333;
     position: fixed;
     top: 0;
@@ -4833,7 +4833,7 @@ input[type="button"].btn-block {
 }
 
     .navbar-dark .navbar-brand:hover, .navbar-dark .navbar-brand:focus {
-        color: #fff;
+        color: lightgrey;
     }
 
 .navbar-dark .navbar-nav .nav-link {
@@ -6647,17 +6647,17 @@ button.close {
 }
 
 .bg-primary {
-    background-color: #78C2AD !important;
+    background-color: #2e878f !important;
 }
 
 a.bg-primary:hover, a.bg-primary:focus,
 button.bg-primary:hover,
 button.bg-primary:focus {
-    background-color: #55b298 !important;
+    background-color: #0059b3 !important;
 }
 
 .bg-secondary {
-    background-color: #F3969A !important;
+    background-color: #52bdc7 !important;
 }
 
 a.bg-secondary:hover, a.bg-secondary:focus,
@@ -10203,7 +10203,7 @@ a.text-dark:hover, a.text-dark:focus {
     }
 
 .btn-link, .btn-link:hover {
-    color: #78C2AD;
+    color: #2e878f;
 }
 
     .btn-link.disabled:hover {
@@ -10211,7 +10211,7 @@ a.text-dark:hover, a.text-dark:focus {
     }
 
 .btn-outline-primary {
-    color: #78C2AD;
+    color: #2e878f;
 }
 
 .btn-outline-secondary {
