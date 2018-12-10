@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -22,8 +23,6 @@ namespace Open.Sentry.Controllers
 
         internal const string properties =
             "ID, PaymentInStringFormat, Type, Status, AccountId, ValidFrom, ValidTo";
-
-        public static string ErrorMessage;
 
         public InsuranceController(IInsuranceRepository p, IAccountsRepository a, INotificationsRepository n,
             UserManager<ApplicationUser> uManager) {
@@ -88,11 +87,18 @@ namespace Open.Sentry.Controllers
                insurance.Data.AccountId = model.AccountId;
                insurance.Data.Status = "Active";
 
+               accountObject.Data.Balance = accountObject.Data.Balance - model.Payment;
+
                await insurances.AddObject(insurance);
+               await accounts.UpdateObject(accountObject);
                //await generateTransactionNotification(transaction);
+               
+               TempData["Status"] =                  
+                   insurance.Data.Type +  " insurance is now valid from " + insurance.Data.ValidFrom.ToString("dd/M/yyyy", CultureInfo.InvariantCulture) + " to "
+                   + insurance.Data.ValidTo.ToString("dd/M/yyyy", CultureInfo.InvariantCulture) + " in payment of " +  insurance.Data.Payment;
            }
 
-           return RedirectToAction("Create");
+           return RedirectToAction("Index");
        }
 
        private bool checkIfHasEnoughPaymentMoney(Account account, decimal? payment)
@@ -104,6 +110,7 @@ namespace Open.Sentry.Controllers
                return true;
            }
 
+           TempData["Status"] = "Your balance " + balance + " is smaller than payment amount " + payment + ". Cannot make insurance";
            return false;
        }
        

@@ -7,15 +7,15 @@
 <h2>@ViewBag.Title</h2>
 
 @section Scripts {  
-    @if(@TempData["TransactionStatus"] != null)
-    {   
-        <script>
-            $(document).ready(function(){
-                alert("@TempData["TransactionStatus"]");
-            });
-        </script>
-    }
-}
+     @if(@TempData["Status"] != null)
+     {   
+         <script>
+             $(document).ready(function(){
+                 alert("@TempData["Status"]");
+             });
+         </script>
+     }
+ }
 <p>
     @RenderSection("Create")
 </p>
