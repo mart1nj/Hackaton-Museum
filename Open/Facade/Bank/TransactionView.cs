@@ -9,7 +9,7 @@ namespace Open.Facade.Bank
     public class TransactionView : EntityView
     {
         private string explanation;
-        private string sAccountId;
+        protected string sAccountId;
         private string rAccountId;
         private string amountInStringFormat;
 

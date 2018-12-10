@@ -1,18 +1,20 @@
-﻿<!DOCTYPE html>
+﻿@using Open.Data.Bank
+@inject SignInManager<ApplicationUser> SignInManager
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - SonicBank</title>
 
-    <environment include="Development" >
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous" >
+    <environment include="Development">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
         <link href="~/CSS/bootstrap-notifications.css" rel="stylesheet" type="text/css" />
         <link href="~/CSS/bootstrap-dropmenu.css" rel="stylesheet" type="text/css" />
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/site.css" />
     </environment>
-    <environment exclude="Development" >
+    <environment exclude="Development">
         <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
@@ -23,55 +25,58 @@
             color: white;
         }
 
-        .customButton:hover {
-            color: lightgrey;
-        }
+            .customButton:hover {
+                color: lightgrey;
+            }
     </style>
 </head>
 <body>
-<div class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <div class="container" >
-        <div class="navbar-header" >
-            <a class="navbar-brand" href="@Url.Action("Index", "Home")" >SonicBank</a>
-        </div>
-        <div class="navbar-collapse collapse" id="navbarColor01" >
-            <ul class="navbar-nav mr-auto" ></ul>
-            @await Component.InvokeAsync("Notifications")
-            @await Html.PartialAsync("_LoginPartial")
+    <div class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="@Url.Action("Index", "Home")">SonicBank</a>
+            </div>
+            <div class="navbar-collapse collapse" id="navbarColor01">
+                <ul class="navbar-nav mr-auto"></ul>
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    @await Component.InvokeAsync("Notifications")
+                }
+                @await Html.PartialAsync("_LoginPartial")
+            </div>
         </div>
     </div>
-</div>
-<div class="container body-content" >
-    @RenderBody()
-    <hr />
-    <footer>
-        <p>&copy; @DateTime.Now.Year - SonicBank</p>
-    </footer>
-</div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - SonicBank</p>
+        </footer>
+    </div>
 
-<environment include="Development" >
-    <script src="~/lib/jquery/dist/jquery.js" ></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.js" ></script>
-    <script src="~/lib/signalr/signalr.js" ></script>
-    <script src="~/js/sonicbank.js" asp-append-version="true" ></script>
-</environment>
-<environment exclude="Development" >
-    <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
-            asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-            asp-fallback-test="window.jQuery"
-            crossorigin="anonymous"
-            integrity="sha384-K+ctZQ+LL8q6tP7I94W+qzQsfRV2a+AfHIi9k8z8l9ggpc8X+Ytst4yBo/hH+8Fk" >
-    </script>
-    <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
-            asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
-            asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
-            crossorigin="anonymous"
-            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" >
-    </script>
-    <script src="~/js/sonicbank.min.js" asp-append-version="true" ></script>
-</environment>
+    <environment include="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/lib/signalr/signalr.js"></script>
+        <script src="~/js/sonicbank.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery"
+                crossorigin="anonymous"
+                integrity="sha384-K+ctZQ+LL8q6tP7I94W+qzQsfRV2a+AfHIi9k8z8l9ggpc8X+Ytst4yBo/hH+8Fk">
+        </script>
+        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                crossorigin="anonymous"
+                integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
+        </script>
+        <script src="~/js/sonicbank.min.js" asp-append-version="true"></script>
+    </environment>
 
-@RenderSection("Scripts", required: false)
+    @RenderSection("Scripts", required: false)
 
 </body>
 </html>

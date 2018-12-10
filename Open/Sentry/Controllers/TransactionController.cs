@@ -142,7 +142,7 @@ namespace Open.Sentry.Controllers {
                     await accounts.UpdateObject(receiverObject);
                     await transactions.AddObject(transaction);
                     await generateTransactionNotification(transaction);
-                    TempData["TransactionStatus"] =
+                    TempData["Status"] =
                         "Transaction successfully done to " + model.ReceiverAccountId + " from " +
                         model.SenderAccountId +
                         " in the amount of " + model.Amount + ". ";
@@ -188,7 +188,7 @@ namespace Open.Sentry.Controllers {
                 return true;
             }
 
-            TempData["TransactionStatus"] =
+            TempData["Status"] =
                 "Receiver account number does not exist in our system. Cannot make transaction!";
             return false;   
         }
@@ -202,11 +202,11 @@ namespace Open.Sentry.Controllers {
                     return true;
                 }
 
-                TempData["TransactionStatus"] = "You cannot make transaction to yourself.";
+                TempData["Status"] = "You cannot make transaction to yourself.";
                 return false;
             }
 
-            TempData["TransactionStatus"] = "Receiver's card is not active. Cannot make transaction.";
+            TempData["Status"] = "Receiver's card is not active. Cannot make transaction.";
             return false;
         }
 
@@ -219,11 +219,11 @@ namespace Open.Sentry.Controllers {
                     return true;
                 }
 
-                TempData["TransactionStatus"] = "Your card is not active. Cannot make transaction.";
+                TempData["Status"] = "Your card is not active. Cannot make transaction.";
                 return false;
             }
 
-            TempData["TransactionStatus"] = "Your balance is " + senderBalance + " , but transaction amount is " 
+            TempData["Status"] = "Your balance is " + senderBalance + " , but transaction amount is " 
             + amount + ". Cannot make transaction.";
             return false;
         }
