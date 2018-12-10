@@ -34,7 +34,12 @@
                 (@Html.DisplayFor(modelItem => item.ReceiverAccountId)) <br />
                 @Html.DisplayFor(modeItem => item.FormattedMessage)
             </td>
-            <td>Details</td>
+            <td>                                
+                <a class="btn btn-primary btn-sm btn-block"                  
+                   href="@Url.Action("Delete", "Notifications", new { id = item.ID })">
+                    Delete &raquo;
+                </a>
+            </td>
         </tr>
     }
     </tbody>
