@@ -4622,7 +4622,7 @@ input[type="button"].btn-block {
         }
 }
 
-@media (max-width: 991.98px) {
+@media (max-width: 100px) {
     .navbar-expand-lg > .container,
     .navbar-expand-lg > .container-fluid {
         padding-right: 0;
@@ -4630,7 +4630,7 @@ input[type="button"].btn-block {
     }
 }
 
-@media (min-width: 992px) {
+@media (min-width: 100px) {
     .navbar-expand-lg {
         -webkit-box-orient: horizontal;
         -webkit-box-direction: normal;
@@ -7715,7 +7715,7 @@ button.bg-dark:focus {
     }
 }
 
-@media (min-width: 992px) {
+@media (min-width: 320px) {
     .flex-lg-row {
         -webkit-box-orient: horizontal !important;
         -webkit-box-direction: normal !important;
