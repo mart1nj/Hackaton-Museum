@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Open.Infra;
 
 namespace Open.Infra.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181210132841_initial")]
+    partial class initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -420,17 +422,6 @@ namespace Open.Infra.Migrations
                     b.HasIndex("CurrencyID");
 
                     b.ToTable("NationalCurrency");
-                });
-
-            modelBuilder.Entity("Open.Data.Notification.NewInsuranceNotificationData", b =>
-                {
-                    b.HasBaseType("Open.Data.Notification.NotificationData");
-
-                    b.Property<string>("InsuranceType");
-
-                    b.ToTable("Notification");
-
-                    b.HasDiscriminator().HasValue("NewInsuranceNotificationData");
                 });
 
             modelBuilder.Entity("Open.Data.Notification.NewTransactionNotificationData", b =>
