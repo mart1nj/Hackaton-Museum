@@ -135,6 +135,12 @@ namespace Open.Sentry.Controllers
                 }
             }
             return new EmptyResult();
+        }       
+        public async Task<IActionResult> Delete(string id)
+        {
+            var obj = await notifications.GetObject(id);
+            await notifications.DeleteObject(obj);
+            return RedirectToAction("Index");
         }
     }
 }
