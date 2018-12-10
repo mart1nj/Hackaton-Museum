@@ -21,6 +21,18 @@ namespace Open.Infra.Bank {
             c.SaveChanges();
         }
 
+        private static void initBaseTransactions(ApplicationDbContext c, List<string> accounts)
+        {
+            addTransaction(c, new TransactionData
+            {
+                Amount = 500,
+                ValidFrom = Convert.ToDateTime("12 Feb 2007"),
+                Explanation = "Makse",
+                SenderAccountId = accounts[0],
+                ReceiverAccountId = accounts[1]
+            });
+        }
+
         private static void initTransactions(ApplicationDbContext c, List<string> accounts) {
             addTransaction(c, new TransactionData {
                 Amount = amount1,

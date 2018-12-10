@@ -15,14 +15,16 @@ using Open.Sentry.Hubs;
 namespace Open.Sentry.Controllers {
     public class BankAccountController : Controller {
         private readonly IAccountsRepository repository;
+        private readonly ITransactionRepository transations; 
         private readonly UserManager<ApplicationUser> userManager;
         private readonly INotificationsRepository notifications;
         private readonly IHubContext<BankHub> _bankHub;
         internal const string properties = "ID, ValidFrom, ValidTo, Balance, Type, Status, AspNetUserId";
 
         public BankAccountController(IAccountsRepository r, UserManager<ApplicationUser> uManager,
-            INotificationsRepository n, IHubContext<BankHub> bankHub) {
+            INotificationsRepository n, ITransactionRepository t, IHubContext<BankHub> bankHub) {
             repository = r;
+            transations = t;
             userManager = uManager;
             notifications = n;
             _bankHub = bankHub;
@@ -47,6 +49,7 @@ namespace Open.Sentry.Controllers {
             await repository.AddObject(o);
             await _bankHub.Clients.All.SendAsync("NewAccount", c.ID, c.Type, c.Balance, c.Status);
             await createWelcomeNotification(c.ID);
+            await createWelcomeTransaction(c.ID);
             return RedirectToAction("Index", "Home");
         }
 
@@ -62,6 +65,16 @@ namespace Open.Sentry.Controllers {
         private static string idIsInUseMessage(string id) {
             var name = GetMember.DisplayName<AccountView>(c => c.ID);
             return string.Format(Messages.ValueIsAlreadyInUse, id, name);
+        }
+
+        private async Task createWelcomeTransaction(string accountId)
+        {
+            var amount = 500;
+            var explanation = "Gift from us to get started";
+            var senderAccountId = "systemAccount";
+            var welcomeTransaction = TransactionFactory.CreateTransaction(Guid.NewGuid().ToString(), amount, explanation, senderAccountId,
+            accountId);
+            await transations.AddObject(welcomeTransaction);
         }
 
         private async Task createWelcomeNotification(string accountId) {
