@@ -61,6 +61,7 @@ namespace Open.Infra.Notification
             if (o is WelcomeNotification welcome) dbSet.Add(welcome.Data);
             if (o is NewRequestTransactionNotification newRequest) dbSet.Add(newRequest.Data);
             if (o is NewTransactionNotification newTransaction) dbSet.Add(newTransaction.Data);
+            if (o is NewInsuranceNotification newInsurance) dbSet.Add(newInsurance.Data);
            // if (o is TelecomAddress tel) dbSet.Add(tel.Data);*/
             await db.SaveChangesAsync();
         }
@@ -69,6 +70,7 @@ namespace Open.Infra.Notification
             if (o is WelcomeNotification welcome) dbSet.Update(welcome.Data);
             if (o is NewRequestTransactionNotification newRequest) dbSet.Update(newRequest.Data);
             if (o is NewTransactionNotification newTransaction) dbSet.Update(newTransaction.Data);
+            if (o is NewInsuranceNotification newInsurance) dbSet.Update(newInsurance.Data);
            // if (o is TelecomAddress tel) dbSet.Update(tel.Data);
             await db.SaveChangesAsync();
         }
@@ -77,6 +79,7 @@ namespace Open.Infra.Notification
             if (o is WelcomeNotification welcome) dbSet.Remove(welcome.Data);
             if (o is NewRequestTransactionNotification newRequest) dbSet.Remove(newRequest.Data);
             if (o is NewTransactionNotification newTransaction) dbSet.Remove(newTransaction.Data);
+            if (o is NewInsuranceNotification newInsurance) dbSet.Remove(newInsurance.Data);
       //      if (o is TelecomAddress tel) dbSet.Remove(tel.Data);
             await db.SaveChangesAsync();
         }

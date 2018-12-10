@@ -19,8 +19,6 @@ namespace Open.Sentry.Controllers
        private readonly IInsuranceRepository insurances;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly INotificationsRepository notifications;
-       public static Account BankAccount;
-
         internal const string properties =
             "ID, PaymentInStringFormat, Type, Status, AccountId, ValidFrom, ValidTo";
 
@@ -75,15 +73,16 @@ namespace Open.Sentry.Controllers
        {
           //if (!ModelState.IsValid) return View(model);
            var accountObject = await accounts.GetObject(model.AccountId);         
-           bool isOk = checkIfHasEnoughPaymentMoney(accountObject, model.Payment);
+           bool isAccountOk = checkIfHasEnoughPaymentMoney(accountObject, model.Payment);
+           bool isInsuranceDataOk = checkIfIsntInPast(model.ValidFrom, model.ValidTo);
            
-           if (isOk){
+           if (isAccountOk && isInsuranceDataOk){
                model.ID = Guid.NewGuid().ToString();
                var insurance = InsuranceViewFactory.Create(model);
                insurance.Data.Payment = model.Payment;
                insurance.Data.Type = Enum.GetName(typeof(InsuranceType), int.Parse(model.Type));
-               insurance.Data.ValidFrom = (DateTime) model.ValidFrom;
-               insurance.Data.ValidTo = (DateTime) model.ValidTo;
+               insurance.Data.ValidFrom = model.ValidFrom ?? DateTime.MinValue;
+               insurance.Data.ValidTo = model.ValidTo ?? DateTime.MaxValue;
                insurance.Data.AccountId = model.AccountId;
                insurance.Data.Status = "Active";
 
@@ -91,7 +90,7 @@ namespace Open.Sentry.Controllers
 
                await insurances.AddObject(insurance);
                await accounts.UpdateObject(accountObject);
-               //await generateTransactionNotification(transaction);
+               await generateInsuranceNotification(insurance);
                
                TempData["Status"] =                  
                    insurance.Data.Type +  " insurance is now valid from " + insurance.Data.ValidFrom.ToString("dd/M/yyyy", CultureInfo.InvariantCulture) + " to "
@@ -99,6 +98,19 @@ namespace Open.Sentry.Controllers
            }
 
            return RedirectToAction("Index");
+       }
+
+       private bool checkIfIsntInPast(DateTime? modelValidFrom, DateTime? modelValidTo)
+       {         
+           DateTime yesterday = DateTime.Now.AddDays(-1);
+
+           if (modelValidFrom > yesterday && modelValidTo >= DateTime.Now)
+           {
+               return true;
+           }
+
+           TempData["Status"] = "Dates cannot be in the past.";
+           return false; 
        }
 
        private bool checkIfHasEnoughPaymentMoney(Account account, decimal? payment)
@@ -123,6 +135,14 @@ namespace Open.Sentry.Controllers
            if (sortOrder.StartsWith("Payment")) return x => x.Payment;
            return x => x.ValidFrom;
 
+       }
+       
+       private async Task generateInsuranceNotification(Insurance insurance)
+       {
+           var notification = NotificationFactory.CreateNewInsuranceNotification(
+               Guid.NewGuid().ToString(), "systemAccount", insurance.Data.AccountId,
+               insurance.Data.Type, false, insurance.Data.ValidFrom, insurance.Data.ValidTo);
+           await notifications.AddObject(notification);
        }
 
    }

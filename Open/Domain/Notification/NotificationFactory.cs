@@ -13,6 +13,8 @@ namespace Open.Domain.Notification {
                     return create(newTransaction);
                 /* case AccountExpireNotificationData accountExpire:
                      return create(accountExpire);*/
+                case NewInsuranceNotificationData newInsurance:
+                    return create(newInsurance);
             }
 
             return create((WelcomeNotificationData) null);
@@ -69,6 +71,24 @@ namespace Open.Domain.Notification {
                 ValidTo = validTo ?? DateTime.MaxValue
             };
             return new NewRequestTransactionNotification(r);
+        }
+        
+        private static NewInsuranceNotification create(NewInsuranceNotificationData data) {
+            return new NewInsuranceNotification(data);
+        }
+        public static NewInsuranceNotification CreateNewInsuranceNotification(string id, string senderId,string accountId,
+            string type, bool? isSeen = false,
+            DateTime? validFrom = null, DateTime? validTo = null) {
+            var r = new NewInsuranceNotificationData {
+                ID = id,
+                SenderId = senderId,
+                ReceiverId = accountId,
+                InsuranceType = type,
+                IsSeen = isSeen,
+                ValidFrom = validFrom ?? DateTime.MinValue,
+                ValidTo = validTo ?? DateTime.MaxValue
+            };
+            return new NewInsuranceNotification(r);
         }
     }
 }

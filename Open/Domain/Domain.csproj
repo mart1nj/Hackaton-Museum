@@ -66,6 +66,7 @@
     <Compile Include="Bank\IRequestTransactionRepository.cs" />
     <Compile Include="Notification\INotification.cs" />
     <Compile Include="Notification\INotificationsRepository.cs" />
+    <Compile Include="Notification\NewInsuranceNotification.cs" />
     <Compile Include="Notification\NewRequestTransactionNotification.cs" />
     <Compile Include="Notification\NewTransactionNotification.cs" />
     <Compile Include="Notification\Notification.cs" />

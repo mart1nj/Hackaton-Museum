@@ -81,6 +81,7 @@ namespace Open.Infra
             b.Entity<NotificationData>().ToTable(table);
             b.Entity<WelcomeNotificationData>().ToTable(table);
             b.Entity<NewRequestTransactionNotificationData>().ToTable(table);
+            b.Entity<NewInsuranceNotificationData>().ToTable(table);
             b.Entity<NewTransactionNotificationData>().ToTable(table);
             createForeignKey<NotificationData, AccountData>(b, table, x => x.SenderId, x => x.Sender);
             createForeignKey<NotificationData, AccountData>(b, table, x => x.ReceiverId, x => x.Receiver);

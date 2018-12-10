@@ -422,6 +422,17 @@ namespace Open.Infra.Migrations
                     b.ToTable("NationalCurrency");
                 });
 
+            modelBuilder.Entity("Open.Data.Notification.NewInsuranceNotificationData", b =>
+                {
+                    b.HasBaseType("Open.Data.Notification.NotificationData");
+
+                    b.Property<string>("InsuranceType");
+
+                    b.ToTable("Notification");
+
+                    b.HasDiscriminator().HasValue("NewInsuranceNotificationData");
+                });
+
             modelBuilder.Entity("Open.Data.Notification.NewTransactionNotificationData", b =>
                 {
                     b.HasBaseType("Open.Data.Notification.NotificationData");

@@ -8,6 +8,7 @@ namespace Open.Facade.Notification {
             switch (o) {
                 case NewRequestTransactionNotification newRequest: return create(newRequest);
                 case NewTransactionNotification newTransaction: return create(newTransaction);
+                case NewInsuranceNotification newInsurance : return create(newInsurance);
                 default: return create(o as WelcomeNotification);
             }
         }
@@ -23,9 +24,18 @@ namespace Open.Facade.Notification {
                 o?.Data?.IsSeen, o?.Data?.ValidFrom, o?.Data?.ValidTo);
             return v;
         }
+        
         private static NewRequestTransactionNotificationView create(NewRequestTransactionNotification o)
         {
             var v = new NewRequestTransactionNotificationView { Amount = o?.Data.Amount, Status = o?.Data.Status ?? TransactionStatus.Pending };
+            setCommonValues(v, o?.Data?.ID, o?.Data?.Message, o?.Data?.SenderId, o?.Data?.ReceiverId,
+                o?.Data?.IsSeen, o?.Data?.ValidFrom, o?.Data?.ValidTo);
+            return v;
+        }
+        
+        private static NewInsuranceNotificationView create(NewInsuranceNotification o)
+        {
+            var v = new NewInsuranceNotificationView { InsuranceType = o?.Data.InsuranceType};
             setCommonValues(v, o?.Data?.ID, o?.Data?.Message, o?.Data?.SenderId, o?.Data?.ReceiverId,
                 o?.Data?.IsSeen, o?.Data?.ValidFrom, o?.Data?.ValidTo);
             return v;

@@ -56,6 +56,7 @@
     <Compile Include="Common\EntityView.cs" />
     <Compile Include="Common\NamedView.cs" />
     <Compile Include="Common\PeriodView.cs" />
+    <Compile Include="Notification\NewInsuranceNotificationView.cs" />
     <Compile Include="Notification\NewRequestTransactionNotificationView.cs" />
     <Compile Include="Notification\NewTransactionNotificationView.cs" />
     <Compile Include="Notification\NotificationView.cs" />
