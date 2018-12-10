@@ -140,8 +140,8 @@ namespace Open.Sentry.Controllers
         }
         private async Task generateRequestNotification(RequestTransaction request) {
             var notification = NotificationFactory.CreateNewRequestTransactionNotification(
-                Guid.NewGuid().ToString(), request.Data.SenderAccountId,
-                request.Data.ReceiverAccountId, request.Data.Amount,
+                Guid.NewGuid().ToString(), request.Data.ReceiverAccountId,
+                request.Data.SenderAccountId, request.Data.Amount,
                 request.Data.Status, false, DateTime.Now);
             await notifications.AddObject(notification);
         }

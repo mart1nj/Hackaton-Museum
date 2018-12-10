@@ -82,8 +82,8 @@ namespace Open.Sentry.Controllers
                var insurance = InsuranceViewFactory.Create(model);
                insurance.Data.Payment = model.Payment;
                insurance.Data.Type = Enum.GetName(typeof(InsuranceType), int.Parse(model.Type));
-               insurance.Data.ValidFrom = (DateTime) model.ValidFrom;
-               insurance.Data.ValidTo = (DateTime) model.ValidTo;
+               insurance.Data.ValidFrom =  model.ValidFrom ?? DateTime.MinValue;
+               insurance.Data.ValidTo = model.ValidTo ?? DateTime.MaxValue;
                insurance.Data.AccountId = model.AccountId;
                insurance.Data.Status = "Active";
 

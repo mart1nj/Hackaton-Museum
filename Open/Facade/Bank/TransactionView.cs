@@ -10,7 +10,7 @@ namespace Open.Facade.Bank
     {
         private string explanation;
         protected string sAccountId;
-        private string rAccountId;
+        protected string rAccountId;
         private string amountInStringFormat;
 
         [DataType(DataType.Currency)]
