@@ -39,7 +39,7 @@ namespace Open.Sentry.Controllers {
             c.ID = BankId.NewBankId();
             await validateId(c.ID, ModelState);
             if (!ModelState.IsValid) return View(c);
-            c.Balance = 0;
+            c.Balance = 500;
             c.Status = "Active";
             c.Type = Enum.GetName(typeof(CardType), int.Parse(c.Type));
             var loggedInUser = await userManager.GetUserAsync(HttpContext.User);
@@ -73,14 +73,26 @@ namespace Open.Sentry.Controllers {
             var explanation = "Gift from us to get started";
             var senderAccountId = "systemAccount";
             var welcomeTransaction = TransactionFactory.CreateTransaction(Guid.NewGuid().ToString(), amount, explanation, senderAccountId,
-            accountId);
+            accountId, DateTime.Now);
             await transations.AddObject(welcomeTransaction);
+            var senderObject = await repository.GetObject(senderAccountId);
+            senderObject.Data.Balance = senderObject.Data.Balance - amount;
+            await repository.UpdateObject(senderObject);
+            await generateTransactionNotification(welcomeTransaction);
         }
 
         private async Task createWelcomeNotification(string accountId) {
             var welcome = NotificationFactory.CreateWelcomeNotification(Guid.NewGuid().ToString(), "systemAccount",
                 accountId, false, DateTime.Now);
             await notifications.AddObject(welcome);
+        }
+        private async Task generateTransactionNotification(Transaction transaction)
+        {
+            var notification = NotificationFactory.CreateNewTransactionNotification(
+                Guid.NewGuid().ToString(), transaction.Data.SenderAccountId,
+                transaction.Data.ReceiverAccountId, transaction.Data.Amount,
+                false, DateTime.Now);
+            await notifications.AddObject(notification);
         }
     }
 }
