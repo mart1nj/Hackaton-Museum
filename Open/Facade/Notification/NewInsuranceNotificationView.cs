@@ -1,4 +1,3 @@
-using System;
 namespace Open.Facade.Notification
 {
     public class NewInsuranceNotificationView : NotificationView

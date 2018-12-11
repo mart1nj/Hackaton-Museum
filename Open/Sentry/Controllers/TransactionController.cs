@@ -161,6 +161,7 @@ namespace Open.Sentry.Controllers {
                     req.Data.Explanation == transaction.Data.Explanation) {
                     req.Data.Status = TransactionStatus.Confirmed;
                     await requests.UpdateObject(req);
+                    await generateStatusNotification(req, TransactionStatus.Confirmed);
                 }
             }
         }
@@ -168,6 +169,14 @@ namespace Open.Sentry.Controllers {
             var notification = NotificationFactory.CreateNewTransactionNotification(
                 Guid.NewGuid().ToString(), transaction.Data.SenderAccountId,
                 transaction.Data.ReceiverAccountId, transaction.Data.Amount,
+                false, DateTime.Now);
+            await notifications.AddObject(notification);
+        }
+        private async Task generateStatusNotification(RequestTransaction request, TransactionStatus status)
+        {
+            var notification = NotificationFactory.CreateRequestStatusNotification(
+                Guid.NewGuid().ToString(), request.Data.SenderAccountId,
+                request.Data.ReceiverAccountId, request.Data.Amount, status,
                 false, DateTime.Now);
             await notifications.AddObject(notification);
         }

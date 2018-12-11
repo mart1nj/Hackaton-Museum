@@ -63,6 +63,7 @@
     <Compile Include="Notification\NewRequestTransactionNotificationData.cs" />
     <Compile Include="Notification\NewTransactionNotificationData.cs" />
     <Compile Include="Notification\NotificationData.cs" />
+    <Compile Include="Notification\RequestStatusNotificationData.cs" />
     <Compile Include="Notification\WelcomeNotificationData.cs" />
     <Compile Include="Party\AddressData.cs" />
     <Compile Include="Party\CountryData.cs" />

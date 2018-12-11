@@ -1,16 +1,15 @@
 ﻿@using Open.Core
 @using Open.Sentry.Extensions
-@using Open.Sentry.Controllers
 @model Open.Core.IPaginatedList<Open.Facade.Bank.RequestTransactionView>
 
 @{
-    ViewBag.Title = "Received requests for " + RequestTransactionController.BankAccount.Data?.ID;
+    ViewBag.Title = "Received requests for " + ViewBag.BankAccountID;
     Layout = "_IndexPartial";
 }
 
 @section Create {    
     <a class="btn btn-primary btn-sm"
-       href="@Url.Action("SentIndex", "RequestTransaction", new { id = TransactionController.BankAccount.Data?.ID })" >
+       href="@Url.Action("SentIndex", "RequestTransaction", new { id = ViewBag.BankAccountID })" >
         Sent requests &raquo;
     </a>
 }

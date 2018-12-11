@@ -15,11 +15,6 @@ namespace Open.Tests.Facade.Notification
         {
             Assert.AreEqual(obj.GetType().BaseType, typeof(NewTransactionNotificationView));
         }
-        [TestMethod]
-        public void StatusTest()
-        {
-            canReadWrite(() => obj.Status, x => obj.Status = x);
-        }
     }
 }
 

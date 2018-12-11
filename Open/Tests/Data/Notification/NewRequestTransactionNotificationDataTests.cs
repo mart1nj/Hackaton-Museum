@@ -24,10 +24,5 @@ namespace Open.Tests.Data.Notification
             obj.Message = null;
             Assert.AreEqual("has requested a transaction in the amount of", obj.Message);
         }
-        [TestMethod]
-        public void StatusTest()
-        {
-            canReadWrite(() => obj.Status, x => obj.Status = x);
-        }
     }
 }

@@ -59,6 +59,7 @@ namespace Open.Infra.Notification
         public async Task AddObject(INotification o)
         {
             if (o is WelcomeNotification welcome) dbSet.Add(welcome.Data);
+            if (o is RequestStatusNotification reqStatus) dbSet.Add(reqStatus.Data);
             if (o is NewRequestTransactionNotification newRequest) dbSet.Add(newRequest.Data);
             if (o is NewTransactionNotification newTransaction) dbSet.Add(newTransaction.Data);
             if (o is NewInsuranceNotification newInsurance) dbSet.Add(newInsurance.Data);
@@ -68,6 +69,7 @@ namespace Open.Infra.Notification
         public async Task UpdateObject(INotification o)
         {
             if (o is WelcomeNotification welcome) dbSet.Update(welcome.Data);
+            if (o is RequestStatusNotification reqStatus) dbSet.Update(reqStatus.Data);
             if (o is NewRequestTransactionNotification newRequest) dbSet.Update(newRequest.Data);
             if (o is NewTransactionNotification newTransaction) dbSet.Update(newTransaction.Data);
             if (o is NewInsuranceNotification newInsurance) dbSet.Update(newInsurance.Data);
@@ -77,6 +79,7 @@ namespace Open.Infra.Notification
         public async Task DeleteObject(INotification o)
         {
             if (o is WelcomeNotification welcome) dbSet.Remove(welcome.Data);
+            if (o is RequestStatusNotification reqStatus) dbSet.Remove(reqStatus.Data);
             if (o is NewRequestTransactionNotification newRequest) dbSet.Remove(newRequest.Data);
             if (o is NewTransactionNotification newTransaction) dbSet.Remove(newTransaction.Data);
             if (o is NewInsuranceNotification newInsurance) dbSet.Remove(newInsurance.Data);

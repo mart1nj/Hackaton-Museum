@@ -34,8 +34,14 @@
                 (@Html.DisplayFor(modelItem => item.ReceiverAccountId)) <br />
                 @Html.DisplayFor(modeItem => item.FormattedMessage)
             </td>
-            <td>                                
-                <a class="btn btn-primary btn-sm btn-block"                  
+            <td>
+                <a class="btn btn-primary btn-sm btn-block"
+                   href="@Url.Action("ViewNotification", "Notifications", new {notificationId = item.ID})">
+                    View &raquo;
+                </a>                
+            </td>
+            <td>
+                <a class="btn btn-primary btn-sm btn-block"
                    href="@Url.Action("Delete", "Notifications", new { id = item.ID })">
                     Delete &raquo;
                 </a>

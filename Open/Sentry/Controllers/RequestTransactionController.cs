@@ -15,7 +15,6 @@ namespace Open.Sentry.Controllers
         private readonly IRequestTransactionRepository requests;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly INotificationsRepository notifications;
-        public static Account BankAccount;
 
         internal const string properties =
             "ID, AmountInStringFormat, Explanation, ReceiverAccountId, SenderAccountId, Status, ValidFrom";
@@ -33,11 +32,11 @@ namespace Open.Sentry.Controllers
             string currentFilter = null,
             string searchString = null, int? page = null) {
             paginate(id, sortOrder, currentFilter, searchString, page);
-            BankAccount = await accounts.GetObject(id);
+            var bankAccount = await accounts.GetObject(id);
+            ViewBag.BankAccountID = bankAccount.Data.ID;
             var l = await requests.LoadSentRequestsForAccount(id);
             var viewList = new RequestTransactionViewsList(l);
             await loadSenderAndReceiver(viewList);
-
             return View(viewList);
         }
         public async Task<IActionResult> ReceivedIndex(string id, string sortOrder = null,
@@ -45,11 +44,11 @@ namespace Open.Sentry.Controllers
             string searchString = null, int? page = null)
         {
             paginate(id, sortOrder, currentFilter, searchString, page);
-            BankAccount = await accounts.GetObject(id);
+            var bankAccount = await accounts.GetObject(id);
+            ViewBag.BankAccountID = bankAccount.Data.ID;
             var l = await requests.LoadReceivedRequestsForAccount(id);
             var viewList = new RequestTransactionViewsList(l);
             await loadSenderAndReceiver(viewList);
-
             return View(viewList);
         }
         private void paginate(string id, string sortOrder, string currentFilter, string searchString,
@@ -142,7 +141,7 @@ namespace Open.Sentry.Controllers
             var notification = NotificationFactory.CreateNewRequestTransactionNotification(
                 Guid.NewGuid().ToString(), request.Data.ReceiverAccountId,
                 request.Data.SenderAccountId, request.Data.Amount,
-                request.Data.Status, false, DateTime.Now);
+                false, DateTime.Now);
             await notifications.AddObject(notification);
         }
         [HttpPost]
@@ -202,7 +201,16 @@ namespace Open.Sentry.Controllers
             var request = await requests.GetObject(id);
             request.Data.Status = TransactionStatus.Denied;
             await requests.UpdateObject(request);
-            return RedirectToAction("ReceivedIndex", new { id = request.Data.ReceiverAccountId });
+            await generateStatusNotification(request, TransactionStatus.Denied);
+            return RedirectToAction("ReceivedIndex", new { id = request.Data.SenderAccountId });
+        }
+        private async Task generateStatusNotification(RequestTransaction request, TransactionStatus status)
+        {
+            var notification = NotificationFactory.CreateRequestStatusNotification(
+                Guid.NewGuid().ToString(), request.Data.SenderAccountId,
+                request.Data.ReceiverAccountId, request.Data.Amount, status,
+                false, DateTime.Now);
+            await notifications.AddObject(notification);
         }
     }
 }

@@ -10,7 +10,7 @@ using Open.Infra;
 namespace Open.Infra.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20181210132841_initial")]
+    [Migration("20181211112916_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -424,6 +424,17 @@ namespace Open.Infra.Migrations
                     b.ToTable("NationalCurrency");
                 });
 
+            modelBuilder.Entity("Open.Data.Notification.NewInsuranceNotificationData", b =>
+                {
+                    b.HasBaseType("Open.Data.Notification.NotificationData");
+
+                    b.Property<string>("InsuranceType");
+
+                    b.ToTable("Notification");
+
+                    b.HasDiscriminator().HasValue("NewInsuranceNotificationData");
+                });
+
             modelBuilder.Entity("Open.Data.Notification.NewTransactionNotificationData", b =>
                 {
                     b.HasBaseType("Open.Data.Notification.NotificationData");
@@ -495,11 +506,21 @@ namespace Open.Infra.Migrations
                 {
                     b.HasBaseType("Open.Data.Notification.NewTransactionNotificationData");
 
-                    b.Property<int>("Status");
 
                     b.ToTable("Notification");
 
                     b.HasDiscriminator().HasValue("NewRequestTransactionNotificationData");
+                });
+
+            modelBuilder.Entity("Open.Data.Notification.RequestStatusNotificationData", b =>
+                {
+                    b.HasBaseType("Open.Data.Notification.NewRequestTransactionNotificationData");
+
+                    b.Property<int>("Status");
+
+                    b.ToTable("Notification");
+
+                    b.HasDiscriminator().HasValue("RequestStatusNotificationData");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

@@ -7,12 +7,12 @@ namespace Open.Domain.Notification {
             switch (data) {
                 case WelcomeNotificationData welcome:
                     return create(welcome);
+                case RequestStatusNotificationData reqStatus:
+                    return create(reqStatus);
                 case NewRequestTransactionNotificationData request:
                     return create(request);
                 case NewTransactionNotificationData newTransaction:
                     return create(newTransaction);
-                /* case AccountExpireNotificationData accountExpire:
-                     return create(accountExpire);*/
                 case NewInsuranceNotificationData newInsurance:
                     return create(newInsurance);
             }
@@ -34,6 +34,27 @@ namespace Open.Domain.Notification {
                 ValidTo = validTo ?? DateTime.MaxValue
             };
             return new WelcomeNotification(r);
+        }
+        private static RequestStatusNotification create(RequestStatusNotificationData data)
+        {
+            return new RequestStatusNotification(data);
+        }
+        public static RequestStatusNotification CreateRequestStatusNotification(string id, string senderId,
+            string receiverId, decimal? amount, TransactionStatus status = TransactionStatus.Pending, bool? isSeen = false,
+            DateTime? validFrom = null, DateTime? validTo = null)
+        {
+            var r = new RequestStatusNotificationData
+            {
+                ID = id,
+                ReceiverId = receiverId,
+                SenderId = senderId,
+                Amount = amount,
+                Status = status,
+                IsSeen = isSeen,
+                ValidFrom = validFrom ?? DateTime.MinValue,
+                ValidTo = validTo ?? DateTime.MaxValue
+            };
+            return new RequestStatusNotification(r);
         }
         private static NewTransactionNotification create(NewTransactionNotificationData data) {
             return new NewTransactionNotification(data);
@@ -57,7 +78,7 @@ namespace Open.Domain.Notification {
             return new NewRequestTransactionNotification(data);
         }
         public static NewRequestTransactionNotification CreateNewRequestTransactionNotification(
-            string id, string senderId, string receiverId, decimal? amount, TransactionStatus status = TransactionStatus.Pending,
+            string id, string senderId, string receiverId, decimal? amount,
             bool? isSeen = false,
             DateTime? validFrom = null, DateTime? validTo = null) {
             var r = new NewRequestTransactionNotificationData {
@@ -65,7 +86,6 @@ namespace Open.Domain.Notification {
                 ReceiverId = receiverId,
                 SenderId = senderId,
                 Amount = amount,
-                Status = status,
                 IsSeen = isSeen,
                 ValidFrom = validFrom ?? DateTime.MinValue,
                 ValidTo = validTo ?? DateTime.MaxValue

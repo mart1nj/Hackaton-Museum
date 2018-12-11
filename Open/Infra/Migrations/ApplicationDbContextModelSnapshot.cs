@@ -504,11 +504,21 @@ namespace Open.Infra.Migrations
                 {
                     b.HasBaseType("Open.Data.Notification.NewTransactionNotificationData");
 
-                    b.Property<int>("Status");
 
                     b.ToTable("Notification");
 
                     b.HasDiscriminator().HasValue("NewRequestTransactionNotificationData");
+                });
+
+            modelBuilder.Entity("Open.Data.Notification.RequestStatusNotificationData", b =>
+                {
+                    b.HasBaseType("Open.Data.Notification.NewRequestTransactionNotificationData");
+
+                    b.Property<int>("Status");
+
+                    b.ToTable("Notification");
+
+                    b.HasDiscriminator().HasValue("RequestStatusNotificationData");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

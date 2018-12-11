@@ -1,5 +1,4 @@
-﻿using Open.Core;
-namespace Open.Data.Notification
+﻿namespace Open.Data.Notification
 {
     public class NewRequestTransactionNotificationData : NewTransactionNotificationData
     {
@@ -8,6 +7,5 @@ namespace Open.Data.Notification
             get => getString(ref message, "has requested a transaction in the amount of");
             set => message = value;
         }
-        public TransactionStatus Status { get; set; }
     }
 }

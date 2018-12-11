@@ -1,11 +1,11 @@
 ﻿using System;
 using Open.Core;
-using Open.Data.Notification;
 using Open.Domain.Notification;
 namespace Open.Facade.Notification {
     public static class NotificationViewFactory {
         public static NotificationView Create(INotification o) {
             switch (o) {
+                case RequestStatusNotification reqStatus: return create(reqStatus);
                 case NewRequestTransactionNotification newRequest: return create(newRequest);
                 case NewTransactionNotification newTransaction: return create(newTransaction);
                 case NewInsuranceNotification newInsurance : return create(newInsurance);
@@ -27,12 +27,19 @@ namespace Open.Facade.Notification {
         
         private static NewRequestTransactionNotificationView create(NewRequestTransactionNotification o)
         {
-            var v = new NewRequestTransactionNotificationView { Amount = o?.Data.Amount, Status = o?.Data.Status ?? TransactionStatus.Pending };
+            var v = new NewRequestTransactionNotificationView { Amount = o?.Data.Amount };
             setCommonValues(v, o?.Data?.ID, o?.Data?.Message, o?.Data?.SenderId, o?.Data?.ReceiverId,
                 o?.Data?.IsSeen, o?.Data?.ValidFrom, o?.Data?.ValidTo);
             return v;
         }
-        
+        private static RequestStatusNotificationView create(RequestStatusNotification o)
+        {
+            var v = new RequestStatusNotificationView { Amount = o?.Data.Amount, Status = o?.Data.Status ?? TransactionStatus.Pending };
+            setCommonValues(v, o?.Data?.ID, o?.Data?.Message, o?.Data?.SenderId, o?.Data?.ReceiverId,
+                o?.Data?.IsSeen, o?.Data?.ValidFrom, o?.Data?.ValidTo);
+            return v;
+        }
+
         private static NewInsuranceNotificationView create(NewInsuranceNotification o)
         {
             var v = new NewInsuranceNotificationView { InsuranceType = o?.Data.InsuranceType};

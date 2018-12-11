@@ -50,7 +50,7 @@ namespace Open.Tests.Domain.Notification
         {
             var r = GetRandom.Object<NewRequestTransactionNotificationData>();
             r.Message = "has requested a transaction in the amount of";
-            var o = NotificationFactory.CreateNewRequestTransactionNotification(r.ID, r.SenderId, r.ReceiverId, r.Amount, r.Status, r.IsSeen, r.ValidFrom, r.ValidTo);
+            var o = NotificationFactory.CreateNewRequestTransactionNotification(r.ID, r.SenderId, r.ReceiverId, r.Amount, r.IsSeen, r.ValidFrom, r.ValidTo);
             Assert.IsInstanceOfType(o, typeof(NewRequestTransactionNotification));
             testVariables(o.Data, r.ID, r.Message, r.ValidFrom, r.ValidTo, r.IsSeen, r.SenderId, r.ReceiverId);
             Assert.AreEqual(r.Amount, o.Data.Amount);

@@ -61,7 +61,7 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="Open.Data.Notification.WelcomeNotificationData">
-    <Position X="10" Y="5.75" Width="2" />
+    <Position X="9.75" Y="5.75" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAA=</HashCode>
       <FileName>Notification\WelcomeNotificationData.cs</FileName>
@@ -92,25 +92,10 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Open.Data.Notification.NewTransactionNotificationData">
-    <Position X="10" Y="7.5" Width="2" />
+    <Position X="9.75" Y="7.5" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAACAAAAAgAAAAAAAIAAAAAA=</HashCode>
       <FileName>Notification\NewTransactionNotificationData.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Open.Data.Notification.NewRequestTransactionNotificationData">
-    <Position X="10" Y="10" Width="2" />
-    <InheritanceLine Type="Open.Data.Notification.NewTransactionNotificationData" FixedFromPoint="true">
-      <Path>
-        <Point X="12" Y="8.188" />
-        <Point X="12.375" Y="8.188" />
-        <Point X="12.375" Y="10.713" />
-        <Point X="12" Y="10.713" />
-      </Path>
-    </InheritanceLine>
-    <TypeIdentifier>
-      <HashCode>AAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAA=</HashCode>
-      <FileName>Notification\NewRequestTransactionNotificationData.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Open.Data.Bank.InsuranceData">
@@ -138,7 +123,29 @@
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="SenderAccount" />
+      <Property Name="ReceiverAccount" />
     </ShowAsAssociation>
+  </Class>
+  <Class Name="Open.Data.Notification.NewInsuranceNotificationData">
+    <Position X="6.5" Y="9.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAgAAAAAAABAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>Notification\NewInsuranceNotificationData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Open.Data.Notification.RequestStatusNotificationData">
+    <Position X="12.5" Y="10" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>Notification\RequestStatusNotificationData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Open.Data.Notification.NewRequestTransactionNotificationData">
+    <Position X="9.75" Y="10" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>Notification\NewRequestTransactionNotificationData.cs</FileName>
+    </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

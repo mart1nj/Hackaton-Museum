@@ -74,65 +74,72 @@ namespace Open.Sentry.Controllers
                 await userManager.FindByIdAsync(notification.Sender.AspNetUserId);
         }
 
-        public async Task<IActionResult> ChangeSeenStatus(string notificationId) {
+        public async Task<IActionResult> ChangeSeenStatus(string notificationId, bool? seenStatus = null) {
             var notification = await notifications.GetObject(notificationId);
             switch (notification) {
                 case WelcomeNotification wel:
-                    WelcomeNotification welcome =
+                    var welcome =
                         NotificationFactory.CreateWelcomeNotification(wel.Data?.ID,
-                            wel.Data?.SenderId, wel.Data?.ReceiverId, !wel.Data?.IsSeen,
+                            wel.Data?.SenderId, wel.Data?.ReceiverId, seenStatus ?? !wel.Data?.IsSeen,
                             wel.Data?.ValidFrom, wel.Data?.ValidTo);
                     await notifications.UpdateObject(welcome);
                     break;
                 case NewTransactionNotification tra:
-                    NewTransactionNotification transaction =
+                    var transaction =
                         NotificationFactory.CreateNewTransactionNotification(tra.Data?.ID,
-                            tra.Data?.SenderId, tra.Data?.ReceiverId, tra.Data?.Amount, !tra.Data?.IsSeen,
+                            tra.Data?.SenderId, tra.Data?.ReceiverId, tra.Data?.Amount, seenStatus ?? !tra.Data?.IsSeen,
                             tra.Data?.ValidFrom, tra.Data?.ValidTo);
                     await notifications.UpdateObject(transaction);
                     break;
+                case RequestStatusNotification reqStatus:
+                    var requestStatus =
+                        NotificationFactory.CreateRequestStatusNotification(reqStatus.Data?.ID,
+                            reqStatus.Data?.SenderId, reqStatus.Data?.ReceiverId, reqStatus.Data?.Amount, reqStatus.Data?.Status ?? TransactionStatus.Pending,
+                            seenStatus ?? !reqStatus.Data?.IsSeen, reqStatus.Data?.ValidFrom, reqStatus.Data?.ValidTo);
+                    await notifications.UpdateObject(requestStatus);
+                    break;
                 case NewRequestTransactionNotification req:
-                    NewRequestTransactionNotification request =
+                    var request =
                         NotificationFactory.CreateNewRequestTransactionNotification(req.Data?.ID,
-                            req.Data?.SenderId, req.Data?.ReceiverId, req.Data?.Amount, req.Data?.Status ?? TransactionStatus.Pending,
-                            !req.Data?.IsSeen, req.Data?.ValidFrom, req.Data?.ValidTo);
+                            req.Data?.SenderId, req.Data?.ReceiverId, req.Data?.Amount,
+                            seenStatus ?? !req.Data?.IsSeen, req.Data?.ValidFrom, req.Data?.ValidTo);
                     await notifications.UpdateObject(request);
+                    break;
+                case NewInsuranceNotification ins:
+                    var insurance =
+                        NotificationFactory.CreateNewInsuranceNotification(
+                            ins.Data?.ID, ins.Data?.SenderId, ins.Data?.ReceiverId, ins.Data?.InsuranceType,
+                            seenStatus ??!ins.Data?.IsSeen, ins.Data?.ValidFrom, ins.Data?.ValidTo);
+                    await notifications.UpdateObject(insurance);
                     break;
             }
             return new EmptyResult();
         }
 
-        public async Task<IActionResult> ChangeSeenStatusForAll() {
+        public async Task<IActionResult> ChangeSeenStatusToTrueForAll() {
             var loggedInUser = await userManager.GetUserAsync(HttpContext.User);
             if (loggedInUser == null) return new EmptyResult();
             var notificationsList = await loadNotifications(loggedInUser);
+            var id = "";
             foreach (var notification in notificationsList) {
                 switch (notification) {
                     case WelcomeNotification wel:
-                        WelcomeNotification welcome =
-                            NotificationFactory.CreateWelcomeNotification(wel.Data?.ID,
-                                wel.Data?.SenderId, wel.Data?.ReceiverId, true,
-                                wel.Data?.ValidFrom, wel.Data?.ValidTo);
-                        await notifications.UpdateObject(welcome);
+                        id = wel.Data.ID;
                         break;
                     case NewTransactionNotification tra:
-                        NewTransactionNotification transaction =
-                            NotificationFactory.CreateNewTransactionNotification(tra.Data?.ID,
-                                tra.Data?.SenderId, tra.Data?.ReceiverId, tra.Data?.Amount,
-                                true,
-                                tra.Data?.ValidFrom, tra.Data?.ValidTo);
-                        await notifications.UpdateObject(transaction);
+                        id = tra.Data.ID;
+                        break;
+                    case RequestStatusNotification reqStatus:
+                        id = reqStatus.Data.ID;
                         break;
                     case NewRequestTransactionNotification req:
-                        NewRequestTransactionNotification request =
-                            NotificationFactory.CreateNewRequestTransactionNotification(
-                                req.Data?.ID,
-                                req.Data?.SenderId, req.Data?.ReceiverId, req.Data?.Amount,
-                                req.Data?.Status ?? TransactionStatus.Pending,
-                                true, req.Data?.ValidFrom, req.Data?.ValidTo);
-                        await notifications.UpdateObject(request);
+                        id = req.Data.ID;
+                        break;
+                    case NewInsuranceNotification ins:
+                        id = ins.Data.ID;
                         break;
                 }
+                await ChangeSeenStatus(id, true);
             }
             return new EmptyResult();
         }       
@@ -142,5 +149,24 @@ namespace Open.Sentry.Controllers
             await notifications.DeleteObject(obj);
             return RedirectToAction("Index");
         }
+        public async Task<IActionResult> ViewNotification(string notificationId)
+        {
+            var notification = await notifications.GetObject(notificationId);
+            switch (notification)
+            {
+                case WelcomeNotification _:
+                    return RedirectToAction("Index");
+                case NewTransactionNotification tra:
+                    return RedirectToAction("Index", "Transaction", new { id = tra.Data.ReceiverId });
+                case RequestStatusNotification reqStatus:
+                    return RedirectToAction("SentIndex", "RequestTransaction", new { id = reqStatus.Data.SenderId });
+                case NewRequestTransactionNotification req:
+                    return RedirectToAction("ReceivedIndex", "RequestTransaction", new { id = req.Data.ReceiverId });
+                case NewInsuranceNotification _:
+                    return RedirectToAction("Index", "Insurance");
+            }
+            return new EmptyResult();
+        }
+
     }
 }

@@ -62,6 +62,7 @@
     <Compile Include="Notification\NotificationView.cs" />
     <Compile Include="Notification\NotificationViewFactory.cs" />
     <Compile Include="Notification\NotificationViewsList.cs" />
+    <Compile Include="Notification\RequestStatusNotificationView.cs" />
     <Compile Include="Notification\WelcomeNotificationView.cs" />
     <Compile Include="Party\AddressView.cs" />
     <Compile Include="Party\AddressViewFactory.cs" />

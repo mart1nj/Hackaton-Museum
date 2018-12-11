@@ -80,6 +80,7 @@ namespace Open.Infra
             const string table = "Notification";
             b.Entity<NotificationData>().ToTable(table);
             b.Entity<WelcomeNotificationData>().ToTable(table);
+            b.Entity<RequestStatusNotificationData>().ToTable(table);
             b.Entity<NewRequestTransactionNotificationData>().ToTable(table);
             b.Entity<NewInsuranceNotificationData>().ToTable(table);
             b.Entity<NewTransactionNotificationData>().ToTable(table);

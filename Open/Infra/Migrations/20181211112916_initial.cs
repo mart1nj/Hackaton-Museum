@@ -331,6 +331,7 @@ namespace Open.Infra.Migrations
                     ReceiverId = table.Column<string>(nullable: true),
                     IsSeen = table.Column<bool>(nullable: true),
                     Discriminator = table.Column<string>(nullable: false),
+                    InsuranceType = table.Column<string>(nullable: true),
                     Amount = table.Column<decimal>(nullable: true),
                     Status = table.Column<int>(nullable: true)
                 },
