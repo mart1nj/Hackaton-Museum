@@ -2,16 +2,21 @@
 using Open.Aids;
 namespace Open.Core {
     public abstract class Archetype {
-        protected internal string getString(ref string field, string value = Constants.Unspecified) {
+        protected internal string
+            getString(ref string field, string value = Constants.Unspecified) {
             if (string.IsNullOrWhiteSpace(field)) field = (value ?? string.Empty).Trim();
             return field;
         }
-        protected internal void setValue<T>(ref T field, T value)
-        {
+        protected internal void setValue<T>(ref T field, T value) {
             field = value;
         }
-        protected internal T getValue<T>(ref T field) where T : class, new() {
+        protected internal T getObject<T>(ref T field) where T : class, new() {
             field = field ?? new T();
+            return field;
+        }
+        protected internal T getValue<T>(ref T field, T value) where T: IComparable {
+            if (isNull(value)) value = default(T);
+            if (isNull(field)) field = value;
             return field;
         }
         protected internal T getMinValue<T>(ref T field, ref T value) where T : IComparable {
@@ -33,19 +38,11 @@ namespace Open.Core {
 
             return GetType().Name.ToLower().Contains(searchString);
         }
-        protected double? getDouble(ref double? field) {
-            field = field ?? 0.0;
-            return field;
+        protected static bool isNull(object o) {
+            return o is null;
         }
-        protected internal bool? getBool(ref bool? field)
-        {
-            field = field ?? false;
-            return field;
-       }
-        protected internal decimal? getDecimal(ref decimal? field)
-        {
-            field = field ?? Convert.ToDecimal(0.0);
-            return field;
+        protected bool isSpaces(string s) {
+            return string.IsNullOrWhiteSpace(s);
         }
     }
 }

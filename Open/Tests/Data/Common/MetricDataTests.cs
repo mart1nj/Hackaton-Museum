@@ -1,0 +1,26 @@
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Open.Aids;
+using Open.Core;
+using Open.Data.Common;
+namespace Open.Tests.Data.Common {
+    [TestClass] public class MetricDataTests : ObjectTests<MetricData> {
+        private class testClass : MetricData { }
+        protected override MetricData getRandomObject() {
+            return GetRandom.Object<testClass>();
+        }
+        [TestMethod] public void IsAbstract() {
+            Assert.IsTrue(typeof(MetricData).IsAbstract);
+        }
+        [TestMethod] public void BaseTypeIsRootObjectDbRecord() {
+            Assert.AreEqual(typeof(NamedData), typeof(MetricData).BaseType);
+        }
+        [TestMethod] public void DefinitionTest() {
+            canReadWrite(() => obj.Definition, x => obj.Definition = x);
+            allowNullEmptyAndWhitespace(() => obj.Definition, x => obj.Definition = x,
+                () => Constants.Unspecified);
+        }
+
+    }
+}
+
+

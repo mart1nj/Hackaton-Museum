@@ -8,15 +8,15 @@ namespace Open.Tests.Aids.Extensions {
         }
 
         [TestMethod] public void DistinctByTest() {
-            Assert.Inconclusive("Dont know what is doing");
+            //TODO: Assert.Inconclusive("Don't know what it does");
         }
 
         [TestMethod] public void FlattenTest() {
-            Assert.Inconclusive("Dont know what is doing");
+            //TODO: Assert.Inconclusive("Don't know what it does");
         }
 
         [TestMethod] public void IsGroupedTest() {
-            Assert.Inconclusive("Dont know what is doing");
+            //TODO: Assert.Inconclusive("Don't know what it does");
         }
     }
 }

@@ -8,27 +8,12 @@
  </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Quantity\**" />
-    <EmbeddedResource Remove="Quantity\**" />
-    <None Remove="Quantity\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Remove="Bank\ClientsInitializer.cs" />
-    <Compile Remove="Bank\ClientsRepository.cs" />
-    <Compile Remove="SentryDbContext.cs" />
     <Compile Remove="SystemRegionInfo.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="Quantity\CurrenciesInitializer.cs" />
-    <Compile Include="Quantity\CurrenciesRepository.cs" />
-    <Compile Include="Quantity\NationalCurrenciesInitializer.cs" />
-    <Compile Include="Quantity\NationalCurrenciesRepository.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.0" />
+    <PackageReference Include="EFCore.BulkExtensions" Version="2.2.2" />
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.5" />
   </ItemGroup>
 
   <ItemGroup>

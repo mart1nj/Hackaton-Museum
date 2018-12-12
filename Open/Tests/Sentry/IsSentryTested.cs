@@ -15,6 +15,11 @@ namespace Open.Tests.Sentry
             isAllTested(assembly, Namespace("Controllers"));
         }
         [TestMethod]
+        public void IsDataTested()
+        {
+            isAllTested(assembly, Namespace("Data"));
+        }
+        [TestMethod]
         public void IsExtensionsTested()
         {
             isAllTested(assembly, Namespace("Extensions"));

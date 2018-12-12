@@ -5,7 +5,7 @@ namespace Open.Domain.Common {
         public abstract int CompareTo(object obj);
     }
     public abstract class Value<TUnit, TAmount, TValue> : Value
-        where TUnit : class, IMetrics, new() 
+        where TUnit : class, IMetric, new() 
         where TAmount : IConvertible 
         where TValue : Value {
         public const string DefaultFormat = "{0} {1}";

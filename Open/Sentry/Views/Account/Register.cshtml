@@ -1,73 +1,32 @@
-﻿@using Open.Sentry.Extensions
-@model Open.Sentry.Models.AccountViewModels.RegisterViewModel
-
+﻿@model Open.Sentry.Models.AccountViewModels.RegisterViewModel
 @{
     ViewData["Title"] = "Register";
 }
+
 <h2>@ViewData["Title"]</h2>
 
 <div class="row">
-    <div class="col-md-7">
+    <div class="col-md-4">
         <form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
-            <h4>Create a new account</h4>
+            <h4>Create a new account.</h4>
             <hr />
             <div asp-validation-summary="All" class="text-danger"></div>
-            <div style="float: left; width: 45%">
-                <div class="form-group">
-                    <label asp-for="FirstName"></label>
-                    <input asp-for="FirstName" class="form-control" />
-                    <span asp-validation-for="FirstName" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="LastName"></label>
-                    <input asp-for="LastName" class="form-control" />
-                    <span asp-validation-for="LastName" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="DateOfBirth"></label>
-                    <input asp-for="DateOfBirth" class="form-control" />
-                    <span asp-validation-for="DateOfBirth" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Email"></label>
-                    <input asp-for="Email" class="form-control" />
-                    <span asp-validation-for="Email" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Password"></label>
-                    <input asp-for="Password" class="form-control" />
-                    <span asp-validation-for="Password" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="ConfirmPassword"></label>
-                    <input asp-for="ConfirmPassword" class="form-control" />
-                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-                </div>
+            <div class="form-group">
+                <label asp-for="Email"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
             </div>
-            <div style="float: left; width: 45%; margin-left: 10%">
-                @Html.EditingControlsForCountry(model => model.Country)
-                <div class="form-group">
-                    <label asp-for="AddressLine"></label>
-                    <input asp-for="AddressLine" class="form-control" />
-                    <span asp-validation-for="AddressLine" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="ZipCode"></label>
-                    <input asp-for="ZipCode" class="form-control" />
-                    <span asp-validation-for="ZipCode" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="City"></label>
-                    <input asp-for="City" class="form-control" />
-                    <span asp-validation-for="City" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="County"></label>
-                    <input asp-for="County" class="form-control" />
-                    <span asp-validation-for="County" class="text-danger"></span>
-                </div>
-                <button style="margin-top: 48px" type="submit" class="btn btn-primary btn-block">Register</button>
+            <div class="form-group">
+                <label asp-for="Password"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
             </div>
+            <div class="form-group">
+                <label asp-for="ConfirmPassword"></label>
+                <input asp-for="ConfirmPassword" class="form-control" />
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-default">Register</button>
         </form>
     </div>
 </div>

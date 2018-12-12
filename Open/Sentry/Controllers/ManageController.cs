@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
@@ -10,10 +8,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Open.Aids;
-using Open.Data.Bank;
-using Open.Domain.Party;
 using Open.Sentry.Extensions;
+using Open.Sentry.Models;
 using Open.Sentry.Models.ManageViewModels;
 using Open.Sentry.Services;
 namespace Open.Sentry.Controllers {
@@ -24,7 +20,6 @@ namespace Open.Sentry.Controllers {
         private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
         private readonly UrlEncoder _urlEncoder;
-        private readonly IAddressesRepository addresses;
 
         private const string AuthenticatorUriFormat =
             "otpauth://totp/{0}:{1}?secret={2}&issuer={0}&digits=6";
@@ -33,14 +28,14 @@ namespace Open.Sentry.Controllers {
         public ManageController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
-            IEmailSender emailSender, ILogger<ManageController> logger,
-            UrlEncoder urlEncoder, IAddressesRepository addresses) {
+            IEmailSender emailSender,
+            ILogger<ManageController> logger,
+            UrlEncoder urlEncoder) {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
             _logger = logger;
             _urlEncoder = urlEncoder;
-            this.addresses = addresses;
         }
 
         [TempData]
@@ -52,22 +47,13 @@ namespace Open.Sentry.Controllers {
                 throw new ApplicationException(
                     $"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
-            GeographicAddress address = (GeographicAddress) await addresses.GetObject(user.AddressID);
-            user.Address = address.Data;
+
             var model = new IndexViewModel {
                 Username = user.UserName,
                 Email = user.Email,
                 PhoneNumber = user.PhoneNumber,
                 IsEmailConfirmed = user.EmailConfirmed,
-                StatusMessage = StatusMessage,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                AddressLine = user.Address.Address,
-                ZipCode = user.Address.ZipOrPostCodeOrExtension,
-                City = user.Address.CityOrAreaCode,
-                County = user.Address.RegionOrStateOrCountryCode,
-                Country = getCountryCodesDictionary().FirstOrDefault(x => x.Value == user.Address.CountryID).Key,
-                DateOfBirth = user.DateOfBirth
+                StatusMessage = StatusMessage
             };
 
             return View(model);
@@ -101,30 +87,13 @@ namespace Open.Sentry.Controllers {
                         $"Unexpected error occurred setting phone number for user with ID '{user.Id}'.");
                 }
             }
-            GeographicAddress userAddress = (GeographicAddress)await addresses.GetObject(user.AddressID);
-            userAddress.Data.Address = model.AddressLine;
-            userAddress.Data.ZipOrPostCodeOrExtension = model.ZipCode;
-            userAddress.Data.CityOrAreaCode = model.City;
-            userAddress.Data.RegionOrStateOrCountryCode = model.County;
-            userAddress.Data.CountryID = getCountryCodesDictionary()[model.Country];
-            await addresses.UpdateObject(userAddress);
-            await _userManager.UpdateAsync(user);
+
             StatusMessage = "Your profile has been updated";
             return RedirectToAction(nameof(Index));
-        }
-        private Dictionary<string, string> getCountryCodesDictionary()
-        {
-            var countryCodesMapping = new Dictionary<string, string>();
-            foreach (RegionInfo region in SystemRegionInfo.GetRegionsList())
-            {
-                countryCodesMapping.Add(region.DisplayName, region.ThreeLetterISORegionName);
-            }
-            return countryCodesMapping;
         }
 
         [HttpPost] 
         public async Task<IActionResult> SendVerificationEmail(IndexViewModel model) {
-            // ReSharper disable once Mvc.ViewNotResolved
             if (!ModelState.IsValid) { return View(model); }
 
             var user = await _userManager.GetUserAsync(User);

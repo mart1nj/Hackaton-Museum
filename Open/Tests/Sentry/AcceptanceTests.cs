@@ -10,39 +10,46 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.CodeAnalysis;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.PlatformAbstractions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Open.Aids;
-//using Open.Data.Quantity;
-using Open.Infra;
+using Open.Infra.Rule;
 using Open.Sentry;
 namespace Open.Tests.Sentry {
-    public abstract class AcceptanceTests : BaseTests {
+    public abstract  class AcceptanceTests<TContext> : BaseTests
+        where TContext: DbContext{
         protected static Assembly assembly;
         protected static HttpClient client;
-        protected static ApplicationDbContext db;
+        protected static TContext db;
+        protected static RulesDbContext rulesDbContext;
         private bool useAuthentication;
         protected static string path;
         protected static TestServer server;
-        protected AcceptanceTests() {
+        protected AcceptanceTests()
+        {
             if (client != null) return;
             initializeTestServer();
         }
-        protected async Task testWhenLoggedOut(string url, HttpStatusCode c) {
+        protected async Task testWhenLoggedOut(string url, HttpStatusCode c)
+        {
             var response = await client.GetAsync(url);
             Assert.AreEqual(c, response.StatusCode);
         }
-        protected async Task testWhenLoggedIn(string url, params string[] content) {
+        protected async Task testWhenLoggedIn(string url, params string[] content)
+        {
             useAuthentication = true;
             await testControllerAction(url, content);
             useAuthentication = false;
         }
-        protected async Task testControllerAction(string url, params string[] content) {
-            TestAuthenticationHandler.IsLoggedIn = useAuthentication;
+        protected async Task testControllerAction(string url, params string[] content)
+        {
+            AuthenticationHandlerTest.IsLoggedIn = useAuthentication;
             var response = await client.GetAsync(url);
-            if (response.StatusCode == HttpStatusCode.Found) {
-                TestAuthenticationHandler.IsLoggedIn = useAuthentication;
+            if (response.StatusCode == HttpStatusCode.Found)
+            {
+                AuthenticationHandlerTest.IsLoggedIn = useAuthentication;
                 response = await client.GetAsync(response.Headers.Location.OriginalString);
             }
             response.EnsureSuccessStatusCode();
@@ -50,7 +57,8 @@ namespace Open.Tests.Sentry {
             foreach (var c in content) { Assert.IsTrue(stringResponse.Contains(c), c); }
         }
 
-        protected void initializeTestServer() {
+        protected void initializeTestServer()
+        {
             assembly = typeof(Startup).GetTypeInfo()
                 .Assembly;
             path = getPath();
@@ -60,19 +68,23 @@ namespace Open.Tests.Sentry {
             initTestDatabase();
             client = server.CreateClient();
         }
-        private void initTestDatabase() {
+        private void initTestDatabase()
+        {
             var scope = server.Host.Services.CreateScope();
             var services = scope.ServiceProvider;
-            db = services.GetService<ApplicationDbContext>();
-            DbInitializer.Initialize(db);
+            db = services.GetService<TContext>();
+            rulesDbContext = services.GetService<RulesDbContext>();
+            initializeDatabase(db);
         }
-        private static void configure(IServiceCollection services, Assembly a) {
+        protected abstract void initializeDatabase(TContext context);
+        private static void configure(IServiceCollection services, Assembly a)
+        {
             services.Configure((RazorViewEngineOptions options) => {
                 var previous = options.CompilationCallback;
                 options.CompilationCallback = context => {
                     previous?.Invoke(context);
                     var assemblies = a.GetReferencedAssemblies()
-                        .Select(x => MetadataReference.CreateFromFile(Assembly.Load(x)
+                        .Select(x => MetadataReference.CreateFromFile(Assembly.Load((AssemblyName) x)
                             .Location))
                         .ToList();
                     addReference(assemblies, "netstandard");
@@ -85,16 +97,19 @@ namespace Open.Tests.Sentry {
             });
         }
         private static void addReference(List<PortableExecutableReference> list,
-            string assemblyName) {
+            string assemblyName)
+        {
             list.Add(MetadataReference.CreateFromFile(Assembly.Load(new AssemblyName(assemblyName))
                 .Location));
         }
-        private static string getPath() {
+        private static string getPath()
+        {
             var n = "Open\\" + GetString.Tail(assembly.GetName()
                         .Name);
             var p = PlatformServices.Default.Application.ApplicationBasePath;
             var d = new DirectoryInfo(p);
-            while (d != null) {
+            while (d != null)
+            {
                 var f = new FileInfo(Path.Combine(d.FullName, "Open.sln"));
                 if (f.Exists) return Path.GetFullPath(Path.Combine(d.FullName, n));
                 d = d.Parent;
@@ -102,22 +117,5 @@ namespace Open.Tests.Sentry {
 
             throw new Exception($"No solution file in path <{p}>.");
         }
-       /* protected static void addRateType(string id) {
-            db.Currencies.Add(new CurrencyData {ID = id});
-            db.SaveChanges();
-        }
-
-        protected static void addCurrency(string id) {
-            db.RateTypes.Add(new RateTypeData {ID = id});
-            db.SaveChanges();
-        }
-        protected static void addPaymentMethod(string id) {
-            db.PaymentMethods.Add(new PaymentMethodData {ID = id});
-            db.SaveChanges();
-        }*/
     }
 }
-
-
-
-

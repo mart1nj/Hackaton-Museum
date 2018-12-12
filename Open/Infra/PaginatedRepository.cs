@@ -24,16 +24,17 @@ namespace Open.Infra {
         public Func<TDbRecord, object> SortFunction { get; set; }
 
         public async Task<PaginatedList<TObject>> GetObjectsList() {
-            var objects = getSorted().Where(s => s.Contains(SearchString)).AsNoTracking();
-            var count = await objects.CountAsync();
+            var countries = getSorted().Where(s => s.Contains(SearchString)).AsNoTracking();
+            var count = countries.Count();
             var p = new RepositoryPage(count, PageIndex, PageSize);
-            var items = await objects.Skip(p.FirstItemIndex).Take(p.PageSize).ToListAsync();
-            return createList(items, p);
+            var items = await countries.Skip(p.FirstItemIndex).Take(p.PageSize).ToListAsync();
+            var l = createList(items, p);
+            return l;
         }
         private IQueryable<TDbRecord> getSet() {
             return from s in dbSet select s;
         }
-        protected IQueryable<TDbRecord> getSorted() {
+        private IQueryable<TDbRecord> getSorted() {
             if (SortFunction is null) return getSet();
             return SortOrder == SortOrder.Descending
                 ? getSet().OrderByDescending(x => SortFunction(x))

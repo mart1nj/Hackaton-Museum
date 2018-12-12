@@ -1,6 +1,4 @@
-﻿
-
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Open.Tests {
     public class ClassTests<T> : BaseTests {
         [TestInitialize] public override void TestInitialize() {
@@ -8,7 +6,3 @@ namespace Open.Tests {
         }
     }
 }
-
-
-
-

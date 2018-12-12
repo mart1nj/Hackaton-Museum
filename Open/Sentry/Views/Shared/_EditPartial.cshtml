@@ -1,4 +1,6 @@
-﻿@{
+﻿
+
+@{
     Layout = "_Layout";
 }
 
@@ -12,11 +14,14 @@
         <h4>@ViewBag.SubTitle</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
         @RenderBody()
+
     </div>
+
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value=@ViewBag.Button &raquo class="btn btn-primary btn-sm" />
+            <input type="submit" value=@ViewBag.Button class="btn btn-default" />
         </div>
     </div>
 }

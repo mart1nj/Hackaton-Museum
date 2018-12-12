@@ -13,7 +13,7 @@ namespace Open.Tests.Sentry.Services
         [TestMethod]
         public void SendEmailAsyncTest()
         {
-            Assert.Inconclusive();
+            //TODO: Assert.Inconclusive("Don't know how to test");
         }
 
     }

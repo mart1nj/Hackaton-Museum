@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
@@ -8,11 +6,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Open.Aids;
-using Open.Data.Bank;
-using Open.Data.Party;
-using Open.Domain.Party;
 using Open.Sentry.Extensions;
+using Open.Sentry.Models;
 using Open.Sentry.Models.AccountViewModels;
 using Open.Sentry.Services;
 namespace Open.Sentry.Controllers {
@@ -22,18 +17,16 @@ namespace Open.Sentry.Controllers {
         private readonly SignInManager<ApplicationUser> signInManager;
         private readonly IEmailSender emailSender;
         private readonly ILogger logger;
-        private readonly IAddressesRepository addresses;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
-            IEmailSender emailSender, ILogger<AccountController> logger, 
-            IAddressesRepository addresses) {
+            IEmailSender emailSender,
+            ILogger<AccountController> logger) {
             this.userManager = userManager;
             this.signInManager = signInManager;
             this.emailSender = emailSender;
             this.logger = logger;
-            this.addresses = addresses;
         }
 
         [TempData]
@@ -184,21 +177,11 @@ namespace Open.Sentry.Controllers {
             Register(RegisterViewModel model, string returnUrl = null) {
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid) {
-                var addressId = Guid.NewGuid().ToString();
-                var address = new GeographicAddressData {
-                    Address = model.AddressLine, CityOrAreaCode = model.City,
-                    CountryID = getCountryCodesDictionary()[model.Country], ID = addressId,
-                    ZipOrPostCodeOrExtension = model.ZipCode,
-                    RegionOrStateOrCountryCode = model.County
-                };
-                var user = new ApplicationUser {
-                    UserName = model.Email, Email = model.Email,
-                    FirstName = model.FirstName, LastName = model.LastName, Address = address, AddressID = addressId, DateOfBirth = model.DateOfBirth
-                };
-                await addresses.AddObject(AddressFactory.Create(address));
+                var user = new ApplicationUser {UserName = model.Email, Email = model.Email};
                 var result = await userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded) {
                     logger.LogInformation("User created a new account with password.");
+
                     var code = await userManager.GenerateEmailConfirmationTokenAsync(user);
                     var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
                     await emailSender.SendEmailConfirmationAsync(model.Email, callbackUrl);
@@ -213,16 +196,6 @@ namespace Open.Sentry.Controllers {
 
             // If we got this far, something failed, redisplay form
             return View(model);
-        }
-
-        private Dictionary<string, string> getCountryCodesDictionary()
-        {
-            var countryCodesMapping = new Dictionary<string, string>();
-            foreach (RegionInfo region in SystemRegionInfo.GetRegionsList())
-            {
-                countryCodesMapping.Add(region.DisplayName, region.ThreeLetterISORegionName);
-            }
-            return countryCodesMapping;
         }
 
         [HttpPost] public async Task<IActionResult> Logout() {

@@ -15,57 +15,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Data\Quantity\**" />
-    <Compile Remove="Domain\Inventory\**" />
-    <Compile Remove="Domain\Quantity\**" />
-    <Compile Remove="Facade\Quantity\**" />
-    <Compile Remove="Infra\Quantity\**" />
-    <EmbeddedResource Remove="Data\Quantity\**" />
-    <EmbeddedResource Remove="Domain\Inventory\**" />
-    <EmbeddedResource Remove="Domain\Quantity\**" />
-    <EmbeddedResource Remove="Facade\Quantity\**" />
-    <EmbeddedResource Remove="Infra\Quantity\**" />
-    <None Remove="Data\Quantity\**" />
-    <None Remove="Domain\Inventory\**" />
-    <None Remove="Domain\Quantity\**" />
-    <None Remove="Facade\Quantity\**" />
-    <None Remove="Infra\Quantity\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Remove="Domain\Bank\ClientTests.cs" />
-    <Compile Remove="Sentry\Controllers\CalculatorControllerTests.cs" />
-    <Compile Remove="Sentry\Controllers\ContactsControllerTests.cs" />
-    <Compile Remove="Sentry\Controllers\CountriesControllerTests.cs" />
-    <Compile Remove="Sentry\Controllers\CurrenciesControllerTests.cs" />
-    <Compile Remove="Sentry\Controllers\PaymentMethodsControllerTests.cs" />
-    <Compile Remove="Sentry\Controllers\PaymentsControllerTests.cs" />
-    <Compile Remove="Sentry\Controllers\RatesControllerTests.cs" />
-    <Compile Remove="Sentry\Controllers\RateTypesControllerTests.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Include="Data\Quantity\CurrencyDataTests.cs" />
-    <Compile Include="Data\Quantity\NationalCurrencyDataTests.cs" />
-    <Compile Include="Domain\Quantity\CurrenciesListTests.cs" />
-    <Compile Include="Domain\Quantity\CurrencyFactoryTests.cs" />
-    <Compile Include="Domain\Quantity\CurrencyTests.cs" />
-    <Compile Include="Domain\Quantity\NationalCurrenciesListTests.cs" />
-    <Compile Include="Domain\Quantity\NationalCurrencyFactoryTests.cs" />
-    <Compile Include="Domain\Quantity\NationalCurrencyTests.cs" />
-    <Compile Include="Facade\Quantity\CurrencyViewFactoryTests.cs" />
-    <Compile Include="Facade\Quantity\CurrencyViewsListTests.cs" />
-    <Compile Include="Facade\Quantity\CurrencyViewTests.cs" />
-    <Compile Include="Infra\Quantity\CurrenciesInitializerTests.cs" />
-    <Compile Include="Infra\Quantity\CurrenciesRepositoryTests.cs" />
-    <Compile Include="Infra\Quantity\NationalCurrenciesInitializerTests.cs" />
-    <Compile Include="Infra\Quantity\NationalCurrenciesRepositoryTests.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="2.1.0" />
-    <PackageReference Include="Microsoft.CodeCoverage" Version="1.0.3" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.7.2" />
+    <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="2.1.1" />
+    <PackageReference Include="Microsoft.CodeCoverage" Version="15.8.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.8.0" />
     <PackageReference Include="MSTest.TestAdapter" Version="1.3.2" />
     <PackageReference Include="MSTest.TestFramework" Version="1.3.2" />
   </ItemGroup>
@@ -82,6 +34,7 @@
 
   <ItemGroup>
     <Folder Include="Aids\Extensions\" />
+    <Folder Include="Sentry\Controllers\" />
   </ItemGroup>
 
 </Project>

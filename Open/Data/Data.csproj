@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Open.Data</RootNamespace>
     <AssemblyName>Open.Data</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -31,13 +31,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.AspNetCore.Identity, Version=2.1.3.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
-      <HintPath>..\..\packages\Microsoft.AspNetCore.Identity.2.1.3\lib\netstandard2.0\Microsoft.AspNetCore.Identity.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Extensions.Identity.Stores">
-      <HintPath>..\..\..\..\..\..\.nuget\packages\microsoft.extensions.identity.stores\2.1.0\lib\netstandard2.0\Microsoft.Extensions.Identity.Stores.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -49,37 +42,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bank\AccountData.cs" />
-    <Compile Include="Bank\ApplicationUser.cs" />
-    <Compile Include="Bank\BaseTransactionData.cs" />
-    <Compile Include="Bank\InsuranceData.cs" />
-    <Compile Include="Bank\RequestTransactionData.cs" />
-    <Compile Include="Bank\TransactionData.cs" />
-    <Compile Include="Common\IdentifiedData.cs" />
-    <Compile Include="Common\MetricsData.cs" />
     <Compile Include="Common\NamedData.cs" />
+    <Compile Include="Common\MetricData.cs" />
     <Compile Include="Common\PeriodData.cs" />
-    <Compile Include="Notification\NewInsuranceNotificationData.cs" />
-    <Compile Include="Notification\NewRequestTransactionNotificationData.cs" />
-    <Compile Include="Notification\NewTransactionNotificationData.cs" />
-    <Compile Include="Notification\NotificationData.cs" />
-    <Compile Include="Notification\RequestStatusNotificationData.cs" />
-    <Compile Include="Notification\WelcomeNotificationData.cs" />
-    <Compile Include="Party\AddressData.cs" />
-    <Compile Include="Party\CountryData.cs" />
-    <Compile Include="Party\EmailAddressData.cs" />
-    <Compile Include="Party\GeographicAddressData.cs" />
-    <Compile Include="Party\TelecomAddressData.cs" />
-    <Compile Include="Party\TelecomDeviceRegistrationData.cs" />
-    <Compile Include="Party\WebPageAddressData.cs" />
+    <Compile Include="Common\IdentifiedData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Quantity\CurrencyData.cs" />
-    <Compile Include="Quantity\NationalCurrencyData.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Bank\Docs\ApplicationUserDiagram.cd" />
     <None Include="Common\Docs\BaseClasses.cd" />
-    <None Include="Party\Docs\Location.cd" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

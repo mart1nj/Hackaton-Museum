@@ -1,33 +1,24 @@
-﻿@using Open.Data.Bank
-@using Open.Sentry.Extensions
+@using Open.Sentry.Models
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
-
-
 @if (SignInManager.IsSignedIn(User))
 {
-    <div class="btn-group dropdown">
-        <button class="btn customButton btn-default dropdown-toggle" type="button" data-toggle="dropdown" style="background-color:transparent" aria-haspopup="true" aria-expanded="true">
-            <span class="glyphicon glyphicon-user">@User.GetFirstName() @User.GetLastName() </span>
-            <span class="caret"></span>
-        </button>
-
-        <div class="dropdown-container">
-            <div class="dropdown-menu">
-                <a class="btn btn-link navbar-btn navbar-link" href="@Url.Action("Index", "Manage")">Account settings</a>
-                <hr>
-                <form asp-area="" asp-controller="Account" asp-action="Logout" method="post" id="logoutForm" class="navbar-right">
-                    <button type="submit" class="btn btn-link navbar-btn navbar-link"> Log out </button>
-                </form>
-            </div>
-        </div>
-    </div>
+    <form asp-area="" asp-controller="Account" asp-action="Logout" method="post" id="logoutForm" class="navbar-right">
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                <a asp-area="" asp-controller="Manage" asp-action="Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
+            </li>
+            <li>
+                <button type="submit" class="btn btn-link navbar-btn navbar-link">Log out</button>
+            </li>
+        </ul>
+    </form>
 }
 else
 {
     <ul class="nav navbar-nav navbar-right">
-        <li><a class="nav-link" href="@Url.Action("Register", "Account")">Register</a></li>
-        <li><a class="nav-link" href="@Url.Action("Login", "Account")">Log in</a></li>
+        <li><a asp-area="" asp-controller="Account" asp-action="Register">Register</a></li>
+        <li><a asp-area="" asp-controller="Account" asp-action="Login">Log in</a></li>
     </ul>
 }

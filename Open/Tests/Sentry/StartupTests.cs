@@ -16,16 +16,15 @@ using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Primitives;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Open.Domain.Money;
 using Open.Domain.Party;
 using Open.Domain.Quantity;
-/*using Open.Domain.Party;
-using Open.Domain.Quantity;*/
 using Open.Infra;
+using Open.Infra.Money;
 using Open.Infra.Party;
 using Open.Infra.Quantity;
-/*using Open.Infra.Party;
-using Open.Infra.Quantity;*/
 using Open.Sentry;
+using Open.Sentry.Data;
 using Open.Sentry.Services;
 namespace Open.Tests.Sentry {
     [TestClass] public class StartupTests : BaseTests {
@@ -104,18 +103,24 @@ namespace Open.Tests.Sentry {
             startup.ConfigureServices(services);
             Assert.AreEqual(1, configuration.Keys.Count);
             Assert.AreEqual("ConnectionStrings", configuration.Keys[0]);
-            Assert.AreEqual(262, services.Count);
-       /*     isServiceRegistered<IRateTypeRepository, RateTypesRepository>();
-            isServiceRegistered<IRateRepository, RatesRepository>();
-            isServiceRegistered<IPaymentMethodsRepository, PaymentMethodsRepository>();
-            isServiceRegistered<IPaymentsRepository, PaymentsRepository>();*/
+            Assert.AreEqual(261, services.Count);
             isServiceRegistered<ICountriesRepository, CountriesRepository>();
             isServiceRegistered<ICurrencyRepository, CurrenciesRepository>();
             isServiceRegistered<INationalCurrenciesRepository, NationalCurrenciesRepository>();
             isServiceRegistered<IAddressesRepository, ContactsRepository>();
             isServiceRegistered<ITelecomDeviceRegistrationsRepository, TelecomDeviceRegistrationsRepository>();
+            isServiceRegistered<IRateTypeRepository, RateTypesRepository>();
+            isServiceRegistered<IRateRepository, RatesRepository>();
+            isServiceRegistered<IPaymentMethodsRepository, PaymentMethodsRepository>();
+            isServiceRegistered<IPaymentsRepository, PaymentsRepository>();
+            isServiceRegistered<ISystemsOfUnitsRepository, SystemsOfUnitsRepository>();
             isServiceRegistered<IEmailSender, EmailSender>();
             isServiceRegistered<ApplicationDbContext, ApplicationDbContext>();
+            isServiceRegistered<MoneyDbContext, MoneyDbContext>();
+            isServiceRegistered<QuantityDbContext, QuantityDbContext>();
+            isServiceRegistered<PartyDbContext, PartyDbContext>();
+            isServiceRegistered<IMeasureRepository, MeasureRepository>();
+            isServiceRegistered<IUnitRepository, UnitRepository>();
         }
         private void isServiceRegistered<TService, TImplementation>() {
             var service = services.FirstOrDefault(x => x.ServiceType == typeof(TService));
@@ -126,6 +131,5 @@ namespace Open.Tests.Sentry {
             startup.Configure(app, env);
             Assert.AreEqual(4, app.Middleware.Count);
         }
-
     }
 }

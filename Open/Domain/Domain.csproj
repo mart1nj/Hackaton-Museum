@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Open.Domain</RootNamespace>
     <AssemblyName>Open.Domain</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -41,65 +41,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bank\Account.cs" />
-    <Compile Include="Bank\AccountFactory.cs" />
-    <Compile Include="Bank\AccountList.cs" />
-    <Compile Include="Bank\BaseTransaction.cs" />
-    <Compile Include="Bank\IAccountsRepository.cs" />
-    <Compile Include="Bank\IInsuranceRepository.cs" />
-    <Compile Include="Bank\Insurance.cs" />
-    <Compile Include="Bank\InsuranceFactory.cs" />
-    <Compile Include="Bank\InsuranceList.cs" />
-    <Compile Include="Bank\ITransaction.cs" />
-    <Compile Include="Bank\ITransactionRepository.cs" />
-    <Compile Include="Bank\RequestTransactionsList.cs" />
-    <Compile Include="Bank\RequestTransaction.cs" />
-    <Compile Include="Bank\Transaction.cs" />
-    <Compile Include="Bank\TransactionFactory.cs" />
-    <Compile Include="Bank\TransactionList.cs" />
-    <Compile Include="Common\Entity.cs" />
-    <Compile Include="Common\IMetrics.cs" />
-    <Compile Include="Common\Metrics.cs" />
+    <Compile Include="Common\IUnique.cs" />
     <Compile Include="Common\NamedEntity.cs" />
+    <Compile Include="Common\IMetric.cs" />
+    <Compile Include="Common\Metric.cs" />
     <Compile Include="Common\Period.cs" />
+    <Compile Include="Common\Entity.cs" />
     <Compile Include="Common\Value.cs" />
-    <Compile Include="Bank\IRequestTransactionRepository.cs" />
-    <Compile Include="Notification\INotification.cs" />
-    <Compile Include="Notification\INotificationsRepository.cs" />
-    <Compile Include="Notification\NewInsuranceNotification.cs" />
-    <Compile Include="Notification\NewRequestTransactionNotification.cs" />
-    <Compile Include="Notification\NewTransactionNotification.cs" />
-    <Compile Include="Notification\Notification.cs" />
-    <Compile Include="Notification\NotificationFactory.cs" />
-    <Compile Include="Notification\NotificationsList.cs" />
-    <Compile Include="Notification\RequestStatusNotification.cs" />
-    <Compile Include="Notification\WelcomeNotification.cs" />
-    <Compile Include="Party\Address.cs" />
-    <Compile Include="Party\AddressesList.cs" />
-    <Compile Include="Party\AddressFactory.cs" />
-    <Compile Include="Party\CountriesList.cs" />
-    <Compile Include="Party\Country.cs" />
-    <Compile Include="Party\CountryFactory.cs" />
-    <Compile Include="Party\EmailAddress.cs" />
-    <Compile Include="Party\GeographicAddress.cs" />
-    <Compile Include="Party\IAddress.cs" />
-    <Compile Include="Party\IAddressesRepository.cs" />
-    <Compile Include="Party\ICountriesRepository.cs" />
-    <Compile Include="Party\ITelecomDeviceRegistrationsRepository.cs" />
-    <Compile Include="Party\TelecomAddress.cs" />
-    <Compile Include="Party\TelecomDeviceRegistration.cs" />
-    <Compile Include="Party\TelecomDeviceRegistrationFactory.cs" />
-    <Compile Include="Party\TelecomDeviceRegistrationsList.cs" />
-    <Compile Include="Party\WebPageAddress.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Quantity\CurrenciesList.cs" />
-    <Compile Include="Quantity\Currency.cs" />
-    <Compile Include="Quantity\CurrencyFactory.cs" />
-    <Compile Include="Quantity\ICurrencyRepository.cs" />
-    <Compile Include="Quantity\INationalCurrenciesRepository.cs" />
-    <Compile Include="Quantity\NationalCurrenciesList.cs" />
-    <Compile Include="Quantity\NationalCurrency.cs" />
-    <Compile Include="Quantity\NationalCurrencyFactory.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
