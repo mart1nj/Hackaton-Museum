@@ -25,5 +25,6 @@ namespace Open.Tests.Sentry.Models.AccountViewModels {
 
         protected override RegisterViewModel getRandomObject() =>
             GetRandom.Object<RegisterViewModel>();
+
     }
 }

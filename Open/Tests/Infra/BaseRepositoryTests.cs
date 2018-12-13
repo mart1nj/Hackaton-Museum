@@ -1,14 +1,12 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Open.Aids;
 using Open.Core;
 using Open.Data.Common;
 namespace Open.Tests.Infra {
-    public abstract class BaseRepositoryTests<TContext, TObject, TDbRecord>
-        : BaseDbSetTests<TContext, TObject, TDbRecord>
-        where TContext: DbContext
+    public abstract class BaseRepositoryTests<TObject, TDbRecord>
+        : BaseDbSetTests<TObject, TDbRecord>
         where TDbRecord : PeriodData {
         private TDbRecord expected;
         private TObject random;
@@ -56,6 +54,9 @@ namespace Open.Tests.Infra {
             Assert.AreEqual(count + 1, dbSet.Count());
             actual = dbSet.Find(getKey(expected));
             validateDbRecords(expected, actual);
+            Assert.AreEqual(getID(expected), getID(actual));
+          /*  Assert.AreNotEqual(expected.ValidFrom, actual.ValidFrom);
+            Assert.AreNotEqual(expected.ValidTo, actual.ValidTo);*/
         }
         [TestMethod] public async Task DeleteObjectTest() {
             var c = count;
@@ -65,6 +66,8 @@ namespace Open.Tests.Infra {
                 await repository.DeleteObject(createObject(e));
                 Assert.AreEqual(--c, dbSet.Count());
             }
+            //Not working
+           // Assert.Inconclusive();
         }
         [TestMethod] public void IsInitializedTest() {
             Assert.IsTrue(repository.IsInitialized());

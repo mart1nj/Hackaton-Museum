@@ -20,10 +20,10 @@ namespace Open.Tests.Tests {
 
         }
         [TestMethod] public void ThreadSafeTest() {
-            //TODO: Assert.Inconclusive("cant get it right in asp.net core 2.1");
-            //startThreads(addToListSafe);
-            //Assert.AreEqual(values.Count, 10);
-            //Assert.AreEqual(threads.Count, 2);
+            Assert.Inconclusive("cant get it right in asp.net core 2.1");
+            startThreads(addToListSafe);
+            Assert.AreEqual(values.Count, 10);
+            Assert.AreEqual(threads.Count, 2);
         }
         [TestMethod] public void NotThreadSafeTest() {
             startThreads(addToListNotSafe);

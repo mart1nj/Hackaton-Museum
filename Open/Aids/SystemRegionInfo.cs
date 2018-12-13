@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿
+
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 namespace Open.Aids {
@@ -14,21 +16,9 @@ namespace Open.Aids {
                 var cultures = SystemCultureInfo.GetSpecificCultures();
                 var regions = SystemEnumerable.Convert(cultures, SystemCultureInfo.ToRegionInfo);
                 regions = SystemEnumerable.Distinct(regions);
-                var list = regions.ToList();
-                removeNotCountries(list);
-                regions = SystemEnumerable.OrderBy(list.ToArray(), p => p.EnglishName);
+                regions = SystemEnumerable.OrderBy(regions, p => p.EnglishName);
                 return regions.ToList();
             }, new List<RegionInfo>());
-        }
-
-        private static void removeNotCountries(List<RegionInfo> cultures)
-        {
-            for(var i = cultures.Count; i > 0; i--)
-            {
-                var c = cultures[i - 1];
-                if (c!= null && c.EnglishName != null) continue;
-                cultures.RemoveAt(i - 1);
-            }
         }
     }
 }

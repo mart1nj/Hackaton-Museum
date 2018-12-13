@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
@@ -8,10 +8,64 @@
      <DebugType>Full</DebugType>
  </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Views\Calculator\**" />
+    <Compile Remove="Views\Contacts\**" />
+    <Compile Remove="Views\Countries\**" />
+    <Compile Remove="Views\Currencies\**" />
+    <Compile Remove="Views\PaymentMethods\**" />
+    <Compile Remove="Views\Payments\**" />
+    <Compile Remove="Views\Rates\**" />
+    <Compile Remove="Views\RateTypes\**" />
+    <Content Remove="Views\Calculator\**" />
+    <Content Remove="Views\Contacts\**" />
+    <Content Remove="Views\Countries\**" />
+    <Content Remove="Views\Currencies\**" />
+    <Content Remove="Views\PaymentMethods\**" />
+    <Content Remove="Views\Payments\**" />
+    <Content Remove="Views\Rates\**" />
+    <Content Remove="Views\RateTypes\**" />
+    <EmbeddedResource Remove="Views\Calculator\**" />
+    <EmbeddedResource Remove="Views\Contacts\**" />
+    <EmbeddedResource Remove="Views\Countries\**" />
+    <EmbeddedResource Remove="Views\Currencies\**" />
+    <EmbeddedResource Remove="Views\PaymentMethods\**" />
+    <EmbeddedResource Remove="Views\Payments\**" />
+    <EmbeddedResource Remove="Views\Rates\**" />
+    <EmbeddedResource Remove="Views\RateTypes\**" />
+    <None Remove="Views\Calculator\**" />
+    <None Remove="Views\Contacts\**" />
+    <None Remove="Views\Countries\**" />
+    <None Remove="Views\Currencies\**" />
+    <None Remove="Views\PaymentMethods\**" />
+    <None Remove="Views\Payments\**" />
+    <None Remove="Views\Rates\**" />
+    <None Remove="Views\RateTypes\**" />
+  </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.5" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.5" />
+    <Compile Remove="Controllers\CalculatorController.cs" />
+    <Compile Remove="Controllers\ContactsController.cs" />
+    <Compile Remove="Controllers\CountriesController.cs" />
+    <Compile Remove="Controllers\CurrenciesController.cs" />
+    <Compile Remove="Controllers\PaymentMethodsController.cs" />
+    <Compile Remove="Controllers\PaymentsController.cs" />
+    <Compile Remove="Controllers\RatesController.cs" />
+    <Compile Remove="Controllers\RateTypesController.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Views\Home\Contacts.cshtml" />
+    <Content Remove="Views\Home\Money.cshtml" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.1.3" />
+    <PackageReference Include="Microsoft.jQuery.Unobtrusive.Ajax" Version="3.2.6" />
+    <PackageReference Include="Microsoft.jQuery.Unobtrusive.Validation" Version="3.2.11" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,8 +73,17 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\css\bootstrap-dropmenu.css" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Facade\Facade.csproj" />
     <ProjectReference Include="..\Infra\Infra.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="Microsoft.AspNetCore.Identity">
+      <HintPath>..\..\packages\Microsoft.AspNetCore.Identity.2.1.3\lib\netstandard2.0\Microsoft.AspNetCore.Identity.dll</HintPath>
+    </Reference>
+  </ItemGroup>
 </Project>

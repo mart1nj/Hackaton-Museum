@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Open.Core</RootNamespace>
     <AssemblyName>Open.Core</AssemblyName>
-    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -32,6 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -41,6 +42,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BankId.cs" />
+    <Compile Include="CardType.cs" />
+    <Compile Include="MusealState.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="IActivity.cs" />
     <Compile Include="IActivityType.cs" />
@@ -48,6 +52,7 @@
     <Compile Include="ILinked.cs" />
     <Compile Include="ILinkedId.cs" />
     <Compile Include="IMaster.cs" />
+    <Compile Include="InsuranceType.cs" />
     <Compile Include="IRepository.cs" />
     <Compile Include="IPaginatedList.cs" />
     <Compile Include="IPaginatedRepository.cs" />
@@ -60,7 +65,6 @@
     <Compile Include="ITerm.cs" />
     <Compile Include="Messages.cs" />
     <Compile Include="MoneyOperation.cs" />
-    <Compile Include="Operation.cs" />
     <Compile Include="PaginatedList.cs" />
     <Compile Include="PartyNameType.cs" />
     <Compile Include="PricingStrategy.cs" />
@@ -71,6 +75,7 @@
     <Compile Include="RoundingStrategy.cs" />
     <Compile Include="Rounding.cs" />
     <Compile Include="SortOrder.cs" />
+    <Compile Include="TransactionStatus.cs" />
     <Compile Include="TelecomDevice.cs" />
   </ItemGroup>
   <ItemGroup>

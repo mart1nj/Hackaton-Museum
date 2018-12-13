@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
@@ -6,8 +8,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Open.Aids;
+using Open.Data.User;
 using Open.Sentry.Extensions;
-using Open.Sentry.Models;
 using Open.Sentry.Models.AccountViewModels;
 using Open.Sentry.Services;
 namespace Open.Sentry.Controllers {
@@ -21,8 +24,7 @@ namespace Open.Sentry.Controllers {
         public AccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
-            IEmailSender emailSender,
-            ILogger<AccountController> logger) {
+            IEmailSender emailSender, ILogger<AccountController> logger) {
             this.userManager = userManager;
             this.signInManager = signInManager;
             this.emailSender = emailSender;
@@ -176,16 +178,14 @@ namespace Open.Sentry.Controllers {
         public async Task<IActionResult>
             Register(RegisterViewModel model, string returnUrl = null) {
             ViewData["ReturnUrl"] = returnUrl;
-            if (ModelState.IsValid) {
-                var user = new ApplicationUser {UserName = model.Email, Email = model.Email};
+            if (ModelState.IsValid) {                
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded) {
                     logger.LogInformation("User created a new account with password.");
-
                     var code = await userManager.GenerateEmailConfirmationTokenAsync(user);
                     var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
                     await emailSender.SendEmailConfirmationAsync(model.Email, callbackUrl);
-
                     await signInManager.SignInAsync(user, isPersistent: false);
                     logger.LogInformation("User created a new account with password.");
                     return redirectToLocal(returnUrl);

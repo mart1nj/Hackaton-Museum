@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
@@ -8,8 +10,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Open.Aids;
+using Open.Data.User;
 using Open.Sentry.Extensions;
-using Open.Sentry.Models;
 using Open.Sentry.Models.ManageViewModels;
 using Open.Sentry.Services;
 namespace Open.Sentry.Controllers {
@@ -28,8 +31,7 @@ namespace Open.Sentry.Controllers {
         public ManageController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
-            IEmailSender emailSender,
-            ILogger<ManageController> logger,
+            IEmailSender emailSender, ILogger<ManageController> logger,
             UrlEncoder urlEncoder) {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -47,13 +49,12 @@ namespace Open.Sentry.Controllers {
                 throw new ApplicationException(
                     $"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
-
             var model = new IndexViewModel {
                 Username = user.UserName,
                 Email = user.Email,
                 PhoneNumber = user.PhoneNumber,
                 IsEmailConfirmed = user.EmailConfirmed,
-                StatusMessage = StatusMessage
+                StatusMessage = StatusMessage,
             };
 
             return View(model);
@@ -87,13 +88,14 @@ namespace Open.Sentry.Controllers {
                         $"Unexpected error occurred setting phone number for user with ID '{user.Id}'.");
                 }
             }
-
+            await _userManager.UpdateAsync(user);
             StatusMessage = "Your profile has been updated";
             return RedirectToAction(nameof(Index));
         }
 
         [HttpPost] 
         public async Task<IActionResult> SendVerificationEmail(IndexViewModel model) {
+            // ReSharper disable once Mvc.ViewNotResolved
             if (!ModelState.IsValid) { return View(model); }
 
             var user = await _userManager.GetUserAsync(User);

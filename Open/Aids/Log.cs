@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 namespace Open.Aids {
 
     public static class Log {

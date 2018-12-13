@@ -1,0 +1,130 @@
+﻿@using Open.Sentry.Extensions
+@model Open.Core.IPaginatedList<Open.Facade.Museum.InventoryMusealView>
+
+@{
+    ViewBag.Title = "Museaalide inventuur";
+    Layout = "_IndexPartial";
+}
+
+@section Create {
+}
+
+<body>
+<table class="table">
+    @*@{ var dummy = Model.FirstOrDefault();}*@
+    <thead>
+    <tr>
+        @*@Html.SortColumnHeaderFor(model => dummy.ID, ViewData["SortID"])
+        @Html.SortColumnHeaderFor(model => dummy.Author, ViewData["SortAuthor"])
+        @Html.SortColumnHeaderFor(model => dummy.Designation, ViewData["SortDesignation"])
+        @Html.SortColumnHeaderFor(model => dummy.Info, ViewData["SortInfo"])
+        @Html.SortColumnHeaderFor(model => dummy.StateBefore, ViewData["SortStateBefore"])
+        @Html.SortColumnHeaderFor(model => dummy.DamagesBefore, ViewData["SortDamagesBefore"])
+        @Html.SortColumnHeaderFor(model => dummy.DefaultLocation, ViewData["SortDefaultLocation"])
+        @Html.SortColumnHeaderFor(model => dummy.CurrentLocation, ViewData["SortCurrentLocation"])*@
+        <th>Museaali number</th>
+        <th>Autor</th>
+        <th>Nimetus</th>
+        <th>Üldinfo</th>
+        <th>Seisund enne</th>
+        <th>Kahjustused enne</th>
+        <th>Püsiasukoht</th>
+        <th>Jooksev asukoht</th>
+        <th></th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @*@foreach (var item in Model) {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.ID)</td>
+            <td>@Html.DisplayFor(modelItem => item.Author)</td>
+            <td>@Html.DisplayFor(modelItem => item.Designation)</td>
+            <td>@Html.DisplayFor(modelItem => item.Info)</td>
+            <td>@Html.DisplayFor(modelItem => item.StateBefore)</td>
+            <td>@Html.DisplayFor(modelItem => item.DamagesBefore)</td>
+            <td>@Html.DisplayFor(modelItem => item.DefaultLocation)</td>
+            <td>@Html.DisplayFor(modelItem => item.CurrentLocation)</td>
+            @Html.EditDetailDeleteFor(modelItem => item.ID)
+        </tr>
+        <thead>
+        <tr>
+            @Html.SortColumnHeaderFor(model => dummy.IsChecked, ViewData["SortIsChecked"])
+            @Html.SortColumnHeaderFor(model => dummy.IsFound, ViewData["SortIsFound"])
+            <th></th>
+            <th></th>
+            @Html.SortColumnHeaderFor(model => dummy.HasStateChanged, ViewData["SortHasStateChanged"])
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.IsChecked)</td>
+            <td>@Html.DisplayFor(modelItem => item.IsFound)</td>
+            <td></td>
+            <td></td>
+            <td>@Html.DisplayFor(modelItem => item.HasStateChanged)</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        </tbody>
+    }*@
+    <tr>
+        <td>TLM_2981 L 1</td>
+        <td>Teadmata</td>
+        <td>Pudeli kael</td>
+        <td>Pikk detailne info</td>
+        <td>Väga halb</td>
+        <td>Säilinud osa pudelikaelast</td>
+        <td>riiul: 6</td>
+        <td>riiul: 6</td>
+        <td>Edit Details Delete</td>
+    </tr>
+    <thead>
+        <tr>
+            <th>Kontrollitud?</th>
+            <th>Leitud?</th>
+            <th></th>
+            <th></th>
+            <th>Olukord muutunud?</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>O Jah</td>
+        <td>O Jah</td>
+        <td></td>
+        <td></td>
+        <td>O Jah</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>O Ei</td>
+        <td>O Ei</td>
+        <td></td>
+        <td></td>
+        <td>O Ei</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    </tbody>
+    </tbody>
+</table>
+</body>

@@ -5,29 +5,36 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Open.Sentry.Data;
-using Open.Sentry.Models;
+using Open.Data.User;
+using Open.Infra;
 using Open.Sentry.Services;
+
 namespace Open.Sentry {
     public class Startup {
         public Startup(IConfiguration configuration) {
             Configuration = configuration;
         }
+
         public IConfiguration Configuration { get; }
+
         public void ConfigureServices(IServiceCollection services) {
             setDatabase(services);
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
             setAuthentication(services);
             services.AddTransient<IEmailSender, EmailSender>();
-            setMvcWithAntyFoggeryToken(services);
+            setMvcWithAntiForgeryToken(services);
+
+
+            services.AddSignalR();
         }
 
-        protected virtual void setMvcWithAntyFoggeryToken(IServiceCollection services) {
+        protected virtual void setMvcWithAntiForgeryToken(IServiceCollection services) {
             services.AddMvc(options => options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()));
         }
 
         protected virtual void setAuthentication(IServiceCollection services) { }
+
         protected virtual void setDatabase(IServiceCollection services) {
             var s = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<ApplicationDbContext>(
@@ -43,15 +50,15 @@ namespace Open.Sentry {
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
         }
+
         protected virtual void setErrorPage(IApplicationBuilder app, IHostingEnvironment env) {
-            if (env.IsDevelopment())
-            {
+            if (env.IsDevelopment()) {
                 app.UseBrowserLink();
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
+            } else {
+                app.UseExceptionHandler("/Home/Error");
             }
-            else { app.UseExceptionHandler("/Home/Error"); }
         }
     }
 }
-
