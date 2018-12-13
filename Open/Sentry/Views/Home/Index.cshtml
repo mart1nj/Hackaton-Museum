@@ -4,41 +4,58 @@
     ViewData["Title"] = "Inventuurid";
 }
 <div class="row">
-        <div class="col-md-12">
-            <h2>Welcome!</h2>
-            <div>
-                <a class="btn btn-outline-danger btn-sm" style="font-weight: bold"
-                   href="@Url.Action("CreateInventory", "Museum")">
-                    Uus inventaar &raquo;
-                </a>
-            </div>
-            @if (Model != null) {
-                <table style="width: 100%">
-                    <thead>
-                    <tr>
-                        <th>Identifikatsioon</th>
-                        <th>Töötaja nimi</th>
-                        <th>Kehtivuse algus</th>
-                        <th>Kehtivuse lõpp</th>
-                        <th></th>
-                    </tr>
-                    </thead>
-                    <tbody id="accTable">
-                    @foreach (var item in Model) {
-                        <tr>
-                            <td>@Html.DisplayFor(modelItem => item.ID)</td>
-                            <td>@Html.DisplayFor(modelItem => item.Employee)</td>
-                            <td>@Html.DisplayFor(modelItem => item.ValidFrom)</td>
-                            <td>@Html.DisplayFor(modelItem => item.ValidTo)</td>
-                            <td>
-                                <a class="btn btn-primary btn-sm btn-block"
-                                   href="@Url.Action("InventoryMusealsIndex", "Museum", new {inventoryId = item.ID})">
-                                    Detailid &raquo;
-                                </a>
-                            </td>
-                        </tr>
-                    }
-                </table>
-            }    
+    <div class="col-md-12">
+        <h2>Welcome!</h2>
+        <div>
+            <a class="btn btn-outline-danger btn-sm" style="font-weight: bold"
+               href="@Url.Action("CreateInventory", "Museum")">
+                Uus inventaar &raquo;
+            </a>
         </div>
+            <table style="width: 100%">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Komisjoniliikme nimi</th>
+                    <th>Kogu</th>
+                    <th>Asukoht</th>
+                    <th>Objektide arv</th>
+                    <th>Algus</th>
+                    <th>Lõpp</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody id="accTable">
+                    <tr>
+                        <td>123456</td>
+                        <td>Hanna Tamm</td>
+                        <td>Arheoloogia</td>
+                        <td>Tallinna muuseum</td>
+                        <td>200</td>
+                        <td>2018-01-01</td>
+                        <td>2018-10-03</td>
+                        <td>
+                            <a class="btn btn-primary btn-sm btn-block"
+                               href="@Url.Action("InventoryMusealsIndex", "Museum")">
+                                Detailid &raquo;
+                            </a>
+                        </td>
+                    </tr>
+                <tr>
+                    <td>795555</td>
+                    <td>Hanna Tamm</td>
+                    <td>Mööbel</td>
+                    <td>Tallinna Linnamuuseum</td>
+                    <td>89</td>
+                    <td>2018-10-08</td>
+                    <td>2018-10-31</td>
+                    <td>
+                        <a class="btn btn-primary btn-sm btn-block"
+                           href="@Url.Action("InventoryMusealsIndex", "Museum")">
+                            Detailid &raquo;
+                        </a>
+                    </td>
+                </tr>
+            </table>   
+    </div>
 </div>

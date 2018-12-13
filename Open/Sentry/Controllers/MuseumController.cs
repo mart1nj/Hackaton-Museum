@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.NetworkInformation;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Open.Core;
@@ -16,7 +17,7 @@ namespace Open.Sentry.Controllers
             "ID, MusealID, Author, Designation, Info, StateBefore, DamagesBefore, " +
             "DefaultLocation, CurrentLocation, ValidFrom, ValidTo";
         internal const string inventoryProperties = "ID, Employee, ValidFrom, ValidTo";
-
+        public static bool show = false;
         public MuseumController(IMusealsRepository mus, IInventoryMusealsRepository invMus, IInventoriesRepository inv)
         {
             museals = mus;
@@ -124,6 +125,17 @@ namespace Open.Sentry.Controllers
             var o = new Museal(d);
             await museals.AddObject(o);
             return RedirectToAction("MusealsIndex");
+        }
+
+        public IActionResult Save(string invetoryId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IActionResult Sumbit()
+        {
+            show = true;
+            return RedirectToAction("InventoryMusealsIndex");
         }
     }
 }
