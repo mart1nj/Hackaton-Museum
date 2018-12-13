@@ -32,7 +32,7 @@ namespace Open.Facade.Museum
             v.IsChecked = i?.Data?.IsChecked ?? false;
             v.IsFound = i?.Data?.IsFound ?? false;
             v.HasStateChanged = i?.Data?.HasStateChanged ?? false;
-            v.StateNow = i?.Data?.State ?? MusealState.Unspecified;
+            v.StateNow = i?.Data?.State ?? MusealState.Määramata;
             v.DamagesNow = i?.Data?.Damages;
             v.MusealID = i?.Data?.MusealID;
             v.InventoryID = i?.Data?.InventoryID;
@@ -51,14 +51,14 @@ namespace Open.Facade.Museum
         private static void setMusealCommonValues(MusealView model, 
             string author, string designation, string info, string damagesBefore,
             string defaultLocation, string currentLocation, 
-            MusealState? state = MusealState.Unspecified) {
+            MusealState? state = MusealState.Määramata) {
             model.Author = author;
             model.Designation = designation;
             model.Info = info;
             model.DamagesBefore = damagesBefore;
             model.DefaultLocation = defaultLocation;
             model.CurrentLocation = currentLocation;
-            model.StateBefore = state ?? MusealState.Unspecified;
+            model.StateBefore = state ?? MusealState.Määramata;
         }
         private static DateTime? setNullIfExtremum(DateTime d)
         {

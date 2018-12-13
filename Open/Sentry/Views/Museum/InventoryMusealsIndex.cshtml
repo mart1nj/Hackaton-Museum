@@ -2,8 +2,7 @@
 @model Open.Core.IPaginatedList<Open.Facade.Museum.InventoryMusealView>
 
 @{
-    ViewBag.Title = "Museaalide inventuur";
-    ViewBag.Subtitle = "Inventuuri number " + ViewBag.InventoryNumber;
+    ViewBag.Title = "Inventuur number " + ViewBag.InventoryNumber;
     Layout = "_IndexPartial";
 }
 
@@ -38,7 +37,6 @@
                         <td>@Html.DisplayFor(modelItem => item.DamagesBefore)</td>
                         <td>@Html.DisplayFor(modelItem => item.DefaultLocation)</td>
                         <td>@Html.DisplayFor(modelItem => item.CurrentLocation)</td>
-                        @Html.EditDetailDeleteFor(modelItem => item.ID)
                     </tr>
                     <thead>
                     <tr>
@@ -56,16 +54,20 @@
                     </thead>
                     <tbody>
                     <tr>
-                        <td>@Html.DisplayFor(modelItem => item.IsChecked)</td>
-                        <td>@Html.DisplayFor(modelItem => item.IsFound)</td>
+                        <td>@Html.EditorFor(model => item.IsChecked)</td>
+                        <td>@Html.EditorFor(model => item.IsFound)</td>
                         <td></td>
                         <td></td>
-                        <td>@Html.DisplayFor(modelItem => item.HasStateChanged)</td>
+                        <td>@Html.EditorFor(model => item.HasStateChanged)</td>
                         <td></td>
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td></td>
+                        <td> 
+                            <a class="btn btn-primary btn-sm btn-block"
+                               href="@Url.Action("Save", "Museum", new { invetoryId = item.ID })">
+                                Salvesta museaal &raquo;
+                            </a></td>
                     </tr>
                     </tbody>
                 }

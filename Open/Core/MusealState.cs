@@ -4,14 +4,14 @@ namespace Open.Core
     public enum MusealState
     {
         [Display(Name = "Hea")]
-        Good,
+        Hea,
         [Display(Name = "Rahuldav")]
-        Acceptable,
+        Rahuldav,
         [Display(Name = "Määramata")]
-        Unspecified,
+        Määramata,
         [Display(Name = "Halb")]
-        Bad,
+        Halb,
         [Display(Name = "Väga halb")]
-        VeryBad
+        VägaHalb
     }
 }

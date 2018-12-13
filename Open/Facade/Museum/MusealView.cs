@@ -12,7 +12,7 @@ namespace Open.Facade.Museum
         private string defaultLocation;
         private string currentLocation;
 
-        [DisplayName("Identificatsioon")]
+        [DisplayName("Identifikaator")]
         public new string ID
         {
             get => getString(ref id);
