@@ -8,6 +8,8 @@ namespace Open.Sentry.Controllers
 {
     public class MuseumController : Controller
     {
+        public static string text;
+
         public IActionResult Index()
         {
             return View();
@@ -15,6 +17,10 @@ namespace Open.Sentry.Controllers
 
         public IActionResult InventoryIndex()
         {
+            var Ocr = new IronOcr.AutoOcr();
+            var Result = Ocr.Read(@"C:\Users\Asus\Downloads\img_20181213_134432.jpg");
+            Console.WriteLine(Result.Text);
+            text = Result.Text;
             return View();
         }
     }
