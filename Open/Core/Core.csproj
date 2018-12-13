@@ -75,6 +75,7 @@
     <Compile Include="RoundingStrategy.cs" />
     <Compile Include="Rounding.cs" />
     <Compile Include="SortOrder.cs" />
+    <Compile Include="StateType.cs" />
     <Compile Include="TransactionStatus.cs" />
     <Compile Include="TelecomDevice.cs" />
   </ItemGroup>
