@@ -1,24 +1,27 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Open.Data.User;
+using Open.Domain.Museum;
+using Open.Facade.Museum;
 using Open.Sentry.Models;
 
 namespace Open.Sentry.Controllers {
     public class HomeController : Controller {
         private readonly UserManager<ApplicationUser> userManager;
-  
-        public HomeController(UserManager<ApplicationUser> uManager) {
+        private readonly IInventoriesRepository inventories;
+
+        public HomeController(UserManager<ApplicationUser> uManager, IInventoriesRepository i) {
             userManager = uManager;
+            inventories = i;
         }
         public async Task<IActionResult> Index() {
-            var loggedInUser = await userManager.GetUserAsync(HttpContext.User);
-            if (loggedInUser == null) return View();
-            return View();
-
+            var invs = await inventories.GetObjectsList();
+            var invViewsList = new InventoryViewsList(invs);
+            return View(invViewsList);
         }
+
         public IActionResult About() {
             ViewData["Message"] = "Your application description page.";
 

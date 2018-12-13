@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Open.Core;
@@ -82,10 +80,6 @@ namespace Open.Sentry.Controllers
             var viewList = new MusealViewsList(mus);
             return View(viewList);
         }
-        public IActionResult Index()
-        {
-            return View();
-        }
 
         public IActionResult CreateInventory()
         {
@@ -110,6 +104,26 @@ namespace Open.Sentry.Controllers
                 await inventoryMuseals.AddObject(invMusObj);
             }
         }
+        public IActionResult CreateMuseal()
+        {
+            return View();
+        }
 
+        [HttpPost]
+        public async Task<IActionResult> CreateMuseal([Bind(musealProperties)] MusealView c)
+        {
+            c.ID = c.ID ?? Guid.NewGuid().ToString();
+            if (c.ID == "Unspecified") c.ID = Guid.NewGuid().ToString();
+            var d = new MusealData {
+                ID = c.ID, Author = c.Author, Designation = c.Designation, Info = c.Info,
+                StateBefore = c.StateBefore, DamagesBefore = c.DamagesBefore,
+                CurrentLocation = c.CurrentLocation, DefaultLocation = c.DefaultLocation,
+                ValidTo = c.ValidTo ?? DateTime.MaxValue,
+                ValidFrom = c.ValidFrom ?? DateTime.MinValue
+            };
+            var o = new Museal(d);
+            await museals.AddObject(o);
+            return RedirectToAction("MusealsIndex");
+        }
     }
 }
