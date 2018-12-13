@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -8,7 +9,7 @@ using Open.Sentry.Models;
 namespace Open.Sentry.Controllers {
     public class HomeController : Controller {
         private readonly UserManager<ApplicationUser> userManager;
-
+  
         public HomeController(UserManager<ApplicationUser> uManager) {
             userManager = uManager;
         }
