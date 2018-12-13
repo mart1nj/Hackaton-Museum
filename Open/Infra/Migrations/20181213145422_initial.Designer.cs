@@ -10,7 +10,7 @@ using Open.Infra;
 namespace Open.Infra.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20181212225402_initial")]
+    [Migration("20181213145422_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -131,6 +131,82 @@ namespace Open.Infra.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("Open.Data.Museum.InventoryData", b =>
+                {
+                    b.Property<string>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Employee");
+
+                    b.Property<DateTime>("ValidFrom");
+
+                    b.Property<DateTime>("ValidTo");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Inventory");
+                });
+
+            modelBuilder.Entity("Open.Data.Museum.InventoryMusealData", b =>
+                {
+                    b.Property<string>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Damages");
+
+                    b.Property<bool?>("HasStateChanged");
+
+                    b.Property<string>("InventoryID");
+
+                    b.Property<bool?>("IsChecked");
+
+                    b.Property<bool?>("IsFound");
+
+                    b.Property<string>("MusealID");
+
+                    b.Property<int>("State");
+
+                    b.Property<DateTime>("ValidFrom");
+
+                    b.Property<DateTime>("ValidTo");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("InventoryID");
+
+                    b.HasIndex("MusealID");
+
+                    b.ToTable("InventoryMuseal");
+                });
+
+            modelBuilder.Entity("Open.Data.Museum.MusealData", b =>
+                {
+                    b.Property<string>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Author");
+
+                    b.Property<string>("CurrentLocation");
+
+                    b.Property<string>("DamagesBefore");
+
+                    b.Property<string>("DefaultLocation");
+
+                    b.Property<string>("Designation");
+
+                    b.Property<string>("Info");
+
+                    b.Property<int>("StateBefore");
+
+                    b.Property<DateTime>("ValidFrom");
+
+                    b.Property<DateTime>("ValidTo");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Museal");
+                });
+
             modelBuilder.Entity("Open.Data.User.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
@@ -225,6 +301,19 @@ namespace Open.Infra.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Open.Data.Museum.InventoryMusealData", b =>
+                {
+                    b.HasOne("Open.Data.Museum.InventoryData", "Inventory")
+                        .WithMany()
+                        .HasForeignKey("InventoryID")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Open.Data.Museum.MusealData", "Museal")
+                        .WithMany()
+                        .HasForeignKey("MusealID")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 #pragma warning restore 612, 618
         }

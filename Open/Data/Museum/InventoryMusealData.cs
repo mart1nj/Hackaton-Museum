@@ -1,55 +1,52 @@
-﻿using System.ComponentModel;
-using Open.Core;
-namespace Open.Facade.Museum
+﻿using Open.Core;
+using Open.Data.Common;
+namespace Open.Data.Museum
 {
-    public class InventoryMusealView : MusealView {
+    public class InventoryMusealData : IdentifiedData
+    {
         private bool? isChecked;
         private bool? isFound;
         private bool? hasStateChanged;
+        private string damages;
         private string musealID;
         private string inventoryID;
 
-        [DisplayName("Kontrollitud?")]
+
         public bool? IsChecked
         {
             get => getBool(ref isChecked);
             set => isChecked = value;
         }
-
-        [DisplayName("Leitud?")]
         public bool? IsFound
         {
             get => getBool(ref isFound);
             set => isFound = value;
         }
-
-        [DisplayName("Olukord muutunud?")]
         public bool? HasStateChanged
         {
             get => getBool(ref hasStateChanged);
             set => hasStateChanged = value;
         }
-
-        [DisplayName("Seisund nüüd")]
-        public MusealState StateNow { get; set; }
-
-        [DisplayName("Kahjustused nüüd")]
-        public string DamagesNow
+        public MusealState State { get; set; }
+        public string Damages
         {
-            get => getString(ref damagesBefore);
-            set => damagesBefore = value;
+            get => getString(ref damages);
+            set => damages = value;
         }
-        [DisplayName("Museaali number")]
+
         public string MusealID
         {
             get => getString(ref musealID);
             set => musealID = value;
         }
-        [DisplayName("Inventaari number")]
+
         public string InventoryID
         {
             get => getString(ref inventoryID);
             set => inventoryID = value;
         }
+        public virtual MusealData Museal { get; set; }
+
+        public virtual InventoryData Inventory { get; set; }
     }
 }

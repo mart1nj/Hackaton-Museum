@@ -48,6 +48,40 @@ namespace Open.Infra.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Inventory",
+                columns: table => new
+                {
+                    ValidFrom = table.Column<DateTime>(nullable: false),
+                    ValidTo = table.Column<DateTime>(nullable: false),
+                    ID = table.Column<string>(nullable: false),
+                    Employee = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Inventory", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Museal",
+                columns: table => new
+                {
+                    ValidFrom = table.Column<DateTime>(nullable: false),
+                    ValidTo = table.Column<DateTime>(nullable: false),
+                    ID = table.Column<string>(nullable: false),
+                    Author = table.Column<string>(nullable: true),
+                    Designation = table.Column<string>(nullable: true),
+                    Info = table.Column<string>(nullable: true),
+                    StateBefore = table.Column<int>(nullable: false),
+                    DamagesBefore = table.Column<string>(nullable: true),
+                    DefaultLocation = table.Column<string>(nullable: true),
+                    CurrentLocation = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Museal", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -153,6 +187,38 @@ namespace Open.Infra.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "InventoryMuseal",
+                columns: table => new
+                {
+                    ValidFrom = table.Column<DateTime>(nullable: false),
+                    ValidTo = table.Column<DateTime>(nullable: false),
+                    ID = table.Column<string>(nullable: false),
+                    IsChecked = table.Column<bool>(nullable: true),
+                    IsFound = table.Column<bool>(nullable: true),
+                    HasStateChanged = table.Column<bool>(nullable: true),
+                    State = table.Column<int>(nullable: false),
+                    Damages = table.Column<string>(nullable: true),
+                    MusealID = table.Column<string>(nullable: true),
+                    InventoryID = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_InventoryMuseal", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_InventoryMuseal_Inventory_InventoryID",
+                        column: x => x.InventoryID,
+                        principalTable: "Inventory",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_InventoryMuseal_Museal_MusealID",
+                        column: x => x.MusealID,
+                        principalTable: "Museal",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -191,6 +257,16 @@ namespace Open.Infra.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_InventoryMuseal_InventoryID",
+                table: "InventoryMuseal",
+                column: "InventoryID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_InventoryMuseal_MusealID",
+                table: "InventoryMuseal",
+                column: "MusealID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -211,10 +287,19 @@ namespace Open.Infra.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "InventoryMuseal");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Inventory");
+
+            migrationBuilder.DropTable(
+                name: "Museal");
         }
     }
 }

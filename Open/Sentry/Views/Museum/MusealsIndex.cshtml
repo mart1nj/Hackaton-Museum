@@ -7,35 +7,35 @@
 }
 
 @section Create {
-    <a asp-action=Create>Create New</a>
+    <a asp-action=CreateMuseal>Loo uus</a>
 }
 
 <body>
 <table class="table">
-    @*@{ var dummy = Model.FirstOrDefault();}*@
+    @{ var dummy = Model.FirstOrDefault();}
     <thead>
         <tr>
-            @*@Html.SortColumnHeaderFor(model => dummy.ID, ViewData["SortID"])
-        @Html.SortColumnHeaderFor(model => dummy.Author, ViewData["SortAuthor"])
-        @Html.SortColumnHeaderFor(model => dummy.Designation, ViewData["SortDesignation"])
-        @Html.SortColumnHeaderFor(model => dummy.Info, ViewData["SortInfo"])
-        @Html.SortColumnHeaderFor(model => dummy.StateBefore, ViewData["SortStateBefore"])
-        @Html.SortColumnHeaderFor(model => dummy.DamagesBefore, ViewData["SortDamagesBefore"])
-        @Html.SortColumnHeaderFor(model => dummy.DefaultLocation, ViewData["SortDefaultLocation"])
-        @Html.SortColumnHeaderFor(model => dummy.CurrentLocation, ViewData["SortCurrentLocation"])*@
-            <th>Museaali number</th>
+            @Html.SortColumnHeaderFor(model => dummy.ID, ViewData["SortID"])
+            @Html.SortColumnHeaderFor(model => dummy.Author, ViewData["SortAuthor"])
+            @Html.SortColumnHeaderFor(model => dummy.Designation, ViewData["SortDesignation"])
+            @Html.SortColumnHeaderFor(model => dummy.Info, ViewData["SortInfo"])
+            @Html.SortColumnHeaderFor(model => dummy.StateBefore, ViewData["SortStateBefore"])
+            @Html.SortColumnHeaderFor(model => dummy.DamagesBefore, ViewData["SortDamagesBefore"])
+            @Html.SortColumnHeaderFor(model => dummy.DefaultLocation, ViewData["SortDefaultLocation"])
+            @Html.SortColumnHeaderFor(model => dummy.CurrentLocation, ViewData["SortCurrentLocation"])
+            @*<th>Museaali number</th>
             <th>Autor</th>
             <th>Nimetus</th>
             <th>Üldinfo</th>
             <th>Seisund enne</th>
             <th>Kahjustused enne</th>
             <th>Püsiasukoht</th>
-            <th>Jooksev asukoht</th>
+            <th>Jooksev asukoht</th>*@
             <th></th>
         </tr>
     </thead>
     <tbody>
-    @*@foreach (var item in Model)
+    @foreach (var item in Model)
     {
         <tr>
             <td>@Html.DisplayFor(modelItem => item.ID)</td>
@@ -48,7 +48,7 @@
             <td>@Html.DisplayFor(modelItem => item.CurrentLocation)</td>
             @Html.EditDetailDeleteFor(modelItem => item.ID)
         </tr>
-    }*@
+    }
         <tr>
             <td>TLM_2981 L 1</td>
             <td>Teadmata</td>

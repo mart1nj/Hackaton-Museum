@@ -47,6 +47,15 @@
     <Compile Include="Common\NamedEntity.cs" />
     <Compile Include="Common\Period.cs" />
     <Compile Include="Common\Value.cs" />
+    <Compile Include="Museum\IInventoriesRepository.cs" />
+    <Compile Include="Museum\IInventoryMusealsRepository.cs" />
+    <Compile Include="Museum\IMusealsRepository.cs" />
+    <Compile Include="Museum\InventoriesList.cs" />
+    <Compile Include="Museum\Inventory.cs" />
+    <Compile Include="Museum\InventoryMuseal.cs" />
+    <Compile Include="Museum\InventoryMusealsList.cs" />
+    <Compile Include="Museum\Museal.cs" />
+    <Compile Include="Museum\MusealsList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

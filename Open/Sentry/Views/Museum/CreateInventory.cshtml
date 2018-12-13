@@ -1,0 +1,17 @@
+﻿@using Open.Sentry.Extensions
+@model Open.Facade.Museum.InventoryView
+
+@{
+    ViewBag.Title = "Uus inventaar";
+    ViewBag.Button = "Genereeri";
+    Layout = "_EditPartial";
+}
+
+<body>
+    @Html.HiddenFor(x => x.ID)
+    @Html.EditingControlsFor(x => x.Employee)
+    @Html.EditingControlsFor(x => x.ValidFrom)
+    @Html.EditingControlsFor(x => x.ValidTo)
+</body>
+
+@section Actions{@Html.ActionLink("Tagasi", "Index", "Home")}

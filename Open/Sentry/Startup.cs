@@ -6,7 +6,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Open.Data.User;
+using Open.Domain.Museum;
 using Open.Infra;
+using Open.Infra.Museum;
 using Open.Sentry.Services;
 
 namespace Open.Sentry {
@@ -24,9 +26,9 @@ namespace Open.Sentry {
             setAuthentication(services);
             services.AddTransient<IEmailSender, EmailSender>();
             setMvcWithAntiForgeryToken(services);
-
-
-            services.AddSignalR();
+            services.AddScoped<IMusealsRepository, MusealsRepository>();
+            services.AddScoped<IInventoriesRepository, InventoriesRepository>();
+            services.AddScoped<IInventoryMusealsRepository, InventoryMusealsRepository>();
         }
 
         protected virtual void setMvcWithAntiForgeryToken(IServiceCollection services) {

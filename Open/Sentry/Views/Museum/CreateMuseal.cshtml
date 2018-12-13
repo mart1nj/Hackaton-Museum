@@ -1,0 +1,21 @@
+﻿@using Open.Sentry.Extensions
+@model Open.Facade.Museum.MusealView
+
+@{
+    ViewBag.Title = "Uus museaal";
+    ViewBag.Button = "Genereeri";
+    Layout = "_EditPartial";
+}
+
+<body>
+    @Html.EditingControlsFor(x => x.ID)
+    @Html.EditingControlsFor(x => x.Author)
+    @Html.EditingControlsFor(x => x.Designation)
+    @Html.EditingControlsFor(x => x.Info)
+    @Html.EditingControlsForEnum(x => x.StateBefore)
+    @Html.EditingControlsFor(x => x.DamagesBefore)
+    @Html.EditingControlsFor(x => x.DefaultLocation)
+    @Html.EditingControlsFor(x => x.CurrentLocation)
+</body>
+
+@section Actions{@Html.ActionLink("Tagasi", "MusealsIndex", "Museum")}

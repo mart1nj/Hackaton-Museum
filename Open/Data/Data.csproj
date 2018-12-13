@@ -53,6 +53,9 @@
     <Compile Include="Common\MetricsData.cs" />
     <Compile Include="Common\NamedData.cs" />
     <Compile Include="Common\PeriodData.cs" />
+    <Compile Include="Museum\InventoryData.cs" />
+    <Compile Include="Museum\InventoryMusealData.cs" />
+    <Compile Include="Museum\MusealData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="User\ApplicationUser.cs" />
   </ItemGroup>

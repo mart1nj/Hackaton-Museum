@@ -1,43 +1,44 @@
-﻿@{
-    ViewData["Title"] = "Sentry";
+﻿@model Open.Core.IPaginatedList<Open.Facade.Museum.InventoryView>
+
+@{
+    ViewData["Title"] = "Inventuurid";
 }
-
-<div class ="jumbotron">
-    <h1>@ViewData["Title"]</h1>
-</div>
-
 <div class="row">
-    <div class="col-md-4">
-        <h2>Welcome to Sentry</h2>
-        <p>
-            Sentry (Sample Entry) is a flexible and customizable
-            by the end user LIMS (Laboratory Information
-            Management System) for clinical and clinical
-            research laboratories.
-        </p>
-    </div>
-
-    <div class="col-md-4">
-        <h2>Build it from scratch</h2>
-        <p>
-            You can build the application by following the steps
-            in a series of tutorials.
-        </p>
-        <p>
-            <a class="btn btn-default"
-               href="http://docs.asp.net/en/latest/data/ef-mcv/intro.html">See the totorial &raquo;</a>
-        </p>
-    </div>
-
-    <div class="col-md-4">
-        <h2>Download it</h2>
-        <p>
-            You can download the completed project from GitHub.
-        </p>
-        <p>
-            <a class="btn btn-default"
-               href="http://github.com/aspnet/Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final">See project source code &raquo;</a>
-        </p>
-    </div>
-
+        <div class="col-md-12">
+            <h2>Welcome!</h2>
+            <div>
+                <a class="btn btn-outline-danger btn-sm" style="font-weight: bold"
+                   href="@Url.Action("CreateInventory", "Museum")">
+                    Uus inventaar &raquo;
+                </a>
+            </div>
+            @if (Model != null) {
+                <table style="width: 100%">
+                    <thead>
+                    <tr>
+                        <th>Identifikatsioon</th>
+                        <th>Töötaja nimi</th>
+                        <th>Kehtivuse algus</th>
+                        <th>Kehtivuse lõpp</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody id="accTable">
+                    @foreach (var item in Model) {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => item.ID)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Employee)</td>
+                            <td>@Html.DisplayFor(modelItem => item.ValidFrom)</td>
+                            <td>@Html.DisplayFor(modelItem => item.ValidTo)</td>
+                            <td>
+                                <a class="btn btn-primary btn-sm btn-block"
+                                   href="@Url.Action("InventoryIndex", "Museum", new {inventoryId = item.ID})">
+                                    Detailid &raquo;
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </table>
+            }    
+        </div>
 </div>

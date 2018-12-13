@@ -46,7 +46,11 @@
     <Compile Include="Common\NamedView.cs" />
     <Compile Include="Common\PeriodView.cs" />
     <Compile Include="Museum\InventoryMusealView.cs" />
+    <Compile Include="Museum\InventoryView.cs" />
+    <Compile Include="Museum\InventoryViewsList.cs" />
     <Compile Include="Museum\MusealView.cs" />
+    <Compile Include="Museum\MusealViewFactory.cs" />
+    <Compile Include="Museum\InventoryMusealViewsList.cs" />
     <Compile Include="Museum\MusealViewsList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

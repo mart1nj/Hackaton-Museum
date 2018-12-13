@@ -3,10 +3,10 @@ namespace Open.Core
 {
     public enum MusealState
     {
-        [Display (Name="Väga hea")]
-        VeryGood,
         [Display(Name = "Hea")]
         Good,
+        [Display(Name = "Rahuldav")]
+        Acceptable,
         [Display(Name = "Määramata")]
         Unspecified,
         [Display(Name = "Halb")]
