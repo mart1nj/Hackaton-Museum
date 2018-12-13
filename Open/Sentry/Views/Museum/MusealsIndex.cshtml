@@ -14,6 +14,7 @@
 <table class="table">
     @{ var dummy = Model.FirstOrDefault();}
     <thead>
+        
         <tr>
             @Html.SortColumnHeaderFor(model => dummy.ID, ViewData["SortID"])
             @Html.SortColumnHeaderFor(model => dummy.Author, ViewData["SortAuthor"])
@@ -46,7 +47,6 @@
             <td>@Html.DisplayFor(modelItem => item.DamagesBefore)</td>
             <td>@Html.DisplayFor(modelItem => item.DefaultLocation)</td>
             <td>@Html.DisplayFor(modelItem => item.CurrentLocation)</td>
-            @Html.EditDetailDeleteFor(modelItem => item.ID)
         </tr>
     }
         <tr>

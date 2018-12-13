@@ -1,5 +1,5 @@
-﻿using System.ComponentModel;
-using Open.Core;
+﻿using Open.Core;
+using System.ComponentModel;
 namespace Open.Facade.Museum
 {
     public class InventoryMusealView : MusealView {
@@ -9,6 +9,8 @@ namespace Open.Facade.Museum
         private string musealID;
         private string inventoryID;
         private string damagesNow;
+        private string picture;
+        private string text;
 
         [DisplayName("Kontrollitud?")]
         public bool? IsChecked
@@ -51,6 +53,20 @@ namespace Open.Facade.Museum
         {
             get => getString(ref inventoryID);
             set => inventoryID = value;
+        }
+
+        [DisplayName("Pilt")]
+        public string Picture
+        {
+            get => getString(ref picture);
+            set => picture = value;
+        }
+
+        [DisplayName("Kommentaar")]
+        public string Text
+        {
+            get => getString(ref text);
+            set => text = value;
         }
     }
 }

@@ -17,37 +17,58 @@
 
 @if (Open.Sentry.Controllers.MuseumController.show == true)
 {
-    <table class="table-border table-striped" style="width: 50%">
-        <thead>
+<table class="table-border table-striped" style="width: 50%">
+    <thead>
+        <tr>@Html.SortColumnHeaderFor(model => dummy.Picture, ViewData["Picture"])  <td><img src="https://www.w3schools.com/images/w3schools_green.jpg" alt="W3Schools.com"> </td> </tr>
         <tr> @Html.SortColumnHeaderFor(model => dummy.ID, ViewData["SortID"]) <td>id</td>            </tr>
         <tr> @Html.SortColumnHeaderFor(model => dummy.Author, ViewData["SortAuthor"])           <td>autor</td> </tr>
         <tr>  @Html.SortColumnHeaderFor(model => dummy.Designation, ViewData["SortDesignation"])           <td>asi</td> </tr>
-    <tr>      @Html.SortColumnHeaderFor(model => dummy.Info, ViewData["SortInfo"])          <td>info</td> </tr>
+        <tr>      @Html.SortColumnHeaderFor(model => dummy.Info, ViewData["SortInfo"])          <td>info</td> </tr>
         <tr>     @Html.SortColumnHeaderFor(model => dummy.StateBefore, ViewData["SortStateBefore"])                      <td>halb</td>    </tr>
         <tr>     @Html.SortColumnHeaderFor(model => dummy.DamagesBefore, ViewData["SortDamagesBefore"])                       <td>väga halb</td>  </tr>
         <tr>    @Html.SortColumnHeaderFor(model => dummy.DefaultLocation, ViewData["SortDefaultLocation"])                      <td>tallinn</td>   </tr>
         <tr>   @Html.SortColumnHeaderFor(model => dummy.CurrentLocation, ViewData["SortCurrentLocation"])                     <td>tallinn</td>    </tr>
-        </thead>
-        <tbody>
-            <thead>
-            <tr>
-                @Html.SortColumnHeaderFor(model => dummy.IsChecked, ViewData["SortIsChecked"])
-                @Html.SortColumnHeaderFor(model => dummy.IsFound, ViewData["SortIsFound"])
-                @Html.SortColumnHeaderFor(model => dummy.HasStateChanged, ViewData["SortHasStateChanged"])
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>ok</td>
-                <td>ok</td>
-                <td>not ok</td>
-                <td>
-                    <a class="btn btn-primary btn-sm btn-block"
-                       href="@Url.Action("Save", "Museum")">
-                        Salvesta museaal &raquo;
-                    </a></td>
-            </tr>
-            </tbody>
-        </tbody>
-    </table>
+    </thead>
+    <tbody>
+    <thead>
+        <tr>
+            @Html.SortColumnHeaderFor(model => dummy.IsFound, ViewData["SortIsFound"])
+            <td>
+                <select name="leitud">
+                    <option value="1">Olemas </option>
+                    <option value="2">Kadunud</option>
+                    <option value="3">Varastatud</option>
+                    <option value="4">Pole teada</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            @Html.SortColumnHeaderFor(model => dummy.HasStateChanged, ViewData["SortHasStateChanged"])
+            <td>
+                <select name="leitud">
+                    <option value="1">Jah </option>
+                    <option value="2">Ei</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            @Html.SortColumnHeaderFor(model => dummy.Text, ViewData["Text"])
+            <td>
+            <textarea></textarea>
+            </td>
+        </tr>
+
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                <a class="btn btn-primary btn-sm btn-block"
+                   href="@Url.Action("Save", "Museum")">
+                    Salvesta museaal &raquo;
+                </a>
+            </td>
+        </tr>
+    </tbody>
+    </tbody>
+</table>
 }
