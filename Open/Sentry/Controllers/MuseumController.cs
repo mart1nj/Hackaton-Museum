@@ -100,7 +100,7 @@ namespace Open.Sentry.Controllers
         private async Task generateInventoryMuseals(string inventoryID) {
             var mus = await museals.GetObjectsList();
             foreach (var museal in mus) {
-                var invMusData = new InventoryMusealData { InventoryID = inventoryID, MusealID = museal?.Data?.ID };
+                var invMusData = new InventoryMusealData { ID = Guid.NewGuid().ToString(), InventoryID = inventoryID, MusealID = museal?.Data?.ID };
                 var invMusObj = new InventoryMuseal(invMusData);
                 await inventoryMuseals.AddObject(invMusObj);
             }
