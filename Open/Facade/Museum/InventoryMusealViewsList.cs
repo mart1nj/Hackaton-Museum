@@ -10,12 +10,13 @@ namespace Open.Facade.Museum
             PageIndex = musList.PageIndex;
             TotalPages = musList.TotalPages;
             foreach (var museal in musList) {
-                var inv = new InventoryMuseal(null);
                 foreach (var inventoryMuseal in invList) {
                     if (museal.Data?.ID == inventoryMuseal.Data?.MusealID &&
-                        museal.Data?.ID != "Unspecified") { inv = inventoryMuseal; }
+                        museal.Data?.ID != "Unspecified") {
+                        Add(MusealViewFactory.CreateInventoryMuseal(museal, inventoryMuseal));
+
+                    }
                 }
-                Add(MusealViewFactory.CreateInventoryMuseal(museal, inv));
             }
         }
     }

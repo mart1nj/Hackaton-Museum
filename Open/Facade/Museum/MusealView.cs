@@ -8,7 +8,7 @@ namespace Open.Facade.Museum
         private string author;
         private string designation;
         private string info;
-        protected string damagesBefore;
+        private string damagesBefore;
         private string defaultLocation;
         private string currentLocation;
 

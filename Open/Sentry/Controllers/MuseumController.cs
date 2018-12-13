@@ -23,7 +23,7 @@ namespace Open.Sentry.Controllers
             inventoryMuseals = invMus;
             inventories = inv;
         }
-        public async Task<IActionResult> InventoryIndex(string inventoryId, string sortOrder = null, string currentFilter = null,
+        public async Task<IActionResult> InventoryMusealsIndex(string inventoryId, string sortOrder = null, string currentFilter = null,
             string searchString = null, int? page = null)
         {
             ViewData["CurrentSort"] = sortOrder;
@@ -41,7 +41,7 @@ namespace Open.Sentry.Controllers
             ViewData["CurrentFilter"] = searchString;
             museals.SearchString = searchString;
             museals.PageIndex = page ?? 1;
-
+            ViewBag.InventoryNumber = inventoryId;
             var invMus = await inventoryMuseals.GetInventoryMusealsList(inventoryId);
             var mus = await museals.GetObjectsList();
             var viewList = new InventoryMusealViewsList(invMus, mus);

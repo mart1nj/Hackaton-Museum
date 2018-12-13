@@ -8,6 +8,7 @@ namespace Open.Facade.Museum
         private bool? hasStateChanged;
         private string musealID;
         private string inventoryID;
+        private string damagesNow;
 
         [DisplayName("Kontrollitud?")]
         public bool? IsChecked
@@ -36,8 +37,8 @@ namespace Open.Facade.Museum
         [DisplayName("Kahjustused nüüd")]
         public string DamagesNow
         {
-            get => getString(ref damagesBefore);
-            set => damagesBefore = value;
+            get => getString(ref damagesNow);
+            set => damagesNow = value;
         }
         [DisplayName("Museaali number")]
         public string MusealID
